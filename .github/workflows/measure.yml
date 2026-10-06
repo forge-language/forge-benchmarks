@@ -1,0 +1,74 @@
+name: Measured benchmark evidence
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: '*/15 * * * *'
+permissions:
+  contents: read
+concurrency:
+  group: benchmark-evidence
+  cancel-in-progress: false
+jobs:
+  measure:
+    # Never write data from pull requests or arbitrary fork code.
+    if: github.repository == 'forge-language/forge-benchmarks' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: sources/forge-benchmarks
+      - uses: actions/checkout@v4
+        with:
+          repository: forge-language/forge
+          ref: main
+          path: sources/forge
+      - uses: actions/checkout@v4
+        with:
+          repository: forge-language/forge-runtime
+          ref: main
+          path: sources/forge-runtime
+      - uses: actions/checkout@v4
+        with:
+          repository: forge-language/forge-stdlib
+          ref: main
+          path: sources/forge-stdlib
+      - name: Build measured SDK and fixed workloads
+        run: |
+          cmake -S sources/forge -B sdk-build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$PWD/sdk" -DBUILD_TESTING=OFF -DFORGE_RUNTIME_SOURCE_DIR="$PWD/sources/forge-runtime" -DFORGE_STDLIB_SOURCE_DIR="$PWD/sources/forge-stdlib"
+          cmake --build sdk-build -j2
+          cmake --install sdk-build
+          cmake -S sources/forge-benchmarks -B bench-build -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$PWD/sdk" -DFORGE_ROOT="$PWD/sdk" -DFORGE_BUILD_HTTP_BENCHMARKS=OFF
+          cmake --build bench-build -j2
+      - name: Validate and measure repeated workloads
+        run: |
+          python3 sources/forge-benchmarks/benchmark/measure_ci.py --build bench-build --forge-root sources/forge --forge-runtime-root sources/forge-runtime --forge-stdlib-root sources/forge-stdlib --forge-benchmarks-root sources/forge-benchmarks --output evidence/latest.json --repeats 5
+      - uses: actions/upload-artifact@v4
+        with:
+          name: measured-benchmark-${{ github.run_id }}
+          path: evidence/latest.json
+          retention-days: 90
+      - name: Publish measured data on its own branch
+        working-directory: sources/forge-benchmarks
+        run: |
+          GIT_MASTER=1 git config user.name 'github-actions[bot]'
+          GIT_MASTER=1 git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if GIT_MASTER=1 git fetch origin benchmark-data; then
+            GIT_MASTER=1 git worktree add ../../data origin/benchmark-data
+          else
+            GIT_MASTER=1 git worktree add --detach ../../data
+            GIT_MASTER=1 git -C ../../data checkout --orphan benchmark-data
+            GIT_MASTER=1 git -C ../../data rm -rf .
+          fi
+          mkdir -p ../../data/runs
+          cp ../../evidence/latest.json ../../data/latest.json
+          cp ../../evidence/latest.json "../../data/runs/${GITHUB_RUN_ID}.json"
+          GIT_MASTER=1 git -C ../../data add latest.json runs
+          if ! GIT_MASTER=1 git -C ../../data diff --cached --quiet; then
+            GIT_MASTER=1 git -C ../../data commit -m "Publish validated timings for run ${GITHUB_RUN_ID}"
+            GIT_MASTER=1 git -C ../../data push origin HEAD:benchmark-data
+          fi
