@@ -1,0 +1,40 @@
+name: Benchmarks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate scripts
+        run: |
+          find benchmark -name '*.sh' -print0 | xargs -0 -n1 bash -n
+          python3 -m compileall -q benchmark
+  sdk-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: forge-language/forge
+          path: toolchain/forge
+      - uses: actions/checkout@v4
+        with:
+          repository: forge-language/forge-runtime
+          ref: 61cd2e54768ec9d1e9a4f727772cf1aae0eef778
+          path: toolchain/forge-runtime
+      - uses: actions/checkout@v4
+        with:
+          repository: forge-language/forge-stdlib
+          ref: f0b92f8846f4797fd057b2c8b415f6bdba87a699
+          path: toolchain/forge-stdlib
+      - name: Build SDK and benchmarks
+        run: |
+          cmake -S toolchain/forge -B toolchain/build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$PWD/sdk" -DBUILD_TESTING=OFF
+          cmake --build toolchain/build -j2
+          cmake --install toolchain/build
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$PWD/sdk" -DFORGE_ROOT="$PWD/sdk" -DFORGE_RUNTIME_SOURCE_DIR="$PWD/toolchain/forge-runtime"
+          cmake --build build -j2
+          cmake --build build --target benchmarks -j2
+          ./build/bin/scheduler_bench throughput 10000 1
