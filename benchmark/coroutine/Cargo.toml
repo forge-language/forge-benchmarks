@@ -1,0 +1,13 @@
+[package]
+name = "forge-coroutine-control"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+tokio = { version = "=1.53.0", default-features = false, features = ["rt", "rt-multi-thread"] }
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+panic = "abort"

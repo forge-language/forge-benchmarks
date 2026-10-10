@@ -1,0 +1,30 @@
+import strings;
+import os;
+extern fn bench_arg(index: int): int;
+extern fn bench_observe_i64(value: int): int;
+extern fn bench_result(id: int, value: int): void;
+process main {
+    coroutine worker(id: int, rounds: int, chunk: int, seed: int) {
+        let value: int = seed + id;
+        let r: int = 0;
+        while (r < rounds) {
+            let i: int = 0;
+            while (i < chunk) {
+                value = (value * 48271) % 2147483647;
+                i = i + 1;
+            }
+            yield;
+            r = r + 1;
+        }
+        bench_result(id, value);
+    }
+    let tasks: int = bench_observe_i64(bench_arg(1));
+    let rounds: int = bench_observe_i64(bench_arg(2));
+    let chunk: int = bench_observe_i64(bench_arg(3));
+    let seed: int = bench_observe_i64(bench_arg(4));
+    let id: int = 0;
+    while (id < tasks) {
+        spawn worker(id, rounds, chunk, seed);
+        id = id + 1;
+    }
+}
