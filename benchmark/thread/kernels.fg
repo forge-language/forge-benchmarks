@@ -1,0 +1,42 @@
+import strings;
+import os;
+import thread;
+extern fn bench_clock_ns(): int;
+extern fn bench_observe_i64(value: int): int;
+extern fn bench_reset(): void;
+extern fn bench_result(value: int): void;
+extern fn bench_total(): int;
+extern fn bench_count(): int;
+fn number(index: int): int {
+    let text: string = os_argv(index); let value: int = 0; let i: int = 0;
+    while (i < str_len(text)) { value = value * 10 + str_char_at(text, i) - 48; i = i + 1; }
+    return value;
+}
+fn worker(id: int, total: int): int {
+    let n: int = bench_observe_i64(number(2));
+    let rounds: int = bench_observe_i64(number(3));
+    let seed: int = bench_observe_i64(number(4));
+    let work: int = n / total;
+    if (id < n % total) { work = work + 1; }
+    let value: int = seed + id; let r: int = 0;
+    while (r < rounds) {
+        let i: int = 0;
+        while (i < work) { value = (value * 48271) % 2147483647; i = i + 1; }
+        r = r + 1;
+    }
+    bench_result(value);
+    return 0;
+}
+native main {
+    let threads: int = number(1);
+    if (threads < 1 || threads > 4) { return 1; }
+    bench_reset();
+    let start: int = bench_clock_ns();
+    thread_spawn_indexed(worker, threads);
+    thread_join_all();
+    let result: int = bench_observe_i64(bench_total());
+    let elapsed: int = bench_clock_ns() - start;
+    if (bench_count() != threads) { return 2; }
+    println(result); println(elapsed);
+    return 0;
+}
