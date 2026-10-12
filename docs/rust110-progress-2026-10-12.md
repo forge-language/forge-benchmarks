@@ -111,3 +111,7 @@ The V2 prepared-response loopback test now also passed 1024, 2048 and 4096 simul
 ## Builder preallocation comparison
 
 A 120-pair comparison isolated `str_builder()` versus `str_builder_with_capacity(n)` using the same compiler, runtime, stdlib, headers, clock, and source-matched Rust control. Rust uses `String::with_capacity(n)` in both variants. Forge preallocation improved throughput 1.0246x over its default-capacity builder (95% interval 1.0066–1.0679). Candidate Forge/Rust was 1.0929x with a wide interval (1.0158–1.1999); the source-matched alternative Rust control gave 1.0996x [1.0246–1.2158]. This supports a small builder improvement but does not establish 1.10 versus Rust. [Conditions and raw samples](builder-capacity-reservation-2026-10-12.md).
+
+## SDK LTO experiment
+
+The generated C and standard SDK archives were built with LTO enabled, then compared with the normal SDK for builder, scan and immutable workloads (42 paired groups, identical compiler and source fixtures). The LTO/normal Forge throughput ratios were 0.993x for scan [0.986–1.001], 0.979x for builder [0.921–1.031], and 1.003x for immutable append [0.956–1.141]. Results do not establish an LTO gain, so the default SDK build policy stays unchanged. All 10 stdlib CTest cases passed on the LTO build. [Conditions and raw samples](sdk-lto-comparison-2026-10-12.md).
