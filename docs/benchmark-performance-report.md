@@ -1,5 +1,11 @@
 # Forge HTTP 벤치마크 성능 분석 보고서
 
+## 2026-10-12 측정 업데이트
+
+이 문서의 아래 HTTP 비교는 2026-07-21의 별도 실행 환경 결과다. 현재 호스트에서 다시 측정한 prepared-response V2 테스트에서는 4개 서버 worker와 32-byte 응답으로 **28,000 loopback client lanes**를 Forge와 Rust 모두 4/4회 오류 없이 처리했다. 이는 확인된 하한(최소 28,000)이며 절대 서버 최대치가 아니다. 이 단계의 중앙 처리량은 Forge 9,046 req/s, Rust 8,817 req/s였지만, 4회 비교의 95% 구간이 0.940–1.124로 넓어 승자를 단정하지 않는다. 요청 수가 동시성 수와 같은 일회성 connection-per-request burst이고, 두 CPU에 고정된 one-thread-per-lane observer의 생성·검증·로그 비용도 측정 시간에 포함된다. Loopback ephemeral-port 범위가 28,232개여서 이 결과는 서버만의 최대 용량을 측정하지 않는다. [단계별 방법과 원자료](http-capacity-extended-2026-10-12.md).
+
+CPU/string benchmark의 통합 Forge source candidate는 Rust baseline보다 다섯 워크로드 모두 빠르게 측정됐다: LCG 1.1508x, bounded prime-search 2.8718x, scan 1.8918x, builder 1.3151x, immutable append 17.8931x. LCG와 prime-search는 Forge 쪽 알고리즘을 바꾼 workload-level 결과이며, 같은 Miller–Rabin 알고리즘의 Forge/Rust 비교는 1.0192x다. 통합 candidate의 scan은 기존 Forge 대비 느려졌으므로 기본 fixture로 채택하지 않았다. [조건·재검증 구간·원자료](rust110-final-cpu-http-measurements-2026-10-12.md).
+
 **작성일:** 2026-07-21
 **대상:** Forge AOT HTTP 서버 (`benchmark/forge/bench_server.fg`)
 **비교 대상:** Python 3 (stdlib socket), Phoenix (Bandit), Rust (Axum release)
