@@ -166,3 +166,7 @@ Rust/Forge throughput. The fixture correction leaves LCG and primes below 1.10;
 scan and immutable append support this host/run, and builder remains
 inconclusive. Its source, executable hashes, conditions, and all samples are
 preserved separately from the earlier 120-pair run. [Report and raw samples](cpu-current-edgefix-40-2026-10-12.md), [machine-readable data](cpu-current-edgefix-40-2026-10-12.json).
+
+## Signed 32-bit remainder fast-path candidates
+
+Two compiler-only candidates added a checked signed-32-bit remainder path with a full-width fallback. Candidate v2 also tried to preserve the initial divisor 3 path. Both passed the 18 arithmetic tests under UBSan at `-O0` and `-O3`, but a 24-pair compiler-only comparison regressed primes throughput to 0.9863 [0.9814, 0.9884] and 0.9860 [0.9838, 0.9895] of baseline; immutable append also regressed, especially in v2. Matched Forge/Rust prime ratios were 0.9980 and 0.9985, while baseline was 1.0107. Disassembly retained `idiv` instructions in both 64-bit and 32-bit paths, so these candidates are discarded. A new signed-32-bit overflow edge regression is covered in Forge commit `10e05d1`. [Measurements, exact patches and frozen builds](arithmetic-mod-narrowing-2026-10-12.md).

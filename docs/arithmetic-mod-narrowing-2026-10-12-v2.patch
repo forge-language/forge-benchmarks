@@ -1,0 +1,36 @@
+diff --git a/compiler/codegen.c b/compiler/codegen.c
+index 659149f..053bb4b 100644
+--- a/compiler/codegen.c
++++ b/compiler/codegen.c
+@@ -1938,7 +1938,16 @@ static void emit_arithmetic_helpers(FILE *out) {
+           "    if (b == 0 || (a == INT64_MIN && b == -1)) { fputs(\"Forge integer division\\n\", stderr); exit(EXIT_FAILURE); }\n"
+           "}\n"
+           "static inline int64_t __forge_div_i64(int64_t a, int64_t b) { __forge_check_div_i64(a, b); return a / b; }\n"
+-          "static inline int64_t __forge_mod_i64(int64_t a, int64_t b) { __forge_check_div_i64(a, b); return a % b; }\n\n", out);
++          "static inline int64_t __forge_mod_i64(int64_t a, int64_t b, int allow_narrow) {\n"
++          "    __forge_check_div_i64(a, b);\n"
++          "#if defined(__GNUC__) || defined(__clang__)\n"
++          "    if (allow_narrow && b == 3 && (int64_t)(int32_t)a == a) return (int64_t)((int32_t)a % 3);\n"
++          "    if (allow_narrow && (int64_t)(int32_t)a == a && (int64_t)(int32_t)b == b && !(a == INT32_MIN && b == -1)) return (int64_t)((int32_t)a % (int32_t)b);\n"
++          "#else\n"
++          "    (void)allow_narrow;\n"
++          "#endif\n"
++          "    return a % b;\n"
++          "}\n\n", out);
+     const char *names[] = { "ADD", "SUB", "MUL", "DIV" };
+     const char *lower[] = { "add", "sub", "mul", "div" };
+     const char *ops[] = { "+", "-", "*", "/" };
+@@ -1948,7 +1957,12 @@ static void emit_arithmetic_helpers(FILE *out) {
+     }
+     /* An external header can reveal a float return type that the semantic
+      * checker could not resolve. Preserve C's rejection of float remainder. */
+-    fputs("#define FORGE_MOD(a, b) ({ _Static_assert(_Generic((a), float: 0, double: 0, default: _Generic((b), float: 0, double: 0, default: 1)), \"Forge remainder requires integer operands\"); __forge_mod_i64((a), (b)); })\n\n", out);
++    fputs("#define __FORGE_MOD_VALIDATE(a, b) _Static_assert(_Generic((a), float: 0, double: 0, default: _Generic((b), float: 0, double: 0, default: 1)), \"Forge remainder requires integer operands\")\n"
++          "#if defined(__GNUC__) || defined(__clang__)\n"
++          "#define FORGE_MOD(a, b) ({ __FORGE_MOD_VALIDATE(a, b); __forge_mod_i64((a), (b), !__builtin_constant_p(b)); })\n"
++          "#else\n"
++          "#define FORGE_MOD(a, b) ({ __FORGE_MOD_VALIDATE(a, b); __forge_mod_i64((a), (b), 0); })\n"
++          "#endif\n\n", out);
+ }
+ 
+ static void emit_owned_send_helper(FILE *out) {
