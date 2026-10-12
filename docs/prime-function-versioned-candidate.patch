@@ -1,0 +1,56 @@
+--- a/snapshot/kernels.c
++++ b/snapshot/kernels.c
+@@ -99,7 +99,7 @@
+     return value;
+ }
+ 
+-static int64_t primes(int64_t n, int64_t rounds, int64_t seed) {
++static int64_t __forge_primes_general(int64_t n, int64_t rounds, int64_t seed) {
+     int64_t sum = INT64_C(0);
+     int64_t r = INT64_C(0);
+     while (
+@@ -138,6 +138,44 @@
+     return sum;
+ }
+ 
++static int __forge_prime_u32_range(int64_t n, int64_t rounds, int64_t seed) {
++    if (n <= 0 || rounds <= 0 || (uint64_t)n > UINT32_MAX ||
++        (uint64_t)rounds > UINT32_MAX || seed < -INT64_C(1000001) ||
++        seed > (int64_t)UINT32_MAX - INT64_C(1000001)) return 0;
++    uint64_t base = (uint64_t)(seed + INT64_C(1000001));
++    uint64_t count = (uint64_t)n * (uint64_t)rounds;
++    return count != 0 && count - 1 <= (uint64_t)UINT32_MAX - base;
++}
++static int64_t __forge_primes_u32(int64_t n64, int64_t rounds64, int64_t seed) {
++    uint32_t n = (uint32_t)n64, rounds = (uint32_t)rounds64;
++    uint32_t base = (uint32_t)(seed + INT64_C(1000001));
++    uint64_t sum = 0;
++    for (uint32_t r = 0; r < rounds; r++) {
++        for (uint32_t i = 0; i < n; i++) {
++            uint32_t value = base + r * n + i;
++            int prime = 1;
++            if (value < 2) prime = 0;
++            else if (value == 2 || value == 3) prime = 1;
++            else if (value % 2 == 0) prime = 0;
++            else {
++                uint32_t d = 3;
++                while ((uint64_t)d * d <= value) {
++                    if (value % d == 0) { prime = 0; break; }
++                    d += 2;
++                }
++            }
++            if (prime) sum += value;
++        }
++    }
++    return __forge_i64_bits(sum);
++}
++static int64_t primes(int64_t n, int64_t rounds, int64_t seed) {
++    if (n <= 0 || rounds <= 0) return 0;
++    if (__forge_prime_u32_range(n, rounds, seed))
++        return __forge_primes_u32(n, rounds, seed);
++    return __forge_primes_general(n, rounds, seed);
++}
++
+ static const char* pattern(int64_t n, int64_t seed) {
+     int64_t builder = fr_str_builder_with_capacity(n);
+     if ((builder == INT64_C(0))) {

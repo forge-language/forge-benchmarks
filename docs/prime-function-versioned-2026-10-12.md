@@ -39,5 +39,9 @@ for cloning and selecting the loop. This versioning design is rejected.
 The complete sample set, input checks, build metadata, fixture hashes and
 command provenance are in [the raw comparison](prime-function-versioned-2026-10-12.json)
 and [the generated summary](prime-function-versioned-2026-10-12-generated.md).
+The 14 direct boundary results are listed in
+[the boundary-check data](prime-function-versioned-boundary-checks-2026-10-12.json),
+and [the generated-C patch](prime-function-versioned-candidate.patch) captures
+the prototype applied to the frozen baseline C output.
 An independent OMO `explore` review confirmed the fast-path range proof,
 intermediate-width safety, result counts and reported medians/intervals.
