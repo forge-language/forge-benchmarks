@@ -244,3 +244,7 @@ signed boundary/random cases, but a 48-pair interleaved comparison regressed
 LCG Forge throughput to 0.6384 [0.6369, 0.6397] of baseline and primes to
 0.9965 [0.9955, 0.9996]. The compiler's existing constant-divisor lowering
 was faster; the prototype was reverted. [Method and raw samples](mersenne-remainder-lowering-2026-10-12.md).
+
+## LCG and prime-search code-generation audit
+
+A static GCC/Rust assembly review found nearly identical reciprocal-multiply lowering for the LCG's positive constant remainder. Prime search differs: GCC emits `idivq` for dynamic trial division, while Rust uses a guarded `divl` path when both operands fit 32 bits and falls back to `idivq`. A prior guarded 32-bit Forge trial-division prototype showed no paired improvement (candidate/baseline 0.9973 [0.9896, 1.0024]), so the same guard split is not repeated. All 21 Forge CTest suites passed after rebuilding current source. OMO's configured `glm-5.3-flash` and `qwen3.8-flash` attempts both ended in API connection failures before returning a delegated review; this audit does not claim OMO findings. [Static evidence and artifact hashes](lcg-prime-codegen-audit-2026-10-12.md).
