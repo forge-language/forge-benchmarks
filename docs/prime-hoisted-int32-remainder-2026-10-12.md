@@ -25,10 +25,16 @@ signed-32-bit boundary values (including `INT32_MAX` and values above it).
 | Original checked 64-bit path | 74.555 ms | 75.686 ms | 1.0151 [1.0112, 1.0191] |
 | Hoisted int32 path plus fallback | 75.000 ms | 75.726 ms | 1.0101 [1.0073, 1.0170] |
 
-Paired baseline/candidate Forge throughput was 0.9979 [0.9937, 0.9994], a
-small but measurable regression. Candidate disassembly contains `idivl` at
-`0x2cc4` for the narrow path and `idivq` at `0x2819` for the fallback; the
-32-bit divide did not offset the extra value-range branch and split control
-flow. The candidate does not approach 1.10x Rust, so no compiler fast path is
-adopted. [Baseline samples](prime-hoisted-int32-baseline-2026-10-12.json),
+The separate Forge/Rust intervals overlap. A paired ratio-of-ratios using the
+same seed and pair order in both runs gives candidate Forge/Rust divided by
+baseline Forge/Rust = 0.9973 [0.9896, 1.0024] (10,000 bootstrap resamples of
+the median). It includes 1, so the relative change is inconclusive; there is
+no evidence this candidate improves Forge. Some baseline pairs contain shared
+large timing excursions, so a comparison of Forge time alone across the two
+separate runs overstates the certainty of a small regression. No sample was
+removed. Candidate disassembly contains `idivl` at `0x2cc4` for the narrow
+path and `idivq` at `0x2819` for the fallback. Even if the narrow divide helps
+some inputs, the split did not establish an end-to-end benefit. This candidate
+does not approach 1.10x Rust and is not adopted.
+[Baseline samples](prime-hoisted-int32-baseline-2026-10-12.json),
 [candidate samples](prime-hoisted-int32-candidate-2026-10-12.json).

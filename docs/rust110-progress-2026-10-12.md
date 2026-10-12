@@ -196,7 +196,9 @@ A follow-up tested a per-value signed-32-bit fast path for trial division,
 guarded once by `0 <= value <= INT32_MAX`, with the original checked 64-bit
 loop as fallback. The candidate passed reference checks and 13 direct
 primality cases spanning the signed-32-bit boundary. Across 24 paired groups,
-candidate/baseline Forge throughput was 0.9979 [0.9937, 0.9994]; Forge/Rust
-was 1.0101 [1.0073, 1.0170]. Disassembly contains both `idivl` and `idivq`,
-and the guard/split outweighed the narrower divide. The candidate is rejected.
+the seed-matched candidate/baseline Forge/Rust ratio-of-ratios was 0.9973
+[0.9896, 1.0024], which includes no change; candidate Forge/Rust was 1.0101
+[1.0073, 1.0170]. Disassembly contains both `idivl` and `idivq`. The runs do
+not establish an end-to-end benefit for the guard/split, so the candidate is
+not adopted.
 [Conditions, proof boundary and raw samples](prime-hoisted-int32-remainder-2026-10-12.md).
