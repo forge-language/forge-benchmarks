@@ -15,6 +15,10 @@ path = "src/main.rs"
 name = "http-load"
 path = "src/load.rs"
 
+[[bin]]
+name = "http-load-epoll"
+path = "src/load_epoll.rs"
+
 [profile.release]
 opt-level = 3
 lto = "thin"
