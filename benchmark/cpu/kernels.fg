@@ -17,7 +17,7 @@ fn primes(n: int, rounds: int, seed: int): int {
   if(prime!=0){sum=sum+value;}i=i+1;}r=r+1;}return sum;
 }
 fn pattern(n: int, seed: int): string {
- let builder: int=str_builder();let i: int=0;
+ let builder: int=str_builder_with_capacity(n);if(builder==0){return "";}let i: int=0;
  while(i<n){if(str_builder_char(builder,65+(i+seed)%26)==0){return "";}i=i+1;}return str_builder_finish(builder);
 }
 fn weighted(view: int, offset: int): int {

@@ -11,7 +11,7 @@ fn primes(n:i64,rounds:i64,seed:i64)->i64 {
   if prime {sum+=value;}i+=1;}r+=1;}sum
 }
 fn pattern(n:i64,seed:i64)->String {
- let mut builder=String::new();let mut i=0;
+ let mut builder=String::with_capacity(n.max(0) as usize);let mut i=0;
  while i<n {builder.push((65+(i+seed)%26) as u8 as char);i+=1;}
  // Forge builder.finish returns a separate immutable snapshot. Keep both
  // live until the function returns so this path includes the same final copy.
