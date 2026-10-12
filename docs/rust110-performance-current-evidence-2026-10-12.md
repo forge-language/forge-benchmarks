@@ -43,3 +43,25 @@ The failed V3 reports and per-request diagnostics remain preserved in [the high-
 ## What the evidence supports
 
 Forge exceeds Rust's measured throughput by at least 10% on the checked scan, ownership-returning builder, and compiler-optimized LCG workloads on this host. The unchanged LCG baseline, prime-search controls, and matched prime-algorithm experiments remain below target. The current HTTP result does not prove a 10% advantage or an absolute capacity. The private immutable-view optimization passes semantic, ABI and self-host checks and substantially improves its Forge baseline, while remaining outside the Rust-matched target summary because the Rust storage strategy differs. These results are workload-specific, not a language-wide performance guarantee. HTTP capacity still needs an isolated or otherwise clean host for decision-grade measurements.
+
+## New code-generation and mailbox measurements (2026-10-12)
+
+A dense integer `match` lowering was reviewed as a possible compiler optimization. The current emitter in `compiler/codegen.c:1966-2001` writes an `if / else if` equality chain. A 64-arm Forge fixture with distinct constant results generated that chain, but GCC `-O3 -march=native` lowered the generated function into a bounds check and indexed constant-table load (`CSWTCH.12`). A separate C control with 64 dense equality arms and distinct external no-inline calls lowered to a jump table (`jmp *`). This is code-generation evidence only, not a Forge/Rust performance measurement; sparse matches and more complex arm bodies may compile differently. It does not justify adding a separate switch transform without an end-to-end paired result.
+
+Actor mailbox traffic was previously absent from the complete-lifecycle coroutine comparison. A focused native-thread bounded queue comparison is now recorded below. It shows a throughput advantage for Forge in this fixture, but does not isolate the `fr_send` broadcast cost; testing a wakeup change still needs an independent before/after runtime comparison.
+
+No implementation change follows from these probes. All CPU, coroutine, HTTP and mailbox results remain scoped to their individual workloads; none establishes a general language-wide performance guarantee.
+
+### Mailbox throughput probe
+
+A dedicated bounded-queue comparison now measures 1 producer and 1, 4, or 16 blocking consumers over 1,000,000 integer message IDs. Both queues have capacity 256, use a mutex and condition variable, broadcast after each accepted message, and retry when full; the Forge side calls `fr_send`/`fr_recv` directly from native threads, and the Rust control uses `Mutex<VecDeque>`/`Condvar`. Startup is outside the timed region, while message transfer and stop sentinels are inside it. Every run checked all IDs exactly once and matched the independent sum `499999500000`. Ten alternating-order pairs completed per consumer count with zero integrity failures.
+
+| Receivers | Forge median messages/s | Rust median messages/s | Forge/Rust throughput ratio (paired median, bootstrap 95% interval) |
+| ---: | ---: | ---: | ---: |
+| 1 | 3,073,606 | 1,647,782 | 1.875 [1.754, 2.795] |
+| 4 | 1,612,173 | 891,082 | 1.850 [1.632, 1.952] |
+| 16 | 684,038 | 348,786 | 1.977 [1.941, 2.021] |
+
+These results exceed 1.10 for this bounded mailbox fixture. The single-consumer interval is wide because several Forge samples ran at roughly twice its usual rate, so the median is more reliable than a point estimate and the interval signals substantial host variability. This is an API/runtime comparison, not a general language benchmark: Forge uses its runtime's ring and pthread primitives while the Rust control uses the standard library's queue and synchronization primitives. It identifies no urgent `fr_send` broadcast regression; it does not isolate broadcast cost or establish capacity for other actor workloads. A paired bootstrap over 30,000 resamples produced the intervals shown. Raw samples and checks are in [the 10-pair CSV](mailbox-forge-rust-2026-10-12.csv); reproduce with `benchmark/mailbox/run.py --pairs 10`.
+
+The measurement used Forge runtime commit `e3eb0089bdc9760d0d6fbaadd4d9fde0f17f26fe`, GCC 13.3.0, rustc 1.98.1, and the AMD BC-250 host. Both implementations were built with release optimization; the Rust control uses thin LTO and one codegen unit. No runtime implementation change was made.
