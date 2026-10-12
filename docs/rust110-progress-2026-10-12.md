@@ -50,6 +50,10 @@ Builder 개선은 약 10.6%이며 Rust 대비 110%라는 뜻이 아니다. 나�
 
 작은 양수·음수·혼합 입력은 더 느려졌고 큰 값의 작은 차이는 대표 경로의 퇴행을 정당화하지 못했다. 두 후보를 기본 컴파일러에 채택하지 않았으며 원래 checked int64 연산을 복구했다. 새로운 동적 경계/인수 단일 평가/trap oracle 테스트는 유지했다. [분포 보고서](arithmetic-division-2026-10-12.md), [72개 correctness·288개 prewarm·288개 측정 및 prototype 근거](arithmetic-division-2026-10-12.json), [원래 후보의 재현 패치](dynamic-division-candidate-2026-10-12.patch).
 
+## 증명 기반 loop increment의 성능 재검증
+
+C codegen 후보는 제한된 증명 조건을 만족한 `i = i + 1`만 wrapping helper 대신 C signed `+`로 내보낸다. 바로 이전 compiler commit과 후보 commit을 분리 빌드하고 runtime/stdlib archive, Forge/Rust fixture, native flags를 공유해 5개 CPU/string workload를 18 position-balanced paired group으로 비교했다. 45개 소규모 correctness check와 270개 측정·270개 per-input prewarm이 모두 독립 reference를 통과했다. 후보/기준 처리량 중앙값은 LCG 0.9980, 소수 탐색 1.0043, scan 0.9978, builder 0.9963, immutable append 0.9933이었다. 신뢰구간은 각각 [0.9961, 1.0053], [0.9991, 1.0070], [0.9816, 1.0034], [0.9559, 1.1072], [0.9914, 1.0004]로 builder의 불확실성이 크고 유의한 개선을 입증하지 않는다. 후보의 Rust 대비 ratio도 1.0049/1.0116/0.9405/0.9970/0.2303으로 모두 1.10 목표에 미달했다. 따라서 이 codegen 후보를 성능 승리로 보고하지 않는다. [재검증 조건과 모든 표본](https://github.com/forge-language/forge-benchmarks/blob/main/docs/compiler-loop-proof-recheck-2026-10-12.md).
+
 ## HTTP 동등 조건 검증
 
 준비된 응답을 보내는 Forge `http_prepare`/`http_serve_mt`와 owned socket2/libc Rust backend를 비교한다. 같은 응답 바이트, 전체 header terminator 수신, 요청당 새 연결, level-triggered epoll/accept batch, 1/2/4 physical workers, 분리된 client cores와 모든 worker affinity/count를 검증한다. 기존 Axum fixture와 달리 method/path/routing의 추가 처리를 한쪽에만 요구하지 않는다. 전체 HTTP 파서·TLS·routing·keepalive·DB·코루틴 I/O 비교는 아니다.
@@ -61,6 +65,10 @@ V1 성능 측정은 **실패하여 비교 가능한 전체 결과를 내지 못�
 V2 관측기 검증 14/14와 observer 단위 테스트 8/8을 통과한 뒤 4 worker, 동시성 16/64/128/256/512, 응답 본문 32/4096바이트, 설정별 8회씩 측정했다. 총 320개 prewarm/measurement sample 모두 정확한 응답·EOF 검증을 통과했고 오류 행은 0개다. 이 닫힌 루프 loopback 테스트에서는 두 본문 크기 모두 시험한 최고 동시성인 **최소 512 client lane까지 오류가 없었다**. 실제 최대 수용량은 그 이상일 수 있으며 이 시험만으로 정해지지 않는다.
 
 성공 요청 처리량 중앙값 범위는 32바이트에서 Forge 2,958–4,240 req/s, Rust 3,720–4,326 req/s이고 4096바이트에서 Forge 3,732–4,210 req/s, Rust 3,950–4,254 req/s다. payload 처리량은 각각 약 0.266–0.382 / 0.335–0.389 MB/s, 15.511–17.500 / 16.415–17.680 MB/s다. 각 8개 paired ratio의 bootstrap 구간이 넓고 반복 변동이 커 언어 간 성능 우열을 주장하지 않는다. 이 관측기는 매 요청 새 TCP 연결을 사용하며 로깅 비용을 타이머에 포함한다. 일반 사용자 수, 외부 네트워크, keepalive, 전체 parser/routing/TLS/DB 성능으로 환산하지 않는다. [측정표와 조건](http-v2-capacity-2026-10-12.md), [JSON과 TSV 전체 원시 시도](http-v2-capacity-2026-10-12.json), [압축 원시 자료와 SHA-256](http-v2-capacity-2026-10-12.raw.tar.gz).
+
+## 장시간 HTTP paired run 실패 기록
+
+V2의 4-worker·64-client·4096-byte·12,000-request primary 비교는 7개 완전한 paired group 뒤 pair 8의 Rust prewarm에서 실패했다. 991개 시도 행 중 927개가 완료되고 64개가 5초 TCP connect timeout으로 끝났다. Global conntrack 관측치는 시험 전 261,217/262,144, 실패 sample 후 262,144/262,144였고 global TCPTimeWaitOverflow도 증가했지만, 공유 network namespace의 수치여서 프로세스별 원인을 증명하지 못한다. 부분 완료 쌍을 집계하거나 재시도하지 않아 전체 상태는 `failed_no_claim`이며 HTTP 언어 간 처리량 주장을 하지 않는다. 앞선 수용량 sweep은 반복당 1,024 요청까지만 검증했다. [원시 오류 및 제한](https://github.com/forge-language/forge-benchmarks/blob/main/docs/http-v2-primary-2026-10-12.md).
 
 ## 추가된 보안·견고성 작업
 
