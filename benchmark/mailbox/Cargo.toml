@@ -1,0 +1,10 @@
+[package]
+name = "mailbox-bench"
+version = "0.1.0"
+edition = "2024"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+panic = "abort"
