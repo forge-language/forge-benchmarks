@@ -1,0 +1,187 @@
+{
+  "title": "HTTP listener timeout inheritance probe",
+  "decision": "not adopted; HTTP timing is too variable to establish a gain",
+  "method": {
+    "protocol": "http_compare_v2.py",
+    "workers": 4,
+    "concurrency": 64,
+    "body_bytes": 32,
+    "requests_per_sample": 512,
+    "pairs_per_run": 12,
+    "runs": 2,
+    "client_cores": 2,
+    "same_seeds_and_order_between_baseline_and_candidate": true,
+    "candidate_behavior": "set SO_RCVTIMEO/SO_SNDTIMEO once on each Linux listener and skip per-client setsockopt only when listener setup succeeded; otherwise retain per-client fallback"
+  },
+  "measurements": {
+    "baseline_round1": {
+      "status": "completed",
+      "forge_median_rps": 2267.1401663979577,
+      "rust_median_rps": 2128.201800310816,
+      "forge_rust_median": 1.8339020167091524,
+      "forge_rust_ci95": [
+        1.0076931954707786,
+        7.511325080546535
+      ],
+      "correctness_checks": 2,
+      "measurement_samples": 24,
+      "error": null
+    },
+    "candidate_round1": {
+      "status": "completed",
+      "forge_median_rps": 2208.2355668138935,
+      "rust_median_rps": 2139.785292782217,
+      "forge_rust_median": 1.0320703972386571,
+      "forge_rust_ci95": [
+        0.7439255513555099,
+        1.0894982008904757
+      ],
+      "correctness_checks": 2,
+      "measurement_samples": 24,
+      "error": null
+    },
+    "baseline_round2": {
+      "status": "completed",
+      "forge_median_rps": 2143.522342166636,
+      "rust_median_rps": 12946.351724117856,
+      "forge_rust_median": 0.36335272972343413,
+      "forge_rust_ci95": [
+        0.15681412291618246,
+        0.977492594345442
+      ],
+      "correctness_checks": 2,
+      "measurement_samples": 24,
+      "error": null
+    },
+    "candidate_round2": {
+      "status": "completed",
+      "forge_median_rps": 2292.99094755458,
+      "rust_median_rps": 2241.1449838824055,
+      "forge_rust_median": 1.014540903464541,
+      "forge_rust_ci95": [
+        0.3349381840842498,
+        1.0881808297060984
+      ],
+      "correctness_checks": 2,
+      "measurement_samples": 24,
+      "error": null
+    },
+    "high_load_failed": {
+      "status": "failed_no_claim",
+      "forge_median_rps": null,
+      "rust_median_rps": null,
+      "forge_rust_median": null,
+      "forge_rust_ci95": null,
+      "correctness_checks": 2,
+      "measurement_samples": 15,
+      "error": "RuntimeError('Observer result vector malformed or incomplete')"
+    }
+  },
+  "paired_baseline_over_candidate_forge_speed": {
+    "median": 0.9756990626165277,
+    "ci95": [
+      0.5493971959844398,
+      1.4337061590321798
+    ]
+  },
+  "paired_forge_rust_relative_change": {
+    "median": 1.017973416893513,
+    "ci95": [
+      0.6501215373166513,
+      1.8595676644569399
+    ]
+  },
+  "checks": {
+    "completed_small_runs_all_status_completed": true,
+    "all_measured_attempts_passed": true
+  },
+  "artifact_sha256": {
+    "baseline_round1": {
+      "compiler": {
+        "original": "/tmp/http-timeout-sdk-baseline/bin/forge",
+        "sha256": "81233d6057f716a851813b77b5fd046a5d5fd74b6d9d082cd45075b3d887aaba",
+        "bytes": 220520,
+        "mtime_ns": 1791817546059443952
+      },
+      "runtime": {
+        "original": "/tmp/http-timeout-sdk-baseline/lib/libforge_runtime.a",
+        "sha256": "1bd5d5c9e0b1c40d0a5476c21bfc2e7e7f3ea0dfee9d56ffa57080dab429d2d4",
+        "bytes": 50500,
+        "mtime_ns": 1791260551520366616
+      },
+      "stdlib": {
+        "original": "/tmp/http-timeout-sdk-baseline/lib/libforge_std.a",
+        "sha256": "37e86b0dce7d31821a2075d13e0ac7960b847ca014b0e99c3fab580402183510",
+        "bytes": 131556,
+        "mtime_ns": 1791818061489543504
+      }
+    },
+    "candidate_round1": {
+      "compiler": {
+        "original": "/tmp/http-timeout-sdk-candidate/bin/forge",
+        "sha256": "81233d6057f716a851813b77b5fd046a5d5fd74b6d9d082cd45075b3d887aaba",
+        "bytes": 220520,
+        "mtime_ns": 1791817546059443952
+      },
+      "runtime": {
+        "original": "/tmp/http-timeout-sdk-candidate/lib/libforge_runtime.a",
+        "sha256": "1bd5d5c9e0b1c40d0a5476c21bfc2e7e7f3ea0dfee9d56ffa57080dab429d2d4",
+        "bytes": 50500,
+        "mtime_ns": 1791260551520366616
+      },
+      "stdlib": {
+        "original": "/tmp/http-timeout-sdk-candidate/lib/libforge_std.a",
+        "sha256": "71c0fc472df94ff089c0fd769098c87ba98e7ea501caa08f73c320468979db39",
+        "bytes": 131668,
+        "mtime_ns": 1791818028474406622
+      }
+    },
+    "baseline_round2": {
+      "compiler": {
+        "original": "/tmp/http-timeout-sdk-baseline/bin/forge",
+        "sha256": "81233d6057f716a851813b77b5fd046a5d5fd74b6d9d082cd45075b3d887aaba",
+        "bytes": 220520,
+        "mtime_ns": 1791817546059443952
+      },
+      "runtime": {
+        "original": "/tmp/http-timeout-sdk-baseline/lib/libforge_runtime.a",
+        "sha256": "1bd5d5c9e0b1c40d0a5476c21bfc2e7e7f3ea0dfee9d56ffa57080dab429d2d4",
+        "bytes": 50500,
+        "mtime_ns": 1791260551520366616
+      },
+      "stdlib": {
+        "original": "/tmp/http-timeout-sdk-baseline/lib/libforge_std.a",
+        "sha256": "37e86b0dce7d31821a2075d13e0ac7960b847ca014b0e99c3fab580402183510",
+        "bytes": 131556,
+        "mtime_ns": 1791818061489543504
+      }
+    },
+    "candidate_round2": {
+      "compiler": {
+        "original": "/tmp/http-timeout-sdk-candidate/bin/forge",
+        "sha256": "81233d6057f716a851813b77b5fd046a5d5fd74b6d9d082cd45075b3d887aaba",
+        "bytes": 220520,
+        "mtime_ns": 1791817546059443952
+      },
+      "runtime": {
+        "original": "/tmp/http-timeout-sdk-candidate/lib/libforge_runtime.a",
+        "sha256": "1bd5d5c9e0b1c40d0a5476c21bfc2e7e7f3ea0dfee9d56ffa57080dab429d2d4",
+        "bytes": 50500,
+        "mtime_ns": 1791260551520366616
+      },
+      "stdlib": {
+        "original": "/tmp/http-timeout-sdk-candidate/lib/libforge_std.a",
+        "sha256": "71c0fc472df94ff089c0fd769098c87ba98e7ea501caa08f73c320468979db39",
+        "bytes": 131668,
+        "mtime_ns": 1791818028474406622
+      }
+    }
+  },
+  "raw_json_sha256": {
+    "baseline_round1": "803d49a26d01bc177975e8194099a357a6cddb2c65a05fc515ae3727c9a28f66",
+    "candidate_round1": "7dbdd53389e812614cbc6c64a0aa26c10b715899d032e1349c844ba05b753b67",
+    "baseline_round2": "f22981eaa2a27e464218e3ea505954d61b528c8ab7a8f6992a92937d775dee2a",
+    "candidate_round2": "7a5af8345dde69181b32ee0c2724d0f71b42bfac4acf9206bdec1cf71e818cc6",
+    "high_load_failed": "07f9cdf176a9eea4a0e8a1e34cf58daa55d5e38d58e841265600908214738acd"
+  }
+}

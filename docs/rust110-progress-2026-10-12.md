@@ -225,6 +225,17 @@ builder's Forge gain was inconclusive; immutable append stayed well above 1.10
 with broad noise. This supports the 1.10 target for scan only. [Method and
 raw samples](positive-constant-remainder-lowering-2026-10-12.md).
 
+## HTTP timeout inheritance probe
+
+A Linux candidate configured the existing read/write socket timeout on each
+listener so accepted sockets could inherit it, avoiding two per-request
+`setsockopt` calls while preserving per-client fallback on setup failure. The
+V2 HTTP benchmark proved too noisy to establish a benefit: across 24 matched
+groups candidate/baseline Forge throughput was 0.976 [0.549, 1.434]. A larger
+attempt also stopped on 502 connect timeouts during the unmodified baseline.
+The candidate was reverted; per-connection timeout setup remains. [Conditions,
+timings and raw attempts](http-timeout-inheritance-probe-2026-10-12.md).
+
 ## Mersenne constant remainder candidate
 
 A compiler prototype replaced positive `2^k-1` remainders (`16 <= k <= 62`)
