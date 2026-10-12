@@ -34,9 +34,16 @@ fn immutable(n:i64,rounds:i64,seed:i64)->i64 {
   while i<n {let mut next=String::with_capacity(text.len()+1);next.push_str(&text);next.push((65+(i+seed+r)%26) as u8 as char);text=next;i+=1;}
   assert_eq!(text.len(),n as usize);sum+=weighted(text.as_bytes(),r%13);r+=1;}sum
 }
+fn immutable_view(n:i64,rounds:i64,seed:i64)->i64 {
+ let mut sum=0;let mut r=0;
+ while r<rounds {let mut text=String::new();let mut i=0;
+  while i<n {let mut next=String::with_capacity(text.len()+1);next.push_str(&text);next.push((65+(i+seed+r)%26) as u8 as char);text=next;i+=1;}
+  assert_eq!(text.len(),n as usize);sum+=weighted(text.as_bytes(),r%13);r+=1;
+ }sum
+}
 fn main() {
  let args:Vec<String>=env::args().collect();let mode=&args[1];let n=args[2].parse().unwrap();let rounds=args[3].parse().unwrap();let seed=args[4].parse().unwrap();
  let text=if mode=="scan" {pattern(n,seed)} else {String::new()};
- let start=unsafe{bench_clock_ns()};let n=unsafe{bench_observe_i64(n)};let rounds=unsafe{bench_observe_i64(rounds)};let seed=unsafe{bench_observe_i64(seed)};let checksum=match mode.as_str(){"lcg"=>lcg(n,rounds,seed),"primes"=>primes(n,rounds,seed),"scan"=>scan(text.as_bytes(),rounds,seed),"builder"=>builder(n,rounds,seed),"immutable"=>immutable(n,rounds,seed),_=>panic!("unknown workload")};
+ let start=unsafe{bench_clock_ns()};let n=unsafe{bench_observe_i64(n)};let rounds=unsafe{bench_observe_i64(rounds)};let seed=unsafe{bench_observe_i64(seed)};let checksum=match mode.as_str(){"lcg"=>lcg(n,rounds,seed),"primes"=>primes(n,rounds,seed),"scan"=>scan(text.as_bytes(),rounds,seed),"builder"=>builder(n,rounds,seed),"immutable"=>immutable(n,rounds,seed),"immutable_view"=>immutable_view(n,rounds,seed),_=>panic!("unknown workload")};
  let checksum=unsafe{bench_observe_i64(checksum)};let elapsed=unsafe{bench_clock_ns()}-start;println!("{}\n{}",checksum,elapsed);
 }

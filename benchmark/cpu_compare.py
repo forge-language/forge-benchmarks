@@ -22,7 +22,7 @@ import time
 
 ROOT = Path(__file__).resolve().parents[1]
 SIBLINGS = ROOT.parent
-DEFAULTS = {'lcg': 250000, 'primes': 2000, 'scan': 131072, 'builder': 32768, 'immutable': 4096}
+DEFAULTS = {'lcg': 250000, 'primes': 2000, 'scan': 131072, 'builder': 32768, 'immutable': 4096, 'immutable_view': 4096}
 
 
 def sha(path):
@@ -72,7 +72,7 @@ def reference(mode, n, rounds, seed):
         for _ in range(rounds):
             total += weighted_reference(n, seed, total % 13)
         return total
-    if mode in ('builder', 'immutable'):
+    if mode in ('builder', 'immutable', 'immutable_view'):
         return sum(weighted_reference(n, seed + r, r % 13) for r in range(rounds))
     if mode == 'primes':
         low = 1000001 + seed
@@ -140,7 +140,7 @@ def markdown(report):
     lines += ['', f"Protocol: `{report['method']['protocol']}`. Per-input warmups, when enabled, are checked and retained separately; the prewarmed-balanced protocol makes each language run first in exactly half the measured pairs. These results must not be merged with the original protocol without qualification.", '', 'Each measured output matches an independent Python reference (modular exponentiation, sieve of Eratosthenes, or periodic weighted-sum formula). No checksum failure is excluded or silently retried.', '',
               'Both executables use identical runtime n/rounds/seed arguments and a common C monotonic-clock primitive plus one-shot input/output optimization barriers. There is no C implementation of a measured algorithm. The report preserves every paired sample, warmup, calibration choice, source/artifact hash, compiler command and environment detail.', '',
               'Builds use GCC -O3 and Rust opt-level=3, native CPU tuning and explicit LTO settings. Forge native runtime/stdlib archives are taken from the specified existing Release build; their non-LTO C functions may remain out of line, while Rust standard-library methods can inline. This comparison measures these implementations and supported public APIs rather than isolating a language syntax cost.', '',
-              'String builder and immutable append create the same ASCII bytes and final weighted checksum. Rust builder output includes a final clone to match Forge\'s immutable snapshot. Forge arena allocation retains intermediate strings until the explicit reset; Rust drops obsolete owned strings earlier. Cleanup is inside the timed rounds for builder/immutable, outside timing for the prebuilt scan input. The wait4 peak RSS is a whole-process diagnostic that includes setup, allocator retention, runtime startup and potentially the forked Python runner footprint before exec; it is not a precise language heap or ownership measurement.', '',
+              'String builder and immutable append create the same ASCII bytes and final weighted checksum. Rust builder output includes a final clone to match Forge\'s immutable snapshot. `immutable_view` is an experimental Forge path that carries cached lengths in immutable views; Rust retains the repeated-prefix-copy control. Forge arena allocation retains intermediate snapshots until the explicit reset; Rust drops obsolete owned strings earlier. Cleanup is inside the timed rounds for builder/immutable paths, outside timing for the prebuilt scan input. The wait4 peak RSS is a whole-process diagnostic that includes setup, allocator retention, runtime startup and potentially the forked Python runner footprint before exec; it is not a precise language heap or ownership measurement.', '',
               'This small CPU suite does not cover typed arrays/vectors (no supported safe typed vector API in the tested Forge frontend; raw pointer indexing exists), concurrency, HTTP, database I/O, safety guarantees, large applications or cross-machine portability. Shared host services and frequency scheduling remain sources of noise despite CPU affinity and paired randomized order. A bootstrap interval describes this run, not universal performance. Passing one row cannot establish a language-wide 110% guarantee.', '',
               'The repeated seeds are runtime inputs and output-dependent arithmetic prevents replacing the work with a printed constant. Timed instructions include mode dispatch and a few common observer calls; process startup, command parsing, output formatting and prebuilt scan input construction are excluded. Full process wall/CPU/RSS are separate diagnostics.']
     return '\n'.join(lines) + '\n'
@@ -158,6 +158,8 @@ def main():
     parser.add_argument('--output', type=Path, default=ROOT / ('docs/cpu-rust-forge-' + time.strftime('%Y%m%dT%H%M%SZ', time.gmtime()) + '.json'))
     parser.add_argument('--overwrite', action='store_true', help='Explicitly replace an existing JSON/Markdown report')
     parser.add_argument('--protocol', choices=['original', 'prewarmed-balanced'], default='prewarmed-balanced')
+    parser.add_argument('--pair-across-workloads', action='store_true',
+                        help='reuse the same runtime seeds and balanced execution order for each workload')
     parser.add_argument('--rounds-from', type=Path, help='Reuse workload dimensions from a preserved report for controlled comparisons')
     parser.add_argument('--cc', default='cc')
     parser.add_argument('--rustc', default='rustc')
@@ -231,9 +233,10 @@ def main():
                 if row['checksum'] != expected:
                     raise RuntimeError(f'Correctness mismatch {name}/{mode}: {row} expected {expected}')
                 correctness.append({'implementation': name, 'workload': mode, 'n': n, 'rounds': rounds, 'seed': seed, **row})
-    rng = random.Random(args.random_seed)
+    master_rng = random.Random(args.random_seed)
     measurements, calibration, warmups, summary = [], [], [], []
     for mode in args.workloads:
+        rng = random.Random(args.random_seed) if args.pair_across_workloads else master_rng
         n, rounds = dimensions.get(mode, (DEFAULTS[mode], 1))
         while True:
             trial = {name: run_binary(binary, mode, n, rounds, 719, args.cpu) for name, binary in binaries.items()}
@@ -293,6 +296,7 @@ def main():
                               'allowed_cpu_affinity': sorted(os.sched_getaffinity(0)), 'load_average_end': os.getloadavg(),
                               'lscpu': capture(['lscpu']), 'cpu_governor': Path(f'/sys/devices/system/cpu/cpu{args.cpu}/cpufreq/scaling_governor').read_text().strip() if Path(f'/sys/devices/system/cpu/cpu{args.cpu}/cpufreq/scaling_governor').exists() else None},
               'method': {'protocol': args.protocol, 'per_input_prewarm': args.protocol == 'prewarmed-balanced',
+                         'pair_across_workloads': args.pair_across_workloads,
                          'rounds_from': {'path': str(args.rounds_from), 'sha256': sha(args.rounds_from)} if args.rounds_from else None,
                          'throughput_ratio': 'rust_kernel_ns / forge_kernel_ns', 'target_ratio': 1.10, 'pairs': args.pairs, 'warmup_per_language': args.warmup,
                          'random_seed': args.random_seed, 'confidence': '10000 paired-ratio bootstrap resamples; median percentile interval; not family-wise confidence',

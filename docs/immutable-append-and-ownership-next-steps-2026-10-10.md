@@ -80,21 +80,22 @@ immutable bytes. A trusted live view supplies its cached length, avoiding anothe
 old strings and views remain unchanged. No hidden in-place change to legacy
 `str_append` is authorized.
 
-This needs a separately reviewed contract: invalid/zero handles, bytes 1..255,
-NUL rejection, overflow, allocation failure, native UTF-8 byte behavior,
-JavaScript behavior, source/arena lifetime, and returned-view validity. Legacy
-`fr_str_append` narrows arbitrary integer bytes and can append NUL; the proposed
-byte API must not silently replace those observable semantics. Constructing a
-new view by scanning the returned string after every append would defeat the
-cached-length objective, so the implementation must carry the new known length.
+The implemented API's contract covers invalid/zero handles, full `int64_t`
+input narrowing according to the target's legacy append behavior, visible NUL
+handling, overflow, allocation failure, backend-specific UTF-8 behavior,
+source/arena lifetime, and returned-view validity. Legacy
+`fr_str_append` remains unchanged. Constructing a new view by scanning the
+returned string after every append would defeat the cached-length objective,
+so the implementation carries the known length. Direct C tests cover snapshots
+and byte boundaries; JS tests cover UTF-8 encoding and NUL visibility.
 
 Keep existing exported C symbols and raw string ABI. Do not expose arbitrary
 caller-supplied lengths as a safe API or claim stale integer handles become safe.
 Regression gates include aliases, earlier views and snapshots, empty/null
 sources, boundary lengths, byte/NUL/UTF-8 cases, reset invalidation and explicit
-allocation-failure signaling. Benchmark the allocation overhead of new view
-metadata as well as the removed scans. This remains an O(n²) snapshot operation;
-its potential benefit is a measured constant-factor change.
+allocation-failure signaling. Metadata and snapshot share one allocation to
+avoid doubling per-append arena allocations. This remains an O(n²) snapshot
+operation; the measured benefit is a constant-factor change.
 
 ## Gate 3: true owned heap values and typed cleanup
 
@@ -157,9 +158,13 @@ sanitizers and backend parity checks. Preserve the old slow path whenever proof
 is unavailable. Benchmark both optimized and intentionally aliased workloads;
 never remove an alias to manufacture a speedup.
 
-These are staged implementation decisions, not an API implementation or a
-promise of a fixed speedup. The next implementation step is design review and profiling; new string APIs
-and ownership representations remain unimplemented.
+The cached-length API proposed here is now implemented additively as
+`str_view_append_byte(view, value)`. Native code puts the new view metadata and
+immutable string snapshot in one arena allocation, carries the resulting
+length, and leaves the legacy `str_append` symbol and snapshots untouched. The
+JavaScript implementation follows its existing `String.fromCharCode` append
+behavior and stores the result as a UTF-8 byte view. This API is not yet used by
+an automatic compiler rewrite, and no ownership representation was added.
 
 ## Compiler/backend audit: current lowering is not safe
 
@@ -174,17 +179,18 @@ The existing builder API is not a drop-in replacement. Native
 `fr_str_append` narrows an arbitrary integer to `char`, including zero, while
 `fr_str_builder_char` accepts only bytes 1 through 255. The JavaScript backend
 implements append with `String.fromCharCode`, whereas builder bytes are decoded
-as UTF-8. A source-level rewrite would therefore change behavior for values
-outside the builder byte range and for non-ASCII bytes. A successful rewrite
-also needs to preserve previous snapshots and failure behavior, and cannot
-cross an arena reset or an unknown call that may observe the current string.
+as UTF-8. The new view append API preserves each backend's legacy append
+behavior; bytes above ASCII therefore do not have identical native and JS
+representations, matching the existing `str_append` boundary. A source-level
+builder rewrite still needs to prove its byte range and preserve previous
+snapshots and failure behavior, and cannot cross an arena reset or an unknown
+call that may observe the current string.
 
 The existing immutable fixture uses only ASCII bytes, so it does not cover
-these semantic boundaries. Before compiler lowering, add a separately reviewed
-internal operation whose byte behavior is explicitly equivalent on each
-backend, then prove the binding is a dead-temporary chain with no aliases,
-views, captures, resets, or unknown escaping calls. Preserve the legacy path
-whenever any proof is missing. Required negative tests include aliased prior
-snapshots, NUL and out-of-range byte values, UTF-8/backend parity, allocation
-failure, and reset/coroutine boundaries. No compiler transformation or
-performance claim is made by this audit.
+these semantic boundaries. Before compiler lowering, prove the binding is a
+dead-temporary chain with no aliases, views, captures, resets, or unknown
+escaping calls. Preserve the legacy path whenever any proof is missing.
+Required negative tests include aliased prior snapshots, NUL and out-of-range
+byte values, backend-specific UTF-8 behavior, allocation failure, and
+reset/coroutine boundaries. The first API benchmark shows a constant-factor
+improvement but leaves the Rust 1.10 target open; see the [paired results](immutable-view-append-2026-10-12.md).
