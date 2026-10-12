@@ -4,6 +4,14 @@ unsafe extern "C" {
     fn bench_observe_i64(value: i64) -> i64;
 }
 fn probe(n: i64, mut a: i64, mut b: i64, mut sign: i64, alternate: i64) -> i64 {
+    if alternate == 2 {
+        let mut value = a; let mut i = 0_i64;
+        while i < n {
+            value = value.wrapping_mul(48271).wrapping_add(1) % 2147483647;
+            i += 1;
+        }
+        return value;
+    }
     let mut total = 0_i64; let mut i = 0_i64;
     while i < n {
         let value = a.wrapping_mul(sign);

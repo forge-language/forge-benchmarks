@@ -13,6 +13,11 @@ fn number(index: int): int {
     return sign * result;
 }
 fn probe(n: int, a: int, b: int, sign: int, alternate: int): int {
+    if (alternate == 2) {
+        let value: int = a; let i: int = 0;
+        while (i < n) { value = (value * 48271 + 1) % 2147483647; i = i + 1; }
+        return value;
+    }
     let total: int = 0; let i: int = 0;
     while (i < n) {
         let value: int = a * sign;

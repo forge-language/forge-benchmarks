@@ -25,7 +25,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DISTRIBUTIONS = {
     'unsigned32': (0, 1, 0), 'negative32': (0, -1, 0), 'mixed32': (0, 1, 1),
     'positive64': (1 << 40, 1, 0), 'negative64': (1 << 40, -1, 0),
-    'mixed64': (1 << 40, 1, 1),
+    'mixed64': (1 << 40, 1, 1), 'affine_lcg': (1, 1, 2),
 }
 NAMES = ['baseline', 'candidate', 'rust']
 
@@ -37,6 +37,21 @@ def arguments(mode, n, seed):
 
 def reference(values):
     n, a, b, sign, alternate = values
+    if alternate == 2:
+        if n <= 0:
+            return a
+        # Exponentiate the affine map f(x)=48271*x+1 modulo 2^31-1.
+        result_mul, result_add = 1, 0
+        base_mul, base_add = 48271, 1
+        steps = n
+        while steps:
+            if steps & 1:
+                result_add = (base_mul * result_add + base_add) % 2147483647
+                result_mul = (base_mul * result_mul) % 2147483647
+            base_add = (base_mul * base_add + base_add) % 2147483647
+            base_mul = (base_mul * base_mul) % 2147483647
+            steps >>= 1
+        return (result_mul * (a % 2147483647) + result_add) % 2147483647
     total = 0
     for _ in range(n):
         # Independent integer oracle: abs/floor plus explicit sign implements
@@ -84,7 +99,8 @@ def run(binary, values, cpu):
 
 
 def markdown(report):
-    lines = ['# Dynamic integer divisor comparison', '',
+    affine = any(row['distribution'] == 'affine_lcg' for row in report['summary'])
+    lines = ['# Arithmetic compiler comparison', '',
              'Compiler diagnostic microbenchmark. Ratios are elapsed baseline / candidate and Rust / candidate for identical work. A value above 1 means faster candidate throughput.', '',
              '| Distribution | Baseline ms | Candidate ms | Rust ms | Baseline/candidate median [95% CI] | Rust/candidate median [95% CI] |',
              '| --- | ---: | ---: | ---: | ---: | ---: |']
@@ -98,8 +114,8 @@ def markdown(report):
             for name in report['extra_variants']:
                 gain, ratio = row['baseline_' + name], row['rust_' + name]
                 lines.append(f'| {row["distribution"]} | {name} | {gain["median"]:.4f} [{gain["ci95"][0]:.4f}, {gain["ci95"][1]:.4f}] | {ratio["median"]:.4f} [{ratio["ci95"][0]:.4f}, {ratio["ci95"][1]:.4f}] |')
-    lines += ['', f"{report['method']['iterations']} iterations per sample, {report['method']['pairs']} measured groups. Protocol: {report['method']['protocol']}. Every timed sample follows a same-input prewarm and matches the independent Python signed-integer oracle. All raw samples, warmups, arguments, hashes and compiler commands are retained in the JSON report.", '',
-              'Each iteration calculates signed quotient and remainder of the same dynamic dividend/divisor, accumulates both, advances the dividend by 17 and updates the divisor with (b + 11) % 65521 + 1. Compilers can share quotient/remainder work. Divisors stay positive; negative and mixed distributions vary dividend sign. Narrow magnitudes fit uint32 for all allowed iteration counts; wide magnitudes exceed uint32. This diagnoses narrowing-guard cost and benefit; it does not cover independent divide-only/remainder-only workloads or every divisor distribution.', '',
+    lines += ['', f"{report['method']['iterations']} iterations per sample, {report['method']['pairs']} measured groups. Protocol: {report['method']['protocol']}. Every timed sample follows a same-input prewarm and matches the independent Python oracle. All raw samples, warmups, arguments, hashes and compiler commands are retained in the JSON report.", '',
+              ('The affine_lcg workload applies value = (value * 48271 + 1) % 2147483647 for each iteration from a positive runtime seed. The candidate compiler lowers this source expression through a guarded Mersenne multiply-add fold, with the exact wrapping multiply-add and signed remainder as the fallback. Rust uses explicit wrapping multiplication and addition. The independent oracle exponentiates the affine map modulo 2^31-1, avoiding a second iterative implementation.' if affine else 'Each iteration calculates signed quotient and remainder of the same dynamic dividend/divisor, accumulates both, advances the dividend by 17 and updates the divisor with (b + 11) % 65521 + 1. Compilers can share quotient/remainder work. Divisors stay positive; negative and mixed distributions vary dividend sign. Narrow magnitudes fit uint32 for all allowed iteration counts; wide magnitudes exceed uint32. This diagnoses narrowing-guard cost and benefit; it does not cover independent divide-only/remainder-only workloads or every divisor distribution.'), '',
               'Both Forge compilers link exactly the same frozen native archives and headers. GCC -O3, native tuning and LTO are matched by Rust opt-level=3, native tuning, thin LTO and one codegen unit; Rust updates explicitly wrap to match Forge. Input/output barriers occur outside the loop. Parser, startup and output time are excluded from kernel timing. RSS is whole-process wait4 information, including possible pre-exec runner footprint; it is not a precise language heap measurement.', '',
               'Shared-host scheduling/frequency noise remains despite affinity and balanced order. Bootstrap intervals are per-row median estimates from this run and are not family-wise confidence or a universal 110% guarantee. No result is discarded or retried after a checksum failure.']
     return '\n'.join(lines) + '\n'
