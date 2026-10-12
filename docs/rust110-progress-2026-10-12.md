@@ -224,3 +224,12 @@ Forge/Rust reached 2.2504 [2.2330, 2.2738]. LCG and primes remained below 1.10;
 builder's Forge gain was inconclusive; immutable append stayed well above 1.10
 with broad noise. This supports the 1.10 target for scan only. [Method and
 raw samples](positive-constant-remainder-lowering-2026-10-12.md).
+
+## Mersenne constant remainder candidate
+
+A compiler prototype replaced positive `2^k-1` remainders (`16 <= k <= 62`)
+with four unsigned folds and sign restoration. Its formula matched 47,470
+signed boundary/random cases, but a 48-pair interleaved comparison regressed
+LCG Forge throughput to 0.6384 [0.6369, 0.6397] of baseline and primes to
+0.9965 [0.9955, 0.9996]. The compiler's existing constant-divisor lowering
+was faster; the prototype was reverted. [Method and raw samples](mersenne-remainder-lowering-2026-10-12.md).
