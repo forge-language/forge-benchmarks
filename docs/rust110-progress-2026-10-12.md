@@ -274,3 +274,7 @@ A bounded deterministic Miller–Rabin path (bases 2 and 3 below 1,373,653) was 
 ## Dynamic remainder guard probes
 
 Two compiler-only positive-remainder fast paths were measured in 48 randomized balanced groups. A checked 32-bit fast path regressed Forge prime throughput (baseline/candidate 0.9878 [0.9862, 0.9905]); a checked positive 64-bit unsigned path also regressed (0.9893 [0.9872, 0.9918]). All 160 reference cases passed for each; the first candidate also passed all 21 CTests. Assembly retained both narrow/wide divide forms or unsigned/signed wide divide forms. Both changes were reverted. [Interpretation and raw samples](prime-modulo-guard-probes-2026-10-12.md).
+
+## GCC profile-guided optimization probe
+
+The frozen Forge C output was PGO-trained with eight seeds each for LCG and prime search and compared with the standard Forge and unchanged Rust binaries in 48 balanced three-way pairs. All 308 direct cases, 288 prewarms and 288 measurements matched. LCG baseline/candidate was 1.0047 [0.9959, 1.0076], inconclusive; prime was 0.9887 [0.9864, 0.9904], a regression. The PGO candidate is discarded. [Conditions and paired samples](cpu-profile-guided-2026-10-12.md).
