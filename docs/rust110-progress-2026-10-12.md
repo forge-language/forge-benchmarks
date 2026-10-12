@@ -211,3 +211,16 @@ seeds, Forge kernel throughput was unchanged: candidate/baseline was 0.9980
 [0.9950, 1.0046]. Rust became about 1.97x slower, making the apparent
 Forge/Rust ratio rise from 1.0104 to 1.9925; this is not a Forge gain. The
 candidate is rejected. [Conditions and raw samples](prime-quotient-loop-bound-2026-10-12.md).
+
+## Positive constant remainder lowering
+
+Native codegen now has a candidate path that emits `%` directly only for a
+positive integer literal divisor and a left expression conservatively known
+to be integer or boolean. All dynamic, nonpositive and unknown cases retain
+the checked helper. The `INT64_MIN` boundary test passes at `-O0` and `-O3`,
+and all 21 CTest suites pass. In a 48-pair interleaved baseline/candidate/Rust
+comparison, scan Forge throughput rose 1.1571x [1.1509, 1.1729] and
+Forge/Rust reached 2.2504 [2.2330, 2.2738]. LCG and primes remained below 1.10;
+builder's Forge gain was inconclusive; immutable append stayed well above 1.10
+with broad noise. This supports the 1.10 target for scan only. [Method and
+raw samples](positive-constant-remainder-lowering-2026-10-12.md).
