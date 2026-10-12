@@ -1,5 +1,7 @@
 # Rust-relative CPU and HTTP measurements
 
+> Follow-up note: this report preserves an earlier combined CPU-candidate and HTTP V2 run. The later source-matched CPU evidence, corrected builder ownership description and V3 shared-host failure diagnostics are summarized in [the current evidence report](rust110-performance-current-evidence-2026-10-12.md).
+
 This report consolidates the strongest reproducible benchmark results from the current Forge build. CPU source candidates change two workload algorithms: a bounded positive-state LCG fold and bounded Miller–Rabin with trial-division fallback. They are benchmark fixtures, not compiler-wide wins. The HTTP results measure a prepared fixed response over loopback and include load-generator work.
 
 ## CPU and string workloads

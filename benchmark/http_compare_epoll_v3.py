@@ -68,6 +68,30 @@ def build(args):
     return metadata
 
 
+def validate_request_rows(columns, rows, wanted, requested, attempted, completed, errors):
+    if columns != wanted:
+        raise RuntimeError(f"Epoll TSV schema mismatch: expected {wanted!r}, got {columns!r}")
+    if len(rows) != attempted:
+        raise RuntimeError(
+            f"Epoll TSV row count {len(rows)} does not match observer footer attempted={attempted}"
+        )
+    failures = [row for row in rows if row.get("error") or row.get("failed_stage")]
+    if errors or attempted != requested or completed != requested:
+        detail = ""
+        if failures:
+            first = failures[0]
+            detail = (
+                f"; first failure id={first.get('id')} stage={first.get('failed_stage')}"
+                f" error={first.get('error')}"
+            )
+        raise RuntimeError(
+            f"Epoll observer failed: requested={requested}, attempted={attempted}, "
+            f"completed={completed}, errors={errors}{detail}"
+        )
+    if len(rows) != requested:
+        raise RuntimeError(f"Epoll TSV row count {len(rows)} does not match requested={requested}")
+
+
 def run_trial(server_binary, load_binary, workers, concurrency, requests, seed,
               body_size, server_cpus, client_cpu, prefix, connect_timeout_ms):
     body = v2.body_for(seed, body_size)
@@ -154,8 +178,8 @@ def run_trial(server_binary, load_binary, workers, concurrency, requests, seed,
             columns = reader.fieldnames
         wanted = ["id", "latency_ns", "connect_ns", "setup_ns", "write_ns", "read_ns",
                   "eof_ns", "response_bytes", "failed_stage", "error"]
-        if columns != wanted or len(rows) != requests:
-            raise RuntimeError("Epoll TSV schema/row count mismatch; no exclusions")
+        validate_request_rows(columns, rows, wanted, requests, attempted,
+                              attempted - errors, errors)
         latencies = []
         phases = {name: [] for name in wanted[2:7]}
         ids = []
