@@ -56,6 +56,12 @@ Builder 개선은 약 10.6%이며 Rust 대비 110%라는 뜻이 아니다. 나�
 
 V1 성능 측정은 **실패하여 비교 가능한 전체 결과를 내지 못했다**. 14번째 pair의 Rust, body 4096, worker 4, concurrency 16 측정에서 12,000개 응답은 도착했지만 클라이언트가 2개 오류를 기록해 runner가 전체 실행을 `failed_no_claim`으로 끝냈다. 그 전에 발생한 연결 지연도 모두 원시 시도에 남아 있다. 오류가 있던 행을 제거하거나 실패 이후 재시작하지 않았다. 따라서 이 실행에서 Forge와 Rust의 HTTP 성능 우열을 주장하지 않는다. [실패를 포함한 원시 보고서](http-prepared-rust-forge-2026-10-12.json), [전체 원시 시도 묶음 (SHA-256: a35035c8f0a0e999388f106d07dbfaffebaffb1f24d7c86a929518b5d37ad2ab)](http-prepared-rust-forge-2026-10-12.raw.tar.gz), [연결 지연 진단](http-prepared-handshake-diagnostic-2026-10-12.md).
 
+## HTTP 수용량 및 처리량 V2
+
+V2 관측기 검증 14/14와 observer 단위 테스트 8/8을 통과한 뒤 4 worker, 동시성 16/64/128/256/512, 응답 본문 32/4096바이트, 설정별 8회씩 측정했다. 총 320개 prewarm/measurement sample 모두 정확한 응답·EOF 검증을 통과했고 오류 행은 0개다. 이 닫힌 루프 loopback 테스트에서는 두 본문 크기 모두 시험한 최고 동시성인 **최소 512 client lane까지 오류가 없었다**. 실제 최대 수용량은 그 이상일 수 있으며 이 시험만으로 정해지지 않는다.
+
+성공 요청 처리량 중앙값 범위는 32바이트에서 Forge 2,958–4,240 req/s, Rust 3,720–4,326 req/s이고 4096바이트에서 Forge 3,732–4,210 req/s, Rust 3,950–4,254 req/s다. payload 처리량은 각각 약 0.266–0.382 / 0.335–0.389 MB/s, 15.511–17.500 / 16.415–17.680 MB/s다. 각 8개 paired ratio의 bootstrap 구간이 넓고 반복 변동이 커 언어 간 성능 우열을 주장하지 않는다. 이 관측기는 매 요청 새 TCP 연결을 사용하며 로깅 비용을 타이머에 포함한다. 일반 사용자 수, 외부 네트워크, keepalive, 전체 parser/routing/TLS/DB 성능으로 환산하지 않는다. [측정표와 조건](http-v2-capacity-2026-10-12.md), [JSON과 TSV 전체 원시 시도](http-v2-capacity-2026-10-12.json), [압축 원시 자료와 SHA-256](http-v2-capacity-2026-10-12.raw.tar.gz).
+
 ## 추가된 보안·견고성 작업
 
 보안 점검에서는 소스/모듈 입력으로 커질 수 있는 parser 인자·coroutine 배열과 module registry/import 목록의 `realloc` 실패·크기 산술 경로를 우선 다룬다. 이 영역은 잘못된 대형 입력 또는 메모리 고갈에서 null 역참조나 capacity overflow를 만들 수 있다. 수정은 실패 시 기존 포인터를 보존하고, `SIZE_MAX` 곱셈/증가를 검사하며, 명확한 진단으로 종료하도록 한다. 구현과 확인이 끝난 뒤에만 취약점 수정으로 보고한다.
