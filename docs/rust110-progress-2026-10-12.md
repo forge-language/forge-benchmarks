@@ -184,3 +184,10 @@ control/data-movement instructions; the incrementing form places its increment
 before the expensive remainder, while countdown requires a move after it.
 The change is not adopted and does not support the 1.10 target. [Conditions,
 assembly rationale and results](lcg-countdown-loop-2026-10-12.md).
+
+The same below-target workloads were screened with GCC `-funroll-loops` in
+20 prewarmed position-balanced pairs. Candidate/baseline Forge throughput was
+1.0001 [0.9927, 1.0101] for LCG and 1.0013 [0.9990, 1.0033] for primes. The
+LCG binary grew by 2.8 KB and showed duplicated loop bodies, but neither
+workload gained measurable speed. Default `-O3` remains unchanged. [Conditions
+and data](gcc-loop-unroll-screen-2026-10-12.md).
