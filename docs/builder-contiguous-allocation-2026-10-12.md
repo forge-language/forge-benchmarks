@@ -1,0 +1,7 @@
+# Contiguous capacity-builder allocation experiment
+
+The candidate combined the builder metadata and initial byte capacity in one arena allocation and skipped zero-filling the capacity area. It preserved the public handle and length-delimited representation. Bytes below `len` are written by append before the length changes; `finish` and `finish_take` write the final NUL byte before returning a string. The LTO-free candidate build passed all 10 stdlib CTest cases, including string and ABI suites.
+
+Both comparisons use the same compiler, runtime, headers, benchmark fixtures, Rust control, and timer. Only the stdlib archive differs. The 120-pair run measured baseline/ candidate Forge throughput at 1.0059x [0.9857, 1.0479]. A later 240-pair run measured 0.9958x [0.9823, 1.0106]. The sign changed between runs, and both intervals include no change; the 240-pair point estimate is a 0.4% slowdown. Candidate source-matched Forge/Rust throughput was 1.0623x [1.0044, 1.1051], short of the 1.10 target.
+
+No performance claim is supported, so the candidate was reverted and is not part of the stdlib branch. The proposed patch is preserved for reproducibility. The raw reports retain build hashes, all checks, warmups and measurements: [120 pairs](builder-contiguous-allocation-120-2026-10-12.json), [240 pairs](builder-contiguous-allocation-240-2026-10-12.json), [candidate patch](builder-contiguous-allocation-candidate-2026-10-12.patch).

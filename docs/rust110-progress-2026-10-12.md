@@ -115,3 +115,7 @@ A 120-pair comparison isolated `str_builder()` versus `str_builder_with_capacity
 ## SDK LTO experiment
 
 The generated C and standard SDK archives were built with LTO enabled, then compared with the normal SDK for builder, scan and immutable workloads (42 paired groups, identical compiler and source fixtures). The LTO/normal Forge throughput ratios were 0.993x for scan [0.986–1.001], 0.979x for builder [0.921–1.031], and 1.003x for immutable append [0.956–1.141]. Results do not establish an LTO gain, so the default SDK build policy stays unchanged. All 10 stdlib CTest cases passed on the LTO build. [Conditions and raw samples](sdk-lto-comparison-2026-10-12.md).
+
+## Rejected contiguous builder allocation candidate
+
+A stdlib candidate combined `str_builder_with_capacity` metadata and its initial bytes in one arena allocation and removed zero-fill for the length-delimited capacity area. Native and ABI CTest suites passed (10/10). The same compiler/source/runtime was compared against the current SDK for 120 and then 240 paired builder groups. Baseline/candidate Forge throughput was 1.0059x [0.9857–1.0479] in the first run and 0.9958x [0.9823–1.0106] in the larger run. The direction changed and the later interval includes no change; the candidate was reverted. The experiment does not support a speed claim. [Conditions, raw samples, and reversible patch](builder-contiguous-allocation-2026-10-12.md).
