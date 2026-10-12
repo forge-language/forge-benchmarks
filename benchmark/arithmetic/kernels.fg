@@ -1,0 +1,36 @@
+import os;
+import strings;
+extern fn bench_clock_ns(): int;
+extern fn bench_observe_i64(value: int): int;
+fn number(index: int): int {
+    let text: string = os_argv(index);
+    let result: int = 0; let i: int = 0; let sign: int = 1;
+    if (str_char_at(text, 0) == 45) { sign = -1; i = 1; }
+    while (i < str_len(text)) {
+        result = result * 10 + str_char_at(text, i) - 48;
+        i = i + 1;
+    }
+    return sign * result;
+}
+fn probe(n: int, a: int, b: int, sign: int, alternate: int): int {
+    let total: int = 0; let i: int = 0;
+    while (i < n) {
+        let value: int = a * sign;
+        total = total + value / b + value % b;
+        a = a + 17;
+        b = (b + 11) % 65521 + 1;
+        if (alternate != 0) { sign = -sign; }
+        i = i + 1;
+    }
+    return total;
+}
+native main {
+    let n: int = number(1); let a: int = number(2); let b: int = number(3);
+    let sign: int = number(4); let alternate: int = number(5);
+    let start: int = bench_clock_ns();
+    n = bench_observe_i64(n); a = bench_observe_i64(a); b = bench_observe_i64(b);
+    sign = bench_observe_i64(sign); alternate = bench_observe_i64(alternate);
+    let result: int = bench_observe_i64(probe(n, a, b, sign, alternate));
+    let elapsed: int = bench_clock_ns() - start;
+    println(result); println(elapsed); return 0;
+}

@@ -1,0 +1,22 @@
+import http;
+import os;
+import strings;
+extern fn bench_config(): void;
+fn number(index: int): int {
+    let text: string = os_argv(index);
+    let value: int = 0;
+    let i: int = 0;
+    while (i < str_len(text)) {
+        value = value * 10 + str_char_at(text, i) - 48;
+        i = i + 1;
+    }
+    return value;
+}
+native main {
+    bench_config();
+    let server: int = http_listen(number(1));
+    if (server < 0) { return 2; }
+    http_prepare(server, os_argv(3));
+    http_serve_mt(server, number(2));
+    return 3;
+}

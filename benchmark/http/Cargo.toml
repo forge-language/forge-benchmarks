@@ -1,0 +1,22 @@
+[package]
+name = "forge-http-control"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+libc = "=0.2.186"
+socket2 = { version = "=0.6.4", features = ["all"] }
+
+[[bin]]
+name = "rust-http"
+path = "src/main.rs"
+
+[[bin]]
+name = "http-load"
+path = "src/load.rs"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+panic = "abort"
