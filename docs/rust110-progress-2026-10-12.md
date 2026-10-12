@@ -202,3 +202,12 @@ the seed-matched candidate/baseline Forge/Rust ratio-of-ratios was 0.9973
 not establish an end-to-end benefit for the guard/split, so the candidate is
 not adopted.
 [Conditions, proof boundary and raw samples](prime-hoisted-int32-remainder-2026-10-12.md).
+
+## Quotient-based prime-loop bound
+
+A source-level rewrite changed `d*d <= value` to `d <= value/d` in Forge and
+Rust, recomputing the quotient after each divisor increment. At 24 paired
+seeds, Forge kernel throughput was unchanged: candidate/baseline was 0.9980
+[0.9950, 1.0046]. Rust became about 1.97x slower, making the apparent
+Forge/Rust ratio rise from 1.0104 to 1.9925; this is not a Forge gain. The
+candidate is rejected. [Conditions and raw samples](prime-quotient-loop-bound-2026-10-12.md).
