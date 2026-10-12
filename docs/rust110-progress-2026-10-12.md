@@ -107,3 +107,7 @@ The generated C changes the immutable loop from repeated `fr_str_append` calls t
 ## HTTP tested capacity extension
 
 The V2 prepared-response loopback test now also passed 1024, 2048 and 4096 simultaneous client lanes for 32-byte responses, with four clean repeats for both Forge and Rust at each level. Thus the tested error-free capacity is **at least 4096 lanes** under this connection-per-request workload, not an absolute user limit. At 4096 lanes median successful throughput was 6243 req/s for Forge and 7964 req/s for Rust (0.562 and 0.717 MB/s); the four paired ratios are too variable to establish a throughput winner. At 2048 lanes, medians were 4423 and 6550 req/s. [1024/2048 report and raw attempts](http-v2-capacity-extended-2026-10-12.md), [4096 report and raw attempts](http-v2-capacity-4096-2026-10-12.md).
+
+## Builder preallocation comparison
+
+A 120-pair comparison isolated `str_builder()` versus `str_builder_with_capacity(n)` using the same compiler, runtime, stdlib, headers, clock, and source-matched Rust control. Rust uses `String::with_capacity(n)` in both variants. Forge preallocation improved throughput 1.0246x over its default-capacity builder (95% interval 1.0066–1.0679). Candidate Forge/Rust was 1.0929x with a wide interval (1.0158–1.1999); the source-matched alternative Rust control gave 1.0996x [1.0246–1.2158]. This supports a small builder improvement but does not establish 1.10 versus Rust. [Conditions and raw samples](builder-capacity-reservation-2026-10-12.md).
