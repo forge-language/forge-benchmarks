@@ -14,4 +14,6 @@ The frozen comparison used 24 position-balanced pairs per workload and one share
 
 The clearest result is builder: candidate throughput was 0.8599 of Rust versus 1.1180 for baseline, and paired baseline/candidate throughput was 0.8616 [0.7878, 0.9415]. The fast path was rejected; no source change remains in Forge. Other rows did not show a consistent improvement. This is evidence for these frozen workloads and this host, not a general statement about all constant divisors.
 
+A post-run disassembly comparison found the baseline binary retained `weighted` as a separate 0x75-byte function, while the candidate had no separate `weighted` symbol and its `main` grew from 0x79d to 0x945 bytes. The generated `pattern` loop had matching instruction sequences apart from addresses. These observations suggest that direct constant remainders changed GCC/LTO inlining and code layout; they do not prove that this caused the builder regression.
+
 All raw samples and hashes: [constant-divisor-fast-path-2026-10-12.json](constant-divisor-fast-path-2026-10-12.json). Reproduction patch: [constant-divisor-fast-path-2026-10-12.patch](constant-divisor-fast-path-2026-10-12.patch).
