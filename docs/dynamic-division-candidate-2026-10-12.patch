@@ -1,0 +1,30 @@
+diff --git a/compiler/codegen.c b/compiler/codegen.c
+index b5e212d..5af162b 100644
+--- a/compiler/codegen.c
++++ b/compiler/codegen.c
+@@ -1397,8 +1397,23 @@ static void emit_arithmetic_helpers(FILE *out) {
+           "static inline void __forge_check_div_i64(int64_t a, int64_t b) {\n"
+           "    if (b == 0 || (a == INT64_MIN && b == -1)) { fputs(\"Forge integer division\\n\", stderr); exit(EXIT_FAILURE); }\n"
+           "}\n"
+-          "static inline int64_t __forge_div_i64(int64_t a, int64_t b) { __forge_check_div_i64(a, b); return a / b; }\n"
+-          "static inline int64_t __forge_mod_i64(int64_t a, int64_t b) { __forge_check_div_i64(a, b); return a % b; }\n\n", out);
++          /* GCC otherwise uses full-width division for small runtime operands.
++           * The unsigned range guard also excludes negative inputs. Keep known
++           * divisors on the usual path for reciprocal strength reduction. */
++          "static inline int64_t __forge_div_i64(int64_t a, int64_t b) {\n"
++          "    __forge_check_div_i64(a, b);\n"
++          "#if defined(__GNUC__) || defined(__clang__)\n"
++          "    if (!__builtin_constant_p(b) && (((uint64_t)a | (uint64_t)b) >> 32) == 0) return (uint32_t)a / (uint32_t)b;\n"
++          "#endif\n"
++          "    return a / b;\n"
++          "}\n"
++          "static inline int64_t __forge_mod_i64(int64_t a, int64_t b) {\n"
++          "    __forge_check_div_i64(a, b);\n"
++          "#if defined(__GNUC__) || defined(__clang__)\n"
++          "    if (!__builtin_constant_p(b) && (((uint64_t)a | (uint64_t)b) >> 32) == 0) return (uint32_t)a % (uint32_t)b;\n"
++          "#endif\n"
++          "    return a % b;\n"
++          "}\n\n", out);
+     const char *names[] = { "ADD", "SUB", "MUL", "DIV" };
+     const char *lower[] = { "add", "sub", "mul", "div" };
+     const char *ops[] = { "+", "-", "*", "/" };

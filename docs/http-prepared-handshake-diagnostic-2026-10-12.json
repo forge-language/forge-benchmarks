@@ -1,0 +1,1012 @@
+{
+  "observed_at_utc": "2026-10-12T00:30:14Z",
+  "kind": "passive ongoing-run diagnostic; no new workloads",
+  "kernel": {
+    "net/ipv4/tcp_syn_retries": "6",
+    "net/ipv4/tcp_syn_linear_timeouts": "4",
+    "net/ipv4/tcp_tw_reuse": "2",
+    "net/ipv4/tcp_max_tw_buckets": "65536",
+    "net/ipv4/ip_local_port_range": "32768\t60999",
+    "net/ipv4/tcp_max_syn_backlog": "1024",
+    "net/core/somaxconn": "4096",
+    "net/netfilter/nf_conntrack_count": "262144",
+    "net/netfilter/nf_conntrack_max": "262144",
+    "net/ipv4/tcp_mem": "180369\t240493\t360738"
+  },
+  "slow_attempts": [
+    {
+      "source_attempt": "p000-b4096-w4-c16-1-forge-prewarm.json",
+      "workers": 4,
+      "concurrency": 16,
+      "status": "passed",
+      "elapsed_ns": 105514286237,
+      "completed_requests": 12000,
+      "errors": 0,
+      "long_requests": [
+        {
+          "id": 46,
+          "lane": 14,
+          "latency_ns": 68107019535,
+          "error": ""
+        },
+        {
+          "id": 50,
+          "lane": 2,
+          "latency_ns": 68107300592,
+          "error": ""
+        },
+        {
+          "id": 52,
+          "lane": 4,
+          "latency_ns": 68105689391,
+          "error": ""
+        },
+        {
+          "id": 60,
+          "lane": 12,
+          "latency_ns": 68106083188,
+          "error": ""
+        },
+        {
+          "id": 98,
+          "lane": 2,
+          "latency_ns": 35634816925,
+          "error": ""
+        },
+        {
+          "id": 190,
+          "lane": 14,
+          "latency_ns": 35829549047,
+          "error": ""
+        },
+        {
+          "id": 204,
+          "lane": 12,
+          "latency_ns": 36136939747,
+          "error": ""
+        },
+        {
+          "id": 212,
+          "lane": 4,
+          "latency_ns": 36135872021,
+          "error": ""
+        },
+        {
+          "id": 1481,
+          "lane": 9,
+          "latency_ns": 68455332413,
+          "error": ""
+        },
+        {
+          "id": 1488,
+          "lane": 0,
+          "latency_ns": 68249731743,
+          "error": ""
+        },
+        {
+          "id": 1495,
+          "lane": 7,
+          "latency_ns": 68249178002,
+          "error": ""
+        },
+        {
+          "id": 1496,
+          "lane": 8,
+          "latency_ns": 68249781952,
+          "error": ""
+        },
+        {
+          "id": 1498,
+          "lane": 10,
+          "latency_ns": 68455933488,
+          "error": ""
+        },
+        {
+          "id": 1513,
+          "lane": 9,
+          "latency_ns": 35633560613,
+          "error": ""
+        },
+        {
+          "id": 1514,
+          "lane": 10,
+          "latency_ns": 35633429124,
+          "error": ""
+        },
+        {
+          "id": 1533,
+          "lane": 13,
+          "latency_ns": 68249513218,
+          "error": ""
+        },
+        {
+          "id": 1539,
+          "lane": 3,
+          "latency_ns": 68251031577,
+          "error": ""
+        },
+        {
+          "id": 1542,
+          "lane": 6,
+          "latency_ns": 68249523831,
+          "error": ""
+        },
+        {
+          "id": 1551,
+          "lane": 15,
+          "latency_ns": 68249357888,
+          "error": ""
+        },
+        {
+          "id": 1557,
+          "lane": 5,
+          "latency_ns": 68249520194,
+          "error": ""
+        },
+        {
+          "id": 1560,
+          "lane": 8,
+          "latency_ns": 35633172354,
+          "error": ""
+        },
+        {
+          "id": 1595,
+          "lane": 11,
+          "latency_ns": 68250057701,
+          "error": ""
+        },
+        {
+          "id": 1600,
+          "lane": 0,
+          "latency_ns": 36136694145,
+          "error": ""
+        },
+        {
+          "id": 1622,
+          "lane": 6,
+          "latency_ns": 36136453036,
+          "error": ""
+        },
+        {
+          "id": 1633,
+          "lane": 1,
+          "latency_ns": 68250059034,
+          "error": ""
+        },
+        {
+          "id": 1635,
+          "lane": 3,
+          "latency_ns": 36136118573,
+          "error": ""
+        },
+        {
+          "id": 1655,
+          "lane": 7,
+          "latency_ns": 35828465129,
+          "error": ""
+        },
+        {
+          "id": 1695,
+          "lane": 15,
+          "latency_ns": 35829318815,
+          "error": ""
+        },
+        {
+          "id": 1709,
+          "lane": 13,
+          "latency_ns": 35827909362,
+          "error": ""
+        },
+        {
+          "id": 1739,
+          "lane": 11,
+          "latency_ns": 35830185537,
+          "error": ""
+        },
+        {
+          "id": 1745,
+          "lane": 1,
+          "latency_ns": 36136691098,
+          "error": ""
+        },
+        {
+          "id": 1813,
+          "lane": 5,
+          "latency_ns": 35828851130,
+          "error": ""
+        }
+      ]
+    },
+    {
+      "source_attempt": "p001-b32-w1-c64-0-rust-prewarm.json",
+      "workers": 1,
+      "concurrency": 64,
+      "status": "passed",
+      "elapsed_ns": 20153081234,
+      "completed_requests": 12000,
+      "errors": 0,
+      "long_requests": [
+        {
+          "id": 6083,
+          "lane": 3,
+          "latency_ns": 19336714366,
+          "error": ""
+        },
+        {
+          "id": 6404,
+          "lane": 4,
+          "latency_ns": 19509324299,
+          "error": ""
+        },
+        {
+          "id": 6493,
+          "lane": 29,
+          "latency_ns": 19509841497,
+          "error": ""
+        },
+        {
+          "id": 6494,
+          "lane": 30,
+          "latency_ns": 19509376498,
+          "error": ""
+        },
+        {
+          "id": 6792,
+          "lane": 8,
+          "latency_ns": 19509190270,
+          "error": ""
+        },
+        {
+          "id": 6798,
+          "lane": 14,
+          "latency_ns": 19509046151,
+          "error": ""
+        },
+        {
+          "id": 7127,
+          "lane": 23,
+          "latency_ns": 19511434839,
+          "error": ""
+        },
+        {
+          "id": 7190,
+          "lane": 22,
+          "latency_ns": 19511286349,
+          "error": ""
+        },
+        {
+          "id": 7203,
+          "lane": 35,
+          "latency_ns": 19508273219,
+          "error": ""
+        },
+        {
+          "id": 7241,
+          "lane": 9,
+          "latency_ns": 19510884712,
+          "error": ""
+        },
+        {
+          "id": 7554,
+          "lane": 2,
+          "latency_ns": 19510714975,
+          "error": ""
+        },
+        {
+          "id": 7578,
+          "lane": 26,
+          "latency_ns": 19510408883,
+          "error": ""
+        },
+        {
+          "id": 7680,
+          "lane": 0,
+          "latency_ns": 19511240835,
+          "error": ""
+        },
+        {
+          "id": 7724,
+          "lane": 44,
+          "latency_ns": 19511500144,
+          "error": ""
+        },
+        {
+          "id": 7757,
+          "lane": 13,
+          "latency_ns": 19511630405,
+          "error": ""
+        },
+        {
+          "id": 8007,
+          "lane": 7,
+          "latency_ns": 19511108482,
+          "error": ""
+        },
+        {
+          "id": 8587,
+          "lane": 11,
+          "latency_ns": 19511798643,
+          "error": ""
+        },
+        {
+          "id": 11128,
+          "lane": 56,
+          "latency_ns": 19508794776,
+          "error": ""
+        },
+        {
+          "id": 11176,
+          "lane": 40,
+          "latency_ns": 19323749156,
+          "error": ""
+        },
+        {
+          "id": 11258,
+          "lane": 58,
+          "latency_ns": 19509085297,
+          "error": ""
+        },
+        {
+          "id": 11282,
+          "lane": 18,
+          "latency_ns": 19508426554,
+          "error": ""
+        },
+        {
+          "id": 11292,
+          "lane": 28,
+          "latency_ns": 19508785169,
+          "error": ""
+        },
+        {
+          "id": 11338,
+          "lane": 10,
+          "latency_ns": 19509354347,
+          "error": ""
+        },
+        {
+          "id": 11340,
+          "lane": 12,
+          "latency_ns": 19509447398,
+          "error": ""
+        },
+        {
+          "id": 11408,
+          "lane": 16,
+          "latency_ns": 19509943615,
+          "error": ""
+        },
+        {
+          "id": 11429,
+          "lane": 37,
+          "latency_ns": 19509597011,
+          "error": ""
+        },
+        {
+          "id": 11441,
+          "lane": 49,
+          "latency_ns": 19509183138,
+          "error": ""
+        },
+        {
+          "id": 11445,
+          "lane": 53,
+          "latency_ns": 19508664094,
+          "error": ""
+        },
+        {
+          "id": 11519,
+          "lane": 63,
+          "latency_ns": 19509522175,
+          "error": ""
+        },
+        {
+          "id": 11540,
+          "lane": 20,
+          "latency_ns": 19509778244,
+          "error": ""
+        },
+        {
+          "id": 11553,
+          "lane": 33,
+          "latency_ns": 19509119024,
+          "error": ""
+        },
+        {
+          "id": 11579,
+          "lane": 59,
+          "latency_ns": 19509530228,
+          "error": ""
+        },
+        {
+          "id": 11622,
+          "lane": 38,
+          "latency_ns": 19509857206,
+          "error": ""
+        },
+        {
+          "id": 11679,
+          "lane": 31,
+          "latency_ns": 19510707593,
+          "error": ""
+        },
+        {
+          "id": 11680,
+          "lane": 32,
+          "latency_ns": 19508458135,
+          "error": ""
+        },
+        {
+          "id": 11713,
+          "lane": 1,
+          "latency_ns": 19509497847,
+          "error": ""
+        },
+        {
+          "id": 11736,
+          "lane": 24,
+          "latency_ns": 19509040859,
+          "error": ""
+        },
+        {
+          "id": 11762,
+          "lane": 50,
+          "latency_ns": 19511261891,
+          "error": ""
+        },
+        {
+          "id": 11795,
+          "lane": 19,
+          "latency_ns": 19509471659,
+          "error": ""
+        },
+        {
+          "id": 11821,
+          "lane": 45,
+          "latency_ns": 19509737619,
+          "error": ""
+        },
+        {
+          "id": 11836,
+          "lane": 60,
+          "latency_ns": 19508430210,
+          "error": ""
+        },
+        {
+          "id": 11995,
+          "lane": 27,
+          "latency_ns": 19510749696,
+          "error": ""
+        }
+      ]
+    },
+    {
+      "source_attempt": "p001-b4096-w1-c16-0-forge-prewarm.json",
+      "workers": 1,
+      "concurrency": 16,
+      "status": "passed",
+      "elapsed_ns": 69640145237,
+      "completed_requests": 12000,
+      "errors": 0,
+      "long_requests": [
+        {
+          "id": 1710,
+          "lane": 14,
+          "latency_ns": 68319455100,
+          "error": ""
+        },
+        {
+          "id": 1714,
+          "lane": 2,
+          "latency_ns": 68321565945,
+          "error": ""
+        },
+        {
+          "id": 1727,
+          "lane": 15,
+          "latency_ns": 68321104931,
+          "error": ""
+        },
+        {
+          "id": 1740,
+          "lane": 12,
+          "latency_ns": 68320452142,
+          "error": ""
+        },
+        {
+          "id": 1751,
+          "lane": 7,
+          "latency_ns": 68320277253,
+          "error": ""
+        },
+        {
+          "id": 1754,
+          "lane": 10,
+          "latency_ns": 68319817786,
+          "error": ""
+        },
+        {
+          "id": 1803,
+          "lane": 11,
+          "latency_ns": 68320137661,
+          "error": ""
+        },
+        {
+          "id": 1813,
+          "lane": 5,
+          "latency_ns": 68320911843,
+          "error": ""
+        },
+        {
+          "id": 1990,
+          "lane": 6,
+          "latency_ns": 68319259672,
+          "error": ""
+        },
+        {
+          "id": 2000,
+          "lane": 0,
+          "latency_ns": 68320820495,
+          "error": ""
+        },
+        {
+          "id": 2024,
+          "lane": 8,
+          "latency_ns": 68320252757,
+          "error": ""
+        },
+        {
+          "id": 2025,
+          "lane": 9,
+          "latency_ns": 68318825453,
+          "error": ""
+        },
+        {
+          "id": 2067,
+          "lane": 3,
+          "latency_ns": 68319780690,
+          "error": ""
+        },
+        {
+          "id": 2081,
+          "lane": 1,
+          "latency_ns": 68319425432,
+          "error": ""
+        },
+        {
+          "id": 2125,
+          "lane": 13,
+          "latency_ns": 68318901075,
+          "error": ""
+        },
+        {
+          "id": 2308,
+          "lane": 4,
+          "latency_ns": 68319734199,
+          "error": ""
+        }
+      ]
+    },
+    {
+      "source_attempt": "p001-b4096-w4-c64-1-forge-measurement.json",
+      "workers": 4,
+      "concurrency": 64,
+      "status": "passed",
+      "elapsed_ns": 38216391419,
+      "completed_requests": 12000,
+      "errors": 0,
+      "long_requests": [
+        {
+          "id": 604,
+          "lane": 28,
+          "latency_ns": 35901885650,
+          "error": ""
+        },
+        {
+          "id": 1813,
+          "lane": 21,
+          "latency_ns": 35840906058,
+          "error": ""
+        },
+        {
+          "id": 4019,
+          "lane": 51,
+          "latency_ns": 35915689307,
+          "error": ""
+        },
+        {
+          "id": 4023,
+          "lane": 55,
+          "latency_ns": 35901624382,
+          "error": ""
+        },
+        {
+          "id": 4141,
+          "lane": 45,
+          "latency_ns": 35904914791,
+          "error": ""
+        },
+        {
+          "id": 4146,
+          "lane": 50,
+          "latency_ns": 35899066329,
+          "error": ""
+        },
+        {
+          "id": 4150,
+          "lane": 54,
+          "latency_ns": 35893865217,
+          "error": ""
+        },
+        {
+          "id": 4207,
+          "lane": 47,
+          "latency_ns": 35895326174,
+          "error": ""
+        },
+        {
+          "id": 4212,
+          "lane": 52,
+          "latency_ns": 35898263163,
+          "error": ""
+        },
+        {
+          "id": 4243,
+          "lane": 19,
+          "latency_ns": 35762269573,
+          "error": ""
+        },
+        {
+          "id": 4261,
+          "lane": 37,
+          "latency_ns": 35899036577,
+          "error": ""
+        },
+        {
+          "id": 4267,
+          "lane": 43,
+          "latency_ns": 35899838134,
+          "error": ""
+        },
+        {
+          "id": 4272,
+          "lane": 48,
+          "latency_ns": 35897987696,
+          "error": ""
+        },
+        {
+          "id": 4273,
+          "lane": 49,
+          "latency_ns": 35894766091,
+          "error": ""
+        },
+        {
+          "id": 4314,
+          "lane": 26,
+          "latency_ns": 35901914096,
+          "error": ""
+        },
+        {
+          "id": 4330,
+          "lane": 42,
+          "latency_ns": 35896506832,
+          "error": ""
+        },
+        {
+          "id": 4345,
+          "lane": 57,
+          "latency_ns": 35895185845,
+          "error": ""
+        },
+        {
+          "id": 4379,
+          "lane": 27,
+          "latency_ns": 35899367638,
+          "error": ""
+        },
+        {
+          "id": 4384,
+          "lane": 32,
+          "latency_ns": 35903352919,
+          "error": ""
+        },
+        {
+          "id": 4391,
+          "lane": 39,
+          "latency_ns": 35895751522,
+          "error": ""
+        },
+        {
+          "id": 4447,
+          "lane": 31,
+          "latency_ns": 35899063489,
+          "error": ""
+        },
+        {
+          "id": 4456,
+          "lane": 40,
+          "latency_ns": 35900639850,
+          "error": ""
+        },
+        {
+          "id": 4510,
+          "lane": 30,
+          "latency_ns": 35899864986,
+          "error": ""
+        },
+        {
+          "id": 4554,
+          "lane": 10,
+          "latency_ns": 35901380631,
+          "error": ""
+        },
+        {
+          "id": 4560,
+          "lane": 16,
+          "latency_ns": 35903186208,
+          "error": ""
+        },
+        {
+          "id": 4562,
+          "lane": 18,
+          "latency_ns": 35897796017,
+          "error": ""
+        },
+        {
+          "id": 4566,
+          "lane": 22,
+          "latency_ns": 35899392496,
+          "error": ""
+        },
+        {
+          "id": 4569,
+          "lane": 25,
+          "latency_ns": 35897151673,
+          "error": ""
+        },
+        {
+          "id": 4677,
+          "lane": 5,
+          "latency_ns": 35900089956,
+          "error": ""
+        },
+        {
+          "id": 4689,
+          "lane": 17,
+          "latency_ns": 35900823711,
+          "error": ""
+        },
+        {
+          "id": 4695,
+          "lane": 23,
+          "latency_ns": 35895532090,
+          "error": ""
+        },
+        {
+          "id": 4735,
+          "lane": 63,
+          "latency_ns": 35901454703,
+          "error": ""
+        },
+        {
+          "id": 4744,
+          "lane": 8,
+          "latency_ns": 35893653077,
+          "error": ""
+        },
+        {
+          "id": 4792,
+          "lane": 56,
+          "latency_ns": 35899466170,
+          "error": ""
+        },
+        {
+          "id": 4803,
+          "lane": 3,
+          "latency_ns": 35896747714,
+          "error": ""
+        },
+        {
+          "id": 4804,
+          "lane": 4,
+          "latency_ns": 35894825975,
+          "error": ""
+        },
+        {
+          "id": 4870,
+          "lane": 6,
+          "latency_ns": 35897728877,
+          "error": ""
+        },
+        {
+          "id": 4924,
+          "lane": 60,
+          "latency_ns": 35897547833,
+          "error": ""
+        },
+        {
+          "id": 4926,
+          "lane": 62,
+          "latency_ns": 35896716766,
+          "error": ""
+        },
+        {
+          "id": 4929,
+          "lane": 1,
+          "latency_ns": 35896870739,
+          "error": ""
+        },
+        {
+          "id": 4994,
+          "lane": 2,
+          "latency_ns": 35900730118,
+          "error": ""
+        },
+        {
+          "id": 5725,
+          "lane": 29,
+          "latency_ns": 35904539877,
+          "error": ""
+        },
+        {
+          "id": 5952,
+          "lane": 0,
+          "latency_ns": 35898378974,
+          "error": ""
+        },
+        {
+          "id": 6027,
+          "lane": 11,
+          "latency_ns": 35900976308,
+          "error": ""
+        },
+        {
+          "id": 6031,
+          "lane": 15,
+          "latency_ns": 35901753753,
+          "error": ""
+        },
+        {
+          "id": 6036,
+          "lane": 20,
+          "latency_ns": 35902520024,
+          "error": ""
+        },
+        {
+          "id": 6051,
+          "lane": 35,
+          "latency_ns": 35900614411,
+          "error": ""
+        },
+        {
+          "id": 6054,
+          "lane": 38,
+          "latency_ns": 35901608402,
+          "error": ""
+        },
+        {
+          "id": 6074,
+          "lane": 58,
+          "latency_ns": 35901647585,
+          "error": ""
+        },
+        {
+          "id": 6075,
+          "lane": 59,
+          "latency_ns": 35898056532,
+          "error": ""
+        },
+        {
+          "id": 6077,
+          "lane": 61,
+          "latency_ns": 35895712441,
+          "error": ""
+        },
+        {
+          "id": 6092,
+          "lane": 12,
+          "latency_ns": 35899400498,
+          "error": ""
+        },
+        {
+          "id": 6093,
+          "lane": 13,
+          "latency_ns": 35901925308,
+          "error": ""
+        },
+        {
+          "id": 6094,
+          "lane": 14,
+          "latency_ns": 35901429062,
+          "error": ""
+        },
+        {
+          "id": 6104,
+          "lane": 24,
+          "latency_ns": 35894384824,
+          "error": ""
+        },
+        {
+          "id": 6113,
+          "lane": 33,
+          "latency_ns": 35893878123,
+          "error": ""
+        },
+        {
+          "id": 6153,
+          "lane": 9,
+          "latency_ns": 35895683967,
+          "error": ""
+        },
+        {
+          "id": 6178,
+          "lane": 34,
+          "latency_ns": 35901986932,
+          "error": ""
+        },
+        {
+          "id": 6180,
+          "lane": 36,
+          "latency_ns": 35910494064,
+          "error": ""
+        },
+        {
+          "id": 6185,
+          "lane": 41,
+          "latency_ns": 35898650661,
+          "error": ""
+        },
+        {
+          "id": 6190,
+          "lane": 46,
+          "latency_ns": 35899123813,
+          "error": ""
+        },
+        {
+          "id": 6261,
+          "lane": 53,
+          "latency_ns": 35899069773,
+          "error": ""
+        },
+        {
+          "id": 6316,
+          "lane": 44,
+          "latency_ns": 1008348256,
+          "error": ""
+        },
+        {
+          "id": 6343,
+          "lane": 7,
+          "latency_ns": 35901149454,
+          "error": ""
+        },
+        {
+          "id": 6444,
+          "lane": 44,
+          "latency_ns": 1024030342,
+          "error": ""
+        },
+        {
+          "id": 6508,
+          "lane": 44,
+          "latency_ns": 35903620453,
+          "error": ""
+        }
+      ]
+    }
+  ],
+  "sockstat": "sockets: used 1939\nTCP: inuse 393 orphan 4 tw 18 alloc 1571 mem 272726\nUDP: inuse 3 mem 1517\nUDPLITE: inuse 0\nRAW: inuse 0\nFRAG: inuse 0 memory 0\n",
+  "global_tcp_ext_counters": {
+    "ListenOverflows": 0,
+    "ListenDrops": 0,
+    "TCPSynRetrans": 3132,
+    "TCPTimeouts": 1987125,
+    "TCPMemoryPressures": 1,
+    "TCPTimeWaitOverflow": 791331,
+    "TCPReqQFullDrop": 0,
+    "TCPReqQFullDoCookies": 0,
+    "TCPBacklogDrop": 0,
+    "TCPRcvQDrop": 3306
+  },
+  "ss_syn_sent": "Recv-Q Send-Q Local Address:Port    Peer Address:Port Process                                                                                                                                                                                                                  \n0      1          127.0.0.1:41762      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020097 lastrcv:1852020097 lastack:1852020097 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41600      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020098 lastrcv:1852020098 lastack:1852020098 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1        172.30.1.61:48056 172.64.155.209:443  \n\t cubic rto:1000 mss:524 pmtu:1500 rcvmss:88 advmss:1460 cwnd:1 ssthresh:7 segs_out:4 lastsnd:1852020098 lastrcv:1852020098 lastack:1852020098 app_limited unacked:1 retrans:0/3 lost:1 rcv_ssthresh:64240              \n0      1          127.0.0.1:41104      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020098 lastrcv:1852020098 lastack:1852020098 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:42994      127.0.0.1:37633\n\t cubic rto:16000 backoff:4 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:9 lastsnd:1852020098 lastrcv:1852020098 lastack:1852020098 app_limited unacked:1 retrans:0/8 lost:1 rcv_ssthresh:65495 \n0      1          127.0.0.1:41604      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020098 lastrcv:1852020098 lastack:1852020098 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41174      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020098 lastrcv:1852020098 lastack:1852020098 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1        172.30.1.61:48058 172.64.155.209:443  \n\t cubic rto:1000 mss:524 pmtu:1500 rcvmss:88 advmss:1460 cwnd:10 segs_out:1 lastsnd:1852020099 lastrcv:1852020099 lastack:1852020099 app_limited unacked:1 rcv_ssthresh:64240                                           \n0      1          127.0.0.1:41452      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020099 lastrcv:1852020099 lastack:1852020099 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:40994      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020099 lastrcv:1852020099 lastack:1852020099 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41728      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020099 lastrcv:1852020099 lastack:1852020099 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:40894      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020099 lastrcv:1852020099 lastack:1852020099 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41398      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020099 lastrcv:1852020099 lastack:1852020099 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41736      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020099 lastrcv:1852020099 lastack:1852020099 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41882      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020099 lastrcv:1852020099 lastack:1852020099 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41500      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020100 lastrcv:1852020100 lastack:1852020100 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41774      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020100 lastrcv:1852020100 lastack:1852020100 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41358      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020100 lastrcv:1852020100 lastack:1852020100 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41464      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020100 lastrcv:1852020100 lastack:1852020100 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41648      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020100 lastrcv:1852020100 lastack:1852020100 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:33092      127.0.0.1:37633\n\t cubic rto:1000 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:5 lastsnd:1852020100 lastrcv:1852020100 lastack:1852020100 app_limited unacked:1 retrans:0/4 lost:1 rcv_ssthresh:65495            \n0      1          127.0.0.1:41330      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020100 lastrcv:1852020100 lastack:1852020100 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41702      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020100 lastrcv:1852020100 lastack:1852020100 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41566      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020100 lastrcv:1852020100 lastack:1852020100 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41176      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020100 lastrcv:1852020100 lastack:1852020100 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1        172.30.1.61:35146 172.64.155.209:443  \n\t cubic rto:16000 backoff:4 mss:524 pmtu:1500 rcvmss:88 advmss:1460 cwnd:1 ssthresh:7 segs_out:9 lastsnd:1852020100 lastrcv:1852020100 lastack:1852020100 app_limited unacked:1 retrans:0/8 lost:1 rcv_ssthresh:64240   \n0      1          127.0.0.1:40892      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020100 lastrcv:1852020100 lastack:1852020100 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41296      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020100 lastrcv:1852020100 lastack:1852020100 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41254      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020101 lastrcv:1852020101 lastack:1852020101 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41074      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020101 lastrcv:1852020101 lastack:1852020101 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41510      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020101 lastrcv:1852020101 lastack:1852020101 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41278      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020101 lastrcv:1852020101 lastack:1852020101 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41880      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020101 lastrcv:1852020101 lastack:1852020101 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41440      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020101 lastrcv:1852020101 lastack:1852020101 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41102      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020101 lastrcv:1852020101 lastack:1852020101 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41220      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020101 lastrcv:1852020101 lastack:1852020101 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:40904      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020101 lastrcv:1852020101 lastack:1852020101 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41574      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020102 lastrcv:1852020102 lastack:1852020102 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41204      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020102 lastrcv:1852020102 lastack:1852020102 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:40930      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020102 lastrcv:1852020102 lastack:1852020102 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41066      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020102 lastrcv:1852020102 lastack:1852020102 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41142      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020102 lastrcv:1852020102 lastack:1852020102 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41110      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020102 lastrcv:1852020102 lastack:1852020102 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41698      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020102 lastrcv:1852020102 lastack:1852020102 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41616      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020102 lastrcv:1852020102 lastack:1852020102 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:42996      127.0.0.1:37633\n\t cubic rto:16000 backoff:4 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:9 lastsnd:1852020102 lastrcv:1852020102 lastack:1852020102 app_limited unacked:1 retrans:0/8 lost:1 rcv_ssthresh:65495 \n0      1          127.0.0.1:41012      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020102 lastrcv:1852020102 lastack:1852020102 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:40998      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020102 lastrcv:1852020102 lastack:1852020102 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41034      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020102 lastrcv:1852020102 lastack:1852020102 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41926      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020102 lastrcv:1852020102 lastack:1852020102 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41664      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020102 lastrcv:1852020102 lastack:1852020102 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41686      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020103 lastrcv:1852020103 lastack:1852020103 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:40964      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020103 lastrcv:1852020103 lastack:1852020103 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:40914      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020103 lastrcv:1852020103 lastack:1852020103 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41970      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020103 lastrcv:1852020103 lastack:1852020103 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:40974      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020103 lastrcv:1852020103 lastack:1852020103 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41940      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020103 lastrcv:1852020103 lastack:1852020103 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41518      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020103 lastrcv:1852020103 lastack:1852020103 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41674      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020103 lastrcv:1852020103 lastack:1852020103 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41052      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020103 lastrcv:1852020103 lastack:1852020103 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41526      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020104 lastrcv:1852020104 lastack:1852020104 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:40984      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020104 lastrcv:1852020104 lastack:1852020104 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41384      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020104 lastrcv:1852020104 lastack:1852020104 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41750      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020104 lastrcv:1852020104 lastack:1852020104 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:43012      127.0.0.1:37633\n\t cubic rto:16000 backoff:4 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:9 lastsnd:1852020104 lastrcv:1852020104 lastack:1852020104 app_limited unacked:1 retrans:0/8 lost:1 rcv_ssthresh:65495 \n0      1          127.0.0.1:41256      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020104 lastrcv:1852020104 lastack:1852020104 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n0      1          127.0.0.1:41018      127.0.0.1:37633\n\t cubic rto:32000 backoff:5 mss:524 pmtu:65535 rcvmss:88 advmss:65495 cwnd:1 ssthresh:7 segs_out:10 lastsnd:1852020104 lastrcv:1852020104 lastack:1852020104 app_limited unacked:1 retrans:0/9 lost:1 rcv_ssthresh:65495\n"
+}
