@@ -1,0 +1,22 @@
+--- a/benchmark/cpu/kernels.fg
++++ b/benchmark/cpu/kernels.fg
+@@ -14,7 +14,7 @@
+ fn primes(n: int, rounds: int, seed: int): int {
+  let sum: int=0;let r: int=0;
+  while(r<rounds){let i: int=0;while(i<n){let value: int=1000001+seed+r*n+i;let prime: int=1;
+-  if(value<2){prime=0;}else if(value==2||value==3){prime=1;}else if(value%2==0){prime=0;}else{let d: int=3;while(d*d<=value){if(value%d==0){prime=0;break;}d=d+2;}}
++  if(value<2){prime=0;}else if(value==2||value==3){prime=1;}else if(value%2==0){prime=0;}else if(value%3==0){prime=0;}else{let d: int=5;while(d*d<=value){if(value%d==0){prime=0;break;}let next: int=d+2;if(next*next<=value&&value%next==0){prime=0;break;}d=d+6;}}
+   if(prime!=0){sum=sum+value;}i=i+1;}r=r+1;}return sum;
+ }
+ fn pattern(n: int, seed: int): string {
+--- a/benchmark/cpu/kernels.rs
++++ b/benchmark/cpu/kernels.rs
+@@ -7,7 +7,7 @@
+ fn primes(n:i64,rounds:i64,seed:i64)->i64 {
+  let mut sum=0;let mut r=0;
+  while r<rounds {let mut i=0;while i<n {let value=1000001+seed+r*n+i;let mut prime=true;
+-  if value<2 {prime=false;} else if value==2||value==3 {prime=true;} else if value%2==0 {prime=false;} else {let mut d=3;while d*d<=value {if value%d==0 {prime=false;break;}d+=2;}}
++  if value<2 {prime=false;} else if value==2||value==3 {prime=true;} else if value%2==0 {prime=false;} else if value%3==0 {prime=false;} else {let mut d=5;while d*d<=value {if value%d==0 {prime=false;break;}let next=d+2;if next*next<=value&&value%next==0 {prime=false;break;}d+=6;}}
+   if prime {sum+=value;}i+=1;}r+=1;}sum
+ }
+ fn pattern(n:i64,seed:i64)->String {
