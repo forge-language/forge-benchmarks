@@ -1,0 +1,2123 @@
+{
+  "description": "Linux registered-fd event-loop modification: baseline delete+add versus candidate EPOLL_CTL_MOD fallback-add and direct Rust epoll_ctl(MOD). Candidate improves Forge update throughput 5.88x but remains below the 1.10 Rust-relative target.",
+  "method": {
+    "operations": 100000,
+    "pairs": 48,
+    "cpu": 0,
+    "random_seed": 20261013,
+    "ordering": "shuffled cyclic rotations balance ordinal positions",
+    "warmup": "one correctness-checked process per implementation per pair",
+    "timing": "shared CLOCK_MONOTONIC timer around only repeated MOD calls; setup and readiness validation excluded",
+    "confidence": "paired median bootstrap percentile 95% interval, per comparison"
+  },
+  "environment": {
+    "platform": "Linux-6.8.0-139-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3",
+    "allowed_affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ]
+  },
+  "artifacts": {
+    "base": {
+      "path": "/tmp/forge-eventmod-bench-20261012/base",
+      "sha256": "a39d0b35243f12174b50ad0761b7cbb102a1463e1e9bd77827c4138c793bc712"
+    },
+    "candidate": {
+      "path": "/tmp/forge-eventmod-bench-20261012/candidate",
+      "sha256": "5968164cd9e3cae6b66604cd373a9880a54c7209c8674353bfce537ea0f7d95d"
+    },
+    "rust": {
+      "path": "/tmp/forge-eventmod-bench-20261012/rust",
+      "sha256": "5daee8162530fe8f48c256f8327381c8f493eabeaeb96c31cbc9eb7c12b75d8e"
+    }
+  },
+  "source_sha256": {
+    "benchmark/event_mod/forge.c": "a72c1208b72f2c2fd5e9d5d3231cbaa290773964748da96879aa2b9468a3ad1d",
+    "benchmark/event_mod/rust.rs": "c0a2e521aa5dd2de379866029d3d423f0b122a413e2feafa094e6982d66e68fb",
+    "benchmark/cpu/clock.c": "e186278a041ec53b5e919b39d944c1f07ecb9f6bb662a4afbbf748f93e96d5c9"
+  },
+  "library_sha256": {
+    "baseline": "764d95b3dd11dae2efe89406683951a3f8effda1749b1dccc879f5e3f990d6f2",
+    "candidate": "1d6762432242324c9018ed688d212eb3b2f1b3858694391065f9b955dbfd249b"
+  },
+  "results": {
+    "base": {
+      "median_ops_per_second": 491785.67984539794,
+      "median_elapsed_ns": 203340613.0
+    },
+    "candidate": {
+      "median_ops_per_second": 2890579.8053190727,
+      "median_elapsed_ns": 34595142.0
+    },
+    "rust": {
+      "median_ops_per_second": 2986211.6476138886,
+      "median_elapsed_ns": 33487245.5
+    }
+  },
+  "forge_over_rust": {
+    "base": {
+      "median": 0.16489417639684975,
+      "ci95": [
+        0.16309851024649502,
+        0.1662155478594752
+      ]
+    },
+    "candidate": {
+      "median": 0.9682348732618864,
+      "ci95": [
+        0.958839212503597,
+        0.9752280334680538
+      ]
+    }
+  },
+  "candidate_over_base": {
+    "median": 5.879957045478674,
+    "ci95": [
+      5.841598861868974,
+      5.917868137938605
+    ]
+  },
+  "warmups": [
+    {
+      "implementation": "rust",
+      "pair": 0,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 40873775
+    },
+    {
+      "implementation": "base",
+      "pair": 0,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 204520114
+    },
+    {
+      "implementation": "candidate",
+      "pair": 0,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 34654636
+    },
+    {
+      "implementation": "candidate",
+      "pair": 1,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 34125121
+    },
+    {
+      "implementation": "rust",
+      "pair": 1,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 32658541
+    },
+    {
+      "implementation": "base",
+      "pair": 1,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 201584221
+    },
+    {
+      "implementation": "base",
+      "pair": 2,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 199728446
+    },
+    {
+      "implementation": "candidate",
+      "pair": 2,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 36620058
+    },
+    {
+      "implementation": "rust",
+      "pair": 2,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 33248727
+    },
+    {
+      "implementation": "candidate",
+      "pair": 3,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 34669692
+    },
+    {
+      "implementation": "rust",
+      "pair": 3,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 34807192
+    },
+    {
+      "implementation": "base",
+      "pair": 3,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 200852971
+    },
+    {
+      "implementation": "base",
+      "pair": 4,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 203224799
+    },
+    {
+      "implementation": "candidate",
+      "pair": 4,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 35343799
+    },
+    {
+      "implementation": "rust",
+      "pair": 4,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 33197626
+    },
+    {
+      "implementation": "candidate",
+      "pair": 5,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 35191136
+    },
+    {
+      "implementation": "rust",
+      "pair": 5,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 33926628
+    },
+    {
+      "implementation": "base",
+      "pair": 5,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 200302347
+    },
+    {
+      "implementation": "candidate",
+      "pair": 6,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 36302771
+    },
+    {
+      "implementation": "rust",
+      "pair": 6,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 32693784
+    },
+    {
+      "implementation": "base",
+      "pair": 6,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 203882610
+    },
+    {
+      "implementation": "candidate",
+      "pair": 7,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 35244624
+    },
+    {
+      "implementation": "rust",
+      "pair": 7,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 34211977
+    },
+    {
+      "implementation": "base",
+      "pair": 7,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 204586672
+    },
+    {
+      "implementation": "rust",
+      "pair": 8,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 36286781
+    },
+    {
+      "implementation": "base",
+      "pair": 8,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 201276466
+    },
+    {
+      "implementation": "candidate",
+      "pair": 8,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 37200081
+    },
+    {
+      "implementation": "base",
+      "pair": 9,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 203484964
+    },
+    {
+      "implementation": "candidate",
+      "pair": 9,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 35919429
+    },
+    {
+      "implementation": "rust",
+      "pair": 9,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 32382846
+    },
+    {
+      "implementation": "candidate",
+      "pair": 10,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 34874596
+    },
+    {
+      "implementation": "rust",
+      "pair": 10,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 34012317
+    },
+    {
+      "implementation": "base",
+      "pair": 10,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 203647687
+    },
+    {
+      "implementation": "rust",
+      "pair": 11,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 35093028
+    },
+    {
+      "implementation": "base",
+      "pair": 11,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 200067510
+    },
+    {
+      "implementation": "candidate",
+      "pair": 11,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 36881363
+    },
+    {
+      "implementation": "base",
+      "pair": 12,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 202201558
+    },
+    {
+      "implementation": "candidate",
+      "pair": 12,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 35727108
+    },
+    {
+      "implementation": "rust",
+      "pair": 12,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 33259515
+    },
+    {
+      "implementation": "rust",
+      "pair": 13,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 33300931
+    },
+    {
+      "implementation": "base",
+      "pair": 13,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 202965550
+    },
+    {
+      "implementation": "candidate",
+      "pair": 13,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 36933513
+    },
+    {
+      "implementation": "candidate",
+      "pair": 14,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 35328721
+    },
+    {
+      "implementation": "rust",
+      "pair": 14,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 32987040
+    },
+    {
+      "implementation": "base",
+      "pair": 14,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 214438592
+    },
+    {
+      "implementation": "candidate",
+      "pair": 15,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 35406749
+    },
+    {
+      "implementation": "rust",
+      "pair": 15,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 32788266
+    },
+    {
+      "implementation": "base",
+      "pair": 15,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 204474074
+    },
+    {
+      "implementation": "base",
+      "pair": 16,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 208265458
+    },
+    {
+      "implementation": "candidate",
+      "pair": 16,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 34628468
+    },
+    {
+      "implementation": "rust",
+      "pair": 16,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 33055743
+    },
+    {
+      "implementation": "candidate",
+      "pair": 17,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 34977810
+    },
+    {
+      "implementation": "rust",
+      "pair": 17,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 33049016
+    },
+    {
+      "implementation": "base",
+      "pair": 17,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 207379634
+    },
+    {
+      "implementation": "base",
+      "pair": 18,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 203335141
+    },
+    {
+      "implementation": "candidate",
+      "pair": 18,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 35994337
+    },
+    {
+      "implementation": "rust",
+      "pair": 18,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 33747389
+    },
+    {
+      "implementation": "rust",
+      "pair": 19,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 32531805
+    },
+    {
+      "implementation": "base",
+      "pair": 19,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 200753002
+    },
+    {
+      "implementation": "candidate",
+      "pair": 19,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 36657032
+    },
+    {
+      "implementation": "candidate",
+      "pair": 20,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 34449129
+    },
+    {
+      "implementation": "rust",
+      "pair": 20,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 34625168
+    },
+    {
+      "implementation": "base",
+      "pair": 20,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 203590472
+    },
+    {
+      "implementation": "base",
+      "pair": 21,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 205266515
+    },
+    {
+      "implementation": "candidate",
+      "pair": 21,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 35659995
+    },
+    {
+      "implementation": "rust",
+      "pair": 21,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 34034057
+    },
+    {
+      "implementation": "base",
+      "pair": 22,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 199095517
+    },
+    {
+      "implementation": "candidate",
+      "pair": 22,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 37288588
+    },
+    {
+      "implementation": "rust",
+      "pair": 22,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 33051211
+    },
+    {
+      "implementation": "candidate",
+      "pair": 23,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 34413328
+    },
+    {
+      "implementation": "rust",
+      "pair": 23,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 35794458
+    },
+    {
+      "implementation": "base",
+      "pair": 23,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 198661783
+    },
+    {
+      "implementation": "candidate",
+      "pair": 24,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 35608051
+    },
+    {
+      "implementation": "rust",
+      "pair": 24,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 33390308
+    },
+    {
+      "implementation": "base",
+      "pair": 24,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 203905076
+    },
+    {
+      "implementation": "rust",
+      "pair": 25,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 37045174
+    },
+    {
+      "implementation": "base",
+      "pair": 25,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 199748801
+    },
+    {
+      "implementation": "candidate",
+      "pair": 25,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 35268574
+    },
+    {
+      "implementation": "candidate",
+      "pair": 26,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 34589861
+    },
+    {
+      "implementation": "rust",
+      "pair": 26,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 34225094
+    },
+    {
+      "implementation": "base",
+      "pair": 26,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 203341755
+    },
+    {
+      "implementation": "base",
+      "pair": 27,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 198522056
+    },
+    {
+      "implementation": "candidate",
+      "pair": 27,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 34786578
+    },
+    {
+      "implementation": "rust",
+      "pair": 27,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 32659972
+    },
+    {
+      "implementation": "rust",
+      "pair": 28,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 33281273
+    },
+    {
+      "implementation": "base",
+      "pair": 28,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 199375852
+    },
+    {
+      "implementation": "candidate",
+      "pair": 28,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 37542242
+    },
+    {
+      "implementation": "rust",
+      "pair": 29,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 34915170
+    },
+    {
+      "implementation": "base",
+      "pair": 29,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 206976933
+    },
+    {
+      "implementation": "candidate",
+      "pair": 29,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 35136935
+    },
+    {
+      "implementation": "candidate",
+      "pair": 30,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 34523144
+    },
+    {
+      "implementation": "rust",
+      "pair": 30,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 33439622
+    },
+    {
+      "implementation": "base",
+      "pair": 30,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 204430476
+    },
+    {
+      "implementation": "rust",
+      "pair": 31,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 34001807
+    },
+    {
+      "implementation": "base",
+      "pair": 31,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 201131484
+    },
+    {
+      "implementation": "candidate",
+      "pair": 31,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 36193549
+    },
+    {
+      "implementation": "rust",
+      "pair": 32,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 37086984
+    },
+    {
+      "implementation": "base",
+      "pair": 32,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 197880720
+    },
+    {
+      "implementation": "candidate",
+      "pair": 32,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 39674140
+    },
+    {
+      "implementation": "rust",
+      "pair": 33,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 33545856
+    },
+    {
+      "implementation": "base",
+      "pair": 33,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 201883592
+    },
+    {
+      "implementation": "candidate",
+      "pair": 33,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 34655723
+    },
+    {
+      "implementation": "candidate",
+      "pair": 34,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 33774734
+    },
+    {
+      "implementation": "rust",
+      "pair": 34,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 32390399
+    },
+    {
+      "implementation": "base",
+      "pair": 34,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 197152397
+    },
+    {
+      "implementation": "candidate",
+      "pair": 35,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 35585307
+    },
+    {
+      "implementation": "rust",
+      "pair": 35,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 36302966
+    },
+    {
+      "implementation": "base",
+      "pair": 35,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 203567977
+    },
+    {
+      "implementation": "base",
+      "pair": 36,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 199623539
+    },
+    {
+      "implementation": "candidate",
+      "pair": 36,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 36414602
+    },
+    {
+      "implementation": "rust",
+      "pair": 36,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 32933200
+    },
+    {
+      "implementation": "base",
+      "pair": 37,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 202005969
+    },
+    {
+      "implementation": "candidate",
+      "pair": 37,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 35409898
+    },
+    {
+      "implementation": "rust",
+      "pair": 37,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 33169558
+    },
+    {
+      "implementation": "rust",
+      "pair": 38,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 34797609
+    },
+    {
+      "implementation": "base",
+      "pair": 38,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 204871110
+    },
+    {
+      "implementation": "candidate",
+      "pair": 38,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 36265728
+    },
+    {
+      "implementation": "rust",
+      "pair": 39,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 33089108
+    },
+    {
+      "implementation": "base",
+      "pair": 39,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 201629598
+    },
+    {
+      "implementation": "candidate",
+      "pair": 39,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 35613852
+    },
+    {
+      "implementation": "rust",
+      "pair": 40,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 32846864
+    },
+    {
+      "implementation": "base",
+      "pair": 40,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 202739885
+    },
+    {
+      "implementation": "candidate",
+      "pair": 40,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 39042189
+    },
+    {
+      "implementation": "base",
+      "pair": 41,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 203884895
+    },
+    {
+      "implementation": "candidate",
+      "pair": 41,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 36935945
+    },
+    {
+      "implementation": "rust",
+      "pair": 41,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 34111356
+    },
+    {
+      "implementation": "base",
+      "pair": 42,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 205248956
+    },
+    {
+      "implementation": "candidate",
+      "pair": 42,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 36189654
+    },
+    {
+      "implementation": "rust",
+      "pair": 42,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 33910873
+    },
+    {
+      "implementation": "rust",
+      "pair": 43,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 33136130
+    },
+    {
+      "implementation": "base",
+      "pair": 43,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 201352788
+    },
+    {
+      "implementation": "candidate",
+      "pair": 43,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 35563307
+    },
+    {
+      "implementation": "base",
+      "pair": 44,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 214022099
+    },
+    {
+      "implementation": "candidate",
+      "pair": 44,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 34457983
+    },
+    {
+      "implementation": "rust",
+      "pair": 44,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 33051455
+    },
+    {
+      "implementation": "base",
+      "pair": 45,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 197508238
+    },
+    {
+      "implementation": "candidate",
+      "pair": 45,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 36234783
+    },
+    {
+      "implementation": "rust",
+      "pair": 45,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 32943506
+    },
+    {
+      "implementation": "rust",
+      "pair": 46,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 32655113
+    },
+    {
+      "implementation": "base",
+      "pair": 46,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 205312483
+    },
+    {
+      "implementation": "candidate",
+      "pair": 46,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 35810246
+    },
+    {
+      "implementation": "base",
+      "pair": 47,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 204183807
+    },
+    {
+      "implementation": "candidate",
+      "pair": 47,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 36172860
+    },
+    {
+      "implementation": "rust",
+      "pair": 47,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 33792641
+    }
+  ],
+  "measurements": [
+    {
+      "implementation": "rust",
+      "pair": 0,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 34318314
+    },
+    {
+      "implementation": "base",
+      "pair": 0,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 201526596
+    },
+    {
+      "implementation": "candidate",
+      "pair": 0,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 33929080
+    },
+    {
+      "implementation": "candidate",
+      "pair": 1,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 34610153
+    },
+    {
+      "implementation": "rust",
+      "pair": 1,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 32615969
+    },
+    {
+      "implementation": "base",
+      "pair": 1,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 204552866
+    },
+    {
+      "implementation": "base",
+      "pair": 2,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 203599785
+    },
+    {
+      "implementation": "candidate",
+      "pair": 2,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 34114110
+    },
+    {
+      "implementation": "rust",
+      "pair": 2,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 32620545
+    },
+    {
+      "implementation": "candidate",
+      "pair": 3,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 34790834
+    },
+    {
+      "implementation": "rust",
+      "pair": 3,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 33757721
+    },
+    {
+      "implementation": "base",
+      "pair": 3,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 201999026
+    },
+    {
+      "implementation": "base",
+      "pair": 4,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 200735934
+    },
+    {
+      "implementation": "candidate",
+      "pair": 4,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 35294968
+    },
+    {
+      "implementation": "rust",
+      "pair": 4,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 33143493
+    },
+    {
+      "implementation": "candidate",
+      "pair": 5,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 34759662
+    },
+    {
+      "implementation": "rust",
+      "pair": 5,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 32931657
+    },
+    {
+      "implementation": "base",
+      "pair": 5,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 210674978
+    },
+    {
+      "implementation": "candidate",
+      "pair": 6,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 36270932
+    },
+    {
+      "implementation": "rust",
+      "pair": 6,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 34829014
+    },
+    {
+      "implementation": "base",
+      "pair": 6,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 203314857
+    },
+    {
+      "implementation": "candidate",
+      "pair": 7,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 34618774
+    },
+    {
+      "implementation": "rust",
+      "pair": 7,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 33193838
+    },
+    {
+      "implementation": "base",
+      "pair": 7,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 203520179
+    },
+    {
+      "implementation": "rust",
+      "pair": 8,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 33315688
+    },
+    {
+      "implementation": "base",
+      "pair": 8,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 205661260
+    },
+    {
+      "implementation": "candidate",
+      "pair": 8,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 34426077
+    },
+    {
+      "implementation": "base",
+      "pair": 9,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 202213855
+    },
+    {
+      "implementation": "candidate",
+      "pair": 9,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 34407301
+    },
+    {
+      "implementation": "rust",
+      "pair": 9,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 33549939
+    },
+    {
+      "implementation": "candidate",
+      "pair": 10,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 35818200
+    },
+    {
+      "implementation": "rust",
+      "pair": 10,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 33283660
+    },
+    {
+      "implementation": "base",
+      "pair": 10,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 204517921
+    },
+    {
+      "implementation": "rust",
+      "pair": 11,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 33007010
+    },
+    {
+      "implementation": "base",
+      "pair": 11,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 200200412
+    },
+    {
+      "implementation": "candidate",
+      "pair": 11,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 34100834
+    },
+    {
+      "implementation": "base",
+      "pair": 12,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 203621826
+    },
+    {
+      "implementation": "candidate",
+      "pair": 12,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 34791614
+    },
+    {
+      "implementation": "rust",
+      "pair": 12,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 34724595
+    },
+    {
+      "implementation": "rust",
+      "pair": 13,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 33420438
+    },
+    {
+      "implementation": "base",
+      "pair": 13,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 201043767
+    },
+    {
+      "implementation": "candidate",
+      "pair": 13,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 36027714
+    },
+    {
+      "implementation": "candidate",
+      "pair": 14,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 33897483
+    },
+    {
+      "implementation": "rust",
+      "pair": 14,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 34162669
+    },
+    {
+      "implementation": "base",
+      "pair": 14,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 205532331
+    },
+    {
+      "implementation": "candidate",
+      "pair": 15,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 35630221
+    },
+    {
+      "implementation": "rust",
+      "pair": 15,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 34146056
+    },
+    {
+      "implementation": "base",
+      "pair": 15,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 200986412
+    },
+    {
+      "implementation": "base",
+      "pair": 16,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 205905811
+    },
+    {
+      "implementation": "candidate",
+      "pair": 16,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 35777352
+    },
+    {
+      "implementation": "rust",
+      "pair": 16,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 32689759
+    },
+    {
+      "implementation": "candidate",
+      "pair": 17,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 33916403
+    },
+    {
+      "implementation": "rust",
+      "pair": 17,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 33076227
+    },
+    {
+      "implementation": "base",
+      "pair": 17,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 204993541
+    },
+    {
+      "implementation": "base",
+      "pair": 18,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 203563852
+    },
+    {
+      "implementation": "candidate",
+      "pair": 18,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 34398173
+    },
+    {
+      "implementation": "rust",
+      "pair": 18,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 33492602
+    },
+    {
+      "implementation": "rust",
+      "pair": 19,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 33954156
+    },
+    {
+      "implementation": "base",
+      "pair": 19,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 200801243
+    },
+    {
+      "implementation": "candidate",
+      "pair": 19,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 35290275
+    },
+    {
+      "implementation": "candidate",
+      "pair": 20,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 33880050
+    },
+    {
+      "implementation": "rust",
+      "pair": 20,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 32467242
+    },
+    {
+      "implementation": "base",
+      "pair": 20,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 202715248
+    },
+    {
+      "implementation": "base",
+      "pair": 21,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 203366369
+    },
+    {
+      "implementation": "candidate",
+      "pair": 21,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 34580131
+    },
+    {
+      "implementation": "rust",
+      "pair": 21,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 32916929
+    },
+    {
+      "implementation": "base",
+      "pair": 22,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 208532842
+    },
+    {
+      "implementation": "candidate",
+      "pair": 22,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 34355186
+    },
+    {
+      "implementation": "rust",
+      "pair": 22,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 34289548
+    },
+    {
+      "implementation": "candidate",
+      "pair": 23,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 34932684
+    },
+    {
+      "implementation": "rust",
+      "pair": 23,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 38425064
+    },
+    {
+      "implementation": "base",
+      "pair": 23,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 199457148
+    },
+    {
+      "implementation": "candidate",
+      "pair": 24,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 34015183
+    },
+    {
+      "implementation": "rust",
+      "pair": 24,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 32958767
+    },
+    {
+      "implementation": "base",
+      "pair": 24,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 202921358
+    },
+    {
+      "implementation": "rust",
+      "pair": 25,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 33895556
+    },
+    {
+      "implementation": "base",
+      "pair": 25,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 202604833
+    },
+    {
+      "implementation": "candidate",
+      "pair": 25,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 34226960
+    },
+    {
+      "implementation": "candidate",
+      "pair": 26,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 34434795
+    },
+    {
+      "implementation": "rust",
+      "pair": 26,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 33997804
+    },
+    {
+      "implementation": "base",
+      "pair": 26,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 202535171
+    },
+    {
+      "implementation": "base",
+      "pair": 27,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 202649514
+    },
+    {
+      "implementation": "candidate",
+      "pair": 27,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 34017504
+    },
+    {
+      "implementation": "rust",
+      "pair": 27,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 33209747
+    },
+    {
+      "implementation": "rust",
+      "pair": 28,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 33893603
+    },
+    {
+      "implementation": "base",
+      "pair": 28,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 208618955
+    },
+    {
+      "implementation": "candidate",
+      "pair": 28,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 36628717
+    },
+    {
+      "implementation": "rust",
+      "pair": 29,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 33407362
+    },
+    {
+      "implementation": "base",
+      "pair": 29,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 206950943
+    },
+    {
+      "implementation": "candidate",
+      "pair": 29,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 34204475
+    },
+    {
+      "implementation": "candidate",
+      "pair": 30,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 34061700
+    },
+    {
+      "implementation": "rust",
+      "pair": 30,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 33976789
+    },
+    {
+      "implementation": "base",
+      "pair": 30,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 205239932
+    },
+    {
+      "implementation": "rust",
+      "pair": 31,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 33775718
+    },
+    {
+      "implementation": "base",
+      "pair": 31,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 203703432
+    },
+    {
+      "implementation": "candidate",
+      "pair": 31,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 35709642
+    },
+    {
+      "implementation": "rust",
+      "pair": 32,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 35276669
+    },
+    {
+      "implementation": "base",
+      "pair": 32,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 201240936
+    },
+    {
+      "implementation": "candidate",
+      "pair": 32,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 34053493
+    },
+    {
+      "implementation": "rust",
+      "pair": 33,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 33205137
+    },
+    {
+      "implementation": "base",
+      "pair": 33,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 204581621
+    },
+    {
+      "implementation": "candidate",
+      "pair": 33,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 34283493
+    },
+    {
+      "implementation": "candidate",
+      "pair": 34,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 35568696
+    },
+    {
+      "implementation": "rust",
+      "pair": 34,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 32622165
+    },
+    {
+      "implementation": "base",
+      "pair": 34,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 199049498
+    },
+    {
+      "implementation": "candidate",
+      "pair": 35,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 36277377
+    },
+    {
+      "implementation": "rust",
+      "pair": 35,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 34058813
+    },
+    {
+      "implementation": "base",
+      "pair": 35,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 202833346
+    },
+    {
+      "implementation": "base",
+      "pair": 36,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 203631001
+    },
+    {
+      "implementation": "candidate",
+      "pair": 36,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 34088658
+    },
+    {
+      "implementation": "rust",
+      "pair": 36,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 34037958
+    },
+    {
+      "implementation": "base",
+      "pair": 37,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 204130624
+    },
+    {
+      "implementation": "candidate",
+      "pair": 37,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 34944307
+    },
+    {
+      "implementation": "rust",
+      "pair": 37,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 35502933
+    },
+    {
+      "implementation": "rust",
+      "pair": 38,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 33697882
+    },
+    {
+      "implementation": "base",
+      "pair": 38,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 212643088
+    },
+    {
+      "implementation": "candidate",
+      "pair": 38,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 35053070
+    },
+    {
+      "implementation": "rust",
+      "pair": 39,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 34020528
+    },
+    {
+      "implementation": "base",
+      "pair": 39,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 199802589
+    },
+    {
+      "implementation": "candidate",
+      "pair": 39,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 34829320
+    },
+    {
+      "implementation": "rust",
+      "pair": 40,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 32676863
+    },
+    {
+      "implementation": "base",
+      "pair": 40,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 204917745
+    },
+    {
+      "implementation": "candidate",
+      "pair": 40,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 35611374
+    },
+    {
+      "implementation": "base",
+      "pair": 41,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 202372262
+    },
+    {
+      "implementation": "candidate",
+      "pair": 41,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 35697702
+    },
+    {
+      "implementation": "rust",
+      "pair": 41,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 34892806
+    },
+    {
+      "implementation": "base",
+      "pair": 42,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 206253610
+    },
+    {
+      "implementation": "candidate",
+      "pair": 42,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 35116036
+    },
+    {
+      "implementation": "rust",
+      "pair": 42,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 33115589
+    },
+    {
+      "implementation": "rust",
+      "pair": 43,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 33481889
+    },
+    {
+      "implementation": "base",
+      "pair": 43,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 201490055
+    },
+    {
+      "implementation": "candidate",
+      "pair": 43,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 34064161
+    },
+    {
+      "implementation": "base",
+      "pair": 44,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 204349216
+    },
+    {
+      "implementation": "candidate",
+      "pair": 44,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 33820880
+    },
+    {
+      "implementation": "rust",
+      "pair": 44,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 32599173
+    },
+    {
+      "implementation": "base",
+      "pair": 45,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 200343210
+    },
+    {
+      "implementation": "candidate",
+      "pair": 45,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 34114886
+    },
+    {
+      "implementation": "rust",
+      "pair": 45,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 33979936
+    },
+    {
+      "implementation": "rust",
+      "pair": 46,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 33437121
+    },
+    {
+      "implementation": "base",
+      "pair": 46,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 202749349
+    },
+    {
+      "implementation": "candidate",
+      "pair": 46,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 35011617
+    },
+    {
+      "implementation": "base",
+      "pair": 47,
+      "position": 0,
+      "operations": 100000,
+      "elapsed_ns": 202495591
+    },
+    {
+      "implementation": "candidate",
+      "pair": 47,
+      "position": 1,
+      "operations": 100000,
+      "elapsed_ns": 34226753
+    },
+    {
+      "implementation": "rust",
+      "pair": 47,
+      "position": 2,
+      "operations": 100000,
+      "elapsed_ns": 33157275
+    }
+  ],
+  "runner": {
+    "path": "/home/helloworld0822/coding/forge-benchmarks/benchmark/event_mod/compare.py",
+    "sha256": "8185276c133f210163bec6a587d4c49781f02aff8ee22374a6957641c181f50b"
+  },
+  "runtime_source_sha256": {
+    "/home/helloworld0822/coding/forge-runtime/CMakeLists.txt": "708ef525699887fb4181ff2d97482a22cb21dcee96ad12a41620cb73f7259063",
+    "/home/helloworld0822/coding/forge-runtime/src/event_loop.c": "a49897f25ba59bfdc7513939a29854c76fb99a945b32605a9a92b7941ff140ab",
+    "/home/helloworld0822/coding/forge-runtime/tests/event_loop_test.c": "f71b01cfaf4240d6bd9d732265cc13dacf0ee1eff890f7257b21f252c7a9c661"
+  },
+  "target_1_10_status": "below target; candidate Forge/Rust median 0.9682 with 95% interval [0.9588, 0.9752]",
+  "baseline_runtime_revision": "e3eb0089bdc9760d0d6fbaadd4d9fde0f17f26fe",
+  "candidate_runtime_revision": "7e7bb50699945815ef427f0c98aeed801399add5"
+}
