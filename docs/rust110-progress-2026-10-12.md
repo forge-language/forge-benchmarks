@@ -154,3 +154,15 @@ To remove two per-client `fcntl` calls, a Linux-only candidate kept the epoll li
 ## Prime-loop wheel candidate
 
 Fixed a benchmark reference gap: the prime oracle previously assumed positive values and the two language fixtures misclassified 2 and 3. Commit `9c7e27c` corrects the oracle and both fixtures; five unit tests and 78 signed-seed Forge/Rust checks pass. A separate 24-pair trial-divisor wheel experiment reduced both Forge and source-matched Rust median time by about 1.49x, but their matched throughput ratio remained 1.0074 [1.0025, 1.0103]. This is an algorithmic speedup shared by both implementations, not evidence that Forge reached 1.10x Rust, so it is not adopted as a compiler performance claim. [Conditions and paired results](cpu-prime-wheel-2026-10-12.md), [all samples](cpu-prime-wheel-2026-10-12.json), [reproduction patch](cpu-prime-wheel-2026-10-12.patch), [frozen builds and checksums](cpu-prime-wheel-2026-10-12.raw.tar.gz).
+
+## Corrected-prime-fixture CPU recheck
+
+After the prime-oracle boundary fix, a fresh 40-pair full-suite run used the
+same compiler/SDK archives and frozen dimensions as the 120-pair current-SDK
+recheck. LCG measured 1.0039 [0.9999, 1.0111], primes 1.0118
+[1.0089, 1.0133], scan 1.9439 [1.9368, 1.9548], builder 1.2439
+[1.0954, 1.3073], and immutable append 18.1410 [9.3272, 18.9618]
+Rust/Forge throughput. The fixture correction leaves LCG and primes below 1.10;
+scan and immutable append support this host/run, and builder remains
+inconclusive. Its source, executable hashes, conditions, and all samples are
+preserved separately from the earlier 120-pair run. [Report and raw samples](cpu-current-edgefix-40-2026-10-12.md), [machine-readable data](cpu-current-edgefix-40-2026-10-12.json).
