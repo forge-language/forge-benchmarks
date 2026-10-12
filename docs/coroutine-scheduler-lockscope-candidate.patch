@@ -1,0 +1,33 @@
+diff --git a/src/scheduler.c b/src/scheduler.c
+index 25b1c42..ed597ff 100644
+--- a/src/scheduler.c
++++ b/src/scheduler.c
+@@ -230,7 +230,12 @@ static void *worker_main(void *arg) {
+         while (sched->running && sched->runnable == 0)
+             fr_cond_wait(sched->idle_cond, sched->lock);
+         if (!sched->running) { fr_mutex_unlock(sched->lock); break; }
++        fr_mutex_unlock(sched->lock);
+ 
++        /* Queue locks protect the dequeue itself. Keep scheduler state locked
++         * only while checking the idle predicate and committing ownership of
++         * the dequeued coroutine, so workers can pop/steal in parallel. The
++         * runnable count includes a dequeued item until that commit. */
+         fr_coro_t *coro = fr_run_queue_pop(&sched->worker_queues[wid]);
+         if (!coro) {
+             for (int i = 0; i < sched->worker_count; i++) {
+@@ -240,6 +245,7 @@ static void *worker_main(void *arg) {
+             }
+         }
+         if (coro) {
++            fr_mutex_lock(sched->lock);
+             sched->runnable--;
+             coro->on_queue = 0;
+             coro->executing = 1;
+@@ -272,6 +278,7 @@ static void *worker_main(void *arg) {
+             continue;
+         }
+ 
++        fr_mutex_lock(sched->lock);
+         void *narg = NULL;
+         fr_native_fn nfn = fr_native_queue_pop(&sched->native_queues[wid], &narg);
+         if (!nfn) {
