@@ -1,0 +1,20 @@
+diff --git a/src/http.c b/src/http.c
+--- a/src/http.c
++++ b/src/http.c
+@@ -519,0 +520,6 @@
++#if defined(FORGE_OS_LINUX)
++    /* Linux accept4 returns a blocking accepted socket unless SOCK_NONBLOCK is
++     * requested. The listener remains nonblocking for the epoll accept loop,
++     * so do not pay two fcntl calls to convert this per-client descriptor. */
++    if (fr_sock_set_timeout(client, 5000) != 0) {
++#else
+@@ -521,0 +528 @@
++#endif
+@@ -575,0 +583,5 @@
++#if defined(FORGE_OS_LINUX)
++    /* Keep the listening socket nonblocking, but accept blocking client fds.
++     * SOCK_CLOEXEC preserves the descriptor-leak protection from accept4. */
++    int client = accept4(listen_fd, NULL, NULL, SOCK_CLOEXEC);
++#else
+@@ -576,0 +589 @@
++#endif

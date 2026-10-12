@@ -146,3 +146,7 @@ repeat; this remains one machine and this fixture suite, not a language-wide
 claim. The source variant and archives differ from earlier CPU reports, so
 their medians must not be pooled. [Conditions and raw samples](cpu-current-rerun-2026-10-12.md),
 [raw report](cpu-current-rerun-2026-10-12.json).
+
+## Linux HTTP accepted-socket optimization candidate
+
+To remove two per-client `fcntl` calls, a Linux-only candidate kept the epoll listener nonblocking and accepted client fds as blocking with `SOCK_CLOEXEC`. The candidate passed 14 HTTP V2 correctness probes and the 10-test stdlib CTest suite. In a 24-triplet, position-balanced run at two workers, 64 clients and 32-byte responses, candidate/baseline throughput was 0.8323 [0.6969, 1.3336] and candidate/Rust was 0.8205 [0.7258, 0.9343]. All 72 measured samples and 72 prewarms passed, but p99 latency reached roughly 208 ms and the baseline interval remained very wide. The candidate is not a performance win and was reverted. The broader HTTP path remains below the 1.10 target on this sample. [Decision, failed attempt, conditions and raw bundles](http-accept4-blocking-experiment-2026-10-12.md).
