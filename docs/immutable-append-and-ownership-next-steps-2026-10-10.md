@@ -160,3 +160,31 @@ never remove an alias to manufacture a speedup.
 These are staged implementation decisions, not an API implementation or a
 promise of a fixed speedup. The next implementation step is design review and profiling; new string APIs
 and ownership representations remain unimplemented.
+
+## Compiler/backend audit: current lowering is not safe
+
+The current compiler has no string ownership or alias proof for this
+transformation. `compiler/optimize.c` folds arithmetic expressions but does not
+rewrite statement-level string loops. `compiler/semantic.c` tracks whether a
+local is initialized and whether an explicit owned binding was moved; it does
+not track string aliases, live views, or escaping references. Code generation
+maps `str_append` directly to the legacy runtime symbol.
+
+The existing builder API is not a drop-in replacement. Native
+`fr_str_append` narrows an arbitrary integer to `char`, including zero, while
+`fr_str_builder_char` accepts only bytes 1 through 255. The JavaScript backend
+implements append with `String.fromCharCode`, whereas builder bytes are decoded
+as UTF-8. A source-level rewrite would therefore change behavior for values
+outside the builder byte range and for non-ASCII bytes. A successful rewrite
+also needs to preserve previous snapshots and failure behavior, and cannot
+cross an arena reset or an unknown call that may observe the current string.
+
+The existing immutable fixture uses only ASCII bytes, so it does not cover
+these semantic boundaries. Before compiler lowering, add a separately reviewed
+internal operation whose byte behavior is explicitly equivalent on each
+backend, then prove the binding is a dead-temporary chain with no aliases,
+views, captures, resets, or unknown escaping calls. Preserve the legacy path
+whenever any proof is missing. Required negative tests include aliased prior
+snapshots, NUL and out-of-range byte values, UTF-8/backend parity, allocation
+failure, and reset/coroutine boundaries. No compiler transformation or
+performance claim is made by this audit.
