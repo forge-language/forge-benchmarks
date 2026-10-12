@@ -12,6 +12,8 @@ use std::os::fd::{AsRawFd, FromRawFd, OwnedFd, RawFd};
 use std::time::{Duration, Instant};
 
 const IO_TIMEOUT: Duration = Duration::from_secs(10);
+const MAX_PENDING_CONNECTS: usize = 256;
+const TIMEOUT_SCAN_INTERVAL: Duration = Duration::from_millis(25);
 const HEADER: &str = "id\tlatency_ns\tconnect_ns\tsetup_ns\twrite_ns\tread_ns\teof_ns\tresponse_bytes\tfailed_stage\terror\n";
 const ERROR_EVENTS: u32 = (libc::EPOLLRDHUP | libc::EPOLLERR | libc::EPOLLHUP) as u32;
 
@@ -67,7 +69,7 @@ struct Completed {
     error: String,
 }
 
-fn socket_connect(port: u16) -> io::Result<(OwnedFd, bool)> {
+fn socket_connect(port: u16, source_address: u8) -> io::Result<(OwnedFd, bool)> {
     // SAFETY: socket returns either an owned descriptor or -1.
     let raw = unsafe {
         libc::socket(
@@ -80,6 +82,25 @@ fn socket_connect(port: u16) -> io::Result<(OwnedFd, bool)> {
         return Err(io::Error::last_os_error());
     }
     let fd = unsafe { OwnedFd::from_raw_fd(raw) };
+    let source = libc::sockaddr_in {
+        sin_family: libc::AF_INET as libc::sa_family_t,
+        sin_port: 0,
+        sin_addr: libc::in_addr {
+            s_addr: u32::from_ne_bytes([127, 0, 0, source_address]),
+        },
+        sin_zero: [0; 8],
+    };
+    // SAFETY: source is a live IPv4 sockaddr with an ephemeral local port.
+    if unsafe {
+        libc::bind(
+            raw,
+            (&source as *const libc::sockaddr_in).cast(),
+            size_of::<libc::sockaddr_in>() as libc::socklen_t,
+        )
+    } < 0
+    {
+        return Err(io::Error::last_os_error());
+    }
     let address = libc::sockaddr_in {
         sin_family: libc::AF_INET as libc::sa_family_t,
         sin_port: port.to_be(),
@@ -197,11 +218,13 @@ fn begin_request(
     epoll: RawFd,
     token: u64,
     response_len: usize,
+    source_address_count: u8,
 ) -> Result<Request, Completed> {
     let padding = "x".repeat(32 + (seed + id) % 512);
     let bytes = format!("GET /bench/{seed}/{id} HTTP/1.1\r\nHost: localhost\r\nX-Input: {padding}\r\nConnection: close\r\n\r\n").into_bytes();
     let started = Instant::now();
-    let (fd, connected) = match socket_connect(port) {
+    let source_address = (id % usize::from(source_address_count)) as u8 + 1;
+    let (fd, connected) = match socket_connect(port, source_address) {
         Ok(result) => result,
         Err(error) => {
             let elapsed = elapsed_ns(started);
@@ -382,9 +405,9 @@ fn main() -> io::Result<()> {
     #[cfg(not(target_os = "linux"))]
     compile_error!("http-load-epoll requires Linux epoll");
     let args: Vec<_> = std::env::args().collect();
-    if !(8..=9).contains(&args.len()) {
+    if !(8..=10).contains(&args.len()) {
         eprintln!(
-            "usage: http-load-epoll PORT CONCURRENCY REQUESTS SEED RESPONSE_FILE ROWS_FILE CONNECT_TIMEOUT_MS [IO_TIMEOUT_MS]"
+            "usage: http-load-epoll PORT CONCURRENCY REQUESTS SEED RESPONSE_FILE ROWS_FILE CONNECT_TIMEOUT_MS [IO_TIMEOUT_MS [SOURCE_ADDRESS_COUNT]]"
         );
         std::process::exit(2);
     }
@@ -394,15 +417,22 @@ fn main() -> io::Result<()> {
     let seed: usize = args[4].parse().expect("seed");
     let response = std::fs::read(&args[5])?;
     let connect_timeout = Duration::from_millis(args[7].parse().expect("connect timeout ms"));
-    let io_timeout = if args.len() == 9 {
+    let io_timeout = if args.len() >= 9 {
         Duration::from_millis(args[8].parse().expect("I/O timeout ms"))
     } else {
         IO_TIMEOUT
+    };
+    let source_address_count = if args.len() == 10 {
+        args[9].parse::<usize>().expect("source address count")
+    } else {
+        1
     };
     if concurrency == 0
         || requests < concurrency
         || connect_timeout.is_zero()
         || io_timeout.is_zero()
+        || source_address_count == 0
+        || source_address_count > 254
         || response.is_empty()
     {
         return Err(io::Error::new(
@@ -432,23 +462,39 @@ fn main() -> io::Result<()> {
     let epoll = unsafe { OwnedFd::from_raw_fd(raw_epoll) };
     let mut active: std::collections::HashMap<u64, Request> =
         std::collections::HashMap::with_capacity(concurrency);
+    let mut pending_connects = 0usize;
     let mut next_id = 0usize;
     let mut next_token = 1u64;
     let mut attempts = 0usize;
     let mut errors = 0usize;
     let mut stopped = false;
     let started = Instant::now();
+    let mut next_timeout_scan = started + TIMEOUT_SCAN_INTERVAL;
     let mut events: Vec<libc::epoll_event> = (0..concurrency.min(256).max(1))
         .map(|_| unsafe { zeroed() })
         .collect();
 
-    while next_id < requests && active.len() < concurrency {
+    while next_id < requests
+        && active.len() < concurrency
+        && pending_connects < MAX_PENDING_CONNECTS
+    {
         let id = next_id;
         next_id += 1;
         let token = next_token;
         next_token += 1;
-        match begin_request(id, seed, port, epoll.as_raw_fd(), token, response.len()) {
+        match begin_request(
+            id,
+            seed,
+            port,
+            epoll.as_raw_fd(),
+            token,
+            response.len(),
+            source_address_count as u8,
+        ) {
             Ok(req) => {
+                if req.phase == Phase::Connect {
+                    pending_connects += 1;
+                }
                 active.insert(token, req);
             }
             Err(row) => {
@@ -463,17 +509,10 @@ fn main() -> io::Result<()> {
 
     while !active.is_empty() {
         let now = Instant::now();
-        let nearest = active
-            .values()
-            .map(|request| {
-                request.phase_started + phase_timeout(request.phase, connect_timeout, io_timeout)
-            })
-            .min()
-            .unwrap();
-        let wait_ms = if nearest <= now {
+        let wait_ms = if next_timeout_scan <= now {
             0
         } else {
-            ((nearest - now).as_millis().max(1)).min(i32::MAX as u128) as i32
+            ((next_timeout_scan - now).as_millis().max(1)).min(i32::MAX as u128) as i32
         };
         let event_count = unsafe {
             libc::epoll_wait(
@@ -528,11 +567,11 @@ fn main() -> io::Result<()> {
                     if socket_error != 0 {
                         return Err(io::Error::from_raw_os_error(socket_error));
                     }
+                    pending_connects -= 1;
                     enter_setup(req)?;
                 }
-                let socket_failure = flags
-                    & ((libc::EPOLLERR | libc::EPOLLHUP | libc::EPOLLRDHUP) as u32)
-                    != 0;
+                let socket_failure =
+                    flags & ((libc::EPOLLERR | libc::EPOLLHUP | libc::EPOLLRDHUP) as u32) != 0;
                 if req.phase == Phase::Write && socket_failure {
                     let mut socket_error: libc::c_int = 0;
                     let mut len = size_of::<libc::c_int>() as libc::socklen_t;
@@ -595,16 +634,20 @@ fn main() -> io::Result<()> {
             }
         }
         let now = Instant::now();
-        for (token, req) in active.iter() {
-            if now >= req.phase_started + phase_timeout(req.phase, connect_timeout, io_timeout) {
-                done.push((
-                    *token,
-                    Some((
-                        req.phase,
-                        io::Error::new(io::ErrorKind::TimedOut, "stage deadline exceeded"),
-                    )),
-                ));
+        if now >= next_timeout_scan {
+            for (token, req) in active.iter() {
+                if now >= req.phase_started + phase_timeout(req.phase, connect_timeout, io_timeout)
+                {
+                    done.push((
+                        *token,
+                        Some((
+                            req.phase,
+                            io::Error::new(io::ErrorKind::TimedOut, "stage deadline exceeded"),
+                        )),
+                    ));
+                }
             }
+            next_timeout_scan = now + TIMEOUT_SCAN_INTERVAL;
         }
         done.sort_by_key(|(token, _)| *token);
         done.dedup_by_key(|(token, _)| *token);
@@ -618,6 +661,9 @@ fn main() -> io::Result<()> {
             let Some(req) = active.remove(&token) else {
                 continue;
             };
+            if req.phase == Phase::Connect {
+                pending_connects -= 1;
+            }
             let _ = unsafe {
                 libc::epoll_ctl(
                     epoll.as_raw_fd(),
@@ -634,21 +680,39 @@ fn main() -> io::Result<()> {
                 errors += 1;
                 stopped = true;
             }
-            if !stopped && next_id < requests {
-                let id = next_id;
-                next_id += 1;
-                let token = next_token;
-                next_token += 1;
-                match begin_request(id, seed, port, epoll.as_raw_fd(), token, response.len()) {
-                    Ok(req) => {
-                        active.insert(token, req);
+        }
+        // Keep connect creation bounded while the reactor also services
+        // already-connected sockets. Filling every lane before polling can
+        // deadlock a server whose accept workers wait for request bytes.
+        while !stopped
+            && next_id < requests
+            && active.len() < concurrency
+            && pending_connects < MAX_PENDING_CONNECTS
+        {
+            let id = next_id;
+            next_id += 1;
+            let token = next_token;
+            next_token += 1;
+            match begin_request(
+                id,
+                seed,
+                port,
+                epoll.as_raw_fd(),
+                token,
+                response.len(),
+                source_address_count as u8,
+            ) {
+                Ok(req) => {
+                    if req.phase == Phase::Connect {
+                        pending_connects += 1;
                     }
-                    Err(row) => {
-                        errors += 1;
-                        stopped = true;
-                        write_row(&mut rows, &row)?;
-                        attempts += 1;
-                    }
+                    active.insert(token, req);
+                }
+                Err(row) => {
+                    errors += 1;
+                    stopped = true;
+                    write_row(&mut rows, &row)?;
+                    attempts += 1;
                 }
             }
         }

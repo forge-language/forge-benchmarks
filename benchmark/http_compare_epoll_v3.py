@@ -26,7 +26,7 @@ from cpu_compare import confidence, sha
 from thread_compare import physical_cpus
 
 ROOT = Path(__file__).resolve().parents[1]
-PROTOCOL = "prepared-http-v3-single-reactor-epoll"
+PROTOCOL = "prepared-http-v3.2-multisource-windowed-epoll"
 FIXTURE = v2.FIXTURE
 IO_TIMEOUT_MS = 10000
 
@@ -93,7 +93,8 @@ def validate_request_rows(columns, rows, wanted, requested, attempted, completed
 
 
 def run_trial(server_binary, load_binary, workers, concurrency, requests, seed,
-              body_size, server_cpus, client_cpu, prefix, connect_timeout_ms):
+              body_size, server_cpus, client_cpu, prefix, connect_timeout_ms,
+              source_address_count, io_timeout_ms):
     body = v2.body_for(seed, body_size)
     expected = v2.response_for(body)
     response_path = Path(str(prefix) + "-expected.bin")
@@ -104,8 +105,9 @@ def run_trial(server_binary, load_binary, workers, concurrency, requests, seed,
     result = {
         "status": "running", "protocol": PROTOCOL, "workers": workers,
         "concurrency": concurrency, "requests": requests, "seed": seed,
+        "source_address_count": source_address_count,
         "body_bytes": body_size, "connect_timeout_ms": connect_timeout_ms,
-        "io_timeout_ms": IO_TIMEOUT_MS,
+        "io_timeout_ms": io_timeout_ms,
         "observer_failure_policy": "first failure stops new requests; all in-flight attempts finish/time out and are retained; fail without retry",
         "observer_thread_model": "one epoll reactor thread; at most concurrency active sockets",
         "body_sha256": hashlib.sha256(body.encode()).hexdigest(),
@@ -122,7 +124,8 @@ def run_trial(server_binary, load_binary, workers, concurrency, requests, seed,
         request = f"GET /probe/{seed} HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n".encode()
         result["independent_probe"] = v2.exchange(port, request, expected)
         load_command = [str(load_binary), *map(str, [port, concurrency, requests, seed]),
-                        str(response_path), str(samples_path), str(connect_timeout_ms), str(IO_TIMEOUT_MS)]
+                        str(response_path), str(samples_path), str(connect_timeout_ms),
+                        str(io_timeout_ms), str(source_address_count)]
         result["load_command"] = load_command
         env = dict(os.environ)
         with stderr_path.open("xb") as error_output:
@@ -225,14 +228,14 @@ def run_trial(server_binary, load_binary, workers, concurrency, requests, seed,
 
 
 def markdown(report, output):
-    lines = ["# Prepared HTTP benchmark — observer protocol V3 (single epoll reactor)", "",
-        "This separately versioned path drives the unchanged prepared HTTP servers with a single Linux epoll client reactor. V3 timing is not compatible with V1/V2 and must not be pooled with them.", "",
+    lines = ["# Prepared HTTP benchmark — observer protocol V3.2 (windowed multi-source epoll)", "",
+        "This separately versioned path drives the unchanged prepared HTTP servers with a single Linux epoll client reactor. It binds across the configured number of 127/8 source addresses to expand ephemeral-port tuples, caps pending connects at 256, and checks socket deadlines every 25 ms while polling events. V3.2 timing is not compatible with V1/V2 and must not be pooled with them.", "",
         "| Body bytes | Workers | Concurrent sockets | Forge req/s | Rust req/s | Paired Rust/Forge ratio (95% interval) | 1.10 target |",
         "| ---: | ---: | ---: | ---: | ---: | --- | --- |"]
     for row in report["summary"]:
         low, high = row["ci95"]
         lines.append(f"| {row['body_bytes']} | {row['workers']} | {row['concurrency']} | {row['forge_median_rps']:.1f} | {row['rust_median_rps']:.1f} | {row['paired_ratio_median']:.4f} [{low:.4f}, {high:.4f}] | {row['target_status']} |")
-    lines += ["", "Every request uses a new loopback connection. The observer has one pinned reactor thread and at most the configured number of active sockets. It checks every response byte against an independently generated packet, then separately requires EOF. Partial/failed trials preserve completed TSV rows and fail the comparison without retries or excluded failures. Its CPU, readiness polling, epoll work, request validation, TSV writes, and final process completion are in the reported elapsed interval.", "",
+    lines += ["", f"Every request uses a new loopback connection across {report['method']['source_address_count']} source addresses. The observer has one pinned reactor thread and at most the configured number of active sockets, with no more than 256 pending connects. It checks every response byte against an independently generated packet, then separately requires EOF. Partial/failed trials preserve completed TSV rows and fail the comparison without retries or excluded failures. Its CPU, readiness polling, epoll work, deadline checks, request validation, TSV writes, and final process completion are in the reported elapsed interval.", "",
         "The Forge and Rust server fixtures, server correctness probes, CPU setup, kernel snapshots, and paired-order statistics reuse the V2 runner helpers. The client source, runner, resulting binary hash, snapshot hashes and commands are retained in the build/report metadata. The client uses the same implementation for both server languages, so its work is part of the measured end-to-end loopback workload. Results do not establish general HTTP framework, TLS, keepalive, internet-facing capacity, or language-wide performance.", "",
         f"Raw run and retained attempts: [{output.name}]({output.name}); directory `{report['raw_directory']}`.", ""]
     return "\n".join(lines)
@@ -251,7 +254,12 @@ def main():
     parser.add_argument("--body-bytes", type=int, nargs="+", default=[32, 4096])
     parser.add_argument("--requests", type=int, default=12000)
     parser.add_argument("--pairs", type=int, default=16)
-    parser.add_argument("--connect-timeout-ms", type=int, default=10000)
+    parser.add_argument("--connect-timeout-ms", type=int, default=10000,
+                        help="per-phase connect timeout; capacity probes may require up to 180000 ms")
+    parser.add_argument("--io-timeout-ms", type=int, default=IO_TIMEOUT_MS,
+                        help="per-phase I/O timeout; capacity probes may require up to 180000 ms")
+    parser.add_argument("--source-address-count", type=int, default=1,
+                        help="spread client sockets across 127.0.0.1..127.0.0.N to expand ephemeral-port tuples")
     parser.add_argument("--random-seed", type=int, default=20261012)
     parser.add_argument("--build-only", action="store_true")
     parser.add_argument("--reuse-build", action="store_true")
@@ -261,9 +269,11 @@ def main():
     if (not args.workers or len(set(args.workers)) != len(args.workers) or
         any(value not in (1, 2, 4) for value in args.workers) or
         max(args.workers) + 1 > len(cpus) or
-        not 1 <= args.connect_timeout_ms <= 60000 or args.pairs < 8 or args.pairs % 2 or
+        not 1 <= args.connect_timeout_ms <= 180000 or
+        not 1 <= args.io_timeout_ms <= 180000 or args.pairs < 8 or args.pairs % 2 or
         args.requests < max(args.concurrency) or
-        any(value < 1 or value > 512 for value in args.concurrency) or
+        not 1 <= args.source_address_count <= 254 or
+        any(value < 1 or value > 28232 * args.source_address_count for value in args.concurrency) or
         any(value < 1 or value > 65536 for value in args.body_bytes)):
         parser.error("Require unique 1/2/4 workers, one disjoint client CPU, even >=8 pairs and valid dimensions")
     if not args.build_only and (args.output.exists() or args.output.with_suffix(".md").exists()):
@@ -288,12 +298,19 @@ def main():
         "environment": {"platform": platform.platform(), "lscpu": v2.capture(["lscpu"]),
             "physical_cpu_candidates": cpus, "client_cpu": client_cpu,
             "load_average_start": os.getloadavg(),
+            "kernel_tcp": {str(path): path.read_text().strip() for path in [
+                Path("/proc/sys/net/ipv4/ip_local_port_range"),
+                Path("/proc/sys/net/ipv4/tcp_max_syn_backlog"),
+                Path("/proc/sys/net/core/somaxconn")
+            ] if path.exists()},
             "rlimits_parent": {name: resource.getrlimit(getattr(resource, name)) for name in ["RLIMIT_NOFILE", "RLIMIT_MEMLOCK"]}},
-        "method": {"protocol": PROTOCOL, "io_timeout_ms": IO_TIMEOUT_MS,
+        "method": {"protocol": PROTOCOL, "io_timeout_ms": args.io_timeout_ms,
             "pairs": args.pairs, "requests_per_sample": args.requests,
             "worker_configurations": args.workers, "concurrency_configurations": args.concurrency,
+            "source_address_count": args.source_address_count,
             "body_byte_configurations": args.body_bytes, "random_seed": args.random_seed,
             "scope": "single reactor; closed-loop fixed-count TCP connect + request write + exact response bytes + separate EOF + immediate TSV writes",
+            "connect_window": "at most 256 pending TCP connects; the reactor polls and sends request bytes while additional lanes are launched; socket deadlines are checked every 25 ms instead of scanning all active sockets for every event batch",
             "observer_failure_policy": "stop new requests after first failure; drain active attempts; no retry",
             "timing_compatibility": "not comparable/poolable with V1 or V2"},
         "correctness_checks": [], "warmups": [], "measurements": [], "summary": []}
@@ -314,7 +331,8 @@ def main():
             for name, server_binary in servers.items():
                 row = run_trial(server_binary, load, workers, concurrency,
                     max(17, concurrency), 97, args.body_bytes[0], cpus[:workers], client_cpu,
-                    raw / ("smoke-" + name), args.connect_timeout_ms)
+                    raw / ("smoke-" + name), args.connect_timeout_ms,
+                    args.source_address_count, args.io_timeout_ms)
                 report["correctness_checks"].append({"language": name, "epoll_observer_smoke": True, **row})
                 save(output, report)
             report["status"] = "validation_passed_no_performance_measurements"
@@ -333,7 +351,8 @@ def main():
                     for kind in ["prewarm", "measurement"]:
                         prefix = raw / f"p{pair:03d}-b{body}-w{workers}-c{concurrency}-{position}-{name}-{kind}"
                         row = run_trial(servers[name], load, workers, concurrency, args.requests, seed,
-                            body, cpus[:workers], client_cpu, prefix, args.connect_timeout_ms)
+                            body, cpus[:workers], client_cpu, prefix, args.connect_timeout_ms,
+                            args.source_address_count, args.io_timeout_ms)
                         report["warmups" if kind == "prewarm" else "measurements"].append(
                             {"pair": pair, "order": position, "language": name, **row})
                         save(output, report)

@@ -16,7 +16,7 @@ class Peer:
         self.listener = socket.socket()
         self.listener.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.listener.bind(("127.0.0.1", 0))
-        self.listener.listen(32)
+        self.listener.listen(512)
         self.listener.settimeout(0.1)
         self.port = self.listener.getsockname()[1]
         self.behavior = behavior
@@ -67,14 +67,18 @@ class EpollLoadTests(unittest.TestCase):
     def setUpClass(cls):
         cls.binary = str(OPTIONS.binary.resolve())
 
-    def invoke(self, port, expected, connect_timeout=500, io_timeout=500, requests=1, concurrency=1):
+    def invoke(self, port, expected, connect_timeout=500, io_timeout=500, requests=1, concurrency=1,
+               source_addresses=1):
         with tempfile.TemporaryDirectory() as temp:
             directory = Path(temp)
             response_path, rows_path = directory / "expected.bin", directory / "rows.tsv"
             response_path.write_bytes(expected)
             child = subprocess.Popen(
                 [self.binary, str(port), str(concurrency), str(requests), "17",
-                 str(response_path), str(rows_path), str(connect_timeout), str(io_timeout)],
+                 str(response_path), str(rows_path), str(connect_timeout), str(io_timeout),
+                 str(source_addresses)],
+                # The optional source-address count spreads ephemeral ports
+                # over loopback IPs while preserving the same request protocol.
                 stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
             self.assertEqual(child.stdout.readline(), "ready\n")
             child.stdin.write("go\n")
@@ -108,6 +112,17 @@ class EpollLoadTests(unittest.TestCase):
         self.assertEqual(rows[0]["failed_stage"], "")
         self.assertEqual(int(rows[0]["response_bytes"]), len(expected))
         self.assertGreater(int(rows[0]["eof_ns"]), 0)
+
+    def test_multiple_loopback_source_addresses(self):
+        expected = packet()
+        (elapsed, attempts, errors), rows = self.run_peer(
+            lambda connection, _request: connection.sendall(expected),
+            connect_timeout=5000, io_timeout=5000,
+            requests=512, concurrency=512, source_addresses=4)
+        self.assertGreater(elapsed, 0)
+        self.assertEqual((attempts, errors), (512, 0))
+        self.assertEqual(len(rows), 512)
+        self.assertTrue(all(int(row["response_bytes"]) == len(expected) for row in rows))
 
     def test_short_response_fails_read(self):
         expected = packet()
