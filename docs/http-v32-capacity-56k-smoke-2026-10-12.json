@@ -1,0 +1,2423 @@
+{
+  "status": "validation_passed_no_performance_measurements",
+  "protocol": "prepared-http-v3.2-multisource-windowed-epoll",
+  "started_at_utc": "2026-10-12T22:18:39Z",
+  "build": {
+    "artifacts": {
+      "compiler": {
+        "original": "/home/helloworld0822/coding/forge/build/bin/forge",
+        "sha256": "8078d2ee501e92873993747d2c793a0a197059c363aff78c86d99b929036a4fd",
+        "bytes": 228848,
+        "mtime_ns": 1791842466989691428
+      },
+      "runtime": {
+        "original": "/home/helloworld0822/coding/forge/build/lib/libforge_runtime.a",
+        "sha256": "7d2fc8bd99383a74ad07687cc068fd7410ae001b4034b75e57c3c5cc065d0380",
+        "bytes": 51332,
+        "mtime_ns": 1791842465913686556
+      },
+      "stdlib": {
+        "original": "/home/helloworld0822/coding/forge/build/lib/libforge_std.a",
+        "sha256": "37e86b0dce7d31821a2075d13e0ac7960b847ca014b0e99c3fab580402183510",
+        "bytes": 131556,
+        "mtime_ns": 1791818689992984261
+      }
+    },
+    "commands": [
+      [
+        "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/snapshot/forge",
+        "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/snapshot/server.fg",
+        "--emit-c",
+        "-o",
+        "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/snapshot/server.c",
+        "--forge-root",
+        "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/snapshot"
+      ],
+      [
+        "cc",
+        "-std=gnu11",
+        "-O3",
+        "-DNDEBUG",
+        "-march=native",
+        "-flto",
+        "-I",
+        "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/snapshot/include",
+        "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/snapshot/server.c",
+        "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/snapshot/config.c",
+        "-Wl,--wrap=fr_thread_pin_cpu",
+        "-Wl,--start-group",
+        "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/snapshot/libforge_std.a",
+        "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/snapshot/libforge_runtime.a",
+        "-Wl,--end-group",
+        "-lpthread",
+        "-lm",
+        "-o",
+        "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/forge-http"
+      ],
+      [
+        "cc",
+        "-std=gnu11",
+        "-O3",
+        "-march=native",
+        "-c",
+        "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/snapshot/config.c",
+        "-o",
+        "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/snapshot/config.o"
+      ],
+      [
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "--offline",
+        "--manifest-path",
+        "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/snapshot/Cargo.toml",
+        "--target-dir",
+        "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/rust-target"
+      ]
+    ],
+    "command_results": [
+      {
+        "command": [
+          "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/snapshot/forge",
+          "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/snapshot/server.fg",
+          "--emit-c",
+          "-o",
+          "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/snapshot/server.c",
+          "--forge-root",
+          "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/snapshot"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "cc",
+          "-std=gnu11",
+          "-O3",
+          "-DNDEBUG",
+          "-march=native",
+          "-flto",
+          "-I",
+          "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/snapshot/include",
+          "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/snapshot/server.c",
+          "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/snapshot/config.c",
+          "-Wl,--wrap=fr_thread_pin_cpu",
+          "-Wl,--start-group",
+          "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/snapshot/libforge_std.a",
+          "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/snapshot/libforge_runtime.a",
+          "-Wl,--end-group",
+          "-lpthread",
+          "-lm",
+          "-o",
+          "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/forge-http"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "cc",
+          "-std=gnu11",
+          "-O3",
+          "-march=native",
+          "-c",
+          "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/snapshot/config.c",
+          "-o",
+          "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/snapshot/config.o"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "cargo",
+          "build",
+          "--release",
+          "--locked",
+          "--offline",
+          "--manifest-path",
+          "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/snapshot/Cargo.toml",
+          "--target-dir",
+          "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/rust-target"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "   Compiling libc v0.2.186\n   Compiling socket2 v0.6.4\n   Compiling forge-http-control-v2 v0.1.0 (/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/snapshot)\n    Finished `release` profile [optimized] target(s) in 5.81s\n"
+      }
+    ],
+    "rustflags": "-C target-cpu=native -C link-arg=/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/snapshot/config.o",
+    "dependencies": [
+      {
+        "name": "libc",
+        "version": "0.2.186",
+        "source": "registry+https://github.com/rust-lang/crates.io-index",
+        "manifest_sha256": "9a45433b9dc5f1dcd397062608a320c2ab472319e79566ea4646dfff3ca67821",
+        "cargo_checksum_sha256": null,
+        "source_file_sha256": {
+          "Cargo.lock": "f73065fee2180d2c25908eb5dadd8a152a7906095b1f2bca0f1da26087d67775",
+          ".release-plz.toml": "fcf2d382c4a2abd96caf9cc391b63e0c94d5832f5c48e9ab9eb4b2c847c0887c",
+          ".cargo_vcs_info.json": "79f4e131fdc5bb4c9e7e0bd24728a9988a8c5d41a0aac106f906a181d3b6e52f",
+          ".rustfmt.toml": "c88d9ba0e884291a2904d43cc7b940fafcb1ab443cdb7bcfca7117809c4f2816",
+          ".cargo-ok": "afbf9d0f3560b0fd7795e81c42a0a79ee6b6fc67e064f77826aee642cad28d91",
+          "LICENSE-APACHE": "62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a",
+          "Cargo.toml": "9a45433b9dc5f1dcd397062608a320c2ab472319e79566ea4646dfff3ca67821",
+          ".gitignore": "ec50473cd7d5b3aecb63dfb75511d751155612dd925043ba34c3b4dbf5850e92",
+          ".git-blame-ignore-revs": "761aa385c661241fa77c15b502c361398cf500bbb9f8c3a4579b412c4c6249d7",
+          "LICENSE-MIT": "123a331b5dbf04c30097fa43b8f858bc85df671fe776de498d01f3d6b7c1f69e",
+          "CONTRIBUTING.md": "a79d97a32ebab59a5d7b360f9f9bd5b8e98b58cd83a7c0853059347f1f81cb53",
+          "README.md": "cc560a2a9ab2a264fe78ec49fe5e5aed8cffdb8ad011a7dfeaaccbf161696bd8",
+          "CHANGELOG.md": "4a8d73789fafa25546de9333d49eed4a1a2e99075fd323b556bc1f65feb19f53",
+          "Cargo.toml.orig": "1aa1b972f961d26c76f62db1292be9d7fc4d24ccccbe8a3c22ffd3a6fc1c2c8d",
+          "build.rs": "4b348c53d0a0cd0067ef9887b50f60a1fffdc5d00dda5c0e27fae6aa0ce3dee8",
+          ".editorconfig": "e57fecd6b82cd69640ca1bc4e44f0c7acfe5fc12f641f14af9536e323b4159db",
+          "tests/const_fn.rs": "8ac3171d7bced3576a4e93f48570b3e00c553d7510ab85a7473ae3b716a812dc",
+          "src/hermit.rs": "b8e56d680321459a27740aa95fe6576ee6d4e223abce74c0a4795fe998c6c30f",
+          "src/macros.rs": "e1a7439f50a1d7a47a3268b625e36e7c9a916909f5b3a7fae35217e454e5680c",
+          "src/xous.rs": "1a83621c40248ad4d0c08e1fd4c1107d5efcbc2f4f0169538b7b4a885abedbfa",
+          "src/types.rs": "5d7831b60664bbe955e00b9b8c75cf834e27295ad36f249f9aee534f533571bc",
+          "src/trusty.rs": "cc90bf6b35a515021a3155aa3cc5fcab33457b8fbb2ac7259f0b694d33625fd8",
+          "src/primitives.rs": "af323402fee13278461bcaec6a06a15dfca24a02d48b0570c88e2746288d7078",
+          "src/psp.rs": "081cf4e5127ba10ebb62a9a5f8f849dd92742693db443db429d446ee472b5d41",
+          "src/sgx.rs": "964d6af358f5c85f948275090e5a7854e0169c43b5c338070b6a4cd156ebc9e6",
+          "src/lib.rs": "cc2d16d6a06b312913276cb785d637d0755e3afbafc92f18376692dc31e1dc77",
+          "src/switch.rs": "5db5be2d9c235c00f74b25cceabdf2ce5ec9e1936f991815513e4edf5dec0d56",
+          "src/wasi/p2.rs": "feecc0485eabd2c32bc5d800df6ad1b9b4d282741342fb08792f2635204e1e08",
+          "src/wasi/mod.rs": "bf128fa1c53277185b638eb953c5b8d503ae7a182780470b40b06f7c29331f38",
+          "src/fuchsia/riscv64.rs": "a91ae8276df139f6181591be7209f9a68e9f3de5eec881c2e1c9768c53c4e292",
+          "src/fuchsia/mod.rs": "b4fc067b8408844fb80be9d017896e41763e2595fcd3526c4fcfed809dd90459",
+          "src/fuchsia/x86_64.rs": "543ea567b29d646afc026956ee5e652c10e87256789058e7e39f91bf2fe8bf14",
+          "src/fuchsia/aarch64.rs": "34105478e20e9ce40b9e484eea6494e2408fead17c13500da90a2d44d996ce63",
+          "src/windows/mod.rs": "01da11840df8118ad12f40dc38e921b4ecfd1045badc700d456f549789df24d4",
+          "src/new/mod.rs": "360bd97f6f1cc19143289c05c0f9e3b86029918f6d9ed78d09c752c81a53ae6c",
+          "src/vxworks/powerpc.rs": "4d4236500f98858fc249f3b6858af5009851c8c582031926b8195b2646f7da5e",
+          "src/vxworks/riscv64.rs": "b1f933205800f0da00f975d53b18fe0035e075cc4613acf110a09a277dc3302a",
+          "src/vxworks/mod.rs": "e687423e39c07ca03d735f464537f40cc6d45407eaf6bbcfcead4a26a2e68881",
+          "src/vxworks/riscv32.rs": "b1f933205800f0da00f975d53b18fe0035e075cc4613acf110a09a277dc3302a",
+          "src/vxworks/x86_64.rs": "b1f933205800f0da00f975d53b18fe0035e075cc4613acf110a09a277dc3302a",
+          "src/vxworks/powerpc64.rs": "4d4236500f98858fc249f3b6858af5009851c8c582031926b8195b2646f7da5e",
+          "src/vxworks/aarch64.rs": "4d4236500f98858fc249f3b6858af5009851c8c582031926b8195b2646f7da5e",
+          "src/vxworks/arm.rs": "4d4236500f98858fc249f3b6858af5009851c8c582031926b8195b2646f7da5e",
+          "src/vxworks/x86.rs": "b1f933205800f0da00f975d53b18fe0035e075cc4613acf110a09a277dc3302a",
+          "src/teeos/mod.rs": "ad18343da08ebb6c1fba77fb8efe9ce4551519bea617c1a000aa92f3e50b8565",
+          "src/solid/mod.rs": "0b5a07cf7df8227fecc13ea5b7ddf0bb9520c8be44bfb8c15f9449715911dfa0",
+          "src/solid/aarch64.rs": "4d4236500f98858fc249f3b6858af5009851c8c582031926b8195b2646f7da5e",
+          "src/solid/arm.rs": "4d4236500f98858fc249f3b6858af5009851c8c582031926b8195b2646f7da5e",
+          "src/qurt/mod.rs": "5af8edfb34f5431586b7ae00b341daa4312737c1e39c16348b1fff1d1cb8c642",
+          "src/unix/mod.rs": "32699be951ec02142e7de59f34ae0f6162620576a4bd88ae372d39d2027421ea",
+          "src/windows/msvc/mod.rs": "40410b26b606d1b59b0742b2632f3cd0a28a5429f784f9693fae0a78c15b3889",
+          "src/windows/gnu/mod.rs": "6422acc5c5a82122c11efb84882778e30888c0693c0993fbf7f3baa59e4cbbb5",
+          "src/new/wasi/mod.rs": "2a74140697bc528193214aad11edc632923bd0cf8350d24f6d600f849dd19e19",
+          "src/new/espidf/mod.rs": "c89c7d3b96583d84888aae0c463dc49b5af61b34a97e9cde52fb9b62d301a023",
+          "src/new/illumos/mod.rs": "eb5dd158844f63375a6fbb881d63279b12865342d1bb0da221216b7aa9c474b5",
+          "src/new/illumos/unistd.rs": "bcbb65f70759cd84c81fc24ea36aac423edb8f9d7148f65b545ee63954411fd1",
+          "src/new/fuchsia/mod.rs": "c15b2da96c52281e86d4f114522999e6e713723f4950d62c2d544be641b28722",
+          "src/new/fuchsia/unistd.rs": "bcbb65f70759cd84c81fc24ea36aac423edb8f9d7148f65b545ee63954411fd1",
+          "src/new/hurd/mod.rs": "190a149192c237634df3e49c4834d05299aee91a3d399f356d97c36d35571a59",
+          "src/new/nuttx/mod.rs": "7dbbf039987cb5ca17d2a1a562dc967de1c31b970568f728339cd5b9c8e05e25",
+          "src/new/nuttx/unistd.rs": "bcbb65f70759cd84c81fc24ea36aac423edb8f9d7148f65b545ee63954411fd1",
+          "src/new/vita/mod.rs": "196d6ca5c9b1ccc602a6270c3cf0b0bdbd39246066d1a8385df03ba45b31d368",
+          "src/new/openbsd/mod.rs": "7d86ff099ddfdc8c383f49a1f6fa9c1169810cbe0c1c57d0e86dc14cb1d87320",
+          "src/new/openbsd/unistd.rs": "bcbb65f70759cd84c81fc24ea36aac423edb8f9d7148f65b545ee63954411fd1",
+          "src/new/horizon/mod.rs": "44b47e15d429026d369adfc16a4e9783cdda1be3d0a04f17c283da06573df886",
+          "src/new/sgx/mod.rs": "c500dc72eff5cbf99c9d7e0e3f1faa3c680bfd7f6ac0166fa1a35fd0d7e69f41",
+          "src/new/sgx/unistd.rs": "bcbb65f70759cd84c81fc24ea36aac423edb8f9d7148f65b545ee63954411fd1",
+          "src/new/l4re/mod.rs": "d0cd277d7c0b32cd5d3619f7a188f3e646da8f71ae07012dccd921b3fb2b2300",
+          "src/new/linux_uapi/mod.rs": "76cc081d46d008fe05fbb3d7f007fb62374d4efd9464916bbeb9b20c288c6416",
+          "src/new/vxworks/mod.rs": "fa569763957eb87e7e1ce5fa07293116c66661ff0c21d277fda5b30c61451176",
+          "src/new/vxworks/unistd.rs": "bcbb65f70759cd84c81fc24ea36aac423edb8f9d7148f65b545ee63954411fd1",
+          "src/new/glibc/mod.rs": "1867ccaee8fe486b3723d683db23b40b2ff0c029c9d6281fd63d6de9de77d4fd",
+          "src/new/cygwin/mod.rs": "9de4cba157252e7731256d60192468f5a759ebd33ab2b509819ffc7557adced5",
+          "src/new/cygwin/unistd.rs": "bcbb65f70759cd84c81fc24ea36aac423edb8f9d7148f65b545ee63954411fd1",
+          "src/new/common/netbsd_like.rs": "4327dd28d929f2c7b316f9241c44da6f6069d3db4381fb82700ec6d70d749041",
+          "src/new/common/mod.rs": "5bcbce2960ff0840ab67a1ba5011009fa1f0f7697cff745d1461bf2b1460ddc6",
+          "src/new/common/solarish.rs": "ac208e1ad95d07b7528419fd9c573612d58af3d50766816b81667570ccb8b3b3",
+          "src/new/common/bsd.rs": "8282cc2b87ca3afc6b01216fe3c3fe1818a3d57e95aa8d1e1a36cc5af1660609",
+          "src/new/common/freebsd_like.rs": "156dce9baa6b0ac57d483ffb582a913b9e4944cf10bbb5711a64da5f496a55c2",
+          "src/new/netbsd/mod.rs": "d7bddddf98b09188a6fe541feaaaecdee85eb55fee2aa3cf670f7e6afa4ac342",
+          "src/new/netbsd/unistd.rs": "bcbb65f70759cd84c81fc24ea36aac423edb8f9d7148f65b545ee63954411fd1",
+          "src/new/netbsd/utmp_.rs": "cbd35108f4ad7fd3c4fc65b888ba7813a29e3ed4af7920604df8085345f81973",
+          "src/new/netbsd/utmpx_.rs": "27171f826d6d2bf962a1d973a3427477ae960ad5dccc947c481d45f17ae645f0",
+          "src/new/apple/mod.rs": "45464bc6661b88e55856acb6ce4c47467a9aba44083e42b0e0d87d80ca3c11fd",
+          "src/new/solaris/mod.rs": "ce8a152ebacb9e8e0d87829d166e3ead64222ead397371bd557e18eefdcafe3d",
+          "src/new/solaris/unistd.rs": "bcbb65f70759cd84c81fc24ea36aac423edb8f9d7148f65b545ee63954411fd1",
+          "src/new/bionic_libc/mod.rs": "5b2b375123095ae59617ffc1b5e13970ae685c823e3cecf014a173d56162d77c",
+          "src/new/bionic_libc/unistd.rs": "bcbb65f70759cd84c81fc24ea36aac423edb8f9d7148f65b545ee63954411fd1",
+          "src/new/bionic_libc/pthread.rs": "d40b7f8421cf78d61f23224c3bda17407e40a1c85dd8122ca4f290624b21d8a1",
+          "src/new/teeos/mod.rs": "1d69f212e2a848a32292eef9ad16a44a8d5cf80c7d43db5f445dbd1a49400e3b",
+          "src/new/relibc/mod.rs": "5c6955e052d8b7ead97179e356c369ffcc435e09fcca4def3e100568845e7296",
+          "src/new/relibc/unistd.rs": "bcbb65f70759cd84c81fc24ea36aac423edb8f9d7148f65b545ee63954411fd1",
+          "src/new/solid/mod.rs": "dc5c3c8a627972865ef0a968125e74b2f87636dc89dd2df0f7cea9a40d7c6beb",
+          "src/new/haiku/mod.rs": "b3863768692c6da24fc28fdcf0c29a9dd9e3a84f301d4bee6ccc4f802befc4f8",
+          "src/new/haiku/unistd.rs": "bcbb65f70759cd84c81fc24ea36aac423edb8f9d7148f65b545ee63954411fd1",
+          "src/new/trusty/mod.rs": "3f009fef70cbe062126c82f1f9274cba60b12d3766b825d66326666a1f240fc2",
+          "src/new/musl/mod.rs": "6b2e092bdc907d2d236a5f6ad977d931e13e99425a3738a62769220697cc13de",
+          "src/new/musl/unistd.rs": "bcbb65f70759cd84c81fc24ea36aac423edb8f9d7148f65b545ee63954411fd1",
+          "src/new/musl/sched.rs": "6f0a5b3cefb42bb01feabf34ad92d4bdbe5743263d4cd7b754baf921da81a127",
+          "src/new/musl/pthread.rs": "e76e8f71cba55b45e4aa954970f939142595b828fd7e83586fc9145299a3b1cb",
+          "src/new/dragonfly/mod.rs": "7b96df7e566874a736d0c33ffc9e75a5f80e674da990cb664556728769ff25f9",
+          "src/new/dragonfly/unistd.rs": "bcbb65f70759cd84c81fc24ea36aac423edb8f9d7148f65b545ee63954411fd1",
+          "src/new/uclibc/mod.rs": "c3f988f3eb289ba6bc3b2535b82163a7ff160288b7494c156f0fba62143cf2d5",
+          "src/new/uclibc/unistd.rs": "bcbb65f70759cd84c81fc24ea36aac423edb8f9d7148f65b545ee63954411fd1",
+          "src/new/uclibc/pthread.rs": "ab235319003806c5f20aef5f851af472480e88ff13d2a5f730870efb95e7982e",
+          "src/new/emscripten/mod.rs": "d0ec81b919d9d078bb7d66d9429c08b609e2b0fab512be30aa22cc00fa620660",
+          "src/new/emscripten/unistd.rs": "bcbb65f70759cd84c81fc24ea36aac423edb8f9d7148f65b545ee63954411fd1",
+          "src/new/emscripten/sched.rs": "6f0a5b3cefb42bb01feabf34ad92d4bdbe5743263d4cd7b754baf921da81a127",
+          "src/new/emscripten/pthread.rs": "65b51deca94ba18d81608191a5523c37f9508a87a76934006d1173869996531c",
+          "src/new/redox/mod.rs": "aaeaa40c0bffde42973cd1809c1c845075f92fac95a074fe3d01d4fb02dc0992",
+          "src/new/qurt/errno.rs": "2456f7f7557e4716f8b65b1ef67281f795c70ad1d5515d6b001d26c07b943af3",
+          "src/new/qurt/semaphore.rs": "eb995a92cdead52ee61c3f498c7e408430b8430cd6cb6be74b47e6728c6773ae",
+          "src/new/qurt/fcntl.rs": "ce176e0c9fb6799004cfc9f1fe5eb20ab7226cf8d304bf8ae9cfe4e3f37ad680",
+          "src/new/qurt/stdio.rs": "280e1faa29c7e2749469a9f9c4b0fa4ba8e0cee42a6e53d9376be6b8e3b8c2ff",
+          "src/new/qurt/mod.rs": "6325ef45b6ad49aaba335a52b85a90eceaf5b2d782c06210edefc1999c1fcf99",
+          "src/new/qurt/unistd.rs": "49b2b023a1276f9de2e093f03609e8cb5b0cefa9f0ea96b5bf3009d159b0dcd8",
+          "src/new/qurt/dlfcn.rs": "8bfec94f78786e2eee9d4306efbf9ad977cf2b3f0d930f8cc65186e922371a9a",
+          "src/new/qurt/signal.rs": "3d9b0cdba135af86fed0846b710fef48edba54a034e14147c7e7785db282a335",
+          "src/new/qurt/limits.rs": "5c76ea0d9560d5da65fe7ecaba8e45766dd56b203523979359e5436062306359",
+          "src/new/qurt/stdlib.rs": "7d2aad4837a4be08083be8153ecf3e95d8c70469598fbad25793c4cfed1939d8",
+          "src/new/qurt/pthread.rs": "8e64d22f2c73ea8559bd7c4de5d21b077969638e1e12c979c1d77c1a2ea2aaf2",
+          "src/new/qurt/time.rs": "598e21d7205714c2f8c92e7dd1f6f7162d5552c453ac68aeb3d38346cff52e4a",
+          "src/new/xous/mod.rs": "69016c5c153d9a14003b15558cab96b4691a927586c20ca493fc8d3bb65594eb",
+          "src/new/freebsd/mod.rs": "cca5cd6815abcaf276799618b748117eee7a6484bc48c629773eaed622188ccc",
+          "src/new/freebsd/unistd.rs": "bcbb65f70759cd84c81fc24ea36aac423edb8f9d7148f65b545ee63954411fd1",
+          "src/new/rtems/mod.rs": "8ad621434ced0a9d1c0ed5d68514f59b0c8bd4c77fdad81eb09e671e7a42cf1d",
+          "src/new/newlib/mod.rs": "046372b698393e20436c85b28dac6f02b5cc7d599d134637bbdaa89f2530d1a6",
+          "src/new/newlib/unistd.rs": "15e74fb2c22e2343faa06a7a61baca198d7867cd70f8a4ead6cdc1f4fae24905",
+          "src/new/aix/mod.rs": "df0de5d8e452a8abb27727b8451b2ceff3bb856f7e5d9e9306df5177e4c6326f",
+          "src/new/aix/unistd.rs": "bcbb65f70759cd84c81fc24ea36aac423edb8f9d7148f65b545ee63954411fd1",
+          "src/new/ucrt/mod.rs": "4fd3a973de4c4c6349e76320e09b13701ac284e7ae03c671054b1eeebb86215d",
+          "src/new/hermit_abi/mod.rs": "25e5d698f292b95057f18dfe203fa96316326e0ca103da532190bb17c29cfdcf",
+          "src/new/nto/mod.rs": "2e80a71385d3344a5f0b95b8d509148b52ea1a253d87e8f27345956d119f7e58",
+          "src/new/nto/unistd.rs": "bcbb65f70759cd84c81fc24ea36aac423edb8f9d7148f65b545ee63954411fd1",
+          "src/new/openbsd/sys/mod.rs": "a8fd8f1cb50bffb34db04d1040048e7c23043fea834c1915453b5d539034a845",
+          "src/new/openbsd/sys/ipc.rs": "dd37c821138dbf723d637319ad0849e9ed0b2fce1d498e7e38627a8b0a8bf142",
+          "src/new/linux_uapi/linux/can.rs": "b30565ca3a98f76f98a6410fdd0649336270aa1ae4c677d1ce0d67a9be8803ee",
+          "src/new/linux_uapi/linux/mod.rs": "c17b121acb9e3bd807ab58e532a19bf76f7a19a38ae94e7812beb14ddc3362b0",
+          "src/new/linux_uapi/linux/pidfd.rs": "6500c63d1ccaf4b7e14a36f225fd309bce9de80a50b81bca14bc6bded6ebd04e",
+          "src/new/linux_uapi/linux/membarrier.rs": "5d6b55b1f7410aeb24ce6bcdbac0d33144b14dc048641ebccb5adc697ea7de2f",
+          "src/new/linux_uapi/linux/netlink.rs": "1ee00c018a23cac0ade157d6c725b3e6f0b69b23b46b9690c5ab398c889527b7",
+          "src/new/linux_uapi/linux/keyctl.rs": "c25ee20a54a14d56de2c886c32f718b7a403b18152cc81bd7726f974cdf5b3a3",
+          "src/new/linux_uapi/linux/can/raw.rs": "933ed151ce976b869b239abc031bb626dd3fa48ec3dd63d2c2b1b891c7bedf1c",
+          "src/new/linux_uapi/linux/can/bcm.rs": "1718a1c3aae686d18ec83dff1560439d61de244bfaf332256cc2b42b85fe5249",
+          "src/new/linux_uapi/linux/can/j1939.rs": "ab2a330c3d3cca3ac6a693b381661772036e10a6dc0004db3809a4f42cf724ba",
+          "src/new/linux_uapi/linux/can/error.rs": "5c5ef6d7c2b9432ebbf6147f96cd260e10686f449f879e64db4757670a6ec638",
+          "src/new/linux_uapi/linux/can/netlink.rs": "2d90a0cb5dc9a15365c99c5101db1698f2da2df66704cfefdafd06252bcabe3e",
+          "src/new/glibc/posix/unistd.rs": "b8528999ecab0a4883c0d89b1cb3c585a666255ab4a4bf5bfc705f7613edd8f4",
+          "src/new/glibc/sysdeps/nptl/mod.rs": "36c75e15c94efdc9db1ff8747cc557b5a314e0e3fdb006581f4a96b322ccde9d",
+          "src/new/glibc/sysdeps/nptl/pthread.rs": "b3bb630c736ffbe99081f5bec4c99f50cc36fe159b8059594b1d6965d178936c",
+          "src/new/glibc/sysdeps/unix/mod.rs": "aa6d2fb4c32f5e1139cae14bcf7cee5935657aeff97df9c064ae9acd67620d04",
+          "src/new/glibc/sysdeps/unix/linux/mod.rs": "9a7c4d5c62c37166b35d2daa69a3dc8f5b4548ef49955463ae41393e260a4cb5",
+          "src/new/glibc/sysdeps/unix/linux/net/route.rs": "d8ec70bbaa919692430fdd608b70db11dbfe86b202760727dfd474a4b25b35c2",
+          "src/new/common/linux_like/mod.rs": "d42e65b3d6fccd5ba85a8397abb28267a96bfb76b6b47754000fbe9332c03fe4",
+          "src/new/common/linux_like/pthread.rs": "a1a33b1e27cd159ab1035c73e72fa8b0c266dd5a28f1079ad74d3c370857f097",
+          "src/new/common/posix/mod.rs": "f64b9d7f78e924529c62f2cd78199075eb334e0db9479cb59787f2740bd82d51",
+          "src/new/common/posix/unistd.rs": "3f633a8c6776d1442f014717785fea3f068d1d3edbfad545d445f8076cb58447",
+          "src/new/common/posix/pthread.rs": "7bd380ac6cda7940f5e160b6f9d1cf45885f2ba1d7e96014828b13e830eaf230",
+          "src/new/netbsd/sys/file.rs": "a30095d85a4f8af49494f9b38114415f5c30e1d96a8c882eb7efd83a1cb6816a",
+          "src/new/netbsd/sys/timex.rs": "1b476328c16ce06e316485bd9dc751f31e51f63d0c07e438bf3227e66da07768",
+          "src/new/netbsd/sys/socket.rs": "a926087991d4cd7ebe31a3f626b5a196047c20955e9e3c99f5abe50b899b1ef3",
+          "src/new/netbsd/sys/mod.rs": "2dfbbf18e7585b64acfeb2f39d0495b50c142caec680db64bb4655e182347262",
+          "src/new/netbsd/sys/types.rs": "a0ec3ac038f0026c285ebfd869a8ae062117b1ff29855cbcf570f7f55860c854",
+          "src/new/netbsd/sys/ipc.rs": "91af85c26b3dca2a0661c820871d176baf29c00d53540f4807b9b28f9f3dfae4",
+          "src/new/netbsd/sys/statvfs.rs": "875c73a2c18ef78c7363b2196282579b88beca2d42ed24bda4fe8e7800db9bd4",
+          "src/new/netbsd/sys/time.rs": "7d420d5384e13ca361aaf9a7fc9faafe29a55b216988c8252a891d2232407a0c",
+          "src/new/netbsd/net/if_.rs": "5083d0f9d84de47c8b6fae60c9bb74d7c0586a80ccb8d625e5e2b4876e7f9444",
+          "src/new/apple/xnu/mod.rs": "b35c4301d54dd2a207c32750f09f989dcc2de6e470a5cfa936de69c550555c7e",
+          "src/new/apple/libpthread/mod.rs": "1e99efe513b0ee1fa6e53daf5950fc027380b1d71d793eca9e5b22af7b331b5b",
+          "src/new/apple/libc/unistd.rs": "bcbb65f70759cd84c81fc24ea36aac423edb8f9d7148f65b545ee63954411fd1",
+          "src/new/apple/libc/signal.rs": "a960b6153775d791055b278534f79e21f8ff76c2c0c2891271e7abdf26e193d3",
+          "src/new/apple/xnu/sys/mod.rs": "734e1803a311320fd6f0b7b10929fe90a0b27322e792c95d42c620cc59b25563",
+          "src/new/apple/xnu/sys/signal.rs": "a03cb64ec19326657c87ff8a5a31c2e6bc1deb55f9a7343ab1b2420819ed72bf",
+          "src/new/apple/xnu/mach/mod.rs": "46aad5c7197df2cc57c4392d9019034236233f0240bc7975f9e22ac33c9d40ed",
+          "src/new/apple/xnu/machine/_mcontext.rs": "166b0a450b730e2a943ca08a0c70061effb77ff9eff6f41c7b0c51b2d4215db9",
+          "src/new/apple/xnu/i386/_mcontext.rs": "50543eaa5cf1d87f900b0c3e531dbfefd7586e1be2be3406223b2319edfcb7f2",
+          "src/new/apple/xnu/arm/_mcontext.rs": "63f1c62b47e7d7181c2b85f3cd3833c69a29eb0cad37a5754bfa6b5954ae7f6f",
+          "src/new/apple/xnu/sys/_types/_ucontext.rs": "1651132d39042f0fc8cca7a23c890da0031b74359472189f851fb3458f2fde3e",
+          "src/new/apple/xnu/mach/machine/_structs.rs": "82f5a7f751897c882ed4c378d6282976ff21cf0c9cdf7f3be3cecd369a63b6f8",
+          "src/new/apple/xnu/mach/i386/_structs.rs": "d7316b7d3fa5e55a5818cfd8a1977921bb14e07133648cffa8f4d9da2e31a604",
+          "src/new/apple/xnu/mach/arm/_structs.rs": "8e4af554170cef61c9143f92a283fd7eef66ad78824f194bbc89b098c6049a43",
+          "src/new/apple/libpthread/pthread_/spawn.rs": "daef8af8ed0b3d16922c2f5a511a67f57f69b5f80dfe37362bd0b410213f95ca",
+          "src/new/apple/libpthread/pthread_/introspection.rs": "3c797ded6d1a55670f9537a997407cf2267e6c7e7dbfa360d32474e2432979af",
+          "src/new/apple/libpthread/pthread_/stack_np.rs": "d1b6e2eab1850c303f8eec4059b3e8ec57d69eb47c216243f6b4b7523761fc29",
+          "src/new/apple/libpthread/pthread_/sched.rs": "7b22a3204e72d5013ebac7b830235d50883aefca86d720f1f38b93d54e309477",
+          "src/new/apple/libpthread/pthread_/pthread_impl.rs": "57a9925a75b79d092c65288b8a8eb21bfb6c7de4c70d37a49018b4eb8b32a646",
+          "src/new/apple/libpthread/pthread_/qos.rs": "40f816fb6cebd19ead21197671e5425b454144515ee4b966d00db32ba6b0dfe5",
+          "src/new/apple/libpthread/pthread_/pthread.rs": "c2b680120ec8db839e702c4340bc39748ac34c806b5fc08acea0a4593131a015",
+          "src/new/apple/libpthread/pthread_/pthread_spis.rs": "1ba51c251249822fae222db6a19e17278ffffc424fc6eea30282a6171491edbe",
+          "src/new/apple/libpthread/sys/mod.rs": "337265fe49d77a7dcc879cd23e4f5baedcffab4808433dfb6ab9deb4ab490380",
+          "src/new/apple/libpthread/sys/qos.rs": "a6297cbab4089b330416bfcbe13b6d7aa8e75352299295046429b2e9d3bada42",
+          "src/new/apple/libpthread/sys/_pthread/_pthread_types.rs": "a7a4307d7c3f91a6b03f76599fac5f40de556e5652123c6bc3b95df2bfa685de",
+          "src/new/bionic_libc/sys/socket.rs": "19877b1de0e235a01734f9aebf20fc1ff1a01fd17302ed1a7d7b520a9fa68edb",
+          "src/new/bionic_libc/sys/mod.rs": "570e7c97f7c1efb14e167a3f0688547fbc907ed9dca93ad6d90dc719289cb6f1",
+          "src/new/musl/sys/socket.rs": "ed9de77a5937115aada325ce3d68b31e24e7ac21691dc2cb52c4e4695aa1e1dd",
+          "src/new/musl/arch/mod.rs": "31a73fedfd8606e04352425fb4917181f2d7376f445cb61a5460bd682ce29ed4",
+          "src/new/musl/arch/mips/mod.rs": "cc6c0a24ef77b7c404887fb5b7a7fd15c2a79e2a3396531ea0058636cacb3018",
+          "src/new/musl/arch/mips64/mod.rs": "40242447a56ed21249f0417f87a7ccd074a366f19eb1353d94e904f370e0f20f",
+          "src/new/musl/arch/generic/mod.rs": "106383ed35cb7526bbbb0e16ce3521ddb2a9e61fb533687922fc9b43cd654af7",
+          "src/new/musl/arch/mips/bits/socket.rs": "eb4dff2ab581eb893e0e6547ae7a7d86453caa069b61272a818256280a23ca71",
+          "src/new/musl/arch/mips64/bits/socket.rs": "eb4dff2ab581eb893e0e6547ae7a7d86453caa069b61272a818256280a23ca71",
+          "src/new/qurt/sys/mod.rs": "e8585c4d447d02d1f4b72183e3d8b8c0d57301ca7099534ce2086a7a3d384b7d",
+          "src/new/qurt/sys/types.rs": "c23c7f02eaa198f04991f0dede9e55279effd49ec4a341fb13064f68c19f24ca",
+          "src/new/qurt/sys/sched.rs": "12dfe86d5bb8c96a8624b3a408df7bc1595dfc71ca870e9ea586f68a32bc67f6",
+          "src/new/qurt/sys/stat.rs": "bbd98cd523dfc7e34c163bc2d397be8ed08401fe24d85d617b581d31e5bdb708",
+          "src/new/qurt/sys/mman.rs": "c0b862bf262564507796b1cdda967c601d265e6a1f1abfe1a5b6d45aa0742df6",
+          "src/new/freebsd/sys/file.rs": "4dffceca36eaa53c3ace434e4fed1309009448c67ea6684a067a2cf362235e02",
+          "src/new/freebsd/sys/mod.rs": "1b064e41914b6e434be2b0c9d3f21f0365eaeeb358a231010c9b817bbd8f730e",
+          "src/new/nto/net/bpf.rs": "1ee0b92315fb2926085777a024cb92d7c1f71328eca1af09a3db0417f180d263",
+          "src/new/nto/net/if_.rs": "cdea96569bb155c7372da481dbf00630aadfadb68ef07bfe94d258a6c600b82b",
+          "src/unix/solarish/compat.rs": "3d120a056208c03215cfbe3eef1584105160d133c0aa4557bb38018c177640b0",
+          "src/unix/solarish/solaris.rs": "2be39ce5f464823359e7e2e4bae94c9acac9245042570df11a0ed75d49f8acad",
+          "src/unix/solarish/mod.rs": "03d1a75ecb758dde3c9ae3c3300c6d241e5e2481329724e32cfca6ffd5882cb3",
+          "src/unix/solarish/x86_64.rs": "eec1602998dbd3b3aeb2d9a5bd66fc53a6fbbcd7967ed0bb2dd61a8c176023e4",
+          "src/unix/solarish/x86.rs": "44261c1f1b300dac9fa0dab93ec85d0c3b3c48b15bc4515b9820c9421cff7427",
+          "src/unix/solarish/x86_common.rs": "4ae02d88622f7f080f5e8cd328f13187edbc5e124fb3e05e4cf212597f6cce48",
+          "src/unix/solarish/illumos.rs": "74fa022e2799fed83ddeefecfdf559fff63e315ba36304845d65c9721b3ce3b7",
+          "src/unix/linux_like/linux_l4re_shared.rs": "c21e27065fb45df318fe76366f8250cf1e6bb0a15394f4d6bc69686d774a780c",
+          "src/unix/linux_like/mod.rs": "399dc67be0898f73946145b26e12bf23beeb9048fb86b69affdc56be5622bf19",
+          "src/unix/hurd/mod.rs": "287a2fdd2065fc8a13c4932b3f241d1453607e74829b6d2012a44b6f5f36f654",
+          "src/unix/hurd/b64.rs": "b9b2082e721a5ec89ba55fd5a16bbffcc8a05ca7cef6dbfbd78aff0806cb931f",
+          "src/unix/hurd/b32.rs": "501f426f7aeb60acf4119064100dd94bbdfebff2cec785428708059d853dc123",
+          "src/unix/nuttx/mod.rs": "4083559d825d2af9ade2c3f14e29802315c9a79091ce8d480c438c3242c7ba80",
+          "src/unix/bsd/mod.rs": "a51588c418deaa58acecddc08c3578cd45659af7a6aec055447ec05143534b0d",
+          "src/unix/cygwin/mod.rs": "0da02791aefa8c45531abbea9a9f55b3c3d0d7e8d9af0c250d969ce22b48ee95",
+          "src/unix/haiku/mod.rs": "5a619d44c8e1205ada8f4bf67cf94b8f133949d15d505cba5dceb65557eaa736",
+          "src/unix/haiku/b64.rs": "f97ce9225f4710893dab03ab3e13bc62152cc84f90c597ec88f6dc1f4c27d242",
+          "src/unix/haiku/x86_64.rs": "def40c16609b5d62c3cdbba6a38340720a96b326ad98d53838554e4b6878d2ee",
+          "src/unix/haiku/b32.rs": "c3f8678ceee65a3094d8133b0d1a94470860e0b1867977f0569c52c5a20e039f",
+          "src/unix/haiku/native.rs": "85836b1063ddc01c176c61cff8c006cf6f5dc4b1f465f41b5c330aa372a44ab6",
+          "src/unix/haiku/bsd.rs": "4d9af31fdac2561ee5f942dca97dd2f48139ca74660d40b854b307fa5679d1c8",
+          "src/unix/redox/mod.rs": "40dbff61515612a7275ca1454a912ddc08f1b6f73bc084f4b563213bd46fde94",
+          "src/unix/newlib/mod.rs": "1aac15b55a852732174bcfee52f3b1452c3e491461a87b70a7ee4c97a458785f",
+          "src/unix/newlib/generic.rs": "c435a955d72878a71ea0719a75a4579818da6a2e01635f9fe1073d9a0d67352f",
+          "src/unix/aix/mod.rs": "89a4848c84c15b827021da8b92770d73505bb2edf3ca2429dbcfd007dec02721",
+          "src/unix/aix/powerpc64.rs": "724b02ca3afb2722930de172b3144a6bffb70792612a7fbe53553cac58bd2ccc",
+          "src/unix/nto/mod.rs": "ddcb98afedf905c0af8819af1591a0c7df629a187ceb35108aeaa467c4879746",
+          "src/unix/nto/x86_64.rs": "c2e46c6ab4c02c8f773298ec1e90eeccac43c09fa111ac9ae63408abc6eff584",
+          "src/unix/nto/aarch64.rs": "73ad54ebca13454a75c7b0815e853175070a8ac2eefa338012a03e8b59f01e0c",
+          "src/unix/nto/neutrino.rs": "bb9d24ccee3b9e53af6d028f04ecb646e216ac1a9e2b2ade54bc06135ce3ac59",
+          "src/unix/linux_like/linux/mod.rs": "3d293f05bfb6f9605e238399e404bf77ca91f4f7def6596f77f404c71b80b572",
+          "src/unix/linux_like/l4re/mod.rs": "47c07dc3c5e368ec9a64b33af9a314f51e5ed6c7fc6456bfba919d661a812275",
+          "src/unix/linux_like/emscripten/mod.rs": "538dbcd492324f0254c1ed1f66ad8e7bc9e367cdd70a004cb0183b6fb368e64a",
+          "src/unix/linux_like/emscripten/lfs64.rs": "486f987bc39653a48e6538ab0e8263cd2c1bd3d4732a2c573f89f7a037936c38",
+          "src/unix/linux_like/android/mod.rs": "9f0cce22a507e263c4a9bf3501fbd85e14b2e7e9a71c6fe1e046ee051470a1eb",
+          "src/unix/linux_like/linux/arch/mod.rs": "8bc5898b03760a95dd4f124ac76ad92e5ae36b2d0644203d752ef2b37e487c3a",
+          "src/unix/linux_like/linux/musl/mod.rs": "56c79797cafb7949f639f84a5a34676b34d776c843f0ad49ddca0684092580f4",
+          "src/unix/linux_like/linux/musl/lfs64.rs": "61b1eae698d93dbd7c665e920ef685fd6eea0c4a2d96acc1d5f111d87b88ef38",
+          "src/unix/linux_like/linux/uclibc/mod.rs": "413b7cc1cd88580162836dc8b1cf1fa569b3431248c13e030a1f50519ddaa875",
+          "src/unix/linux_like/linux/gnu/mod.rs": "0ff72f74b015bc9ef4d1732fc5594945fdb5ca388e4aa0be71260fecb90e6f1f",
+          "src/unix/linux_like/linux/arch/mips/mod.rs": "dcc1d2e85dd2087f61635c753d1781ec70dcba5c95aee285255f09216ea1e0f8",
+          "src/unix/linux_like/linux/arch/sparc/mod.rs": "46f3bd08ec01147af43c93a22c21956af038fa5f6e56643f8e39ca30721bf8cd",
+          "src/unix/linux_like/linux/arch/powerpc/mod.rs": "77b286fce4ac755ec840b9c70824a648314b3a5ed2a385d291138589647fdbaf",
+          "src/unix/linux_like/linux/arch/generic/mod.rs": "f531e877d712eb30cddf97c76273b7ba7fef19cf8eaafd60ca9ac26019b49adf",
+          "src/unix/linux_like/linux/musl/b64/s390x.rs": "77079b262e2fda7b569c19236f264f460c157051bac349928306a07c4cb61195",
+          "src/unix/linux_like/linux/musl/b64/mod.rs": "1ce1eee49b1c7c5c02fe04b1539a0316becf0295763e3e18b1088895ed937373",
+          "src/unix/linux_like/linux/musl/b64/mips64.rs": "24dd0c412ae02b84552a1803b4369dcc0fa3b989f9b6a406f404690c757fbc8b",
+          "src/unix/linux_like/linux/musl/b64/powerpc64.rs": "5f2a8d0a5b6a4d044c75ba433b4f69e27d475cbd5ba81e659e756757b5c36111",
+          "src/unix/linux_like/linux/musl/b32/powerpc.rs": "a946612120ed9700ff1e4e729b0f8107a40f9ed7f5b320357552d5475441042d",
+          "src/unix/linux_like/linux/musl/b32/hexagon.rs": "17063ab52334500ec67d9f1f706bfcd493092d7a7f28f3b5558915cce756885e",
+          "src/unix/linux_like/linux/musl/b32/mod.rs": "6630c3ae8e27eb2bae6309bef4c96be9a21ebb877ce281b881a73589b7264a7a",
+          "src/unix/linux_like/linux/musl/b64/x86_64/mod.rs": "4535e44cfc85c66253c4cda347366d54c3ffa8e0b47b4b89cd87d96fb4005b1e",
+          "src/unix/linux_like/linux/musl/b64/wasm32/mod.rs": "bd65c06c4e422cb859be803e0dc7404513c13e9d9c3c672f5462f0bbd3dc8ef2",
+          "src/unix/linux_like/linux/musl/b64/wasm32/wali.rs": "006149b7af0145dc40123fc7991d853c7f2c5c77bbc9c8a44c276be0d99a1343",
+          "src/unix/linux_like/linux/musl/b64/loongarch64/mod.rs": "9885dd43e46d3f34156b2871c3c08a88775efecb9eab0b4ed9bf396c1cb509d3",
+          "src/unix/linux_like/linux/musl/b64/riscv64/mod.rs": "d5298d224be38474d05c53ffda6384fdb24771774e5c19f84898c23e4603459c",
+          "src/unix/linux_like/linux/musl/b64/aarch64/mod.rs": "b165f81469b144a9c6d60486c3a8b4770fce5f4ad67958aad3c0b0ee85fde117",
+          "src/unix/linux_like/linux/musl/b32/riscv32/mod.rs": "df3e3bbd2f69420b6de3a1d9aa242402f0bf26c77c573b2debea53af964f07d7",
+          "src/unix/linux_like/linux/musl/b32/mips/mod.rs": "64f6b834d3d98db1c2d95d40371c644f71170d7710fcdd933f1ff51c3fbe2c70",
+          "src/unix/linux_like/linux/musl/b32/arm/mod.rs": "7dc4b9a4d723d6868a84e81dbd5953b234c4540db3edd5a4a7ea0e154b101d91",
+          "src/unix/linux_like/linux/musl/b32/x86/mod.rs": "83e340712e8acd89cefcb5eef0e826da79f47a7a42784699df90604c4e9a8712",
+          "src/unix/linux_like/linux/uclibc/x86_64/mod.rs": "53937263439095a4af0e5d583eb6cc621dd07a41aaa154b2f4cd1ec799dd7187",
+          "src/unix/linux_like/linux/uclibc/mips/mod.rs": "e552f579a8dc9e690891113aa6360607ad962bd84cbb60c370b5c5f7c7d1d8c0",
+          "src/unix/linux_like/linux/uclibc/arm/mod.rs": "9eb48a19e49cd2a989f6daae9552dd477d645bc2540a8bae5ac71894565375b0",
+          "src/unix/linux_like/linux/uclibc/mips/mips64/mod.rs": "3a3b90f896a07f5d17e3440bbff7b3153aed564732ef2e468167c7a425922ea8",
+          "src/unix/linux_like/linux/uclibc/mips/mips32/mod.rs": "0b3c063ff6510c68577f8789ff87c1b630dc1c219611070fa91aa2b5b5ec595f",
+          "src/unix/linux_like/linux/gnu/b64/s390x.rs": "741d95cf29b65a9fa5c7316b888f8c79f944376b308c7929eb21054b5a16a83d",
+          "src/unix/linux_like/linux/gnu/b64/mod.rs": "64d4182c10180692d381d8eea3d9ce8a6d47289b9c1218070241c5a445d9f1a0",
+          "src/unix/linux_like/linux/gnu/b32/powerpc.rs": "585983c6617a590ee0ac5217280d03642efcf721bd80fdabd6b9477031574fee",
+          "src/unix/linux_like/linux/gnu/b32/mod.rs": "5ff89d834a09550c9393965bfd2b74e0f9ab6059bc76f2a827faed631afe10a7",
+          "src/unix/linux_like/linux/gnu/b64/x86_64/not_x32.rs": "07240332eaf44996d86e37b12d71b519b499c9c9b57898441c58ac2e8c0cb6f7",
+          "src/unix/linux_like/linux/gnu/b64/x86_64/mod.rs": "d72ae5556347be715e3fdfc084e7e95a184504f1575230f163ab7a72a405cb24",
+          "src/unix/linux_like/linux/gnu/b64/x86_64/x32.rs": "914898b781dfe6b2f755730d6000223d1beea177731e180ccbfdd84a0b8b3bd9",
+          "src/unix/linux_like/linux/gnu/b64/loongarch64/mod.rs": "242cd513eca13d14fbcc326369bb54006782260a558f0c2367102471d4081631",
+          "src/unix/linux_like/linux/gnu/b64/sparc64/mod.rs": "adc09bb20980ee2d5892a2f68949505bed2fa00954b837aa0a15eeb04edd53cb",
+          "src/unix/linux_like/linux/gnu/b64/riscv64/mod.rs": "f1a54e0bc0d791ad642e07df5f8d4eda1b4d497059c0e5d20b52e094ed635b19",
+          "src/unix/linux_like/linux/gnu/b64/mips64/mod.rs": "007809bca7493eab4ac99a30b4495f73b544d7c882b81b5ca719c1b70761e0bf",
+          "src/unix/linux_like/linux/gnu/b64/powerpc64/mod.rs": "4dafacc390ff02ae3c34591a1605e1ac380c13338928a7e2e1ce748fc1e46323",
+          "src/unix/linux_like/linux/gnu/b64/aarch64/mod.rs": "7948baae6e8dfbbba78caaea27a2ef059dbe5f0a2b533bd89cc5d6c5dd7f7f1d",
+          "src/unix/linux_like/linux/gnu/b64/aarch64/ilp32.rs": "638b2d717dcf5b59a0058c3dabab43edd84de9d1d7da6e16ad0c58e863000417",
+          "src/unix/linux_like/linux/gnu/b64/aarch64/lp64.rs": "28c11e70467b2f00735d3a04c369e96e04fd44d0587ee33359f38328b0677ee6",
+          "src/unix/linux_like/linux/gnu/b32/csky/mod.rs": "627e61997c33fc12fca9e337d248d8531ef0751f21f70110b65631a0e481b66d",
+          "src/unix/linux_like/linux/gnu/b32/riscv32/mod.rs": "a5e6c931ca8da568626233f2aa5ee0dd0b8e4e1e8905d52ab9dd0ea618376c2f",
+          "src/unix/linux_like/linux/gnu/b32/mips/mod.rs": "8b3254b47401cde6118f9eea7e98319af8174d99feac451949e673a28ed4ff6e",
+          "src/unix/linux_like/linux/gnu/b32/sparc/mod.rs": "0ddd77054079d7f7ee7aede95552e6494f67fc3db332ec1f5f83a9d09e1a9710",
+          "src/unix/linux_like/linux/gnu/b32/m68k/mod.rs": "2ea8f649fc9f01829de439ffe0fdbf9566602ed6ec0088128167af1080c3a1b2",
+          "src/unix/linux_like/linux/gnu/b32/arm/mod.rs": "60d5c7667d81db0ad9faf65edc79420b2100cab27699e03de4d415de931e9f58",
+          "src/unix/linux_like/linux/gnu/b32/x86/mod.rs": "e370a80bfdec000347c384f080b30c6f537dc51e17e715c2dd8a360e6a1407f3",
+          "src/unix/linux_like/l4re/uclibc/mod.rs": "3678301a89b80f638ea90b4ec2e3d225bb186eaba3d07f324969e46b81a1955a",
+          "src/unix/linux_like/l4re/uclibc/x86_64/mod.rs": "89bb7c67398c836c7f17727338c6032e7667307f02ef0f5d0121031fea1aa358",
+          "src/unix/linux_like/l4re/uclibc/aarch64/mod.rs": "3111d03e5f43dfe1639fe7189903044cb980591c0580a62e8b511de4943201e2",
+          "src/unix/linux_like/android/b64/mod.rs": "5afe4dc379ae30ddab9295e5ab8ac89f39f5129f519612d7528bfbfeb0a1d934",
+          "src/unix/linux_like/android/b32/mod.rs": "04edc73374218c6b854929cae4bc5171ad5066f3636f87235640ec20a49f1559",
+          "src/unix/linux_like/android/b32/arm.rs": "5c6ad12746052b86846f9d7c3bd484d15bd3e2113785a19220186ab2a9bb31ba",
+          "src/unix/linux_like/android/b64/x86_64/mod.rs": "4d6eb98fd17e821d0e05755ccb3f4f2b6e37bfbab533894ed444138b750e6b08",
+          "src/unix/linux_like/android/b64/riscv64/mod.rs": "47c97eeb221c48bd08c2fc2ddf5f9f4d20c185df76681fe14e3a0950fb37ecbf",
+          "src/unix/linux_like/android/b64/aarch64/mod.rs": "66def5f0af9594af50535eba7501bce89620010a7d7aa769ef401235b03efa88",
+          "src/unix/linux_like/android/b32/x86/mod.rs": "72cd0fb5a067170e7409359b6c0114f5472e313060b9642e2e48dc9fabfd4614",
+          "src/unix/bsd/netbsdlike/mod.rs": "78f8873b9b91362253031ad6d3d6ee61640496b1c24b75b3ab9186e1eb35a545",
+          "src/unix/bsd/freebsdlike/mod.rs": "c183016e0d192bd490958e4aeb5022dd203ca288abe8f1f502b2d1215b47e30c",
+          "src/unix/bsd/apple/mod.rs": "8f3299d0de1c3f39aad406c7955760168734300d62850bdcc862611fc25a199b",
+          "src/unix/bsd/netbsdlike/openbsd/powerpc.rs": "f064d935f416ca9f7e5e767b9b46da2250c997d667c0c7f4b4c7dfe02d0258c3",
+          "src/unix/bsd/netbsdlike/openbsd/riscv64.rs": "b2cf3778bfb51d1c0277f0e92963a04f734be3e29879c6c09a25bad2d9b5ab6a",
+          "src/unix/bsd/netbsdlike/openbsd/mod.rs": "9943458aaf3a35ce0d3b259b0b666d29347b04cb1a1722e6450073e71f894398",
+          "src/unix/bsd/netbsdlike/openbsd/mips64.rs": "bee7664d88f8451ae22552fc0721b6b6a6dee2493cc42bcb9829c1e47e4b05f5",
+          "src/unix/bsd/netbsdlike/openbsd/x86_64.rs": "bc7ed75ce66059aafa7a86986aefff267b2c951e47558453fe13ce1bdb48dc0b",
+          "src/unix/bsd/netbsdlike/openbsd/powerpc64.rs": "1f62a42e2970c42de9e3492fbf3cd5b45410889f033743579266342d1a9e2a00",
+          "src/unix/bsd/netbsdlike/openbsd/aarch64.rs": "13c91b304dfb5c3c26777863827c7b3707fe245fcf50da32caab641aff998c63",
+          "src/unix/bsd/netbsdlike/openbsd/arm.rs": "f064d935f416ca9f7e5e767b9b46da2250c997d667c0c7f4b4c7dfe02d0258c3",
+          "src/unix/bsd/netbsdlike/openbsd/x86.rs": "e6da2fdff7706fd3eac147d3aaf16afdd8542f231f502660d1d89c79b5eca21b",
+          "src/unix/bsd/netbsdlike/openbsd/sparc64.rs": "8d4c5a4cae63e09e1c156164ddc82e0fc77926841d4d4e419dd2e7a7b7145f58",
+          "src/unix/bsd/netbsdlike/netbsd/powerpc.rs": "c19c4edbc73b5a97b51e3e2ad39b9fee02ad15e80c70ceb3a1abfe977e5c0ead",
+          "src/unix/bsd/netbsdlike/netbsd/riscv64.rs": "f446c996f00e4d15fd25461a30c767c05d083df9e047b0da497ce7c545acfa96",
+          "src/unix/bsd/netbsdlike/netbsd/mod.rs": "12d1e288aa3c351000721502e3cbd7115d7d5584ffc5c37f5c00e9c56f657385",
+          "src/unix/bsd/netbsdlike/netbsd/x86_64.rs": "13dd36a0db740930155b5f28fedfac606c7291c0276bbf2c2b3fe03a4dbd2a51",
+          "src/unix/bsd/netbsdlike/netbsd/aarch64.rs": "ba2425edbf025f13ab3c3534d1671d310392df3a7d237539817d9cfa675971c8",
+          "src/unix/bsd/netbsdlike/netbsd/arm.rs": "8dd57613695dec1b2104ec35839f0b9b6d234c6cc80365e9fef9ca977c1865a0",
+          "src/unix/bsd/netbsdlike/netbsd/x86.rs": "3006b6a086c0241f5383ca101e7b9357368d713f9c38400633491656d110798e",
+          "src/unix/bsd/netbsdlike/netbsd/sparc64.rs": "d50816e830225779ac9e9a55a7e3e097882153d72987061d76a96ee736c8af9c",
+          "src/unix/bsd/netbsdlike/netbsd/mips.rs": "20cdd8d1427c986ecc3fcf7960d337917a13cfd8386dd2d54f8693a23d60892f",
+          "src/unix/bsd/freebsdlike/dragonfly/mod.rs": "3ec640c35a0b5c0dfdf3fb981e6c3ac74e33781941ecca67390d076b167b5564",
+          "src/unix/bsd/freebsdlike/freebsd/powerpc.rs": "af7a43826e3ca9e5e7c3d7c1b50defa482074fd9909de3ee2e52cd0109c1a950",
+          "src/unix/bsd/freebsdlike/freebsd/riscv64.rs": "69242a001ab21b6e06b7442c37a89dbc5a67660c7c3cade1d46b65adf32a5669",
+          "src/unix/bsd/freebsdlike/freebsd/mod.rs": "ab3734f8aa742fe5c3b5e31c29f0a99e7522abe28b3f7560ccf01f7c64305ca8",
+          "src/unix/bsd/freebsdlike/freebsd/powerpc64.rs": "f7be922bddd7a4b7da863d6aba057aab2d27f500c7101596bbaaccf075133451",
+          "src/unix/bsd/freebsdlike/freebsd/aarch64.rs": "f13a68b825a58596b5d3339378b0812b778481a291aeacb41de74cb65ad66d3f",
+          "src/unix/bsd/freebsdlike/freebsd/arm.rs": "d627ed0bf17932ec0e3226944a4f9714805b27a953778b309d914545cf21b82a",
+          "src/unix/bsd/freebsdlike/freebsd/x86.rs": "5165242f0c82040898dbf711294ba45c5ab2635d39d0bbf9cc899b816415e2a4",
+          "src/unix/bsd/freebsdlike/freebsd/freebsd15/mod.rs": "55c0ce55e6c140d9c0c8b3fce76b23e975eff6c4d5eeb14c9581f8e51638e34a",
+          "src/unix/bsd/freebsdlike/freebsd/freebsd15/x86_64.rs": "d6e66809e109dc779efe5584b79d34fcd6fdba91973a415d64ae66f481f45940",
+          "src/unix/bsd/freebsdlike/freebsd/x86_64/mod.rs": "84044f397dbf13a1c517885c7b234efa2900d116324a4cca626d2f8df398d655",
+          "src/unix/bsd/freebsdlike/freebsd/freebsd12/mod.rs": "7153ee461d9c41e5b849603561dd118091af53a7c990d94a171a4e1412381ec8",
+          "src/unix/bsd/freebsdlike/freebsd/freebsd12/x86_64.rs": "64c4bd82eaf30a2681417f982fce28de7d1b0743bfaa14004692a56cee44be21",
+          "src/unix/bsd/freebsdlike/freebsd/freebsd13/mod.rs": "bee7fcbb5ff8d1a011b56afa025bcab87bff3e3f90d5d4e0bbbb5349f5bc6b5f",
+          "src/unix/bsd/freebsdlike/freebsd/freebsd13/x86_64.rs": "64c4bd82eaf30a2681417f982fce28de7d1b0743bfaa14004692a56cee44be21",
+          "src/unix/bsd/freebsdlike/freebsd/freebsd14/mod.rs": "4dbfaa01fce15bcaaab3d70f9f8da3b2e34a93cb2ca0d380b582926bbe43c2ce",
+          "src/unix/bsd/freebsdlike/freebsd/freebsd14/x86_64.rs": "d6e66809e109dc779efe5584b79d34fcd6fdba91973a415d64ae66f481f45940",
+          "src/unix/bsd/freebsdlike/freebsd/freebsd11/mod.rs": "87fdf9253ff788b9b66d0bd26b1e7e401e80d165bb4278833dfb80046ee06064",
+          "src/unix/bsd/freebsdlike/freebsd/freebsd11/b64.rs": "811c3f1aeb70dfd051abc9d3357e8eca9564c08b85d3ea6f81caacfa559e3060",
+          "src/unix/bsd/freebsdlike/freebsd/freebsd11/b32.rs": "316e70938d2b050fd67e5aaf0bcdd0a70d55f195b26ce4ad6055cdf05cea2e61",
+          "src/unix/bsd/apple/b64/mod.rs": "2619b6afd99e938157753c436e969aa1703b0404b913e456e469df5c6d69538f",
+          "src/unix/bsd/apple/b32/mod.rs": "30a6d351260806e98666ee4ba64b783d1fe1d8b1d32c3ba7766bd5d638dab2dd",
+          "src/unix/bsd/apple/b64/x86_64/mod.rs": "ff16a360cb478a4c2e912b9779a806d0e3439e4c5110e0325c82af5ee8429591",
+          "src/unix/bsd/apple/b64/aarch64/mod.rs": "bf2e39a80c8d768c2969197b80fafa50608ac0186b4f4aea53e7fa8bf40d2214",
+          "src/unix/newlib/espidf/mod.rs": "cbaf10ccdb429719003cac3f3cd4aa0aa63a12a383afc5bd88a4ab3abaef9e2e",
+          "src/unix/newlib/vita/mod.rs": "2f9bf66b40c2aa611033faf3ade5510dc9789af7302571fade40a1715398f06c",
+          "src/unix/newlib/horizon/mod.rs": "7c4680766b9986a379fc354a183f4072c1c70d643307edd1a0ca8e0f2c34d5a8",
+          "src/unix/newlib/powerpc/mod.rs": "4d6dca09ea5dc000cbd39fb939a9b1a743d819931dfca3c896659e919a07a7da",
+          "src/unix/newlib/aarch64/mod.rs": "d72d067a433bf24ee6b6255c4d04ea7c966518b8d064560c593f1ab23c025962",
+          "src/unix/newlib/rtems/mod.rs": "7d06863f1942a90c9a6dd412637b93c18df00e7397cb1289176b9a2a19004b7c",
+          "src/unix/newlib/arm/mod.rs": "95b6e4b3cd1eeb0386d4867e9e4c3438305aa3e8ae75697e06720aa06540a666"
+        }
+      },
+      {
+        "name": "socket2",
+        "version": "0.6.4",
+        "source": "registry+https://github.com/rust-lang/crates.io-index",
+        "manifest_sha256": "7a7b65614c962c206ff7d5cad598fd0d3c92281a3e376de66a9aac91fc59ed40",
+        "cargo_checksum_sha256": null,
+        "source_file_sha256": {
+          "Cargo.lock": "f7f0c33c5acb8a93a3bb329a832d06524baee9744d49030f90aa1d7af6915234",
+          ".cargo_vcs_info.json": "209fed37e0bc87186296721f3e0656353fbc7d9748d3953ab8a7cdfbce4ec559",
+          ".cargo-ok": "afbf9d0f3560b0fd7795e81c42a0a79ee6b6fc67e064f77826aee642cad28d91",
+          "LICENSE-APACHE": "a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2",
+          "Cargo.toml": "7a7b65614c962c206ff7d5cad598fd0d3c92281a3e376de66a9aac91fc59ed40",
+          "LICENSE-MIT": "378f5840b258e2779c39418f3f2d7b2ba96f1c7917dd6be0713f88305dbda397",
+          "README.md": "444031b783070ac056bd95abc4b2f4a72fd98ab11270268d8ba4c4ca53dade68",
+          "Cargo.toml.orig": "e1a7276b527ac306f09f333254f13e70e034aace07105bec12407a2943f866b2",
+          "src/socket.rs": "8fd41f5c6dcc8748e7f1aabb315504c1998869358cc8746a34ca681242f2794d",
+          "src/sockaddr.rs": "1eb260befdb62a53a1dc940a4c0863b1774ce7fa0daf3045154e42f6f477ecbd",
+          "src/sockref.rs": "0dbb3de3b6fb457330c09b88ca2c3777a3d1b57a7a91946afac8f5f313e30aa4",
+          "src/lib.rs": "205e2393c670e359817403267ed9de6a86823fb0199e9a5b84ffef5d9b920175",
+          "src/sys/unix.rs": "611e20a8bfeedcf2876e162280744a83fe6c5ac328757d86d8a44b8d9b165602",
+          "src/sys/windows.rs": "ea941638399a4e3f7cf0ac2f21d5eaf44d62d26c760d97b1660ba653853101dd"
+        }
+      }
+    ],
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+    "rust_version": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-unknown-linux-gnu\nrelease: 1.98.1\nLLVM version: 22.1.8",
+    "host_target": "x86_64-unknown-linux-gnu",
+    "source_state_observation": {
+      "forge": {
+        "path": "/home/helloworld0822/coding/forge",
+        "head": "94b99f72d8899816a2513b1bd91a57dc4f0bab2d",
+        "dirty": [
+          "?? 2026-10-08_10-05.png"
+        ],
+        "source_file_sha256": {
+          "CMakeLists.txt": "e5915247f8d6ecffdb5cd6c739120cfe9eef27ef2cdea0c0f80cee1501cb8943",
+          "bootstrap/compiler.fg": "22d3b7fd2b1b4c0c92036c7182b0c8c561cda3049e98b584286e15c44e4e4a0a",
+          "cmake/Dependencies.cmake": "788a10b2068e9b2a19245de3b68da67bf380e5ae765c5709bd1dfe88c1e7368e",
+          "cmake/ForgeLibrary.cmake": "a880e56f3d4e473d4962d3afd2b2da2a69601c782a86bc42b839bfc53e8ce21b",
+          "compiler/ast.c": "57a6f5c9d5f39edc5eaf068813c208956891c4fa246633910fbb93d6762e5bc0",
+          "compiler/ast.h": "a5b3636465773e5a76e85076b33425b015f8f740c1283bfd8c9a380a7f8b6a72",
+          "compiler/codegen.c": "f640a6bd9ed70dfa10a891e105a474e0d7c44c2c316cb8b18241b74392499941",
+          "compiler/codegen.h": "7df3b62b6a4665b79741883b004201e089dc517fb9f2f82710840a72afa3bce2",
+          "compiler/codegen_js.c": "74d62a7095570e05b37b350123abe18a61c2ceee2e97cd45af4192a33fe6203d",
+          "compiler/common.h": "b6587a20be6531cad7b0e4c0a5b2e5eea88b0b86c628d106516406986d386f33",
+          "compiler/driver.c": "cccafc1e72483212d97d617152d5acdb2df8b00ad2beb4e1c27e54cc2bf3300a",
+          "compiler/driver.h": "dc7659316e3dbeee1f5cdfdbbe9b3a44c977a243dcd56e00cf09e73d45d29c6c",
+          "compiler/lexer.c": "804180077fe821b629aecb0771c9f7d56228fb83cac6327589120afcb209390c",
+          "compiler/lexer.h": "c0fe00676ae5471acb040b90d528c6bbaa9dd88769bffa776177575a26a9ae5c",
+          "compiler/main.c": "5d6a89755e0c0a8ceff2dc9ed766e389cc22209ed8db1c49f9b460ac23197b31",
+          "compiler/mod_registry.c": "87fec41f775ff87d1810d254ceadd630bd683d3b7bb1a70e3cf12c6370077203",
+          "compiler/mod_registry.h": "d019bff61f160a6ea606ce9ad222b33d804373edd4d5c5633ff073f5a400552c",
+          "compiler/module_loader.c": "cf612ef471149f2b2dbe1184162dfcad5539122565896b3bb987a1848d490c31",
+          "compiler/module_loader.h": "bf648f793fc1ed3dd14584fda18d16c4b7b4dfec357bb8c686707eec20ff7b7c",
+          "compiler/optimize.c": "90d10eb05c0cadd369fb3243dc04473ff016a7ce7fc339a6ac5145f848a9d8ec",
+          "compiler/optimize.h": "08e71a6891bdda85c09d7f631ffa4ef8a4ea99bcb9f3006a6d584b9018e7b5c8",
+          "compiler/parser.c": "d8d1a96b249976985981139eebb9d8c1f89aeefc3516223724aeb4e8ab1382e4",
+          "compiler/parser.h": "e5b799f514f65ea8c4cca5d45db5bee6a558e861ec142d8b409c4448ff100fe2",
+          "compiler/semantic.c": "bf4d05715df44cff57b8a0cd1136c4afbc0b6c5aac2d91787df0e38ff6b735b3",
+          "compiler/semantic.h": "bd71c02f17952435e50351cb6081ab1c37cab33a7439ded526b6f28b8b993d0e",
+          "compiler/source.c": "ae39a92a71098cf0feeb70b9abc57bc8284b1730b0fb62bc62d0e7438e50043e",
+          "compiler/source.h": "ecd842019db3922538f14ea5f7adb85e43c9031c675e034d45f35d1150a49bbf",
+          "compiler/symbols.c": "445c8d380de0aa265265b973af57aa084b010b7b4ebe377d95b8a1c3f53c30ef",
+          "compiler/symbols.h": "7eeb6659e877bff9422925822c6eedab18c1a6ec0f91bb16334d38dce4eea270",
+          "examples/control_flow.fg": "132da10fc6f013444557b447b11d382a17c92d55eabf9784584e3fa7ae665cca",
+          "examples/coroutines.fg": "e3c4e4081bce9f702f0e904c4fb74bac7f0b794ec7ef887eb56e3ebb181fefe4",
+          "examples/device_io.fg": "b201dd9fc3a8fc0f611320d5c428b6f4440033aa7a766ee43604db673536ba2a",
+          "examples/event_echo.fg": "35fe9a11a991933ff5565859c1830c212b527dc109348bed95dfd7192f89b3a8",
+          "examples/external-project/CMakeLists.txt": "2f1c40bcec3a8499eed337bc3320260c0120956f2a05ab103fdb8763fc7180e6",
+          "examples/external-project/libs/greeting_ext/greeting_ext.fg": "d92bbc7576758dfea67db890aafeeb50a3ef664272ecaabb6cd566d5ac1e8e3d",
+          "examples/external-project/main.fg": "9508f1ebdabc4e48d4b2817c36d06bfa860fc13ca5326bb3164292ddfa1085a8",
+          "examples/external-project/sdk_consumer.c": "634e71d1dd3c73ba2c35c58da5b48a6c00da1cfd224d1c410105bc287cbcac44",
+          "examples/external-project/sdk_runtime_consumer.c": "8b6d174a64240bac1138b358c22d1a2e9139fe4c88304ccc68a20f9d846347c3",
+          "examples/file_io.fg": "ccc9a0de831fa4fe03adf8ce7e33c3ce85a96d0ea8ae1293f6cd5c2119b83ac1",
+          "examples/functions.fg": "0931e3403727d723c322520786fcbef6a3acb68349f1b9656e54c7acfd8c474a",
+          "examples/gpu_demo.fg": "05db625a9d7404c2a933525f1b3cd336bc682d7125c900c8daa5e88a10b57920",
+          "examples/hello.fg": "95e0bf7e8c2354b6204461abee32bd03c8004d509a7f30dae8970d2cca0d28a7",
+          "examples/http_server.fg": "7dd1db61888600072b11a9efee5e7b0c575a98cecbd88b2c72f01c6a0868753c",
+          "examples/match.fg": "f8c8c40dc83acd903ae312805e1b3f423ca75abefcb9c165907b7bacdddbfada",
+          "examples/messages.fg": "3753edfd7c494f5a4df5c8d2351941acad818abcdfa89050a6492a5224e9e823",
+          "examples/modules/mathutil.fg": "93038c4573f409565ea831e971c484559dc588e73879458493062ff90302cbdc",
+          "examples/ownership.fg": "73fcf0b0c3abe56ffa31f3045be7f8465cf2d10ca7a417b0986c2f4dfffbdc00",
+          "examples/pipe.fg": "5f298b0069fd8f5d8a4176dc4f02b95527cfe4a59ebce2dcd451486bf2fef057",
+          "examples/stdlib_demo.fg": "2725f8b9314f4333b7e110cde74771b9a34e3de76f0fc4b3063b8629a77aedc7",
+          "examples/supervisor.fg": "7e3379e8171cbd0dee95a029bad48814b74bdb1da7923daeb8a7bc9f8b0414f7",
+          "examples/tcp_echo.fg": "daeb04542a442aece1cf3bb917bc6e3f2158365c782318afac22886c568e097c",
+          "examples/thread_demo.fg": "0e7b390ba4a7074c20436ff37a6a2c0f8dfa51ff25c3685aca2533437fb8a612",
+          "examples/udp_echo.fg": "f5bf46cdff10b8558403d0235d3facae275aea1ce5f2447aa04f4afcd151f1ed",
+          "examples/use_library.fg": "33b063fd8401d9457b443c1408b321b9c3dc1f54d9ef02b80f3828d883794067",
+          "examples/use_module.fg": "c16beb8793a64d960455213b28d3aecca8d46ecc5790064530a64b1e6cc11cd0",
+          "examples/web_server.fg": "9569c93efa5b760fde2640abf5d22a3acf24a61005682002d0f76d79fa0ec9ff",
+          "libs/greeting/greeting.fg": "8d9ec89dacb9e619d445aa23ca8f5f46124642bd3fe1137ef35f0de8e3bf2b4e",
+          "libs/mathutil/mathutil.fg": "c47324d004fa3da21f4d354d899e94f4b69f5f119659567359268fa79c5db6b2",
+          "tests/optimizer_test.c": "5f57888bcff38890714478a94817a01833f0c88cc32639b12bea0b6db848e57a",
+          "tests/parser_test.c": "32205e9f62af59bd90074d41e5e214b2e05dfaed1fc63fba432941c138d0c84f"
+        }
+      },
+      "forge-runtime": {
+        "path": "/home/helloworld0822/coding/forge-runtime",
+        "head": "0b1e7d4e6ae0996422553666e349fc40f11e3ac6",
+        "dirty": [],
+        "source_file_sha256": {
+          "CMakeLists.txt": "708ef525699887fb4181ff2d97482a22cb21dcee96ad12a41620cb73f7259063",
+          "include/forge/arena.h": "36671291cd1be0e524ae544d080ad700c590f20ba1a93883399afff8f7125881",
+          "include/forge/event.h": "1119aefdf932501f2b6cfba4ecff4c3070ec0c69e7e94cb51dbbd1841d708b98",
+          "include/forge/ownership.h": "bb457900bd73993bfc2d3ed2f45c2a0fc7d26c53829397d624ce99063f8a6cf2",
+          "include/forge/platform.h": "bc33c437853f7bbc33b9a1a764b71409aac2d56e713777251f0bac702dee281a",
+          "include/forge/thread.h": "5e5c549a83ecb60f4b8e0ac5809f8818517c7b0adb9274865374b787937b89ea",
+          "include/forge_runtime.h": "295209b92ad37706ff9766461eb9f8d01402fa5bf6325494d20c081342448f60",
+          "src/arena.c": "3d7b4035323e21c5d1b8150428e1f09f83b65420f80701bf391c3a7e453f6b30",
+          "src/event_loop.c": "7bdd974052bdcaf2cde9c097d865c34934c03c4329f1f5ba9ee3731c445255e8",
+          "src/ownership.c": "44c2abedd34e73013a37a78ba239d66e42fc278bbe2b2ef87cbab9e34a1e5d41",
+          "src/platform.c": "d1ac2112c712f96984420ac3014a2fd93ae60e5f7b5ff1bcf95175ef6a1d7f69",
+          "src/scheduler.c": "0c46e9b9c8e57a17c2724a01ad7833d4a4f7933c356f359219fc82e6bcb9db71",
+          "src/thread.c": "d8cc97546bb3d38b541a78075314df84e09677cab680354460b720d28b3b7204",
+          "src/work_queue.c": "42bf9567f03764d4b79c83496a592c958b711ff7d070d8735722fc81fcb90978",
+          "src/work_queue.h": "0741222edd725049acbe138c16bf031cf5221336440b94a4e637a1b7f7742573",
+          "tests/arena_test.c": "5b72da69a2061b36535bf4cb5ac90cfe8104d9139f99c2720ac5d70e568b3350",
+          "tests/event_loop_test.c": "f20ae3c75d163b28473d6e189a2825fb8a8b15517490b1fa06e2fd38cb88fcce",
+          "tests/scheduler_test.c": "06d3683252a17c9f90eced267e977327de838de90c29b1807bc15ee242f8fd52",
+          "tests/work_queue_test.c": "11bab21f8a60bd5a5e521f343312e9adb48a6a074a42be45cb906cdb208723e8"
+        }
+      },
+      "forge-stdlib": {
+        "path": "/home/helloworld0822/coding/forge-stdlib",
+        "head": "a16cf1bf1fe81c92f64aa6df675a353674715c98",
+        "dirty": [
+          "?? .omo/"
+        ],
+        "source_file_sha256": {
+          "CMakeLists.txt": "21c0e5f098918edd6ebe3911b44c8b93b399140e772ac09757d5652466dcf783",
+          "cmake/dependencies.cmake": "1ce36f62c855c0f54b0363be9c6f918b202ff0739fc9dff4d23e98c59c4870c2",
+          "include/forge/detail/string_views.h": "133dad0af1ff1693d890793d27d1c572f1a37ea99abeddbe3d81421c58d9ce42",
+          "include/forge/docstore.h": "e3bacc7717edf89787c36ddb57757697c76d1ad828dd7aaefebde04d13acf06c",
+          "include/forge/fs.h": "97e28cb3f6a2a690e3c95343cc94eb862434f5808b34604c2b9186519ee63780",
+          "include/forge/gpu.h": "cdb0b130608224dd17c05370fe6227cb58c5c6c0f4b71a24ae3d36acf18cfcf2",
+          "include/forge/http.h": "c1628fe49dce6511e16c607eefd0c2034a4492f9fa79efee0aaafc46fc0cf27f",
+          "include/forge/io.h": "fada64929c52e3e4145d8ceec1ffaf5641360db53f5c3a6e34fcee353c1a847c",
+          "include/forge/json.h": "4a439d523b124ba9a5f41ae0b53e6310b14c7b71c1c7c06ed4de52f38c2fd89a",
+          "include/forge/lsprpc.h": "0ac23444ad60f15dd6e460dab4d819882268eaf317c4cb14aa8289d30f9922b1",
+          "include/forge/math.h": "ce124a9b22a1e7a5d817904b00db73f650ef977349c20ad9471eae69650335ab",
+          "include/forge/os.h": "2f1dc0d75c610c84b632d5eccf82c4eaae0a818a88b531499e66818955736e55",
+          "include/forge/process.h": "c753912656ea34affb67ebbe972bc8d99e4c98cd0eced01a009a60db7f6d09ae",
+          "include/forge/string.h": "64ab11edbaac4fd33602cd27e3aef91de52a12edc1de14a830b90f17b531a612",
+          "include/forge/tcp.h": "b679ee6384bfb3d2320e7cb740c28bee6e78ae9c3cc78dd53a423a1d952249c8",
+          "include/forge/threading.h": "bc8624bb08d5e7180fd77c924a02ccd0141f6975cd728d41c7a57c4f35b86554",
+          "include/forge/time.h": "be4dff4e6ef553992dd01b8ff705daf4bdd7e9cab6240952b34ac2c5e6a662cc",
+          "include/forge/udp.h": "3f8262ab20db38fa5e6757f166af66a37c0d0ed450fa77fbabffe5dc5bae918c",
+          "src/docstore.c": "5a51f34de7c2614bae12c412548e58abbc3b7ff15073dfd99a95fd24add4cfd4",
+          "src/fs.c": "5bc59bad696d324fae9278caf6872454f786a42a9a6590fbbad671b7e8715d66",
+          "src/gpu.c": "a7313a2cf2afb7dcaf5c1b81e3ab4822b549a57528556dfb3121a373e18498c6",
+          "src/http.c": "4d3a5dcdd7324176fc3d466f9ea47c3bd8afe0c7b95a2363665f5024e0c37c79",
+          "src/http_internal.h": "77c0cfc48e81cfcc2844f8ad88f019f7a1e9824bb3574ec2411588af52fcde00",
+          "src/http_routing.c": "7a06bce2ff8efd9018f8fc37df74fb297873268841d7ec8d060c3d775ea959a9",
+          "src/http_tls.c": "2244f20be10884fcf953202f73f5aff734e6ea45d9746e671b073fe3a932ff26",
+          "src/http_uring.c": "a0d79a00e95bed7f980bc8602e8e5fccfb0f0466a8773af6e7b8a6f5a16770de",
+          "src/io.c": "7d71e7dbae85fe46114ed4d0803fee714bb9f32e7a03101ef13c7b40c79393a0",
+          "src/json.c": "5b610929d50978daaf2912e31a30dc2515b3c3a37412ef2fba6e76f3fe6846e2",
+          "src/lsprpc.c": "052bac9de52c87b695a3f96f67220ebba8ae0605c2be0c2fa8a606f44ca31585",
+          "src/math.c": "56f7f34c5d2186e59636be555b944e447e327954c578ea01ccdfd90ff12983c8",
+          "src/os.c": "cdd6fa7f07a9ac1d1da08fd613a90f4058dab1cf527025150a850cae02c1f49c",
+          "src/process.c": "2d994b41384726525176c5259971d6179954ac880d2b5c095fbbb68547c9fd0e",
+          "src/string.c": "c231e98d3c1c42fec6178f348787c84140c8a6288c7306f7cc7b6d5302332781",
+          "src/tcp.c": "138894e9080b63d169401d4da60519432f17c72716cd5972d7fdb50ec05e4187",
+          "src/threading.c": "2ff4ad1d806358b179235155fa91f0f14bf815060691002cba962914dab3f771",
+          "src/time.c": "9ffb7f772b49ae2a299cac77a1a3c4d037d45c95a61e65f6eaa9cca9db479b70",
+          "src/udp.c": "56ded8a9dd9dfd515c585913a8c5a5aa1f41825533543dfe7614ec2eef6794c3",
+          "tests/async_process_test.c": "c5e2ae8e1df9da5b0a565ba1ded4b29af163bf77c6ef5187c051925a5909ea24",
+          "tests/fs_test.c": "4b611f811ed155cf659e7ad1d49a4de34910a5425727986b062c733027238305",
+          "tests/json_test.c": "ab01b17c2e9d66c9eef3aa7c33a05589e70b05c6d879f72ed21f353b01737407",
+          "tests/lsprpc_poll_test.c": "21b98a645209abb98b451ac700c670fd2b922072e3da4c263a49a560c4e98f9e",
+          "tests/os_test.c": "833abde120f599d0eee0671b2451e35a2c7d74345580de00d9c3a2974e78615a",
+          "tests/string_test.c": "6c414acdecb4df71503c11b3480b3e71f18c53ae833e7a6f4ed10786de86ec50",
+          "third_party/opencl/CL/cl.h": "16d09614cd7eef73b4094089cc4ce2af777181d3ffe9613473fb6d552234a4d1",
+          "third_party/opencl/CL/cl_platform.h": "b125cece6fe41f2e6690d88b24652c151cb6654da13b42180d69d5bd9ed526d7",
+          "third_party/opencl/CL/cl_version.h": "1e571dd68566330dd066cf778e07909a3cabeb2b969c5578c60f14baba7df1af"
+        }
+      }
+    },
+    "snapshot_sha256": {
+      "Cargo.lock": "b37cb2a39f871f6f8fc23a0323cbddb17628ea853f2b8fdedfee55eaf8201750",
+      "Cargo.toml": "e04bad4c8cb44d9d20095693b04ce87bb921fa7a6ddfd5f2d2f0d748f7f8b294",
+      "forge": "8078d2ee501e92873993747d2c793a0a197059c363aff78c86d99b929036a4fd",
+      "config.o": "04d4e759d804046da5b25bdf9b47bc757b8f06771586767f1038d30836516651",
+      "config.c": "36b6e3730949d539bdf841d29d66d04c104a4c785e2ed0a3d8354a7fd5e34959",
+      "server.fg": "98e269ce2c3ddf2b1d2b5851608d568dcac50533f147ea507859c451a16bc9ae",
+      "libforge_std.a": "37e86b0dce7d31821a2075d13e0ac7960b847ca014b0e99c3fab580402183510",
+      "server.c": "8f45add6923ca9aacd1efb11dde2845b687a0f00743376a4251b3cc3bc3035a9",
+      "libforge_runtime.a": "7d2fc8bd99383a74ad07687cc068fd7410ae001b4034b75e57c3c5cc065d0380",
+      "include/forge_runtime.h": "295209b92ad37706ff9766461eb9f8d01402fa5bf6325494d20c081342448f60",
+      "src/load_epoll.rs": "2ec43bf2a1f89c413c98f70777dfe174b028bdf8fd87d6eec96a0ebc31f32e88",
+      "src/main.rs": "c666b0e40b5f0f7df565e618686a5d91597f26355398fd8ff1064847fda182d3",
+      "src/load.rs": "1445dad6077b7d57498901ec347e68486a355821540854794a7486f167e069ec",
+      "include/forge/lsprpc.h": "0ac23444ad60f15dd6e460dab4d819882268eaf317c4cb14aa8289d30f9922b1",
+      "include/forge/string.h": "64ab11edbaac4fd33602cd27e3aef91de52a12edc1de14a830b90f17b531a612",
+      "include/forge/tcp.h": "b679ee6384bfb3d2320e7cb740c28bee6e78ae9c3cc78dd53a423a1d952249c8",
+      "include/forge/os.h": "2f1dc0d75c610c84b632d5eccf82c4eaae0a818a88b531499e66818955736e55",
+      "include/forge/event.h": "1119aefdf932501f2b6cfba4ecff4c3070ec0c69e7e94cb51dbbd1841d708b98",
+      "include/forge/json.h": "4a439d523b124ba9a5f41ae0b53e6310b14c7b71c1c7c06ed4de52f38c2fd89a",
+      "include/forge/platform.h": "bc33c437853f7bbc33b9a1a764b71409aac2d56e713777251f0bac702dee281a",
+      "include/forge/docstore.h": "e3bacc7717edf89787c36ddb57757697c76d1ad828dd7aaefebde04d13acf06c",
+      "include/forge/thread.h": "5e5c549a83ecb60f4b8e0ac5809f8818517c7b0adb9274865374b787937b89ea",
+      "include/forge/udp.h": "3f8262ab20db38fa5e6757f166af66a37c0d0ed450fa77fbabffe5dc5bae918c",
+      "include/forge/math.h": "ce124a9b22a1e7a5d817904b00db73f650ef977349c20ad9471eae69650335ab",
+      "include/forge/time.h": "be4dff4e6ef553992dd01b8ff705daf4bdd7e9cab6240952b34ac2c5e6a662cc",
+      "include/forge/gpu.h": "cdb0b130608224dd17c05370fe6227cb58c5c6c0f4b71a24ae3d36acf18cfcf2",
+      "include/forge/fs.h": "97e28cb3f6a2a690e3c95343cc94eb862434f5808b34604c2b9186519ee63780",
+      "include/forge/process.h": "c753912656ea34affb67ebbe972bc8d99e4c98cd0eced01a009a60db7f6d09ae",
+      "include/forge/arena.h": "36671291cd1be0e524ae544d080ad700c590f20ba1a93883399afff8f7125881",
+      "include/forge/http.h": "c1628fe49dce6511e16c607eefd0c2034a4492f9fa79efee0aaafc46fc0cf27f",
+      "include/forge/io.h": "fada64929c52e3e4145d8ceec1ffaf5641360db53f5c3a6e34fcee353c1a847c",
+      "include/forge/threading.h": "bc8624bb08d5e7180fd77c924a02ccd0141f6975cd728d41c7a57c4f35b86554",
+      "include/forge/ownership.h": "bb457900bd73993bfc2d3ed2f45c2a0fc7d26c53829397d624ce99063f8a6cf2",
+      "include/forge/detail/string_views.h": "133dad0af1ff1693d890793d27d1c572f1a37ea99abeddbe3d81421c58d9ce42"
+    },
+    "runner_sha256": "611f2153ee01e01bc68e5f6573e0bd9893ebe9820c202d67bd3a8bd768e95c86",
+    "binary_sha256": {
+      "forge-http": "4edbbc6f01ce2ef1739218bf168c02ef66072c641d8d534b5dd23ab8a155802e",
+      "rust-http": "b0bcadb11d5f95dcee78ea543283fc134c1644e04841d3f450437d26c4b031c4",
+      "http-load": "801a597adf37674b379ade9f369a9396e08d119cbe0fa5b0f87d0c4e7a94f8aa",
+      "http-load-epoll": "8f437c660f5cbf6f8b8bcb1456389593c078656e1e88c1bad3d082b2b560fa1e"
+    },
+    "epoll_build": {
+      "protocol": "prepared-http-v3.2-multisource-windowed-epoll",
+      "cargo_command": [
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "--offline",
+        "--manifest-path",
+        "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/snapshot/Cargo.toml",
+        "--target-dir",
+        "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/rust-target"
+      ],
+      "cargo_target": "release/http-load-epoll",
+      "manifest_sha256": "e04bad4c8cb44d9d20095693b04ce87bb921fa7a6ddfd5f2d2f0d748f7f8b294",
+      "lock_sha256": "b37cb2a39f871f6f8fc23a0323cbddb17628ea853f2b8fdedfee55eaf8201750",
+      "source_sha256": "2ec43bf2a1f89c413c98f70777dfe174b028bdf8fd87d6eec96a0ebc31f32e88",
+      "binary_sha256": "8f437c660f5cbf6f8b8bcb1456389593c078656e1e88c1bad3d082b2b560fa1e",
+      "build_profile": "Cargo release profile declared in the snapshotted manifest"
+    }
+  },
+  "raw_directory": "/home/helloworld0822/coding/forge-benchmarks/docs/http-v32-capacity-56k-smoke-2026-10-12.raw",
+  "runner_sha256": "58a5aea56e3aa90e845231f7956e3454ed6d50e0658780b521e174df8a1384f9",
+  "helper_sha256": {
+    "http_compare_v2": "611f2153ee01e01bc68e5f6573e0bd9893ebe9820c202d67bd3a8bd768e95c86",
+    "cpu_compare": "bac11ddea58457941a2e1c6834cd00de16f2d3dfb3fec94bc54b2b299d3fbe2b",
+    "thread_compare": "81388aa4a4d77edf1a84aba440370993ac76b4e9f02ff800b4d6d35e74607ecd"
+  },
+  "environment": {
+    "platform": "Linux-6.8.0-139-generic-x86_64-with-glibc2.39",
+    "lscpu": "Architecture:                            x86_64\nCPU op-mode(s):                          32-bit, 64-bit\nAddress sizes:                           44 bits physical, 48 bits virtual\nByte Order:                              Little Endian\nCPU(s):                                  12\nOn-line CPU(s) list:                     0-11\nVendor ID:                               AuthenticAMD\nModel name:                              AMD BC-250\nCPU family:                              23\nModel:                                   71\nThread(s) per core:                      2\nCore(s) per socket:                      6\nSocket(s):                               1\nStepping:                                0\nCPU(s) scaling MHz:                      53%\nCPU max MHz:                             3200.0000\nCPU min MHz:                             800.0000\nBogoMIPS:                                6388.20\nFlags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl nonstop_tsc cpuid extd_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt lwp tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cat_l3 cdp_l3 hw_pstate ssbd mba ibpb vmmcall fsgsbase bmi1 avx2 smep bmi2 cqm rdt_a adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local clzero irperf xsaveerptr rdpru wbnoinvd arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif v_spec_ctrl umip rdpid overflow_recov succor smca sev sev_es ibpb_exit_to_user\nL1d cache:                               192 KiB (6 instances)\nL1i cache:                               192 KiB (6 instances)\nL2 cache:                                3 MiB (6 instances)\nL3 cache:                                8 MiB (2 instances)\nNUMA node(s):                            1\nNUMA node0 CPU(s):                       0-11\nVulnerability Gather data sampling:      Not affected\nVulnerability Indirect target selection: Not affected\nVulnerability Itlb multihit:             Not affected\nVulnerability L1tf:                      Not affected\nVulnerability Mds:                       Not affected\nVulnerability Meltdown:                  Not affected\nVulnerability Mmio stale data:           Not affected\nVulnerability Reg file data sampling:    Not affected\nVulnerability Retbleed:                  Mitigation; untrained return thunk; SMT vulnerable\nVulnerability Spec rstack overflow:      Mitigation; Safe RET\nVulnerability Spec store bypass:         Mitigation; Speculative Store Bypass disabled via prctl\nVulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization\nVulnerability Spectre v2:                Mitigation; Retpolines; IBPB conditional; STIBP disabled; RSB filling; PBRSB-eIBRS Not affected; BHI Not affected\nVulnerability Srbds:                     Not affected\nVulnerability Tsa:                       Not affected\nVulnerability Tsx async abort:           Not affected\nVulnerability Vmscape:                   Mitigation; IBPB before exit to userspace",
+    "physical_cpu_candidates": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10
+    ],
+    "client_cpu": 8,
+    "load_average_start": [
+      1.82373046875,
+      1.6162109375,
+      1.6669921875
+    ],
+    "kernel_tcp": {
+      "/proc/sys/net/ipv4/ip_local_port_range": "32768\t60999",
+      "/proc/sys/net/ipv4/tcp_max_syn_backlog": "1024",
+      "/proc/sys/net/core/somaxconn": "4096"
+    },
+    "rlimits_parent": {
+      "RLIMIT_NOFILE": [
+        1048576,
+        1048576
+      ],
+      "RLIMIT_MEMLOCK": [
+        1993732096,
+        1993732096
+      ]
+    },
+    "load_average_end": [
+      2.380859375,
+      1.74951171875,
+      1.7099609375
+    ]
+  },
+  "method": {
+    "protocol": "prepared-http-v3.2-multisource-windowed-epoll",
+    "io_timeout_ms": 60000,
+    "pairs": 8,
+    "requests_per_sample": 56000,
+    "worker_configurations": [
+      4
+    ],
+    "concurrency_configurations": [
+      56000
+    ],
+    "source_address_count": 4,
+    "body_byte_configurations": [
+      32
+    ],
+    "random_seed": 20261012,
+    "scope": "single reactor; closed-loop fixed-count TCP connect + request write + exact response bytes + separate EOF + immediate TSV writes",
+    "connect_window": "at most 256 pending TCP connects; the reactor polls and sends request bytes while additional lanes are launched; socket deadlines are checked every 25 ms instead of scanning all active sockets for every event batch",
+    "observer_failure_policy": "stop new requests after first failure; drain active attempts; no retry",
+    "timing_compatibility": "not comparable/poolable with V1 or V2"
+  },
+  "correctness_checks": [
+    {
+      "language": "forge",
+      "server_binary": "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/forge-http",
+      "workers": 4,
+      "seed": 71,
+      "body_bytes": 32,
+      "status": "passed",
+      "checks": [
+        {
+          "request_sha256": "11f302825b2773b38b8509d412ec7b4bc248e564ef0fb377bd77eddbfa84b562",
+          "response_sha256": "1b2270e3cf849b344d46d4979e9e486182c386283037dd72e07851e373ba1c30",
+          "response_bytes": 90,
+          "fragmented": false
+        },
+        {
+          "request_sha256": "4f96160748bdbc797331f089c934125f922264f9d05784292e0248384c35b1c1",
+          "response_sha256": "1b2270e3cf849b344d46d4979e9e486182c386283037dd72e07851e373ba1c30",
+          "response_bytes": 90,
+          "fragmented": false
+        },
+        {
+          "request_sha256": "c738804bc7660d2a3c5513b751f08bc2806ac1fe9f4530180af8da7371ad1544",
+          "response_sha256": "1b2270e3cf849b344d46d4979e9e486182c386283037dd72e07851e373ba1c30",
+          "response_bytes": 90,
+          "fragmented": false
+        },
+        {
+          "request_sha256": "af5efbd16813ad897d58a2671fbca2c86f962f9a2f7514a612816e6dfaeb18fc",
+          "response_sha256": "1b2270e3cf849b344d46d4979e9e486182c386283037dd72e07851e373ba1c30",
+          "response_bytes": 90,
+          "fragmented": true
+        }
+      ],
+      "server_command": [
+        "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/forge-http",
+        "51841",
+        "4",
+        "KQTZAIEYGICGQBTGQAWQLOYELUFBLTAM"
+      ],
+      "server_affinity_before": {
+        "423825": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "423826": [
+          0
+        ],
+        "423827": [
+          2
+        ],
+        "423828": [
+          4
+        ],
+        "423829": [
+          6
+        ]
+      },
+      "server_affinity_after": {
+        "423825": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "423826": [
+          0
+        ],
+        "423827": [
+          2
+        ],
+        "423828": [
+          4
+        ],
+        "423829": [
+          6
+        ]
+      },
+      "server_process_usage": {
+        "exit_code": -15,
+        "user_seconds": 0.0,
+        "system_seconds": 0.005843,
+        "peak_rss_kib": 13632
+      }
+    },
+    {
+      "language": "rust",
+      "server_binary": "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/rust-http",
+      "workers": 4,
+      "seed": 71,
+      "body_bytes": 32,
+      "status": "passed",
+      "checks": [
+        {
+          "request_sha256": "11f302825b2773b38b8509d412ec7b4bc248e564ef0fb377bd77eddbfa84b562",
+          "response_sha256": "1b2270e3cf849b344d46d4979e9e486182c386283037dd72e07851e373ba1c30",
+          "response_bytes": 90,
+          "fragmented": false
+        },
+        {
+          "request_sha256": "4f96160748bdbc797331f089c934125f922264f9d05784292e0248384c35b1c1",
+          "response_sha256": "1b2270e3cf849b344d46d4979e9e486182c386283037dd72e07851e373ba1c30",
+          "response_bytes": 90,
+          "fragmented": false
+        },
+        {
+          "request_sha256": "c738804bc7660d2a3c5513b751f08bc2806ac1fe9f4530180af8da7371ad1544",
+          "response_sha256": "1b2270e3cf849b344d46d4979e9e486182c386283037dd72e07851e373ba1c30",
+          "response_bytes": 90,
+          "fragmented": false
+        },
+        {
+          "request_sha256": "af5efbd16813ad897d58a2671fbca2c86f962f9a2f7514a612816e6dfaeb18fc",
+          "response_sha256": "1b2270e3cf849b344d46d4979e9e486182c386283037dd72e07851e373ba1c30",
+          "response_bytes": 90,
+          "fragmented": true
+        }
+      ],
+      "server_command": [
+        "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/rust-http",
+        "47327",
+        "4",
+        "KQTZAIEYGICGQBTGQAWQLOYELUFBLTAM"
+      ],
+      "server_affinity_before": {
+        "423830": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "423833": [
+          0
+        ],
+        "423834": [
+          2
+        ],
+        "423835": [
+          4
+        ],
+        "423836": [
+          6
+        ]
+      },
+      "server_affinity_after": {
+        "423830": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "423833": [
+          0
+        ],
+        "423834": [
+          2
+        ],
+        "423835": [
+          4
+        ],
+        "423836": [
+          6
+        ]
+      },
+      "server_process_usage": {
+        "exit_code": -15,
+        "user_seconds": 0.00104,
+        "system_seconds": 0.009361,
+        "peak_rss_kib": 13760
+      }
+    },
+    {
+      "language": "forge",
+      "epoll_observer_smoke": true,
+      "status": "passed",
+      "protocol": "prepared-http-v3.2-multisource-windowed-epoll",
+      "workers": 4,
+      "concurrency": 56000,
+      "requests": 56000,
+      "seed": 97,
+      "source_address_count": 4,
+      "body_bytes": 32,
+      "connect_timeout_ms": 60000,
+      "io_timeout_ms": 60000,
+      "observer_failure_policy": "first failure stops new requests; all in-flight attempts finish/time out and are retained; fail without retry",
+      "observer_thread_model": "one epoll reactor thread; at most concurrency active sockets",
+      "body_sha256": "eb11ab6ebab3dc7040b6e1e7dc9acef5a002ea61ba1a92c2785acdabb499687f",
+      "expected_response_sha256": "ccdb5945eef1663c5770b81bad5d70f38f9424ab13330bd568e9168d62a919d1",
+      "expected_response_bytes": 90,
+      "raw_prefix": "/home/helloworld0822/coding/forge-benchmarks/docs/http-v32-capacity-56k-smoke-2026-10-12.raw/smoke-forge",
+      "server_cpus": [
+        0,
+        2,
+        4,
+        6
+      ],
+      "client_cpus": [
+        8
+      ],
+      "server_command": [
+        "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/forge-http",
+        "34699",
+        "4",
+        "GNZLZBSARYBAXILACUOPVDKHJFIYNRGF"
+      ],
+      "server_affinity_before": {
+        "423838": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "423844": [
+          0
+        ],
+        "423845": [
+          2
+        ],
+        "423848": [
+          4
+        ],
+        "423850": [
+          6
+        ]
+      },
+      "independent_probe": {
+        "request_sha256": "40e7758a2645eecdd29429f7d80c8b622a3f0895d6b76fc5fdbf438a2deacb2d",
+        "response_sha256": "ccdb5945eef1663c5770b81bad5d70f38f9424ab13330bd568e9168d62a919d1",
+        "response_bytes": 90,
+        "fragmented": false
+      },
+      "load_command": [
+        "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/http-load-epoll",
+        "34699",
+        "56000",
+        "56000",
+        "97",
+        "/home/helloworld0822/coding/forge-benchmarks/docs/http-v32-capacity-56k-smoke-2026-10-12.raw/smoke-forge-expected.bin",
+        "/home/helloworld0822/coding/forge-benchmarks/docs/http-v32-capacity-56k-smoke-2026-10-12.raw/smoke-forge-requests.tsv",
+        "60000",
+        "60000",
+        "4"
+      ],
+      "client_affinity": {
+        "423860": [
+          8
+        ]
+      },
+      "passive_kernel_before": {
+        "observed_at_utc": "2026-10-12T22:18:39Z",
+        "scope": "network namespace/global; attribution unproven",
+        "sysctls": {
+          "net/ipv4/tcp_syn_retries": "6",
+          "net/ipv4/tcp_syn_linear_timeouts": "4",
+          "net/ipv4/tcp_tw_reuse": "2",
+          "net/ipv4/ip_local_port_range": "32768\t60999",
+          "net/ipv4/tcp_max_tw_buckets": "65536",
+          "net/ipv4/tcp_max_syn_backlog": "1024",
+          "net/core/somaxconn": "4096",
+          "net/netfilter/nf_conntrack_count": "248543",
+          "net/netfilter/nf_conntrack_max": "262144",
+          "net/ipv4/tcp_mem": "180369\t240493\t360738"
+        },
+        "errors": [],
+        "global_tcp_ext_counters": {
+          "ListenOverflows": 388417,
+          "ListenDrops": 388417,
+          "TCPSynRetrans": 666571,
+          "TCPTimeouts": 3061954,
+          "TCPMemoryPressures": 1,
+          "TCPTimeWaitOverflow": 7267031,
+          "TCPReqQFullDrop": 0,
+          "TCPReqQFullDoCookies": 0,
+          "TCPBacklogDrop": 0,
+          "TCPRcvQDrop": 3308
+        },
+        "sockstat": "sockets: used 1908\nTCP: inuse 352 orphan 24 tw 563 alloc 1528 mem 272849\nUDP: inuse 3 mem 748\nUDPLITE: inuse 0\nRAW: inuse 0\nFRAG: inuse 0 memory 0\n",
+        "port": 34699,
+        "port_socket_state_counts": {
+          "0A": 4,
+          "06": 2
+        },
+        "listeners_and_pending": [
+          {
+            "local_address_hex": "00000000:878B",
+            "remote_address_hex": "00000000:0000",
+            "state_hex": "0A",
+            "queue_hex": "00000000:00000000",
+            "timer_hex": "00:00000000",
+            "retransmissions_hex": "00000000",
+            "inode": "248774469"
+          },
+          {
+            "local_address_hex": "00000000:878B",
+            "remote_address_hex": "00000000:0000",
+            "state_hex": "0A",
+            "queue_hex": "00000000:00000000",
+            "timer_hex": "00:00000000",
+            "retransmissions_hex": "00000000",
+            "inode": "248774468"
+          },
+          {
+            "local_address_hex": "00000000:878B",
+            "remote_address_hex": "00000000:0000",
+            "state_hex": "0A",
+            "queue_hex": "00000000:00000000",
+            "timer_hex": "00:00000000",
+            "retransmissions_hex": "00000000",
+            "inode": "248774467"
+          },
+          {
+            "local_address_hex": "00000000:878B",
+            "remote_address_hex": "00000000:0000",
+            "state_hex": "0A",
+            "queue_hex": "00000000:00000000",
+            "timer_hex": "00:00000000",
+            "retransmissions_hex": "00000000",
+            "inode": "248774466"
+          }
+        ]
+      },
+      "server_stats_before": {
+        "user_seconds": 0.0,
+        "system_seconds": 0.0,
+        "resident_pages": 384,
+        "threads": 5
+      },
+      "observer_wall_ns": 6332814349,
+      "server_stats_after": {
+        "user_seconds": 0.27,
+        "system_seconds": 6.11,
+        "resident_pages": 384,
+        "threads": 5
+      },
+      "server_affinity_after": {
+        "423838": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "423844": [
+          0
+        ],
+        "423845": [
+          2
+        ],
+        "423848": [
+          4
+        ],
+        "423850": [
+          6
+        ]
+      },
+      "passive_kernel_after": {
+        "observed_at_utc": "2026-10-12T22:18:45Z",
+        "scope": "network namespace/global; attribution unproven",
+        "sysctls": {
+          "net/ipv4/tcp_syn_retries": "6",
+          "net/ipv4/tcp_syn_linear_timeouts": "4",
+          "net/ipv4/tcp_tw_reuse": "2",
+          "net/ipv4/ip_local_port_range": "32768\t60999",
+          "net/ipv4/tcp_max_tw_buckets": "65536",
+          "net/ipv4/tcp_max_syn_backlog": "1024",
+          "net/core/somaxconn": "4096",
+          "net/netfilter/nf_conntrack_count": "143201",
+          "net/netfilter/nf_conntrack_max": "262144",
+          "net/ipv4/tcp_mem": "180369\t240493\t360738"
+        },
+        "errors": [],
+        "global_tcp_ext_counters": {
+          "ListenOverflows": 388417,
+          "ListenDrops": 388417,
+          "TCPSynRetrans": 666571,
+          "TCPTimeouts": 3061994,
+          "TCPMemoryPressures": 1,
+          "TCPTimeWaitOverflow": 7267031,
+          "TCPReqQFullDrop": 0,
+          "TCPReqQFullDoCookies": 0,
+          "TCPBacklogDrop": 0,
+          "TCPRcvQDrop": 3308
+        },
+        "sockstat": "sockets: used 1904\nTCP: inuse 352 orphan 22 tw 36292 alloc 1530 mem 272593\nUDP: inuse 3 mem 748\nUDPLITE: inuse 0\nRAW: inuse 0\nFRAG: inuse 0 memory 0\n",
+        "port": 34699,
+        "port_socket_state_counts": {
+          "0A": 4,
+          "06": 35733
+        },
+        "listeners_and_pending": [
+          {
+            "local_address_hex": "00000000:878B",
+            "remote_address_hex": "00000000:0000",
+            "state_hex": "0A",
+            "queue_hex": "00000000:00000000",
+            "timer_hex": "00:00000000",
+            "retransmissions_hex": "00000000",
+            "inode": "248774469"
+          },
+          {
+            "local_address_hex": "00000000:878B",
+            "remote_address_hex": "00000000:0000",
+            "state_hex": "0A",
+            "queue_hex": "00000000:00000000",
+            "timer_hex": "00:00000000",
+            "retransmissions_hex": "00000000",
+            "inode": "248774468"
+          },
+          {
+            "local_address_hex": "00000000:878B",
+            "remote_address_hex": "00000000:0000",
+            "state_hex": "0A",
+            "queue_hex": "00000000:00000000",
+            "timer_hex": "00:00000000",
+            "retransmissions_hex": "00000000",
+            "inode": "248774467"
+          },
+          {
+            "local_address_hex": "00000000:878B",
+            "remote_address_hex": "00000000:0000",
+            "state_hex": "0A",
+            "queue_hex": "00000000:00000000",
+            "timer_hex": "00:00000000",
+            "retransmissions_hex": "00000000",
+            "inode": "248774466"
+          }
+        ]
+      },
+      "client_exit_code": 0,
+      "client_process_usage": {
+        "user_seconds": 0.419842,
+        "system_seconds": 5.668364,
+        "peak_rss_kib": 16000
+      },
+      "elapsed_ns": 6325704305,
+      "attempted_requests": 56000,
+      "completed_requests": 56000,
+      "errors": 0,
+      "all_request_ids_once": true,
+      "every_response_exact": true,
+      "request_samples_sha256": "a422ae873798b39276f0baaa24d915f82b69104e2c6c4edc08b0a6e8c1e72055",
+      "requests_per_second": 8852.769162120992,
+      "phase_durations": {
+        "connect_ns": {
+          "median_ns": 19657891.0,
+          "p99_ns": 25786438,
+          "max_ns": 36160736
+        },
+        "setup_ns": {
+          "median_ns": 672.0,
+          "p99_ns": 1714,
+          "max_ns": 148691
+        },
+        "write_ns": {
+          "median_ns": 14327.0,
+          "p99_ns": 25215,
+          "max_ns": 287648
+        },
+        "read_ns": {
+          "median_ns": 13601290.0,
+          "p99_ns": 25043017,
+          "max_ns": 35341856
+        },
+        "eof_ns": {
+          "median_ns": 621.0,
+          "p99_ns": 780,
+          "max_ns": 212444611
+        }
+      },
+      "latency_median_ns": 39123424.5,
+      "latency_p99_ns": 47593056,
+      "client_cleanup_usage": {
+        "exit_code": 0
+      },
+      "server_process_usage": {
+        "exit_code": -15,
+        "user_seconds": 0.275632,
+        "system_seconds": 6.112105,
+        "peak_rss_kib": 13772
+      },
+      "retained_request_rows": 56000,
+      "retained_failed_rows": []
+    },
+    {
+      "language": "rust",
+      "epoll_observer_smoke": true,
+      "status": "passed",
+      "protocol": "prepared-http-v3.2-multisource-windowed-epoll",
+      "workers": 4,
+      "concurrency": 56000,
+      "requests": 56000,
+      "seed": 97,
+      "source_address_count": 4,
+      "body_bytes": 32,
+      "connect_timeout_ms": 60000,
+      "io_timeout_ms": 60000,
+      "observer_failure_policy": "first failure stops new requests; all in-flight attempts finish/time out and are retained; fail without retry",
+      "observer_thread_model": "one epoll reactor thread; at most concurrency active sockets",
+      "body_sha256": "eb11ab6ebab3dc7040b6e1e7dc9acef5a002ea61ba1a92c2785acdabb499687f",
+      "expected_response_sha256": "ccdb5945eef1663c5770b81bad5d70f38f9424ab13330bd568e9168d62a919d1",
+      "expected_response_bytes": 90,
+      "raw_prefix": "/home/helloworld0822/coding/forge-benchmarks/docs/http-v32-capacity-56k-smoke-2026-10-12.raw/smoke-rust",
+      "server_cpus": [
+        0,
+        2,
+        4,
+        6
+      ],
+      "client_cpus": [
+        8
+      ],
+      "server_command": [
+        "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/rust-http",
+        "38629",
+        "4",
+        "GNZLZBSARYBAXILACUOPVDKHJFIYNRGF"
+      ],
+      "server_affinity_before": {
+        "424261": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "424262": [
+          0
+        ],
+        "424263": [
+          2
+        ],
+        "424264": [
+          4
+        ],
+        "424265": [
+          6
+        ]
+      },
+      "independent_probe": {
+        "request_sha256": "40e7758a2645eecdd29429f7d80c8b622a3f0895d6b76fc5fdbf438a2deacb2d",
+        "response_sha256": "ccdb5945eef1663c5770b81bad5d70f38f9424ab13330bd568e9168d62a919d1",
+        "response_bytes": 90,
+        "fragmented": false
+      },
+      "load_command": [
+        "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/http-load-epoll",
+        "38629",
+        "56000",
+        "56000",
+        "97",
+        "/home/helloworld0822/coding/forge-benchmarks/docs/http-v32-capacity-56k-smoke-2026-10-12.raw/smoke-rust-expected.bin",
+        "/home/helloworld0822/coding/forge-benchmarks/docs/http-v32-capacity-56k-smoke-2026-10-12.raw/smoke-rust-requests.tsv",
+        "60000",
+        "60000",
+        "4"
+      ],
+      "client_affinity": {
+        "424266": [
+          8
+        ]
+      },
+      "passive_kernel_before": {
+        "observed_at_utc": "2026-10-12T22:18:46Z",
+        "scope": "network namespace/global; attribution unproven",
+        "sysctls": {
+          "net/ipv4/tcp_syn_retries": "6",
+          "net/ipv4/tcp_syn_linear_timeouts": "4",
+          "net/ipv4/tcp_tw_reuse": "2",
+          "net/ipv4/ip_local_port_range": "32768\t60999",
+          "net/ipv4/tcp_max_tw_buckets": "65536",
+          "net/ipv4/tcp_max_syn_backlog": "1024",
+          "net/core/somaxconn": "4096",
+          "net/netfilter/nf_conntrack_count": "143202",
+          "net/netfilter/nf_conntrack_max": "262144",
+          "net/ipv4/tcp_mem": "180369\t240493\t360738"
+        },
+        "errors": [],
+        "global_tcp_ext_counters": {
+          "ListenOverflows": 388417,
+          "ListenDrops": 388417,
+          "TCPSynRetrans": 666571,
+          "TCPTimeouts": 3061998,
+          "TCPMemoryPressures": 1,
+          "TCPTimeWaitOverflow": 7267031,
+          "TCPReqQFullDrop": 0,
+          "TCPReqQFullDoCookies": 0,
+          "TCPBacklogDrop": 0,
+          "TCPRcvQDrop": 3308
+        },
+        "sockstat": "sockets: used 1903\nTCP: inuse 351 orphan 21 tw 36294 alloc 1529 mem 272593\nUDP: inuse 3 mem 748\nUDPLITE: inuse 0\nRAW: inuse 0\nFRAG: inuse 0 memory 0\n",
+        "port": 38629,
+        "port_socket_state_counts": {
+          "0A": 4,
+          "06": 3
+        },
+        "listeners_and_pending": [
+          {
+            "local_address_hex": "00000000:96E5",
+            "remote_address_hex": "00000000:0000",
+            "state_hex": "0A",
+            "queue_hex": "00000000:00000000",
+            "timer_hex": "00:00000000",
+            "retransmissions_hex": "00000000",
+            "inode": "248893678"
+          },
+          {
+            "local_address_hex": "00000000:96E5",
+            "remote_address_hex": "00000000:0000",
+            "state_hex": "0A",
+            "queue_hex": "00000000:00000000",
+            "timer_hex": "00:00000000",
+            "retransmissions_hex": "00000000",
+            "inode": "248893677"
+          },
+          {
+            "local_address_hex": "00000000:96E5",
+            "remote_address_hex": "00000000:0000",
+            "state_hex": "0A",
+            "queue_hex": "00000000:00000000",
+            "timer_hex": "00:00000000",
+            "retransmissions_hex": "00000000",
+            "inode": "248893676"
+          },
+          {
+            "local_address_hex": "00000000:96E5",
+            "remote_address_hex": "00000000:0000",
+            "state_hex": "0A",
+            "queue_hex": "00000000:00000000",
+            "timer_hex": "00:00000000",
+            "retransmissions_hex": "00000000",
+            "inode": "248893675"
+          }
+        ]
+      },
+      "server_stats_before": {
+        "user_seconds": 0.0,
+        "system_seconds": 0.0,
+        "resident_pages": 480,
+        "threads": 5
+      },
+      "observer_wall_ns": 5981860515,
+      "server_stats_after": {
+        "user_seconds": 0.19,
+        "system_seconds": 5.02,
+        "resident_pages": 480,
+        "threads": 5
+      },
+      "server_affinity_after": {
+        "424261": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "424262": [
+          0
+        ],
+        "424263": [
+          2
+        ],
+        "424264": [
+          4
+        ],
+        "424265": [
+          6
+        ]
+      },
+      "passive_kernel_after": {
+        "observed_at_utc": "2026-10-12T22:18:52Z",
+        "scope": "network namespace/global; attribution unproven",
+        "sysctls": {
+          "net/ipv4/tcp_syn_retries": "6",
+          "net/ipv4/tcp_syn_linear_timeouts": "4",
+          "net/ipv4/tcp_tw_reuse": "2",
+          "net/ipv4/ip_local_port_range": "32768\t60999",
+          "net/ipv4/tcp_max_tw_buckets": "65536",
+          "net/ipv4/tcp_max_syn_backlog": "1024",
+          "net/core/somaxconn": "4096",
+          "net/netfilter/nf_conntrack_count": "166263",
+          "net/netfilter/nf_conntrack_max": "262144",
+          "net/ipv4/tcp_mem": "180369\t240493\t360738"
+        },
+        "errors": [],
+        "global_tcp_ext_counters": {
+          "ListenOverflows": 388417,
+          "ListenDrops": 388417,
+          "TCPSynRetrans": 666571,
+          "TCPTimeouts": 3062014,
+          "TCPMemoryPressures": 1,
+          "TCPTimeWaitOverflow": 7274164,
+          "TCPReqQFullDrop": 0,
+          "TCPReqQFullDoCookies": 0,
+          "TCPBacklogDrop": 0,
+          "TCPRcvQDrop": 3308
+        },
+        "sockstat": "sockets: used 1902\nTCP: inuse 350 orphan 20 tw 65536 alloc 1528 mem 272337\nUDP: inuse 3 mem 748\nUDPLITE: inuse 0\nRAW: inuse 0\nFRAG: inuse 0 memory 0\n",
+        "port": 38629,
+        "port_socket_state_counts": {
+          "0A": 4,
+          "06": 29245
+        },
+        "listeners_and_pending": [
+          {
+            "local_address_hex": "00000000:96E5",
+            "remote_address_hex": "00000000:0000",
+            "state_hex": "0A",
+            "queue_hex": "00000000:00000000",
+            "timer_hex": "00:00000000",
+            "retransmissions_hex": "00000000",
+            "inode": "248893678"
+          },
+          {
+            "local_address_hex": "00000000:96E5",
+            "remote_address_hex": "00000000:0000",
+            "state_hex": "0A",
+            "queue_hex": "00000000:00000000",
+            "timer_hex": "00:00000000",
+            "retransmissions_hex": "00000000",
+            "inode": "248893677"
+          },
+          {
+            "local_address_hex": "00000000:96E5",
+            "remote_address_hex": "00000000:0000",
+            "state_hex": "0A",
+            "queue_hex": "00000000:00000000",
+            "timer_hex": "00:00000000",
+            "retransmissions_hex": "00000000",
+            "inode": "248893676"
+          },
+          {
+            "local_address_hex": "00000000:96E5",
+            "remote_address_hex": "00000000:0000",
+            "state_hex": "0A",
+            "queue_hex": "00000000:00000000",
+            "timer_hex": "00:00000000",
+            "retransmissions_hex": "00000000",
+            "inode": "248893675"
+          }
+        ]
+      },
+      "client_exit_code": 0,
+      "client_process_usage": {
+        "user_seconds": 0.42754,
+        "system_seconds": 5.501481,
+        "peak_rss_kib": 30672
+      },
+      "elapsed_ns": 5979062329,
+      "attempted_requests": 56000,
+      "completed_requests": 56000,
+      "errors": 0,
+      "all_request_ids_once": true,
+      "every_response_exact": true,
+      "request_samples_sha256": "db836015a33f4c63d2905907d1867a6602bf60069289593f2cfe9a8301b35798",
+      "requests_per_second": 9366.017097427719,
+      "phase_durations": {
+        "connect_ns": {
+          "median_ns": 17821707.5,
+          "p99_ns": 24475205,
+          "max_ns": 40368586
+        },
+        "setup_ns": {
+          "median_ns": 672.0,
+          "p99_ns": 1375,
+          "max_ns": 181491
+        },
+        "write_ns": {
+          "median_ns": 14224.0,
+          "p99_ns": 24235,
+          "max_ns": 266992
+        },
+        "read_ns": {
+          "median_ns": 14334852.5,
+          "p99_ns": 25915842,
+          "max_ns": 34252981
+        },
+        "eof_ns": {
+          "median_ns": 621.0,
+          "p99_ns": 781,
+          "max_ns": 221453576
+        }
+      },
+      "latency_median_ns": 36763168.5,
+      "latency_p99_ns": 46290035,
+      "client_cleanup_usage": {
+        "exit_code": 0
+      },
+      "server_process_usage": {
+        "exit_code": -15,
+        "user_seconds": 0.197905,
+        "system_seconds": 5.02336,
+        "peak_rss_kib": 30544
+      },
+      "retained_request_rows": 56000,
+      "retained_failed_rows": []
+    }
+  ],
+  "warmups": [],
+  "measurements": [],
+  "summary": [],
+  "attempt_records": {
+    "check-forge-w4-b32.json": {
+      "server_binary": "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/forge-http",
+      "workers": 4,
+      "seed": 71,
+      "body_bytes": 32,
+      "status": "passed",
+      "checks": [
+        {
+          "request_sha256": "11f302825b2773b38b8509d412ec7b4bc248e564ef0fb377bd77eddbfa84b562",
+          "response_sha256": "1b2270e3cf849b344d46d4979e9e486182c386283037dd72e07851e373ba1c30",
+          "response_bytes": 90,
+          "fragmented": false
+        },
+        {
+          "request_sha256": "4f96160748bdbc797331f089c934125f922264f9d05784292e0248384c35b1c1",
+          "response_sha256": "1b2270e3cf849b344d46d4979e9e486182c386283037dd72e07851e373ba1c30",
+          "response_bytes": 90,
+          "fragmented": false
+        },
+        {
+          "request_sha256": "c738804bc7660d2a3c5513b751f08bc2806ac1fe9f4530180af8da7371ad1544",
+          "response_sha256": "1b2270e3cf849b344d46d4979e9e486182c386283037dd72e07851e373ba1c30",
+          "response_bytes": 90,
+          "fragmented": false
+        },
+        {
+          "request_sha256": "af5efbd16813ad897d58a2671fbca2c86f962f9a2f7514a612816e6dfaeb18fc",
+          "response_sha256": "1b2270e3cf849b344d46d4979e9e486182c386283037dd72e07851e373ba1c30",
+          "response_bytes": 90,
+          "fragmented": true
+        }
+      ],
+      "server_command": [
+        "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/forge-http",
+        "51841",
+        "4",
+        "KQTZAIEYGICGQBTGQAWQLOYELUFBLTAM"
+      ],
+      "server_affinity_before": {
+        "423825": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "423826": [
+          0
+        ],
+        "423827": [
+          2
+        ],
+        "423828": [
+          4
+        ],
+        "423829": [
+          6
+        ]
+      },
+      "server_affinity_after": {
+        "423825": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "423826": [
+          0
+        ],
+        "423827": [
+          2
+        ],
+        "423828": [
+          4
+        ],
+        "423829": [
+          6
+        ]
+      },
+      "server_process_usage": {
+        "exit_code": -15,
+        "user_seconds": 0.0,
+        "system_seconds": 0.005843,
+        "peak_rss_kib": 13632
+      }
+    },
+    "check-rust-w4-b32.json": {
+      "server_binary": "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/rust-http",
+      "workers": 4,
+      "seed": 71,
+      "body_bytes": 32,
+      "status": "passed",
+      "checks": [
+        {
+          "request_sha256": "11f302825b2773b38b8509d412ec7b4bc248e564ef0fb377bd77eddbfa84b562",
+          "response_sha256": "1b2270e3cf849b344d46d4979e9e486182c386283037dd72e07851e373ba1c30",
+          "response_bytes": 90,
+          "fragmented": false
+        },
+        {
+          "request_sha256": "4f96160748bdbc797331f089c934125f922264f9d05784292e0248384c35b1c1",
+          "response_sha256": "1b2270e3cf849b344d46d4979e9e486182c386283037dd72e07851e373ba1c30",
+          "response_bytes": 90,
+          "fragmented": false
+        },
+        {
+          "request_sha256": "c738804bc7660d2a3c5513b751f08bc2806ac1fe9f4530180af8da7371ad1544",
+          "response_sha256": "1b2270e3cf849b344d46d4979e9e486182c386283037dd72e07851e373ba1c30",
+          "response_bytes": 90,
+          "fragmented": false
+        },
+        {
+          "request_sha256": "af5efbd16813ad897d58a2671fbca2c86f962f9a2f7514a612816e6dfaeb18fc",
+          "response_sha256": "1b2270e3cf849b344d46d4979e9e486182c386283037dd72e07851e373ba1c30",
+          "response_bytes": 90,
+          "fragmented": true
+        }
+      ],
+      "server_command": [
+        "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/rust-http",
+        "47327",
+        "4",
+        "KQTZAIEYGICGQBTGQAWQLOYELUFBLTAM"
+      ],
+      "server_affinity_before": {
+        "423830": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "423833": [
+          0
+        ],
+        "423834": [
+          2
+        ],
+        "423835": [
+          4
+        ],
+        "423836": [
+          6
+        ]
+      },
+      "server_affinity_after": {
+        "423830": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "423833": [
+          0
+        ],
+        "423834": [
+          2
+        ],
+        "423835": [
+          4
+        ],
+        "423836": [
+          6
+        ]
+      },
+      "server_process_usage": {
+        "exit_code": -15,
+        "user_seconds": 0.00104,
+        "system_seconds": 0.009361,
+        "peak_rss_kib": 13760
+      }
+    },
+    "smoke-forge.json": {
+      "status": "passed",
+      "protocol": "prepared-http-v3.2-multisource-windowed-epoll",
+      "workers": 4,
+      "concurrency": 56000,
+      "requests": 56000,
+      "seed": 97,
+      "source_address_count": 4,
+      "body_bytes": 32,
+      "connect_timeout_ms": 60000,
+      "io_timeout_ms": 60000,
+      "observer_failure_policy": "first failure stops new requests; all in-flight attempts finish/time out and are retained; fail without retry",
+      "observer_thread_model": "one epoll reactor thread; at most concurrency active sockets",
+      "body_sha256": "eb11ab6ebab3dc7040b6e1e7dc9acef5a002ea61ba1a92c2785acdabb499687f",
+      "expected_response_sha256": "ccdb5945eef1663c5770b81bad5d70f38f9424ab13330bd568e9168d62a919d1",
+      "expected_response_bytes": 90,
+      "raw_prefix": "/home/helloworld0822/coding/forge-benchmarks/docs/http-v32-capacity-56k-smoke-2026-10-12.raw/smoke-forge",
+      "server_cpus": [
+        0,
+        2,
+        4,
+        6
+      ],
+      "client_cpus": [
+        8
+      ],
+      "server_command": [
+        "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/forge-http",
+        "34699",
+        "4",
+        "GNZLZBSARYBAXILACUOPVDKHJFIYNRGF"
+      ],
+      "server_affinity_before": {
+        "423838": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "423844": [
+          0
+        ],
+        "423845": [
+          2
+        ],
+        "423848": [
+          4
+        ],
+        "423850": [
+          6
+        ]
+      },
+      "independent_probe": {
+        "request_sha256": "40e7758a2645eecdd29429f7d80c8b622a3f0895d6b76fc5fdbf438a2deacb2d",
+        "response_sha256": "ccdb5945eef1663c5770b81bad5d70f38f9424ab13330bd568e9168d62a919d1",
+        "response_bytes": 90,
+        "fragmented": false
+      },
+      "load_command": [
+        "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/http-load-epoll",
+        "34699",
+        "56000",
+        "56000",
+        "97",
+        "/home/helloworld0822/coding/forge-benchmarks/docs/http-v32-capacity-56k-smoke-2026-10-12.raw/smoke-forge-expected.bin",
+        "/home/helloworld0822/coding/forge-benchmarks/docs/http-v32-capacity-56k-smoke-2026-10-12.raw/smoke-forge-requests.tsv",
+        "60000",
+        "60000",
+        "4"
+      ],
+      "client_affinity": {
+        "423860": [
+          8
+        ]
+      },
+      "passive_kernel_before": {
+        "observed_at_utc": "2026-10-12T22:18:39Z",
+        "scope": "network namespace/global; attribution unproven",
+        "sysctls": {
+          "net/ipv4/tcp_syn_retries": "6",
+          "net/ipv4/tcp_syn_linear_timeouts": "4",
+          "net/ipv4/tcp_tw_reuse": "2",
+          "net/ipv4/ip_local_port_range": "32768\t60999",
+          "net/ipv4/tcp_max_tw_buckets": "65536",
+          "net/ipv4/tcp_max_syn_backlog": "1024",
+          "net/core/somaxconn": "4096",
+          "net/netfilter/nf_conntrack_count": "248543",
+          "net/netfilter/nf_conntrack_max": "262144",
+          "net/ipv4/tcp_mem": "180369\t240493\t360738"
+        },
+        "errors": [],
+        "global_tcp_ext_counters": {
+          "ListenOverflows": 388417,
+          "ListenDrops": 388417,
+          "TCPSynRetrans": 666571,
+          "TCPTimeouts": 3061954,
+          "TCPMemoryPressures": 1,
+          "TCPTimeWaitOverflow": 7267031,
+          "TCPReqQFullDrop": 0,
+          "TCPReqQFullDoCookies": 0,
+          "TCPBacklogDrop": 0,
+          "TCPRcvQDrop": 3308
+        },
+        "sockstat": "sockets: used 1908\nTCP: inuse 352 orphan 24 tw 563 alloc 1528 mem 272849\nUDP: inuse 3 mem 748\nUDPLITE: inuse 0\nRAW: inuse 0\nFRAG: inuse 0 memory 0\n",
+        "port": 34699,
+        "port_socket_state_counts": {
+          "0A": 4,
+          "06": 2
+        },
+        "listeners_and_pending": [
+          {
+            "local_address_hex": "00000000:878B",
+            "remote_address_hex": "00000000:0000",
+            "state_hex": "0A",
+            "queue_hex": "00000000:00000000",
+            "timer_hex": "00:00000000",
+            "retransmissions_hex": "00000000",
+            "inode": "248774469"
+          },
+          {
+            "local_address_hex": "00000000:878B",
+            "remote_address_hex": "00000000:0000",
+            "state_hex": "0A",
+            "queue_hex": "00000000:00000000",
+            "timer_hex": "00:00000000",
+            "retransmissions_hex": "00000000",
+            "inode": "248774468"
+          },
+          {
+            "local_address_hex": "00000000:878B",
+            "remote_address_hex": "00000000:0000",
+            "state_hex": "0A",
+            "queue_hex": "00000000:00000000",
+            "timer_hex": "00:00000000",
+            "retransmissions_hex": "00000000",
+            "inode": "248774467"
+          },
+          {
+            "local_address_hex": "00000000:878B",
+            "remote_address_hex": "00000000:0000",
+            "state_hex": "0A",
+            "queue_hex": "00000000:00000000",
+            "timer_hex": "00:00000000",
+            "retransmissions_hex": "00000000",
+            "inode": "248774466"
+          }
+        ]
+      },
+      "server_stats_before": {
+        "user_seconds": 0.0,
+        "system_seconds": 0.0,
+        "resident_pages": 384,
+        "threads": 5
+      },
+      "observer_wall_ns": 6332814349,
+      "server_stats_after": {
+        "user_seconds": 0.27,
+        "system_seconds": 6.11,
+        "resident_pages": 384,
+        "threads": 5
+      },
+      "server_affinity_after": {
+        "423838": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "423844": [
+          0
+        ],
+        "423845": [
+          2
+        ],
+        "423848": [
+          4
+        ],
+        "423850": [
+          6
+        ]
+      },
+      "passive_kernel_after": {
+        "observed_at_utc": "2026-10-12T22:18:45Z",
+        "scope": "network namespace/global; attribution unproven",
+        "sysctls": {
+          "net/ipv4/tcp_syn_retries": "6",
+          "net/ipv4/tcp_syn_linear_timeouts": "4",
+          "net/ipv4/tcp_tw_reuse": "2",
+          "net/ipv4/ip_local_port_range": "32768\t60999",
+          "net/ipv4/tcp_max_tw_buckets": "65536",
+          "net/ipv4/tcp_max_syn_backlog": "1024",
+          "net/core/somaxconn": "4096",
+          "net/netfilter/nf_conntrack_count": "143201",
+          "net/netfilter/nf_conntrack_max": "262144",
+          "net/ipv4/tcp_mem": "180369\t240493\t360738"
+        },
+        "errors": [],
+        "global_tcp_ext_counters": {
+          "ListenOverflows": 388417,
+          "ListenDrops": 388417,
+          "TCPSynRetrans": 666571,
+          "TCPTimeouts": 3061994,
+          "TCPMemoryPressures": 1,
+          "TCPTimeWaitOverflow": 7267031,
+          "TCPReqQFullDrop": 0,
+          "TCPReqQFullDoCookies": 0,
+          "TCPBacklogDrop": 0,
+          "TCPRcvQDrop": 3308
+        },
+        "sockstat": "sockets: used 1904\nTCP: inuse 352 orphan 22 tw 36292 alloc 1530 mem 272593\nUDP: inuse 3 mem 748\nUDPLITE: inuse 0\nRAW: inuse 0\nFRAG: inuse 0 memory 0\n",
+        "port": 34699,
+        "port_socket_state_counts": {
+          "0A": 4,
+          "06": 35733
+        },
+        "listeners_and_pending": [
+          {
+            "local_address_hex": "00000000:878B",
+            "remote_address_hex": "00000000:0000",
+            "state_hex": "0A",
+            "queue_hex": "00000000:00000000",
+            "timer_hex": "00:00000000",
+            "retransmissions_hex": "00000000",
+            "inode": "248774469"
+          },
+          {
+            "local_address_hex": "00000000:878B",
+            "remote_address_hex": "00000000:0000",
+            "state_hex": "0A",
+            "queue_hex": "00000000:00000000",
+            "timer_hex": "00:00000000",
+            "retransmissions_hex": "00000000",
+            "inode": "248774468"
+          },
+          {
+            "local_address_hex": "00000000:878B",
+            "remote_address_hex": "00000000:0000",
+            "state_hex": "0A",
+            "queue_hex": "00000000:00000000",
+            "timer_hex": "00:00000000",
+            "retransmissions_hex": "00000000",
+            "inode": "248774467"
+          },
+          {
+            "local_address_hex": "00000000:878B",
+            "remote_address_hex": "00000000:0000",
+            "state_hex": "0A",
+            "queue_hex": "00000000:00000000",
+            "timer_hex": "00:00000000",
+            "retransmissions_hex": "00000000",
+            "inode": "248774466"
+          }
+        ]
+      },
+      "client_exit_code": 0,
+      "client_process_usage": {
+        "user_seconds": 0.419842,
+        "system_seconds": 5.668364,
+        "peak_rss_kib": 16000
+      },
+      "elapsed_ns": 6325704305,
+      "attempted_requests": 56000,
+      "completed_requests": 56000,
+      "errors": 0,
+      "all_request_ids_once": true,
+      "every_response_exact": true,
+      "request_samples_sha256": "a422ae873798b39276f0baaa24d915f82b69104e2c6c4edc08b0a6e8c1e72055",
+      "requests_per_second": 8852.769162120992,
+      "phase_durations": {
+        "connect_ns": {
+          "median_ns": 19657891.0,
+          "p99_ns": 25786438,
+          "max_ns": 36160736
+        },
+        "setup_ns": {
+          "median_ns": 672.0,
+          "p99_ns": 1714,
+          "max_ns": 148691
+        },
+        "write_ns": {
+          "median_ns": 14327.0,
+          "p99_ns": 25215,
+          "max_ns": 287648
+        },
+        "read_ns": {
+          "median_ns": 13601290.0,
+          "p99_ns": 25043017,
+          "max_ns": 35341856
+        },
+        "eof_ns": {
+          "median_ns": 621.0,
+          "p99_ns": 780,
+          "max_ns": 212444611
+        }
+      },
+      "latency_median_ns": 39123424.5,
+      "latency_p99_ns": 47593056,
+      "client_cleanup_usage": {
+        "exit_code": 0
+      },
+      "server_process_usage": {
+        "exit_code": -15,
+        "user_seconds": 0.275632,
+        "system_seconds": 6.112105,
+        "peak_rss_kib": 13772
+      },
+      "retained_request_rows": 56000,
+      "retained_failed_rows": []
+    },
+    "smoke-rust.json": {
+      "status": "passed",
+      "protocol": "prepared-http-v3.2-multisource-windowed-epoll",
+      "workers": 4,
+      "concurrency": 56000,
+      "requests": 56000,
+      "seed": 97,
+      "source_address_count": 4,
+      "body_bytes": 32,
+      "connect_timeout_ms": 60000,
+      "io_timeout_ms": 60000,
+      "observer_failure_policy": "first failure stops new requests; all in-flight attempts finish/time out and are retained; fail without retry",
+      "observer_thread_model": "one epoll reactor thread; at most concurrency active sockets",
+      "body_sha256": "eb11ab6ebab3dc7040b6e1e7dc9acef5a002ea61ba1a92c2785acdabb499687f",
+      "expected_response_sha256": "ccdb5945eef1663c5770b81bad5d70f38f9424ab13330bd568e9168d62a919d1",
+      "expected_response_bytes": 90,
+      "raw_prefix": "/home/helloworld0822/coding/forge-benchmarks/docs/http-v32-capacity-56k-smoke-2026-10-12.raw/smoke-rust",
+      "server_cpus": [
+        0,
+        2,
+        4,
+        6
+      ],
+      "client_cpus": [
+        8
+      ],
+      "server_command": [
+        "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/rust-http",
+        "38629",
+        "4",
+        "GNZLZBSARYBAXILACUOPVDKHJFIYNRGF"
+      ],
+      "server_affinity_before": {
+        "424261": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "424262": [
+          0
+        ],
+        "424263": [
+          2
+        ],
+        "424264": [
+          4
+        ],
+        "424265": [
+          6
+        ]
+      },
+      "independent_probe": {
+        "request_sha256": "40e7758a2645eecdd29429f7d80c8b622a3f0895d6b76fc5fdbf438a2deacb2d",
+        "response_sha256": "ccdb5945eef1663c5770b81bad5d70f38f9424ab13330bd568e9168d62a919d1",
+        "response_bytes": 90,
+        "fragmented": false
+      },
+      "load_command": [
+        "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/http-load-epoll",
+        "38629",
+        "56000",
+        "56000",
+        "97",
+        "/home/helloworld0822/coding/forge-benchmarks/docs/http-v32-capacity-56k-smoke-2026-10-12.raw/smoke-rust-expected.bin",
+        "/home/helloworld0822/coding/forge-benchmarks/docs/http-v32-capacity-56k-smoke-2026-10-12.raw/smoke-rust-requests.tsv",
+        "60000",
+        "60000",
+        "4"
+      ],
+      "client_affinity": {
+        "424266": [
+          8
+        ]
+      },
+      "passive_kernel_before": {
+        "observed_at_utc": "2026-10-12T22:18:46Z",
+        "scope": "network namespace/global; attribution unproven",
+        "sysctls": {
+          "net/ipv4/tcp_syn_retries": "6",
+          "net/ipv4/tcp_syn_linear_timeouts": "4",
+          "net/ipv4/tcp_tw_reuse": "2",
+          "net/ipv4/ip_local_port_range": "32768\t60999",
+          "net/ipv4/tcp_max_tw_buckets": "65536",
+          "net/ipv4/tcp_max_syn_backlog": "1024",
+          "net/core/somaxconn": "4096",
+          "net/netfilter/nf_conntrack_count": "143202",
+          "net/netfilter/nf_conntrack_max": "262144",
+          "net/ipv4/tcp_mem": "180369\t240493\t360738"
+        },
+        "errors": [],
+        "global_tcp_ext_counters": {
+          "ListenOverflows": 388417,
+          "ListenDrops": 388417,
+          "TCPSynRetrans": 666571,
+          "TCPTimeouts": 3061998,
+          "TCPMemoryPressures": 1,
+          "TCPTimeWaitOverflow": 7267031,
+          "TCPReqQFullDrop": 0,
+          "TCPReqQFullDoCookies": 0,
+          "TCPBacklogDrop": 0,
+          "TCPRcvQDrop": 3308
+        },
+        "sockstat": "sockets: used 1903\nTCP: inuse 351 orphan 21 tw 36294 alloc 1529 mem 272593\nUDP: inuse 3 mem 748\nUDPLITE: inuse 0\nRAW: inuse 0\nFRAG: inuse 0 memory 0\n",
+        "port": 38629,
+        "port_socket_state_counts": {
+          "0A": 4,
+          "06": 3
+        },
+        "listeners_and_pending": [
+          {
+            "local_address_hex": "00000000:96E5",
+            "remote_address_hex": "00000000:0000",
+            "state_hex": "0A",
+            "queue_hex": "00000000:00000000",
+            "timer_hex": "00:00000000",
+            "retransmissions_hex": "00000000",
+            "inode": "248893678"
+          },
+          {
+            "local_address_hex": "00000000:96E5",
+            "remote_address_hex": "00000000:0000",
+            "state_hex": "0A",
+            "queue_hex": "00000000:00000000",
+            "timer_hex": "00:00000000",
+            "retransmissions_hex": "00000000",
+            "inode": "248893677"
+          },
+          {
+            "local_address_hex": "00000000:96E5",
+            "remote_address_hex": "00000000:0000",
+            "state_hex": "0A",
+            "queue_hex": "00000000:00000000",
+            "timer_hex": "00:00000000",
+            "retransmissions_hex": "00000000",
+            "inode": "248893676"
+          },
+          {
+            "local_address_hex": "00000000:96E5",
+            "remote_address_hex": "00000000:0000",
+            "state_hex": "0A",
+            "queue_hex": "00000000:00000000",
+            "timer_hex": "00:00000000",
+            "retransmissions_hex": "00000000",
+            "inode": "248893675"
+          }
+        ]
+      },
+      "server_stats_before": {
+        "user_seconds": 0.0,
+        "system_seconds": 0.0,
+        "resident_pages": 480,
+        "threads": 5
+      },
+      "observer_wall_ns": 5981860515,
+      "server_stats_after": {
+        "user_seconds": 0.19,
+        "system_seconds": 5.02,
+        "resident_pages": 480,
+        "threads": 5
+      },
+      "server_affinity_after": {
+        "424261": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "424262": [
+          0
+        ],
+        "424263": [
+          2
+        ],
+        "424264": [
+          4
+        ],
+        "424265": [
+          6
+        ]
+      },
+      "passive_kernel_after": {
+        "observed_at_utc": "2026-10-12T22:18:52Z",
+        "scope": "network namespace/global; attribution unproven",
+        "sysctls": {
+          "net/ipv4/tcp_syn_retries": "6",
+          "net/ipv4/tcp_syn_linear_timeouts": "4",
+          "net/ipv4/tcp_tw_reuse": "2",
+          "net/ipv4/ip_local_port_range": "32768\t60999",
+          "net/ipv4/tcp_max_tw_buckets": "65536",
+          "net/ipv4/tcp_max_syn_backlog": "1024",
+          "net/core/somaxconn": "4096",
+          "net/netfilter/nf_conntrack_count": "166263",
+          "net/netfilter/nf_conntrack_max": "262144",
+          "net/ipv4/tcp_mem": "180369\t240493\t360738"
+        },
+        "errors": [],
+        "global_tcp_ext_counters": {
+          "ListenOverflows": 388417,
+          "ListenDrops": 388417,
+          "TCPSynRetrans": 666571,
+          "TCPTimeouts": 3062014,
+          "TCPMemoryPressures": 1,
+          "TCPTimeWaitOverflow": 7274164,
+          "TCPReqQFullDrop": 0,
+          "TCPReqQFullDoCookies": 0,
+          "TCPBacklogDrop": 0,
+          "TCPRcvQDrop": 3308
+        },
+        "sockstat": "sockets: used 1902\nTCP: inuse 350 orphan 20 tw 65536 alloc 1528 mem 272337\nUDP: inuse 3 mem 748\nUDPLITE: inuse 0\nRAW: inuse 0\nFRAG: inuse 0 memory 0\n",
+        "port": 38629,
+        "port_socket_state_counts": {
+          "0A": 4,
+          "06": 29245
+        },
+        "listeners_and_pending": [
+          {
+            "local_address_hex": "00000000:96E5",
+            "remote_address_hex": "00000000:0000",
+            "state_hex": "0A",
+            "queue_hex": "00000000:00000000",
+            "timer_hex": "00:00000000",
+            "retransmissions_hex": "00000000",
+            "inode": "248893678"
+          },
+          {
+            "local_address_hex": "00000000:96E5",
+            "remote_address_hex": "00000000:0000",
+            "state_hex": "0A",
+            "queue_hex": "00000000:00000000",
+            "timer_hex": "00:00000000",
+            "retransmissions_hex": "00000000",
+            "inode": "248893677"
+          },
+          {
+            "local_address_hex": "00000000:96E5",
+            "remote_address_hex": "00000000:0000",
+            "state_hex": "0A",
+            "queue_hex": "00000000:00000000",
+            "timer_hex": "00:00000000",
+            "retransmissions_hex": "00000000",
+            "inode": "248893676"
+          },
+          {
+            "local_address_hex": "00000000:96E5",
+            "remote_address_hex": "00000000:0000",
+            "state_hex": "0A",
+            "queue_hex": "00000000:00000000",
+            "timer_hex": "00:00000000",
+            "retransmissions_hex": "00000000",
+            "inode": "248893675"
+          }
+        ]
+      },
+      "client_exit_code": 0,
+      "client_process_usage": {
+        "user_seconds": 0.42754,
+        "system_seconds": 5.501481,
+        "peak_rss_kib": 30672
+      },
+      "elapsed_ns": 5979062329,
+      "attempted_requests": 56000,
+      "completed_requests": 56000,
+      "errors": 0,
+      "all_request_ids_once": true,
+      "every_response_exact": true,
+      "request_samples_sha256": "db836015a33f4c63d2905907d1867a6602bf60069289593f2cfe9a8301b35798",
+      "requests_per_second": 9366.017097427719,
+      "phase_durations": {
+        "connect_ns": {
+          "median_ns": 17821707.5,
+          "p99_ns": 24475205,
+          "max_ns": 40368586
+        },
+        "setup_ns": {
+          "median_ns": 672.0,
+          "p99_ns": 1375,
+          "max_ns": 181491
+        },
+        "write_ns": {
+          "median_ns": 14224.0,
+          "p99_ns": 24235,
+          "max_ns": 266992
+        },
+        "read_ns": {
+          "median_ns": 14334852.5,
+          "p99_ns": 25915842,
+          "max_ns": 34252981
+        },
+        "eof_ns": {
+          "median_ns": 621.0,
+          "p99_ns": 781,
+          "max_ns": 221453576
+        }
+      },
+      "latency_median_ns": 36763168.5,
+      "latency_p99_ns": 46290035,
+      "client_cleanup_usage": {
+        "exit_code": 0
+      },
+      "server_process_usage": {
+        "exit_code": -15,
+        "user_seconds": 0.197905,
+        "system_seconds": 5.02336,
+        "peak_rss_kib": 30544
+      },
+      "retained_request_rows": 56000,
+      "retained_failed_rows": []
+    }
+  },
+  "finished_at_utc": "2026-10-12T22:18:53Z"
+}

@@ -2,6 +2,8 @@
 
 ## 2026-10-12 측정 업데이트
 
+최신 V3.2 수용량 시험은 4개 서버 worker·8개 loopback source IP·32-byte 응답 조건에서 Forge/Rust 모두 128,000개 동시 요청을 8/8회 오류 없이 완료했다. 재현 가능한 확인 하한은 최소 128,000 lanes이며 절대 최대치는 아니다. 220,000 단발 성공 기록도 있으나 고부하 반복 시험에서 connect timeout이 발생했고, 128k 처리량도 Forge 중앙값 2,692 req/s·Rust 4,080 req/s로 변동이 커 언어 간 우열은 결론 내리지 않는다. 단일 epoll observer와 shared TCP/TIME_WAIT 한계를 포함한 측정이다. [V3.2 측정 방법·제약·원자료](http-v32-capacity-128k-paired-2026-10-12.md).
+
 이 문서의 아래 HTTP 비교는 2026-07-21의 별도 실행 환경 결과다. 현재 호스트에서 다시 측정한 prepared-response V2 테스트에서는 4개 서버 worker와 32-byte 응답으로 **28,000 loopback client lanes**를 Forge와 Rust 모두 4/4회 오류 없이 처리했다. 이는 확인된 하한(최소 28,000)이며 절대 서버 최대치가 아니다. 이 단계의 중앙 처리량은 Forge 9,046 req/s, Rust 8,817 req/s였지만, 4회 비교의 95% 구간이 0.940–1.124로 넓어 승자를 단정하지 않는다. 요청 수가 동시성 수와 같은 일회성 connection-per-request burst이고, 두 CPU에 고정된 one-thread-per-lane observer의 생성·검증·로그 비용도 측정 시간에 포함된다. Loopback ephemeral-port 범위가 28,232개여서 이 결과는 서버만의 최대 용량을 측정하지 않는다. [단계별 방법과 원자료](http-capacity-extended-2026-10-12.md).
 
 CPU/string benchmark의 통합 Forge source candidate는 Rust baseline보다 다섯 워크로드 모두 빠르게 측정됐다: LCG 1.1508x, bounded prime-search 2.8718x, scan 1.8918x, builder 1.3151x, immutable append 17.8931x. LCG와 prime-search는 Forge 쪽 알고리즘을 바꾼 workload-level 결과이며, 같은 Miller–Rabin 알고리즘의 Forge/Rust 비교는 1.0192x다. 통합 candidate의 scan은 기존 Forge 대비 느려졌으므로 기본 fixture로 채택하지 않았다. [조건·재검증 구간·원자료](rust110-final-cpu-http-measurements-2026-10-12.md).
