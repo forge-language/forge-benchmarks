@@ -19,6 +19,8 @@ Measured `2026-10-12T10:32:03Z` to `2026-10-12T10:33:42Z` with 42 position-balan
 
 All small-input, prewarm and measured outputs match the independent Python reference. All samples remain in the raw report. Confidence is per row and describes this host/run, not simultaneous or universal confidence. Cyclic schedules balance ordinal positions but not every adjacency.
 
+The measurement window overlapped a long-running OMO review process that was active across the allowed CPUs; it used about 21% CPU when checked shortly after the run. Paired scheduling reduces but does not eliminate this shared-host interference. Treat the observed gains as promising evidence and confirm them in a quiet-host rerun before relying on their exact magnitude.
+
 Compiler/runtime/stdlib changes are identified by exact binary, archive, header and generated-C hashes. Every implementation must match the independent reference for prewarm and measured inputs. FG/Rust workload and common timer sources are identical across variants. Raw source-state observations can differ from frozen SDK content; artifact hashes identify the actual build inputs.
 
 Both implementations complete the same runtime-input algorithms and final checksums. Forge retains immutable arena snapshots until reset; Rust can drop obsolete owned strings sooner. Rust builder retains its final clone to match the Forge immutable snapshot. Allocator lifetime, out-of-line SDK calls, compiler range analysis and runtime policies are real implementation differences. No measured algorithm is delegated to C FFI.
