@@ -287,6 +287,10 @@ The V2 prepared HTTP capacity sweep was extended to 28,000 loopback client lanes
 
 The prepared HTTP observer was extended to V3.2 with an eight-source loopback bind pool, a bounded 256-connect ramp window, and periodic deadline scans. Forge and Rust each completed 128,000 one-shot requests in all eight measured pairs (4 workers, 32-byte response, 120-second phase timeouts). This is a repeatable lower bound of at least 128,000 tested lanes; it is not an absolute server maximum. Median throughput was 2,692 req/s for Forge and 4,080 req/s for Rust, but the paired 95% interval was 0.358–1.746 and per-sample variance was high, so there is no throughput winner. Single-shot 220,000-lane successes coexist with high-load timeout failures, indicating the shared host's TCP churn and single-reactor observer limit boundary claims. [V3.2 conditions and evidence](http-v32-capacity-128k-paired-2026-10-12.md).
 
+## Positive constant division lowering probe
+
+The native code generator now also emits direct division for known-integer expressions with a positive literal divisor, preserving checked helper lowering for dynamic, zero, negative, and unknown-type cases. The signed-boundary regression passed under UBSan at `-O0`/`-O3` and through the JavaScript backend. This is a proven lowering simplification, not a measured release speedup: GCC 13.3 `-O3` already reduced the helper form to the same instruction sequence. It is not counted as progress toward 1.10×. An OMO Sisyphus-Junior review recommended this extension; its read-only task is `ses_ecd9ca1a1ffemKBJ2u3GYQWlhL`. [Proof and measurement limit](positive-constant-division-lowering-2026-10-12.md).
+
 ## Affine Mersenne multiply-add codegen probe
 
 Extended the compiler's guarded Mersenne fold from `(x*C)%M` to `(x*C+K)%M` for positive constant `K` and `M=2^k-1`. The helper folds only when `x` and the full multiply-add are nonnegative and representable; all other cases use Forge's wrapping multiply/add and signed-remainder helpers. A new UBSan/JavaScript arithmetic regression checks INT64 boundaries and randomized inputs across both optimization levels. All 22 CTests passed.
