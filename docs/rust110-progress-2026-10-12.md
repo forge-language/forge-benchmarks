@@ -119,3 +119,8 @@ The generated C and standard SDK archives were built with LTO enabled, then comp
 ## Rejected contiguous builder allocation candidate
 
 A stdlib candidate combined `str_builder_with_capacity` metadata and its initial bytes in one arena allocation and removed zero-fill for the length-delimited capacity area. Native and ABI CTest suites passed (10/10). The same compiler/source/runtime was compared against the current SDK for 120 and then 240 paired builder groups. Baseline/candidate Forge throughput was 1.0059x [0.9857–1.0479] in the first run and 0.9958x [0.9823–1.0106] in the larger run. The direction changed and the later interval includes no change; the candidate was reverted. The experiment does not support a speed claim. [Conditions, raw samples, and reversible patch](builder-contiguous-allocation-2026-10-12.md).
+
+
+## Constant-divisor lowering experiment
+
+A compiler candidate bypassed checked integer division/remainder helpers for nonzero literal divisors other than `-1`. Arithmetic regressions passed on native O0/O3 UBSan and JavaScript, and all benchmark outputs matched the independent reference. In a 24-pair frozen five-workload comparison, the candidate regressed builder throughput to 0.8616 of baseline (95% CI 0.7878–0.9415); the candidate was discarded. It did not move the broader suite to the 1.10 Rust-relative target. [Conditions and per-workload results](constant-divisor-fast-path-2026-10-12.md), [raw samples](constant-divisor-fast-path-2026-10-12.json), [reproduction patch](constant-divisor-fast-path-2026-10-12.patch).
