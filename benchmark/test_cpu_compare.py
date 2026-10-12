@@ -4,6 +4,26 @@ from cpu_compare import signed_remainder, weighted_reference, wrap_i64, referenc
 
 
 class SignedReferenceTest(unittest.TestCase):
+    def test_prime_reference_handles_small_and_negative_values(self):
+        def is_prime(value):
+            if value < 2:
+                return False
+            divisor = 2
+            while divisor * divisor <= value:
+                if value % divisor == 0:
+                    return False
+                divisor += 1
+            return True
+
+        for seed in (-1000010, -1000005, -1000001, -1000000, -999999, -999998):
+            for n, rounds in ((1, 1), (31, 3), (127, 2)):
+                first = 1000001 + seed
+                last = first + n * rounds
+                expected = sum(value for value in range(first, last) if is_prime(value))
+                self.assertEqual(reference('primes', n, rounds, seed), expected)
+        self.assertEqual(reference('primes', 0, 10, -1000000), 0)
+        self.assertEqual(reference('primes', 10, 0, -1000000), 0)
+
     def test_remainder_matches_truncation_toward_zero(self):
         self.assertEqual(signed_remainder(-1, 13), -1)
         self.assertEqual(signed_remainder(-13, 13), 0)

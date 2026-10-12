@@ -115,8 +115,12 @@ def reference(mode, n, rounds, seed):
             total = wrap_i64(total + weighted_reference(n, wrap_i64(seed + r), r % 13))
         return total
     if mode == 'primes':
-        low = 1000001 + seed
-        high = low + n * rounds
+        if n <= 0 or rounds <= 0:
+            return 0
+        low = max(2, 1000001 + seed)
+        high = 1000001 + seed + n * rounds
+        if high <= low:
+            return 0
         sieve = bytearray(b'\x01') * high
         sieve[:2] = b'\x00\x00'
         for divisor in range(2, math.isqrt(high - 1) + 1):

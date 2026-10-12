@@ -7,7 +7,7 @@ fn lcg(n:i64,rounds:i64,seed:i64)->i64 {
 fn primes(n:i64,rounds:i64,seed:i64)->i64 {
  let mut sum=0;let mut r=0;
  while r<rounds {let mut i=0;while i<n {let value=1000001+seed+r*n+i;let mut prime=true;
-  if value%2==0 {prime=false;} else {let mut d=3;while d*d<=value {if value%d==0 {prime=false;break;}d+=2;}}
+  if value<2 {prime=false;} else if value==2||value==3 {prime=true;} else if value%2==0 {prime=false;} else {let mut d=3;while d*d<=value {if value%d==0 {prime=false;break;}d+=2;}}
   if prime {sum+=value;}i+=1;}r+=1;}sum
 }
 fn pattern(n:i64,seed:i64)->String {
