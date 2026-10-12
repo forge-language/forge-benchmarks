@@ -20,6 +20,8 @@ import http_compare_v2 as v2
 from cpu_compare import confidence, sha
 from thread_compare import physical_cpus
 
+MAX_TESTED_CONCURRENCY = 4096
+
 
 def percentile(values, fraction):
     if not values:
@@ -136,7 +138,7 @@ def main():
     if (args.workers not in (1, 2, 4) or args.repeats < 3 or
             args.repeats % 2 or not args.concurrency or
             len(set(args.concurrency)) != len(args.concurrency) or
-            any(c < 1 or c > 512 for c in args.concurrency) or
+            any(c < 1 or c > MAX_TESTED_CONCURRENCY for c in args.concurrency) or
             args.requests < max(args.concurrency) or
             any(b < 1 or b > 65536 for b in args.body_bytes) or
             not 1 <= args.connect_timeout_ms <= 60000):

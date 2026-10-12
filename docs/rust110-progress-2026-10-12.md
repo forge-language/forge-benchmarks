@@ -89,3 +89,21 @@ V2의 4-worker·64-client·4096-byte·12,000-request primary 비교는 7개 완�
 추가 source audit에서 현재 optimizer는 arithmetic expression folding만 하며, semantic checker는 string alias/liveness를 추적하지 않는 것을 확인했다. native `str_append`의 arbitrary-byte/NUL 동작과 JS의 `String.fromCharCode` 동작은 기존 UTF-8 builder API와 동치가 아니어서 자동 builder lowering은 보류했다. 대신 cached length를 전달하는 additive `str_view_append_byte`를 구현했다. 단일 allocation으로 immutable snapshot과 view metadata를 만들고, legacy ABI는 유지한다. 동일 `4096 × 512` workload·seed·실행 순서를 사용한 독립 16-pair run 2회에서 legacy 대비 Forge 처리량이 1.1149배 및 1.1134배였고, 합친 32-pair median은 1.1141 (95% CI 1.1060–1.1189)였다. Rust 대비 처리량은 0.2862 및 0.2824로 여전히 1.10에 크게 미달한다. 매 append의 prefix copy와 arena 보존은 남아 O(n²)다. [측정·원시 표본](immutable-view-append-2026-10-12.md), [compiler/backend gate](immutable-append-and-ownership-next-steps-2026-10-10.md#compilerbackend-audit-current-lowering-is-not-safe).
 
 추가로 정수 나눗셈의 0/overflow trap 분기에 unlikely hint를 넣은 compiler 후보를 직전 compiler와 같은 Rust control로 비교했다. 24개 paired group에서 후보/기준 처리량은 LCG 0.9956 (95% CI 0.9909–0.9994), primes 0.9866 (0.9815–0.9887)으로 두 workload 모두 느려져 소스 변경은 폐기했다. [실험과 raw JSON](division-trap-branch-hint-2026-10-12.md).
+
+## Private append-loop lowering recheck
+
+A fresh five-workload comparison used 42 position-balanced pairs with identical Forge/Rust fixture, timer, runtime archive, stdlib archive and public headers; only compiler binaries differed. The baseline was compiler commit `88290b8`, immediately before the private append-loop lowering, and the candidate was `4bdd4ec`. The compatibility fixture removed `immutable_view` and used the older builder constructor/finish APIs so the baseline compiler could build it. The immutable append loop itself was unchanged. All 99 correctness checks, 630 per-input prewarms and 630 measured outputs matched the independent oracle.
+
+| Workload | Before Forge/Rust | Current Forge/Rust (95% interval) | Current vs previous Forge (95% interval) |
+| --- | ---: | ---: | ---: |
+| LCG | 1.0009 | 1.0036 [1.0007–1.0075] | 1.0013 [0.9993–1.0057] |
+| Primes | 1.0102 | 1.0102 [1.0082–1.0127] | 1.0017 [0.9996–1.0045] |
+| Scan | 1.9434 | 1.9490 [1.9176–1.9631] | 1.0019 [0.9987–1.0137] |
+| Builder | 1.1983 | 1.2084 [1.0931–1.2740] | 1.0132 [0.9820–1.0959] |
+| Immutable append | 0.2319 | 18.0431 [17.2501–18.3175] | 77.5045 [74.4483–78.6935] |
+
+The generated C changes the immutable loop from repeated `fr_str_append` calls to a private builder and `fr_str_builder_finish_take`. This supports a large gain for the proven immutable-append pattern; it does not imply every Forge workload reaches 110% of Rust. The direct builder `finish` versus `finish_take` experiment was inconclusive for standalone throughput (1.008x, 95% interval 0.946–1.030). [Conditions and raw samples](compiler-append-lowering-2026-10-12.md), [direct transfer API comparison](builder-finish-take-2026-10-12.md).
+
+## HTTP tested capacity extension
+
+The V2 prepared-response loopback test now also passed 1024, 2048 and 4096 simultaneous client lanes for 32-byte responses, with four clean repeats for both Forge and Rust at each level. Thus the tested error-free capacity is **at least 4096 lanes** under this connection-per-request workload, not an absolute user limit. At 4096 lanes median successful throughput was 6243 req/s for Forge and 7964 req/s for Rust (0.562 and 0.717 MB/s); the four paired ratios are too variable to establish a throughput winner. At 2048 lanes, medians were 4423 and 6550 req/s. [1024/2048 report and raw attempts](http-v2-capacity-extended-2026-10-12.md), [4096 report and raw attempts](http-v2-capacity-4096-2026-10-12.md).
