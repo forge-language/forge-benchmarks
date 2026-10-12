@@ -172,3 +172,15 @@ preserved separately from the earlier 120-pair run. [Report and raw samples](cpu
 Two compiler-only candidates added a checked signed-32-bit remainder path with a full-width fallback. Candidate v2 also tried to preserve the initial divisor 3 path. Both passed the 18 arithmetic tests under UBSan at `-O0` and `-O3`, but a 24-pair compiler-only comparison regressed primes throughput to 0.9863 [0.9814, 0.9884] and 0.9860 [0.9838, 0.9895] of baseline; immutable append also regressed, especially in v2. Matched Forge/Rust prime ratios were 0.9980 and 0.9985, while baseline was 1.0107. Disassembly retained `idiv` instructions in both 64-bit and 32-bit paths, so these candidates are discarded. A new signed-32-bit overflow edge regression is covered in Forge commit `10e05d1`. [Measurements, exact patches and frozen builds](arithmetic-mod-narrowing-2026-10-12.md).
 
 A follow-up paired the signed-remainder narrowing candidate with the equivalent prime wheel kernel, removing the `d=3` first-iteration issue. At 24 pairs, Forge/Rust was 1.0040 [1.0021, 1.0108] for baseline and 0.9969 [0.9915, 1.0036] for narrowing; candidate/baseline Forge throughput was 0.9953 [0.9918, 0.9984]. The candidate was discarded: even without the initial divisor, its generic guard remains a small regression and does not support 1.10. [Conditions and full data](arithmetic-mod-narrowing-wheel-recheck-2026-10-12.md), [samples](arithmetic-mod-narrowing-wheel-recheck-2026-10-12.json), [frozen builds](arithmetic-mod-narrowing-wheel-recheck-2026-10-12.raw.tar.gz).
+
+## LCG countdown-loop probe
+
+A source-level countdown rewrite was measured against the original Forge loop
+and unchanged Rust control in 28 prewarmed position-balanced pairs at the
+current LCG dimensions. Forge/Rust moved from 0.9977 [0.9954, 1.0046] to
+1.0134 [1.0049, 1.0180], but Forge's own paired speedup was 0.9997
+[0.9951, 1.0082]. Disassembly shows both Forge loops retain three loop
+control/data-movement instructions; the incrementing form places its increment
+before the expensive remainder, while countdown requires a move after it.
+The change is not adopted and does not support the 1.10 target. [Conditions,
+assembly rationale and results](lcg-countdown-loop-2026-10-12.md).
