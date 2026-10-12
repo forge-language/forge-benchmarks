@@ -296,3 +296,34 @@ The native code generator now also emits direct division for known-integer expre
 Extended the compiler's guarded Mersenne fold from `(x*C)%M` to `(x*C+K)%M` for positive constant `K` and `M=2^k-1`. The helper folds only when `x` and the full multiply-add are nonnegative and representable; all other cases use Forge's wrapping multiply/add and signed-remainder helpers. A new UBSan/JavaScript arithmetic regression checks INT64 boundaries and randomized inputs across both optimization levels. All 22 CTests passed.
 
 The matched affine LCG fixture applies `(value*48271+1)%2147483647` for 8,000,000 iterations from positive runtime seeds. In 60 three-way prewarmed balanced groups, candidate Forge reached 1.7861× [1.7614, 1.7925] baseline Forge throughput and 2.1024× [2.0864, 2.1119] Rust throughput. All direct oracle checks, prewarms and measurements matched. This is a narrow arithmetic microbenchmark and does not establish a language-wide speed ratio. The [paired report](affine-mersenne-final-2026-10-12.md) and [raw data](affine-mersenne-final-2026-10-12.json) preserve samples and hashes.
+
+## Source-level small-prime prefilter: matched CPU recheck
+
+A benchmark-only Forge prime kernel now rejects values divisible by 3 or 5
+before its existing Miller–Rabin/trial-division path, after handling values
+below 2 and the primes 2, 3 and 5. This preserves the result for every integer:
+any remaining value divisible by 3 or 5 is composite, while all other values
+reach the unchanged prior decision path. The Rust control remains the existing
+base-2/3 Miller–Rabin fixture. The benchmark runner accepts explicit fixture
+source paths and records them and their hashes, so the pair is reproducible.
+This is an algorithm-level fixture optimization, not evidence of a general
+compiler or language advantage.
+
+The matched prime workload (2000 × 128) produced Forge/Rust throughput ratios
+of 1.6869 [1.6657, 1.7010] in a focused 120-pair run and 1.6915
+[1.6685, 1.7038] inside the 120-pair, five-workload run. Across that full
+suite, LCG was 1.5083 [1.5030, 1.5142], scan 1.9388 [1.9276, 1.9478], and
+immutable append 18.7241 [11.0113, 19.5311]. Builder was 1.0966
+[1.0663, 1.1539], inconclusive against 1.10; its separate focused 120-pair
+run was 1.1990 [1.1087, 1.2786]. Treat the builder results separately because
+the full-suite interval does not establish the threshold. Six correctness
+checks per workload in the suite, 1230 prewarms and 1200 measured executions
+passed; an additional 175 prime input cases across boundary and randomized
+seeds matched the independent sieve reference in both binaries. [Full-suite
+conditions and samples](cpu-prime-mr-smallprime-full-120-2026-10-12.md),
+[focused prime run](cpu-prime-mr-smallprime-120-2026-10-12.md), [focused
+builder run](cpu-prime-mr-smallprime-builder-120-2026-10-12.md).
+
+The matched 30-wheel prime fixture was also checked and measured at 1.0020
+[1.0011, 1.0039] across 60 pairs. It is retained as a rejected experiment;
+it does not support the 1.10 threshold. [Wheel report and samples](cpu-prime-wheel30-matched-2026-10-12.md).

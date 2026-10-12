@@ -1,0 +1,21 @@
+# Native Forge / Rust CPU comparison
+
+Recorded at `2026-10-12T23:26:10Z`. Ratio = Rust elapsed / Forge elapsed for the same work; >=1.10 means at least 110% of Rust throughput on this case.
+
+| Workload | n × rounds | Forge median ms | Rust median ms | Paired ratio median | Bootstrap 95% interval | 1.10 threshold |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| primes | 2000 × 128 | 40.322 | 40.475 | 1.0020 | [1.0011, 1.0039] | below target |
+
+Protocol: `prewarmed-balanced`. Per-input warmups, when enabled, are checked and retained separately; the prewarmed-balanced protocol makes each language run first in exactly half the measured pairs. These results must not be merged with the original protocol without qualification.
+
+Each measured output matches an independent Python reference (modular exponentiation, sieve of Eratosthenes, or periodic weighted-sum formula). No checksum failure is excluded or silently retried.
+
+Both executables use identical runtime n/rounds/seed arguments and a common C monotonic-clock primitive plus one-shot input/output optimization barriers. There is no C implementation of a measured algorithm. The report preserves every paired sample, warmup, calibration choice, source/artifact hash, compiler command and environment detail.
+
+Builds use GCC -O3 and Rust opt-level=3, native CPU tuning and explicit LTO settings. Forge native runtime/stdlib archives are taken from the specified existing Release build; their non-LTO C functions may remain out of line, while Rust standard-library methods can inline. This comparison measures these implementations and supported public APIs rather than isolating a language syntax cost.
+
+The reserved builder workload creates the same ASCII bytes and checksum in both languages. Forge reserves `n` bytes and transfers the finished builder buffer with `str_builder_finish_take`; Rust reserves `n` bytes and returns the `String` by move. Neither path clones the completed buffer. The separate `immutable` workload compares Forge arena-backed append snapshots with Rust prefix-copying append and is not an ownership-equivalent implementation comparison. Forge arena allocation retains intermediate snapshots until reset; Rust drops obsolete owned strings earlier. Cleanup is inside timed rounds for builder/immutable paths, outside timing for the prebuilt scan input. The wait4 peak RSS is a whole-process diagnostic, not a precise language heap measurement.
+
+This small CPU suite does not cover typed arrays/vectors (no supported safe typed vector API in the tested Forge frontend; raw pointer indexing exists), concurrency, HTTP, database I/O, safety guarantees, large applications or cross-machine portability. Shared host services and frequency scheduling remain sources of noise despite CPU affinity and paired randomized order. A bootstrap interval describes this run, not universal performance. Passing one row cannot establish a language-wide 110% guarantee.
+
+The repeated seeds are runtime inputs and output-dependent arithmetic prevents replacing the work with a printed constant. Timed instructions include mode dispatch and a few common observer calls; process startup, command parsing, output formatting and prebuilt scan input construction are excluded. Full process wall/CPU/RSS are separate diagnostics.
