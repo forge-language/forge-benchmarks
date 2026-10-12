@@ -270,3 +270,7 @@ An additional Forge-only 6k wheel candidate cut prime-search time from 74.711 ms
 ## Matched Miller–Rabin prime-search comparison
 
 A bounded deterministic Miller–Rabin path (bases 2 and 3 below 1,373,653) was implemented in both benchmark fixtures, with overflow-safe trial division as the fallback. In 48 randomized groups balanced across all 24 execution orders, Forge and Rust candidates passed 175 direct reference cases, 192 same-input prewarms and 192 timed measurements. The common algorithm improved Forge by 2.8212 [2.8073, 2.8329] and Rust by 2.7874 [2.7807, 2.8071] relative to their respective baselines. The matched Forge/Rust throughput ratio was 1.0192 [1.0130, 1.0261], below the 1.10 objective. The experimental fixture is not adopted as a compiler or default-kernel change. [Method and interpretation](prime-miller-rabin-matched-2026-10-12.md), [full paired samples](prime-mr-matched-fourway-2026-10-12.json).
+
+## Dynamic remainder guard probes
+
+Two compiler-only positive-remainder fast paths were measured in 48 randomized balanced groups. A checked 32-bit fast path regressed Forge prime throughput (baseline/candidate 0.9878 [0.9862, 0.9905]); a checked positive 64-bit unsigned path also regressed (0.9893 [0.9872, 0.9918]). All 160 reference cases passed for each; the first candidate also passed all 21 CTests. Assembly retained both narrow/wide divide forms or unsigned/signed wide divide forms. Both changes were reverted. [Interpretation and raw samples](prime-modulo-guard-probes-2026-10-12.md).
