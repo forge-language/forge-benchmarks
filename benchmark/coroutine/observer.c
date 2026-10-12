@@ -21,7 +21,7 @@ void bench_config(int argc, const char *const *argv) {
         config[i] = strtoll(argv[i + 1], &end, 10);
         if (errno || !end || *end || config[i] <= 0) abort();
     }
-    if ((config[0] != 1 && config[0] != 2 && config[0] != 4) ||
+    if (config[0] > 64 ||
         config[1] > 100000 || config[2] > 1000000 || config[3] > 1000000 ||
         config[4] > 1000000) abort();
 }

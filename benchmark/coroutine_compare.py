@@ -94,6 +94,7 @@ def main():
     parser.add_argument('--cargo', default='cargo')
     parser.add_argument('--pairs', type=int, default=16)
     parser.add_argument('--workers', type=int, nargs='+', default=[1, 2, 4])
+    parser.add_argument('--cases', nargs='+', choices=list(CASES), default=list(CASES))
     parser.add_argument('--build-only', action='store_true')
     parser.add_argument('--reuse-build', action='store_true')
     args = parser.parse_args()
@@ -101,8 +102,8 @@ def main():
     if not args.build_only and (args.output.exists() or args.output.with_suffix('.md').exists()):
         parser.error('Output exists; preserve evidence and choose a new output')
     cpus = physical_cpus()
-    if args.pairs < 8 or args.pairs % 2 or any(w not in (1, 2, 4) or w > len(cpus) for w in args.workers):
-        parser.error('Use even >=8 pairs and supported 1/2/4 physical workers')
+    if args.pairs < 8 or args.pairs % 2 or any(w < 1 or w > len(cpus) for w in args.workers):
+        parser.error('Use even >=8 pairs and worker counts within available physical cores')
     directory = args.build_dir.resolve()
     snapshot = directory / 'snapshot'
     if not args.reuse_build:
@@ -174,7 +175,7 @@ def main():
                 checks.append({'language': name, 'workers': workers, 'tasks': tasks,
                                'rounds': rounds, 'chunk': chunk, 'seed': 71, **row})
     rng = random.Random(20261010)
-    cases = [(case, workers) for case in CASES for workers in args.workers]
+    cases = [(case, workers) for case in args.cases for workers in args.workers]
     orders = {key: [False, True] * (args.pairs // 2) for key in cases}
     for order in orders.values(): rng.shuffle(order)
     started = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
@@ -210,7 +211,7 @@ def main():
               'physical_cpu_sets': {str(w): cpus[:w] for w in args.workers}, 'load_average_end': os.getloadavg()},
               'method': {'pairs': args.pairs, 'random_seed': 20261010, 'timing': 'observer allocation + runtime creation + spawn + complete + shutdown + unique-ID validation; excludes parsing/output/observer buffer free',
               'yield_semantics': 'Same explicit yield count; Forge reduction-budget continuation policy and Tokio yield_now are different; no equal context-switch claim',
-              'topology': 'Both create exact 1/2/4 OS worker threads restricted to identical physical CPU sets; Both spawn drivers execute on main thread; Forge generated main_init queues tasks before scheduler_run starts workers, Tokio workers start at builder.build before spawning',
+              'topology': 'Both create the requested number of OS worker threads restricted to identical physical CPU sets; Both spawn drivers execute on main thread; Forge generated main_init queues tasks before scheduler_run starts workers, Tokio workers start at builder.build before spawning',
               'confidence': '10000 paired-ratio median percentile bootstrap 95%; not family-wise; whole-process RSS can include preexec forked runner',
               'references': ['https://docs.rs/tokio/1.53.0/tokio/task/fn.yield_now.html', 'https://docs.rs/tokio/1.53.0/tokio/runtime/struct.Builder.html'],
               'missing_coverage': ['mailbox', 'HTTP', 'I/O readiness', 'cross-machine stability', 'safety guarantees']},
@@ -224,13 +225,13 @@ def main():
     for row in summary:
         lo, hi = row['ci95']; lines.append(f'| {row["case"]} | {row["workers"]} | {row["forge_median_ms"]:.3f} | {row["rust_median_ms"]:.3f} | {row["paired_ratio_median"]:.4f} [{lo:.4f}, {hi:.4f}] | {row["target_status"]} |')
     lines += ['', f'Ratio = Tokio elapsed / Forge elapsed for the same logical work. The ratio column is the median of within-pair ratios, which can differ from dividing the displayed independent medians. Each configuration has {args.pairs} order-balanced paired repetitions with randomized dynamic seeds and checked same-input prewarming. No checksum failure or timing outlier is excluded.', '',
-              'Both runtimes use 1/2/4 OS worker threads pinned to the same distinct physical cores. Both spawning drivers run on the main thread. Forge queues tasks in generated main_init before scheduler_run starts its workers; Tokio starts workers during runtime creation, before block_on spawns tasks. The exact generated-C adapter changes only worker count and lifecycle timer boundaries; original/adapted C and hashes are preserved. C provides config, timer and observer storage only; recurrence and logical yields live in FG/Rust.', '',
+              f'Both runtimes use the configured worker counts {args.workers} OS worker threads pinned to the same distinct physical cores. Both spawning drivers run on the main thread. Forge queues tasks in generated main_init before scheduler_run starts its workers; Tokio starts workers during runtime creation, before block_on spawns tasks. The exact generated-C adapter changes only worker count and lifecycle timer boundaries; original/adapted C and hashes are preserved. C provides config, timer and observer storage only; recurrence and logical yields live in FG/Rust.', '',
               'Explicit yields are not equal context switches: Forge can continue within its reduction budget before requeue, while Tokio yield_now has its own cooperative scheduling and [non-guarantees](https://docs.rs/tokio/1.53.0/tokio/task/fn.yield_now.html). Worker configuration uses the [Tokio builder](https://docs.rs/tokio/1.53.0/tokio/runtime/struct.Builder.html). These measure supported scheduler policies and their complete lifecycle, not equivalent dispatch counts or a language-wide performance guarantee.', '',
               'The scheduler-heavy case has 4,000 tasks × 128 yield rounds × 1 recurrence step. Mixed CPU has 4,000 tasks × 64 yield rounds × 256 steps. Budget crossing has 256 tasks × 4,096 yield rounds × 1 step, exceeding the observed Forge reduction budget of 2,000; the first two cases fit within that budget. Integer products remain bounded below signed 64-bit overflow. Results do not cover mailbox throughput, HTTP, I/O readiness or other machines. Shared-host services/frequency and runtime task-allocation differences remain relevant. RSS is a whole-process diagnostic, potentially including the forked Python runner footprint.', '',
               f'Raw samples, source/adapter/lock hashes and flags: [{args.output.name}]({args.output.name}).', '']
     lines += ['', f'Validated SDK input prefix: `{args.sdk}`. Actual compiler/archive/header hashes identify the measured inputs; sibling source observations can postdate their build.', '',
               'Reproduce with that validated SDK and fresh paths:', '', '```sh',
-              f'python3 benchmark/coroutine_compare.py --sdk {args.sdk} --build-dir {args.build_dir}-reproduction --output {args.output.with_name(args.output.stem + "-reproduction.json")}',
+              f'python3 benchmark/coroutine_compare.py --sdk {args.sdk} --build-dir {args.build_dir}-reproduction --output {args.output.with_name(args.output.stem + "-reproduction.json")} --pairs {args.pairs} --workers {" ".join(map(str, args.workers))} --cases {" ".join(args.cases)}',
               '```', '',
               f'Original and adapted C remain in the immutable local `{snapshot}`; the runner regenerates them and validates exact adapter anchors. Original SHA256: `{build["fixture_sha256"]["generated-original.c"]}`. Adapted SHA256: `{build["fixture_sha256"]["generated-adapted.c"]}`.', '',
               'The raw report retains the executed measurement-runner source/hash separately from later documentation edits.', '']
