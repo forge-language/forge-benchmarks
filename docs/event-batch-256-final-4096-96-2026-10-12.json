@@ -1,0 +1,5294 @@
+{
+  "description": "One burst of simultaneously-ready eventfds drained through Forge callbacks and direct Rust epoll_wait.",
+  "method": {
+    "base_batch_capacity": 64,
+    "candidate_batch_capacity": 256,
+    "rust_batch_capacity": 1024,
+    "event_counts": [
+      4096
+    ],
+    "pairs": 96,
+    "cpu": 0,
+    "random_seed": 20261013,
+    "timing": "sum of drain durations; descriptor creation, registration and signaling are outside the timer",
+    "warmup": "one checked run per implementation and pair",
+    "confidence": "paired median bootstrap percentile 95% interval, per row"
+  },
+  "environment": {
+    "platform": "Linux-6.8.0-139-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3",
+    "allowed_affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ]
+  },
+  "artifacts": {
+    "base": {
+      "path": "/tmp/forge-eventbatch-final-4096-96/base",
+      "sha256": "c9015aa311357b71fbf00278c3293870cb76145a134bbb3aa4399affcce49c09"
+    },
+    "candidate": {
+      "path": "/tmp/forge-eventbatch-final-4096-96/candidate",
+      "sha256": "0c33edbcf33effa013c4e246971d76ffba8151332e32f07217738dcb8c5f1e6e"
+    },
+    "rust": {
+      "path": "/tmp/forge-eventbatch-final-4096-96/rust",
+      "sha256": "d077fb83e5b34abb162aee0dba600a95d6ff14def63d26021b26f25eb130139c"
+    }
+  },
+  "runner": {
+    "path": "/home/helloworld0822/coding/forge-benchmarks/benchmark/event_batch/compare.py",
+    "sha256": "d672a5806b577dd0ad19089499199d6b72312dd7acd852ead33d2506b48603d9"
+  },
+  "source_sha256": {
+    "benchmark/event_batch/forge.c": "a32b46f39069e8e349e95e21f5baeb395cdc7c317713b15a473dae82647e8cb2",
+    "benchmark/event_batch/rust.rs": "9cd4bff5dfaa2617d887ead19c82fe2af68009d92866397b4a6ac9a30cf6c898",
+    "benchmark/cpu/clock.c": "e186278a041ec53b5e919b39d944c1f07ecb9f6bb662a4afbbf748f93e96d5c9"
+  },
+  "runtime_source_sha256": {
+    "/home/helloworld0822/coding/forge-runtime/CMakeLists.txt": "708ef525699887fb4181ff2d97482a22cb21dcee96ad12a41620cb73f7259063",
+    "/home/helloworld0822/coding/forge-runtime/src/event_loop.c": "7bdd974052bdcaf2cde9c097d865c34934c03c4329f1f5ba9ee3731c445255e8",
+    "/home/helloworld0822/coding/forge-runtime/tests/event_loop_test.c": "f20ae3c75d163b28473d6e189a2825fb8a8b15517490b1fa06e2fd38cb88fcce"
+  },
+  "library_sha256": {
+    "baseline": "1d6762432242324c9018ed688d212eb3b2f1b3858694391065f9b955dbfd249b",
+    "candidate": "7d2fc8bd99383a74ad07687cc068fd7410ae001b4034b75e57c3c5cc065d0380"
+  },
+  "results": [
+    {
+      "event_count": 4096,
+      "pairs": 96,
+      "median_drain_ns": {
+        "base": 758797.5,
+        "candidate": 706209.5,
+        "rust": 759860.5
+      },
+      "median_poll_calls": {
+        "base": 64.0,
+        "candidate": 16.0,
+        "rust": 4.0
+      },
+      "forge_over_rust": {
+        "base": {
+          "median": 1.0261717198354015,
+          "ci95": [
+            0.8690590197308865,
+            1.0995208559775835
+          ]
+        },
+        "candidate": {
+          "median": 1.0585785847913443,
+          "ci95": [
+            0.9895256001525927,
+            1.1058349111794175
+          ]
+        }
+      },
+      "candidate_over_base": {
+        "median": 1.0702592110199003,
+        "ci95": [
+          1.0049030521369813,
+          1.1404374734905283
+        ]
+      }
+    }
+  ],
+  "warmups": [
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 0,
+      "position": 0,
+      "elapsed_ns": 1119954,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 0,
+      "position": 1,
+      "elapsed_ns": 916945,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 0,
+      "position": 2,
+      "elapsed_ns": 772026,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 1,
+      "position": 0,
+      "elapsed_ns": 579918,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 1,
+      "position": 1,
+      "elapsed_ns": 932219,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 1,
+      "position": 2,
+      "elapsed_ns": 637315,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 2,
+      "position": 0,
+      "elapsed_ns": 944610,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 2,
+      "position": 1,
+      "elapsed_ns": 991240,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 2,
+      "position": 2,
+      "elapsed_ns": 734337,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 3,
+      "position": 0,
+      "elapsed_ns": 670710,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 3,
+      "position": 1,
+      "elapsed_ns": 1057793,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 3,
+      "position": 2,
+      "elapsed_ns": 935430,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 4,
+      "position": 0,
+      "elapsed_ns": 617452,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 4,
+      "position": 1,
+      "elapsed_ns": 606775,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 4,
+      "position": 2,
+      "elapsed_ns": 650480,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 5,
+      "position": 0,
+      "elapsed_ns": 1034801,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 5,
+      "position": 1,
+      "elapsed_ns": 933228,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 5,
+      "position": 2,
+      "elapsed_ns": 834265,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 6,
+      "position": 0,
+      "elapsed_ns": 896275,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 6,
+      "position": 1,
+      "elapsed_ns": 679572,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 6,
+      "position": 2,
+      "elapsed_ns": 931042,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 7,
+      "position": 0,
+      "elapsed_ns": 633586,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 7,
+      "position": 1,
+      "elapsed_ns": 660089,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 7,
+      "position": 2,
+      "elapsed_ns": 689862,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 8,
+      "position": 0,
+      "elapsed_ns": 649336,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 8,
+      "position": 1,
+      "elapsed_ns": 781949,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 8,
+      "position": 2,
+      "elapsed_ns": 635372,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 9,
+      "position": 0,
+      "elapsed_ns": 840765,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 9,
+      "position": 1,
+      "elapsed_ns": 653884,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 9,
+      "position": 2,
+      "elapsed_ns": 735489,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 10,
+      "position": 0,
+      "elapsed_ns": 764182,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 10,
+      "position": 1,
+      "elapsed_ns": 1027236,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 10,
+      "position": 2,
+      "elapsed_ns": 675533,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 11,
+      "position": 0,
+      "elapsed_ns": 705009,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 11,
+      "position": 1,
+      "elapsed_ns": 1098160,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 11,
+      "position": 2,
+      "elapsed_ns": 850314,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 12,
+      "position": 0,
+      "elapsed_ns": 1063062,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 12,
+      "position": 1,
+      "elapsed_ns": 1233012,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 12,
+      "position": 2,
+      "elapsed_ns": 786925,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 13,
+      "position": 0,
+      "elapsed_ns": 1149354,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 13,
+      "position": 1,
+      "elapsed_ns": 924253,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 13,
+      "position": 2,
+      "elapsed_ns": 768241,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 14,
+      "position": 0,
+      "elapsed_ns": 863128,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 14,
+      "position": 1,
+      "elapsed_ns": 666744,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 14,
+      "position": 2,
+      "elapsed_ns": 665901,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 15,
+      "position": 0,
+      "elapsed_ns": 734018,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 15,
+      "position": 1,
+      "elapsed_ns": 975819,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 15,
+      "position": 2,
+      "elapsed_ns": 736864,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 16,
+      "position": 0,
+      "elapsed_ns": 782800,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 16,
+      "position": 1,
+      "elapsed_ns": 977400,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 16,
+      "position": 2,
+      "elapsed_ns": 939863,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 17,
+      "position": 0,
+      "elapsed_ns": 619980,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 17,
+      "position": 1,
+      "elapsed_ns": 615114,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 17,
+      "position": 2,
+      "elapsed_ns": 642002,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 18,
+      "position": 0,
+      "elapsed_ns": 718899,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 18,
+      "position": 1,
+      "elapsed_ns": 849571,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 18,
+      "position": 2,
+      "elapsed_ns": 961371,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 19,
+      "position": 0,
+      "elapsed_ns": 802663,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 19,
+      "position": 1,
+      "elapsed_ns": 740440,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 19,
+      "position": 2,
+      "elapsed_ns": 754365,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 20,
+      "position": 0,
+      "elapsed_ns": 667412,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 20,
+      "position": 1,
+      "elapsed_ns": 1501377,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 20,
+      "position": 2,
+      "elapsed_ns": 663487,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 21,
+      "position": 0,
+      "elapsed_ns": 644499,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 21,
+      "position": 1,
+      "elapsed_ns": 882677,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 21,
+      "position": 2,
+      "elapsed_ns": 846984,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 22,
+      "position": 0,
+      "elapsed_ns": 828375,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 22,
+      "position": 1,
+      "elapsed_ns": 656358,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 22,
+      "position": 2,
+      "elapsed_ns": 630125,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 23,
+      "position": 0,
+      "elapsed_ns": 747061,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 23,
+      "position": 1,
+      "elapsed_ns": 702173,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 23,
+      "position": 2,
+      "elapsed_ns": 1052273,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 24,
+      "position": 0,
+      "elapsed_ns": 697140,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 24,
+      "position": 1,
+      "elapsed_ns": 632833,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 24,
+      "position": 2,
+      "elapsed_ns": 943951,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 25,
+      "position": 0,
+      "elapsed_ns": 680579,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 25,
+      "position": 1,
+      "elapsed_ns": 662312,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 25,
+      "position": 2,
+      "elapsed_ns": 574036,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 26,
+      "position": 0,
+      "elapsed_ns": 673404,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 26,
+      "position": 1,
+      "elapsed_ns": 660079,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 26,
+      "position": 2,
+      "elapsed_ns": 978906,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 27,
+      "position": 0,
+      "elapsed_ns": 951320,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 27,
+      "position": 1,
+      "elapsed_ns": 814149,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 27,
+      "position": 2,
+      "elapsed_ns": 700555,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 28,
+      "position": 0,
+      "elapsed_ns": 782274,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 28,
+      "position": 1,
+      "elapsed_ns": 635531,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 28,
+      "position": 2,
+      "elapsed_ns": 694520,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 29,
+      "position": 0,
+      "elapsed_ns": 723374,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 29,
+      "position": 1,
+      "elapsed_ns": 739847,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 29,
+      "position": 2,
+      "elapsed_ns": 1057764,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 30,
+      "position": 0,
+      "elapsed_ns": 1051465,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 30,
+      "position": 1,
+      "elapsed_ns": 623049,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 30,
+      "position": 2,
+      "elapsed_ns": 607910,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 31,
+      "position": 0,
+      "elapsed_ns": 693890,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 31,
+      "position": 1,
+      "elapsed_ns": 805341,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 31,
+      "position": 2,
+      "elapsed_ns": 745082,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 32,
+      "position": 0,
+      "elapsed_ns": 1487090,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 32,
+      "position": 1,
+      "elapsed_ns": 825684,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 32,
+      "position": 2,
+      "elapsed_ns": 849871,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 33,
+      "position": 0,
+      "elapsed_ns": 872064,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 33,
+      "position": 1,
+      "elapsed_ns": 1108518,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 33,
+      "position": 2,
+      "elapsed_ns": 564716,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 34,
+      "position": 0,
+      "elapsed_ns": 635313,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 34,
+      "position": 1,
+      "elapsed_ns": 908905,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 34,
+      "position": 2,
+      "elapsed_ns": 841545,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 35,
+      "position": 0,
+      "elapsed_ns": 646064,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 35,
+      "position": 1,
+      "elapsed_ns": 628308,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 35,
+      "position": 2,
+      "elapsed_ns": 631818,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 36,
+      "position": 0,
+      "elapsed_ns": 976823,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 36,
+      "position": 1,
+      "elapsed_ns": 618711,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 36,
+      "position": 2,
+      "elapsed_ns": 848017,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 37,
+      "position": 0,
+      "elapsed_ns": 675900,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 37,
+      "position": 1,
+      "elapsed_ns": 650701,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 37,
+      "position": 2,
+      "elapsed_ns": 865723,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 38,
+      "position": 0,
+      "elapsed_ns": 715254,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 38,
+      "position": 1,
+      "elapsed_ns": 661471,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 38,
+      "position": 2,
+      "elapsed_ns": 609482,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 39,
+      "position": 0,
+      "elapsed_ns": 754393,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 39,
+      "position": 1,
+      "elapsed_ns": 1090023,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 39,
+      "position": 2,
+      "elapsed_ns": 846895,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 40,
+      "position": 0,
+      "elapsed_ns": 777067,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 40,
+      "position": 1,
+      "elapsed_ns": 848592,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 40,
+      "position": 2,
+      "elapsed_ns": 587080,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 41,
+      "position": 0,
+      "elapsed_ns": 825496,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 41,
+      "position": 1,
+      "elapsed_ns": 629482,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 41,
+      "position": 2,
+      "elapsed_ns": 619791,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 42,
+      "position": 0,
+      "elapsed_ns": 646521,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 42,
+      "position": 1,
+      "elapsed_ns": 894758,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 42,
+      "position": 2,
+      "elapsed_ns": 701677,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 43,
+      "position": 0,
+      "elapsed_ns": 742264,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 43,
+      "position": 1,
+      "elapsed_ns": 600808,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 43,
+      "position": 2,
+      "elapsed_ns": 732471,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 44,
+      "position": 0,
+      "elapsed_ns": 988436,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 44,
+      "position": 1,
+      "elapsed_ns": 730817,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 44,
+      "position": 2,
+      "elapsed_ns": 771717,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 45,
+      "position": 0,
+      "elapsed_ns": 651845,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 45,
+      "position": 1,
+      "elapsed_ns": 719869,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 45,
+      "position": 2,
+      "elapsed_ns": 647936,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 46,
+      "position": 0,
+      "elapsed_ns": 709470,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 46,
+      "position": 1,
+      "elapsed_ns": 656192,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 46,
+      "position": 2,
+      "elapsed_ns": 787268,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 47,
+      "position": 0,
+      "elapsed_ns": 779460,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 47,
+      "position": 1,
+      "elapsed_ns": 975599,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 47,
+      "position": 2,
+      "elapsed_ns": 720959,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 48,
+      "position": 0,
+      "elapsed_ns": 645107,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 48,
+      "position": 1,
+      "elapsed_ns": 665191,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 48,
+      "position": 2,
+      "elapsed_ns": 961582,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 49,
+      "position": 0,
+      "elapsed_ns": 1009895,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 49,
+      "position": 1,
+      "elapsed_ns": 649129,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 49,
+      "position": 2,
+      "elapsed_ns": 680023,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 50,
+      "position": 0,
+      "elapsed_ns": 1191272,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 50,
+      "position": 1,
+      "elapsed_ns": 1152413,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 50,
+      "position": 2,
+      "elapsed_ns": 1149436,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 51,
+      "position": 0,
+      "elapsed_ns": 808214,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 51,
+      "position": 1,
+      "elapsed_ns": 610415,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 51,
+      "position": 2,
+      "elapsed_ns": 800409,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 52,
+      "position": 0,
+      "elapsed_ns": 599564,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 52,
+      "position": 1,
+      "elapsed_ns": 717379,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 52,
+      "position": 2,
+      "elapsed_ns": 646083,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 53,
+      "position": 0,
+      "elapsed_ns": 923708,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 53,
+      "position": 1,
+      "elapsed_ns": 926816,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 53,
+      "position": 2,
+      "elapsed_ns": 795293,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 54,
+      "position": 0,
+      "elapsed_ns": 662141,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 54,
+      "position": 1,
+      "elapsed_ns": 738524,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 54,
+      "position": 2,
+      "elapsed_ns": 813795,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 55,
+      "position": 0,
+      "elapsed_ns": 734509,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 55,
+      "position": 1,
+      "elapsed_ns": 917072,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 55,
+      "position": 2,
+      "elapsed_ns": 1265511,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 56,
+      "position": 0,
+      "elapsed_ns": 916805,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 56,
+      "position": 1,
+      "elapsed_ns": 1153913,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 56,
+      "position": 2,
+      "elapsed_ns": 619412,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 57,
+      "position": 0,
+      "elapsed_ns": 566434,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 57,
+      "position": 1,
+      "elapsed_ns": 583305,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 57,
+      "position": 2,
+      "elapsed_ns": 624150,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 58,
+      "position": 0,
+      "elapsed_ns": 713408,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 58,
+      "position": 1,
+      "elapsed_ns": 1291250,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 58,
+      "position": 2,
+      "elapsed_ns": 659187,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 59,
+      "position": 0,
+      "elapsed_ns": 665515,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 59,
+      "position": 1,
+      "elapsed_ns": 584874,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 59,
+      "position": 2,
+      "elapsed_ns": 714302,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 60,
+      "position": 0,
+      "elapsed_ns": 605699,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 60,
+      "position": 1,
+      "elapsed_ns": 810089,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 60,
+      "position": 2,
+      "elapsed_ns": 1009524,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 61,
+      "position": 0,
+      "elapsed_ns": 1019971,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 61,
+      "position": 1,
+      "elapsed_ns": 978793,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 61,
+      "position": 2,
+      "elapsed_ns": 610966,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 62,
+      "position": 0,
+      "elapsed_ns": 578975,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 62,
+      "position": 1,
+      "elapsed_ns": 700678,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 62,
+      "position": 2,
+      "elapsed_ns": 898925,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 63,
+      "position": 0,
+      "elapsed_ns": 597608,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 63,
+      "position": 1,
+      "elapsed_ns": 1019933,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 63,
+      "position": 2,
+      "elapsed_ns": 594653,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 64,
+      "position": 0,
+      "elapsed_ns": 702244,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 64,
+      "position": 1,
+      "elapsed_ns": 679947,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 64,
+      "position": 2,
+      "elapsed_ns": 665748,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 65,
+      "position": 0,
+      "elapsed_ns": 789810,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 65,
+      "position": 1,
+      "elapsed_ns": 727979,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 65,
+      "position": 2,
+      "elapsed_ns": 1116782,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 66,
+      "position": 0,
+      "elapsed_ns": 908159,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 66,
+      "position": 1,
+      "elapsed_ns": 978575,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 66,
+      "position": 2,
+      "elapsed_ns": 630172,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 67,
+      "position": 0,
+      "elapsed_ns": 941448,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 67,
+      "position": 1,
+      "elapsed_ns": 1187716,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 67,
+      "position": 2,
+      "elapsed_ns": 773699,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 68,
+      "position": 0,
+      "elapsed_ns": 646363,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 68,
+      "position": 1,
+      "elapsed_ns": 1153671,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 68,
+      "position": 2,
+      "elapsed_ns": 656820,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 69,
+      "position": 0,
+      "elapsed_ns": 847959,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 69,
+      "position": 1,
+      "elapsed_ns": 741113,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 69,
+      "position": 2,
+      "elapsed_ns": 613442,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 70,
+      "position": 0,
+      "elapsed_ns": 1219518,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 70,
+      "position": 1,
+      "elapsed_ns": 675495,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 70,
+      "position": 2,
+      "elapsed_ns": 911456,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 71,
+      "position": 0,
+      "elapsed_ns": 704540,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 71,
+      "position": 1,
+      "elapsed_ns": 631464,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 71,
+      "position": 2,
+      "elapsed_ns": 1097538,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 72,
+      "position": 0,
+      "elapsed_ns": 628949,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 72,
+      "position": 1,
+      "elapsed_ns": 1098441,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 72,
+      "position": 2,
+      "elapsed_ns": 689727,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 73,
+      "position": 0,
+      "elapsed_ns": 611749,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 73,
+      "position": 1,
+      "elapsed_ns": 1543205,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 73,
+      "position": 2,
+      "elapsed_ns": 665237,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 74,
+      "position": 0,
+      "elapsed_ns": 626057,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 74,
+      "position": 1,
+      "elapsed_ns": 1064084,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 74,
+      "position": 2,
+      "elapsed_ns": 738946,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 75,
+      "position": 0,
+      "elapsed_ns": 631216,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 75,
+      "position": 1,
+      "elapsed_ns": 1028368,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 75,
+      "position": 2,
+      "elapsed_ns": 841566,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 76,
+      "position": 0,
+      "elapsed_ns": 690305,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 76,
+      "position": 1,
+      "elapsed_ns": 636791,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 76,
+      "position": 2,
+      "elapsed_ns": 729648,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 77,
+      "position": 0,
+      "elapsed_ns": 1083262,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 77,
+      "position": 1,
+      "elapsed_ns": 706445,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 77,
+      "position": 2,
+      "elapsed_ns": 672828,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 78,
+      "position": 0,
+      "elapsed_ns": 1108156,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 78,
+      "position": 1,
+      "elapsed_ns": 724911,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 78,
+      "position": 2,
+      "elapsed_ns": 638204,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 79,
+      "position": 0,
+      "elapsed_ns": 1038842,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 79,
+      "position": 1,
+      "elapsed_ns": 654578,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 79,
+      "position": 2,
+      "elapsed_ns": 739289,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 80,
+      "position": 0,
+      "elapsed_ns": 812255,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 80,
+      "position": 1,
+      "elapsed_ns": 835438,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 80,
+      "position": 2,
+      "elapsed_ns": 987121,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 81,
+      "position": 0,
+      "elapsed_ns": 707664,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 81,
+      "position": 1,
+      "elapsed_ns": 653685,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 81,
+      "position": 2,
+      "elapsed_ns": 1499740,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 82,
+      "position": 0,
+      "elapsed_ns": 952333,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 82,
+      "position": 1,
+      "elapsed_ns": 624359,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 82,
+      "position": 2,
+      "elapsed_ns": 1001598,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 83,
+      "position": 0,
+      "elapsed_ns": 622385,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 83,
+      "position": 1,
+      "elapsed_ns": 693999,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 83,
+      "position": 2,
+      "elapsed_ns": 889598,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 84,
+      "position": 0,
+      "elapsed_ns": 939224,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 84,
+      "position": 1,
+      "elapsed_ns": 811973,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 84,
+      "position": 2,
+      "elapsed_ns": 906786,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 85,
+      "position": 0,
+      "elapsed_ns": 653924,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 85,
+      "position": 1,
+      "elapsed_ns": 987733,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 85,
+      "position": 2,
+      "elapsed_ns": 1025926,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 86,
+      "position": 0,
+      "elapsed_ns": 815920,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 86,
+      "position": 1,
+      "elapsed_ns": 778009,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 86,
+      "position": 2,
+      "elapsed_ns": 754339,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 87,
+      "position": 0,
+      "elapsed_ns": 926744,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 87,
+      "position": 1,
+      "elapsed_ns": 985565,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 87,
+      "position": 2,
+      "elapsed_ns": 632228,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 88,
+      "position": 0,
+      "elapsed_ns": 1110905,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 88,
+      "position": 1,
+      "elapsed_ns": 643651,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 88,
+      "position": 2,
+      "elapsed_ns": 1001318,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 89,
+      "position": 0,
+      "elapsed_ns": 652171,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 89,
+      "position": 1,
+      "elapsed_ns": 822418,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 89,
+      "position": 2,
+      "elapsed_ns": 697837,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 90,
+      "position": 0,
+      "elapsed_ns": 1023519,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 90,
+      "position": 1,
+      "elapsed_ns": 951757,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 90,
+      "position": 2,
+      "elapsed_ns": 779983,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 91,
+      "position": 0,
+      "elapsed_ns": 677532,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 91,
+      "position": 1,
+      "elapsed_ns": 618280,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 91,
+      "position": 2,
+      "elapsed_ns": 1022732,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 92,
+      "position": 0,
+      "elapsed_ns": 1058584,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 92,
+      "position": 1,
+      "elapsed_ns": 657254,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 92,
+      "position": 2,
+      "elapsed_ns": 924632,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 93,
+      "position": 0,
+      "elapsed_ns": 650927,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 93,
+      "position": 1,
+      "elapsed_ns": 934353,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 93,
+      "position": 2,
+      "elapsed_ns": 649166,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 94,
+      "position": 0,
+      "elapsed_ns": 805060,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 94,
+      "position": 1,
+      "elapsed_ns": 706121,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 94,
+      "position": 2,
+      "elapsed_ns": 683739,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 95,
+      "position": 0,
+      "elapsed_ns": 682719,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 95,
+      "position": 1,
+      "elapsed_ns": 619765,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 95,
+      "position": 2,
+      "elapsed_ns": 664875,
+      "poll_calls": 4,
+      "events_seen": 4096
+    }
+  ],
+  "measurements": [
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 0,
+      "position": 0,
+      "elapsed_ns": 673380,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 0,
+      "position": 1,
+      "elapsed_ns": 630661,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 0,
+      "position": 2,
+      "elapsed_ns": 897023,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 1,
+      "position": 0,
+      "elapsed_ns": 919311,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 1,
+      "position": 1,
+      "elapsed_ns": 605198,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 1,
+      "position": 2,
+      "elapsed_ns": 754274,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 2,
+      "position": 0,
+      "elapsed_ns": 594545,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 2,
+      "position": 1,
+      "elapsed_ns": 628558,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 2,
+      "position": 2,
+      "elapsed_ns": 784143,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 3,
+      "position": 0,
+      "elapsed_ns": 1019349,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 3,
+      "position": 1,
+      "elapsed_ns": 804309,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 3,
+      "position": 2,
+      "elapsed_ns": 720311,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 4,
+      "position": 0,
+      "elapsed_ns": 685155,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 4,
+      "position": 1,
+      "elapsed_ns": 789832,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 4,
+      "position": 2,
+      "elapsed_ns": 794289,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 5,
+      "position": 0,
+      "elapsed_ns": 681464,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 5,
+      "position": 1,
+      "elapsed_ns": 1018291,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 5,
+      "position": 2,
+      "elapsed_ns": 665733,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 6,
+      "position": 0,
+      "elapsed_ns": 831562,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 6,
+      "position": 1,
+      "elapsed_ns": 651389,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 6,
+      "position": 2,
+      "elapsed_ns": 632297,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 7,
+      "position": 0,
+      "elapsed_ns": 931728,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 7,
+      "position": 1,
+      "elapsed_ns": 555976,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 7,
+      "position": 2,
+      "elapsed_ns": 709643,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 8,
+      "position": 0,
+      "elapsed_ns": 716637,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 8,
+      "position": 1,
+      "elapsed_ns": 859124,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 8,
+      "position": 2,
+      "elapsed_ns": 870484,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 9,
+      "position": 0,
+      "elapsed_ns": 637394,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 9,
+      "position": 1,
+      "elapsed_ns": 604516,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 9,
+      "position": 2,
+      "elapsed_ns": 1050710,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 10,
+      "position": 0,
+      "elapsed_ns": 923601,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 10,
+      "position": 1,
+      "elapsed_ns": 790227,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 10,
+      "position": 2,
+      "elapsed_ns": 1466769,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 11,
+      "position": 0,
+      "elapsed_ns": 653203,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 11,
+      "position": 1,
+      "elapsed_ns": 788641,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 11,
+      "position": 2,
+      "elapsed_ns": 895007,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 12,
+      "position": 0,
+      "elapsed_ns": 726292,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 12,
+      "position": 1,
+      "elapsed_ns": 686728,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 12,
+      "position": 2,
+      "elapsed_ns": 733980,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 13,
+      "position": 0,
+      "elapsed_ns": 1309685,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 13,
+      "position": 1,
+      "elapsed_ns": 716176,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 13,
+      "position": 2,
+      "elapsed_ns": 1003324,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 14,
+      "position": 0,
+      "elapsed_ns": 706694,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 14,
+      "position": 1,
+      "elapsed_ns": 657260,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 14,
+      "position": 2,
+      "elapsed_ns": 715489,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 15,
+      "position": 0,
+      "elapsed_ns": 693512,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 15,
+      "position": 1,
+      "elapsed_ns": 673671,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 15,
+      "position": 2,
+      "elapsed_ns": 627094,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 16,
+      "position": 0,
+      "elapsed_ns": 975812,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 16,
+      "position": 1,
+      "elapsed_ns": 729109,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 16,
+      "position": 2,
+      "elapsed_ns": 877555,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 17,
+      "position": 0,
+      "elapsed_ns": 1022798,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 17,
+      "position": 1,
+      "elapsed_ns": 673582,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 17,
+      "position": 2,
+      "elapsed_ns": 650433,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 18,
+      "position": 0,
+      "elapsed_ns": 696054,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 18,
+      "position": 1,
+      "elapsed_ns": 945395,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 18,
+      "position": 2,
+      "elapsed_ns": 771716,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 19,
+      "position": 0,
+      "elapsed_ns": 623834,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 19,
+      "position": 1,
+      "elapsed_ns": 660138,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 19,
+      "position": 2,
+      "elapsed_ns": 817323,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 20,
+      "position": 0,
+      "elapsed_ns": 827091,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 20,
+      "position": 1,
+      "elapsed_ns": 644869,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 20,
+      "position": 2,
+      "elapsed_ns": 703338,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 21,
+      "position": 0,
+      "elapsed_ns": 665339,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 21,
+      "position": 1,
+      "elapsed_ns": 921558,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 21,
+      "position": 2,
+      "elapsed_ns": 690496,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 22,
+      "position": 0,
+      "elapsed_ns": 618247,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 22,
+      "position": 1,
+      "elapsed_ns": 923623,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 22,
+      "position": 2,
+      "elapsed_ns": 711863,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 23,
+      "position": 0,
+      "elapsed_ns": 900789,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 23,
+      "position": 1,
+      "elapsed_ns": 847430,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 23,
+      "position": 2,
+      "elapsed_ns": 752782,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 24,
+      "position": 0,
+      "elapsed_ns": 870913,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 24,
+      "position": 1,
+      "elapsed_ns": 963086,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 24,
+      "position": 2,
+      "elapsed_ns": 640722,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 25,
+      "position": 0,
+      "elapsed_ns": 794109,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 25,
+      "position": 1,
+      "elapsed_ns": 737000,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 25,
+      "position": 2,
+      "elapsed_ns": 662279,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 26,
+      "position": 0,
+      "elapsed_ns": 998602,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 26,
+      "position": 1,
+      "elapsed_ns": 653324,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 26,
+      "position": 2,
+      "elapsed_ns": 620846,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 27,
+      "position": 0,
+      "elapsed_ns": 633420,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 27,
+      "position": 1,
+      "elapsed_ns": 648346,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 27,
+      "position": 2,
+      "elapsed_ns": 1020510,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 28,
+      "position": 0,
+      "elapsed_ns": 957327,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 28,
+      "position": 1,
+      "elapsed_ns": 673772,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 28,
+      "position": 2,
+      "elapsed_ns": 849010,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 29,
+      "position": 0,
+      "elapsed_ns": 666429,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 29,
+      "position": 1,
+      "elapsed_ns": 1071808,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 29,
+      "position": 2,
+      "elapsed_ns": 974725,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 30,
+      "position": 0,
+      "elapsed_ns": 591822,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 30,
+      "position": 1,
+      "elapsed_ns": 901761,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 30,
+      "position": 2,
+      "elapsed_ns": 673904,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 31,
+      "position": 0,
+      "elapsed_ns": 666117,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 31,
+      "position": 1,
+      "elapsed_ns": 931776,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 31,
+      "position": 2,
+      "elapsed_ns": 723008,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 32,
+      "position": 0,
+      "elapsed_ns": 610956,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 32,
+      "position": 1,
+      "elapsed_ns": 914496,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 32,
+      "position": 2,
+      "elapsed_ns": 675034,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 33,
+      "position": 0,
+      "elapsed_ns": 930932,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 33,
+      "position": 1,
+      "elapsed_ns": 936907,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 33,
+      "position": 2,
+      "elapsed_ns": 639780,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 34,
+      "position": 0,
+      "elapsed_ns": 787745,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 34,
+      "position": 1,
+      "elapsed_ns": 1111446,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 34,
+      "position": 2,
+      "elapsed_ns": 1418832,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 35,
+      "position": 0,
+      "elapsed_ns": 593991,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 35,
+      "position": 1,
+      "elapsed_ns": 591591,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 35,
+      "position": 2,
+      "elapsed_ns": 766218,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 36,
+      "position": 0,
+      "elapsed_ns": 687566,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 36,
+      "position": 1,
+      "elapsed_ns": 594495,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 36,
+      "position": 2,
+      "elapsed_ns": 1063423,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 37,
+      "position": 0,
+      "elapsed_ns": 789950,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 37,
+      "position": 1,
+      "elapsed_ns": 945229,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 37,
+      "position": 2,
+      "elapsed_ns": 667505,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 38,
+      "position": 0,
+      "elapsed_ns": 836860,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 38,
+      "position": 1,
+      "elapsed_ns": 932930,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 38,
+      "position": 2,
+      "elapsed_ns": 662212,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 39,
+      "position": 0,
+      "elapsed_ns": 837952,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 39,
+      "position": 1,
+      "elapsed_ns": 1367634,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 39,
+      "position": 2,
+      "elapsed_ns": 613132,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 40,
+      "position": 0,
+      "elapsed_ns": 843283,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 40,
+      "position": 1,
+      "elapsed_ns": 839024,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 40,
+      "position": 2,
+      "elapsed_ns": 678922,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 41,
+      "position": 0,
+      "elapsed_ns": 911534,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 41,
+      "position": 1,
+      "elapsed_ns": 644628,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 41,
+      "position": 2,
+      "elapsed_ns": 600894,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 42,
+      "position": 0,
+      "elapsed_ns": 604603,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 42,
+      "position": 1,
+      "elapsed_ns": 1045680,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 42,
+      "position": 2,
+      "elapsed_ns": 668213,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 43,
+      "position": 0,
+      "elapsed_ns": 927798,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 43,
+      "position": 1,
+      "elapsed_ns": 712164,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 43,
+      "position": 2,
+      "elapsed_ns": 843672,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 44,
+      "position": 0,
+      "elapsed_ns": 645728,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 44,
+      "position": 1,
+      "elapsed_ns": 1010865,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 44,
+      "position": 2,
+      "elapsed_ns": 701546,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 45,
+      "position": 0,
+      "elapsed_ns": 712215,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 45,
+      "position": 1,
+      "elapsed_ns": 772979,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 45,
+      "position": 2,
+      "elapsed_ns": 1267767,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 46,
+      "position": 0,
+      "elapsed_ns": 629142,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 46,
+      "position": 1,
+      "elapsed_ns": 729126,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 46,
+      "position": 2,
+      "elapsed_ns": 716444,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 47,
+      "position": 0,
+      "elapsed_ns": 937327,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 47,
+      "position": 1,
+      "elapsed_ns": 735801,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 47,
+      "position": 2,
+      "elapsed_ns": 969798,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 48,
+      "position": 0,
+      "elapsed_ns": 905336,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 48,
+      "position": 1,
+      "elapsed_ns": 610271,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 48,
+      "position": 2,
+      "elapsed_ns": 1122328,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 49,
+      "position": 0,
+      "elapsed_ns": 758961,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 49,
+      "position": 1,
+      "elapsed_ns": 684002,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 49,
+      "position": 2,
+      "elapsed_ns": 669613,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 50,
+      "position": 0,
+      "elapsed_ns": 1545841,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 50,
+      "position": 1,
+      "elapsed_ns": 1146191,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 50,
+      "position": 2,
+      "elapsed_ns": 1119559,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 51,
+      "position": 0,
+      "elapsed_ns": 767993,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 51,
+      "position": 1,
+      "elapsed_ns": 569257,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 51,
+      "position": 2,
+      "elapsed_ns": 604513,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 52,
+      "position": 0,
+      "elapsed_ns": 667992,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 52,
+      "position": 1,
+      "elapsed_ns": 635644,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 52,
+      "position": 2,
+      "elapsed_ns": 618261,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 53,
+      "position": 0,
+      "elapsed_ns": 882106,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 53,
+      "position": 1,
+      "elapsed_ns": 802264,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 53,
+      "position": 2,
+      "elapsed_ns": 688024,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 54,
+      "position": 0,
+      "elapsed_ns": 643374,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 54,
+      "position": 1,
+      "elapsed_ns": 705772,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 54,
+      "position": 2,
+      "elapsed_ns": 1032015,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 55,
+      "position": 0,
+      "elapsed_ns": 674374,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 55,
+      "position": 1,
+      "elapsed_ns": 679182,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 55,
+      "position": 2,
+      "elapsed_ns": 684355,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 56,
+      "position": 0,
+      "elapsed_ns": 974815,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 56,
+      "position": 1,
+      "elapsed_ns": 870513,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 56,
+      "position": 2,
+      "elapsed_ns": 611128,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 57,
+      "position": 0,
+      "elapsed_ns": 604192,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 57,
+      "position": 1,
+      "elapsed_ns": 586742,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 57,
+      "position": 2,
+      "elapsed_ns": 889547,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 58,
+      "position": 0,
+      "elapsed_ns": 745408,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 58,
+      "position": 1,
+      "elapsed_ns": 691999,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 58,
+      "position": 2,
+      "elapsed_ns": 664723,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 59,
+      "position": 0,
+      "elapsed_ns": 999464,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 59,
+      "position": 1,
+      "elapsed_ns": 664386,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 59,
+      "position": 2,
+      "elapsed_ns": 724256,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 60,
+      "position": 0,
+      "elapsed_ns": 919784,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 60,
+      "position": 1,
+      "elapsed_ns": 1013383,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 60,
+      "position": 2,
+      "elapsed_ns": 1019826,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 61,
+      "position": 0,
+      "elapsed_ns": 730309,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 61,
+      "position": 1,
+      "elapsed_ns": 630702,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 61,
+      "position": 2,
+      "elapsed_ns": 617817,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 62,
+      "position": 0,
+      "elapsed_ns": 676951,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 62,
+      "position": 1,
+      "elapsed_ns": 966130,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 62,
+      "position": 2,
+      "elapsed_ns": 619480,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 63,
+      "position": 0,
+      "elapsed_ns": 713591,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 63,
+      "position": 1,
+      "elapsed_ns": 614519,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 63,
+      "position": 2,
+      "elapsed_ns": 1050843,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 64,
+      "position": 0,
+      "elapsed_ns": 1161416,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 64,
+      "position": 1,
+      "elapsed_ns": 877855,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 64,
+      "position": 2,
+      "elapsed_ns": 691471,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 65,
+      "position": 0,
+      "elapsed_ns": 619732,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 65,
+      "position": 1,
+      "elapsed_ns": 1158524,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 65,
+      "position": 2,
+      "elapsed_ns": 809173,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 66,
+      "position": 0,
+      "elapsed_ns": 758590,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 66,
+      "position": 1,
+      "elapsed_ns": 1062265,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 66,
+      "position": 2,
+      "elapsed_ns": 901380,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 67,
+      "position": 0,
+      "elapsed_ns": 1014291,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 67,
+      "position": 1,
+      "elapsed_ns": 1177425,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 67,
+      "position": 2,
+      "elapsed_ns": 849091,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 68,
+      "position": 0,
+      "elapsed_ns": 645913,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 68,
+      "position": 1,
+      "elapsed_ns": 798118,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 68,
+      "position": 2,
+      "elapsed_ns": 826651,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 69,
+      "position": 0,
+      "elapsed_ns": 688432,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 69,
+      "position": 1,
+      "elapsed_ns": 1000224,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 69,
+      "position": 2,
+      "elapsed_ns": 617037,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 70,
+      "position": 0,
+      "elapsed_ns": 608461,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 70,
+      "position": 1,
+      "elapsed_ns": 763605,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 70,
+      "position": 2,
+      "elapsed_ns": 669572,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 71,
+      "position": 0,
+      "elapsed_ns": 652239,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 71,
+      "position": 1,
+      "elapsed_ns": 1057659,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 71,
+      "position": 2,
+      "elapsed_ns": 1050951,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 72,
+      "position": 0,
+      "elapsed_ns": 826252,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 72,
+      "position": 1,
+      "elapsed_ns": 716781,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 72,
+      "position": 2,
+      "elapsed_ns": 1039337,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 73,
+      "position": 0,
+      "elapsed_ns": 782060,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 73,
+      "position": 1,
+      "elapsed_ns": 713065,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 73,
+      "position": 2,
+      "elapsed_ns": 1085988,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 74,
+      "position": 0,
+      "elapsed_ns": 655919,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 74,
+      "position": 1,
+      "elapsed_ns": 770807,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 74,
+      "position": 2,
+      "elapsed_ns": 1186205,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 75,
+      "position": 0,
+      "elapsed_ns": 666358,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 75,
+      "position": 1,
+      "elapsed_ns": 1004829,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 75,
+      "position": 2,
+      "elapsed_ns": 649825,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 76,
+      "position": 0,
+      "elapsed_ns": 628336,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 76,
+      "position": 1,
+      "elapsed_ns": 852810,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 76,
+      "position": 2,
+      "elapsed_ns": 1056199,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 77,
+      "position": 0,
+      "elapsed_ns": 652513,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 77,
+      "position": 1,
+      "elapsed_ns": 1093892,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 77,
+      "position": 2,
+      "elapsed_ns": 692128,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 78,
+      "position": 0,
+      "elapsed_ns": 679858,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 78,
+      "position": 1,
+      "elapsed_ns": 1037255,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 78,
+      "position": 2,
+      "elapsed_ns": 609148,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 79,
+      "position": 0,
+      "elapsed_ns": 1013880,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 79,
+      "position": 1,
+      "elapsed_ns": 926710,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 79,
+      "position": 2,
+      "elapsed_ns": 952175,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 80,
+      "position": 0,
+      "elapsed_ns": 632496,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 80,
+      "position": 1,
+      "elapsed_ns": 995337,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 80,
+      "position": 2,
+      "elapsed_ns": 727774,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 81,
+      "position": 0,
+      "elapsed_ns": 653299,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 81,
+      "position": 1,
+      "elapsed_ns": 651376,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 81,
+      "position": 2,
+      "elapsed_ns": 760760,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 82,
+      "position": 0,
+      "elapsed_ns": 1553631,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 82,
+      "position": 1,
+      "elapsed_ns": 712364,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 82,
+      "position": 2,
+      "elapsed_ns": 714298,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 83,
+      "position": 0,
+      "elapsed_ns": 1071971,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 83,
+      "position": 1,
+      "elapsed_ns": 696708,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 83,
+      "position": 2,
+      "elapsed_ns": 807431,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 84,
+      "position": 0,
+      "elapsed_ns": 908997,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 84,
+      "position": 1,
+      "elapsed_ns": 846346,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 84,
+      "position": 2,
+      "elapsed_ns": 695977,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 85,
+      "position": 0,
+      "elapsed_ns": 663664,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 85,
+      "position": 1,
+      "elapsed_ns": 868119,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 85,
+      "position": 2,
+      "elapsed_ns": 709081,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 86,
+      "position": 0,
+      "elapsed_ns": 712545,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 86,
+      "position": 1,
+      "elapsed_ns": 610593,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 86,
+      "position": 2,
+      "elapsed_ns": 925715,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 87,
+      "position": 0,
+      "elapsed_ns": 930336,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 87,
+      "position": 1,
+      "elapsed_ns": 740527,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 87,
+      "position": 2,
+      "elapsed_ns": 634211,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 88,
+      "position": 0,
+      "elapsed_ns": 690957,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 88,
+      "position": 1,
+      "elapsed_ns": 679953,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 88,
+      "position": 2,
+      "elapsed_ns": 899729,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 89,
+      "position": 0,
+      "elapsed_ns": 668644,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 89,
+      "position": 1,
+      "elapsed_ns": 810385,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 89,
+      "position": 2,
+      "elapsed_ns": 757924,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 90,
+      "position": 0,
+      "elapsed_ns": 809669,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 90,
+      "position": 1,
+      "elapsed_ns": 770655,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 90,
+      "position": 2,
+      "elapsed_ns": 621654,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 91,
+      "position": 0,
+      "elapsed_ns": 703691,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 91,
+      "position": 1,
+      "elapsed_ns": 1114199,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 91,
+      "position": 2,
+      "elapsed_ns": 1098708,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 92,
+      "position": 0,
+      "elapsed_ns": 682830,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 92,
+      "position": 1,
+      "elapsed_ns": 587031,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 92,
+      "position": 2,
+      "elapsed_ns": 667991,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 93,
+      "position": 0,
+      "elapsed_ns": 1059326,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 93,
+      "position": 1,
+      "elapsed_ns": 672770,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 93,
+      "position": 2,
+      "elapsed_ns": 712438,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 94,
+      "position": 0,
+      "elapsed_ns": 910549,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 94,
+      "position": 1,
+      "elapsed_ns": 663371,
+      "poll_calls": 4,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 94,
+      "position": 2,
+      "elapsed_ns": 763321,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "base",
+      "event_count": 4096,
+      "pair": 95,
+      "position": 0,
+      "elapsed_ns": 646993,
+      "poll_calls": 64,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "candidate",
+      "event_count": 4096,
+      "pair": 95,
+      "position": 1,
+      "elapsed_ns": 1315045,
+      "poll_calls": 16,
+      "events_seen": 4096
+    },
+    {
+      "implementation": "rust",
+      "event_count": 4096,
+      "pair": 95,
+      "position": 2,
+      "elapsed_ns": 641294,
+      "poll_calls": 4,
+      "events_seen": 4096
+    }
+  ]
+}
