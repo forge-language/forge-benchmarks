@@ -70,9 +70,9 @@ V2 관측기 검증 14/14와 observer 단위 테스트 8/8을 통과한 뒤 4 wo
 
 V2의 4-worker·64-client·4096-byte·12,000-request primary 비교는 7개 완전한 paired group 뒤 pair 8의 Rust prewarm에서 실패했다. 991개 시도 행 중 927개가 완료되고 64개가 5초 TCP connect timeout으로 끝났다. Global conntrack 관측치는 시험 전 261,217/262,144, 실패 sample 후 262,144/262,144였고 global TCPTimeWaitOverflow도 증가했지만, 공유 network namespace의 수치여서 프로세스별 원인을 증명하지 못한다. 부분 완료 쌍을 집계하거나 재시도하지 않아 전체 상태는 `failed_no_claim`이며 HTTP 언어 간 처리량 주장을 하지 않는다. 앞선 수용량 sweep은 반복당 1,024 요청까지만 검증했다. [원시 오류 및 제한](https://github.com/forge-language/forge-benchmarks/blob/main/docs/http-v2-primary-2026-10-12.md).
 
-## 추가된 보안·견고성 작업
+## 보안·견고성 패치 확인
 
-보안 점검에서는 소스/모듈 입력으로 커질 수 있는 parser 인자·coroutine 배열과 module registry/import 목록의 `realloc` 실패·크기 산술 경로를 우선 다룬다. 이 영역은 잘못된 대형 입력 또는 메모리 고갈에서 null 역참조나 capacity overflow를 만들 수 있다. 수정은 실패 시 기존 포인터를 보존하고, `SIZE_MAX` 곱셈/증가를 검사하며, 명확한 진단으로 종료하도록 한다. 구현과 확인이 끝난 뒤에만 취약점 수정으로 보고한다.
+컴파일러 입력·할당 경로 강화는 `6a2fa8c`에서 구현됐다. 공통 배열 reserve/calloc helper가 capacity 곱셈과 성장 overflow를 검사하고, parser 인자·coroutine·semantic locals와 module import/declaration 목록이 이 helper를 사용한다. 모듈 import 재귀는 64단계로 제한하고, module 파일은 일반 파일·유효 크기·seek/read 오류를 확인한다. driver argv 배열의 두 parallel allocation과 path 구성도 실패를 확인하며, library output과 header가 같은 파일을 덮어쓰지 못하게 한다. 신규 parser, module merge, compiler, driver 회귀를 포함해 현재 build에서 관련 CTest 4개가 통과했고, 전체 21개 suite도 통합 검증에서 통과했다. 이는 해당 입력·할당 경로 강화의 확인이며, 컴파일러 전체에 대한 보안 감사나 모든 메모리 고갈 상황의 보증을 뜻하지 않는다.
 
 ## 검증과 근거의 범위
 
@@ -129,3 +129,20 @@ A compiler candidate bypassed checked integer division/remainder helpers for non
 A compiler candidate removes the repeated checked accessor call only for a native `while (i < n)` loop where `i` is initialized to zero, `n` is captured from `str_view_len(view)`, the view/index/bound remain stable, and the loop body contains no invalidating calls or suspension. A private stdlib accessor performs the proven byte load; all other paths retain the checked API. The analyzer supports a direct increment in the loop body even when it is followed by pure statements, and refuses an accessor after that increment. Negative starts, arena reset before/inside the loop, and increment-before-access regressions stay on the checked path.
 
 All 21 Forge CTest suites passed. A frozen five-workload comparison used 42 position-balanced pairs, matching fixtures, timer, runtime/stdlib archives and headers, and independent output references. All correctness checks and measured checksums passed. The initial candidate versus baseline throughput was LCG 0.9998 [0.9996–1.0001], primes 1.0003 [0.9999–1.0009], scan 1.1488 [1.1441–1.1540], builder 1.0019 [0.9949–1.0067], and immutable append 1.0683 [1.0637–1.0748]. The initial run overlapped an OMO process using about 21% CPU across the available affinity set. After the OMO review and proof correction, the current compiler was rebuilt; it produced the identical Forge executable and byte-identical measured C fixture. A lower-background-load repeat of 42 pairs confirmed scan at 1.1484 [1.1454–1.1526] and immutable append at 1.0785 [1.0677–1.1464]; LCG was 1.0001 [0.9997–1.0003], primes 1.0001 [0.9999–1.0003], and builder 0.9978 [0.9940–1.0029]. The repeated scan gain is stable; immutable append is directionally positive with a wider interval. Current Forge/Rust ratios are 1.0040 for LCG, 1.0112 for primes, 2.2463 for scan, 1.2878 for builder and 19.2542 for immutable append. Thus three of these five rows exceed 1.10; this is not a language-wide guarantee or completion of the broader objective. The OMO Sisyphus-Junior audit found the index-write gap before bound capture; commit `8f87f2c` fixes it, the negative-index regression returns the checked result, and all 21 CTest suites pass after the fix. [Initial conditions and safety correction](string-view-bounds-elision-2026-10-12.md), [lower-background-load repeat and per-pair data](string-view-bounds-elision-rerun-2026-10-12.md), [full repeat JSON samples](string-view-bounds-elision-rerun-2026-10-12.json), [initial run JSON samples](string-view-bounds-elision-2026-10-12.json).
+
+## Current SDK CPU recheck with 120 paired samples
+
+A fresh 120-pair `cpu_compare.py` run used the same current Forge compiler,
+runtime and stdlib artifacts for all five workloads, the matching Rust source
+control, frozen dimensions from the weighted-cycle run, balanced execution
+order, per-input prewarm, and the independent Python output reference. All
+correctness checks passed. Forge/Rust throughput was LCG 1.0068
+([1.0018, 1.0085]), primes 1.0113 ([1.0092, 1.0130]), scan 2.2701
+([2.2645, 2.2765]), builder 1.3071 ([1.2014, 1.3713]), and immutable append
+17.4990 ([10.9507, 18.0257]). This run supports the 1.10 target on scan,
+builder, and immutable append, while LCG and primes remain below it. Builder
+and immutable append intervals are wide enough to warrant a quieter-host
+repeat; this remains one machine and this fixture suite, not a language-wide
+claim. The source variant and archives differ from earlier CPU reports, so
+their medians must not be pooled. [Conditions and raw samples](cpu-current-rerun-2026-10-12.md),
+[raw report](cpu-current-rerun-2026-10-12.json).
