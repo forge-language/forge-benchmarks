@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Paired Forge-runtime vs Rust bounded-mailbox benchmark."""
-import argparse, csv, os, pathlib, statistics, subprocess, time
+import argparse, csv, os, pathlib, random, statistics, subprocess, time
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 HERE = pathlib.Path(__file__).resolve().parent
 
@@ -40,7 +40,7 @@ def main():
     out.parent.mkdir(parents=True,exist_ok=True)
     with out.open('w',newline='') as f:
         w=csv.DictWriter(f,fieldnames=['receivers','pair','runtime','messages','wall_s','msg_per_s','consumed','checksum','missing_or_duplicate']);w.writeheader();w.writerows(records)
-    print(f"\nreceivers | Forge median msg/s | Rust median msg/s | paired throughput ratio Rust/Forge")
+    print(f"\nreceivers | Forge median msg/s | Rust median msg/s | Forge/Rust paired throughput ratio (bootstrap 95% interval)")
     for receivers in a.receivers:
         subset=[r for r in records if r['receivers']==receivers]
         f=[r['msg_per_s'] for r in subset if r['runtime']=='Forge']; z=[r['msg_per_s'] for r in subset if r['runtime']=='Rust']
@@ -48,7 +48,10 @@ def main():
         for pair in range(1,a.pairs+1):
             f1=next(r['msg_per_s'] for r in subset if r['pair']==pair and r['runtime']=='Forge')
             z1=next(r['msg_per_s'] for r in subset if r['pair']==pair and r['runtime']=='Rust')
-            paired.append(z1/f1)
-        print(f"{receivers:9d} | {statistics.median(f):17,.0f} | {statistics.median(z):16,.0f} | {statistics.median(paired):.3f}")
+            paired.append(f1/z1)
+        rng=random.Random(124+receivers)
+        boots=sorted(statistics.median(rng.choices(paired,k=len(paired))) for _ in range(30_000))
+        low=boots[int(0.025*len(boots))]; high=boots[int(0.975*len(boots))-1]
+        print(f"{receivers:9d} | {statistics.median(f):17,.0f} | {statistics.median(z):16,.0f} | {statistics.median(paired):.3f} [{low:.3f}, {high:.3f}]")
     print(f"Raw samples: {out}")
 if __name__=='__main__': main()
