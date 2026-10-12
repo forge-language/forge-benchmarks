@@ -1,0 +1,74 @@
+import strings;
+import os;
+extern fn bench_clock_ns(): int;
+extern fn bench_observe_i64(value: int): int;
+fn number(index: int): int {
+ let text: string=os_argv(index);let result: int=0;let i: int=0;let sign: int=1;
+ if(str_char_at(text,0)==45){sign=-1;i=1;}
+ while(i<str_len(text)){result=result*10+str_char_at(text,i)-48;i=i+1;}return result*sign;
+}
+fn lcg(n: int, rounds: int, seed: int): int {
+ let value: int=seed;let r: int=0;
+ while(r<rounds){let i: int=0;while(i<n){value=(value*48271)%2147483647;i=i+1;}r=r+1;}return value;
+}
+fn prime_mod_pow(base: int, exponent: int, modulus: int): int {
+ let result: int=1;let factor: int=base%modulus;let power: int=exponent;
+ while(power>0){if(power%2==1){result=(result*factor)%modulus;}factor=(factor*factor)%modulus;power=power/2;}return result;
+}
+fn prime_mr_pass(value: int, base: int): int {
+ if(base>=value){return 1;}let d: int=value-1;let s: int=0;
+ while(d%2==0){d=d/2;s=s+1;}
+ let x: int=prime_mod_pow(base,d,value);
+ if(x==1||x==value-1){return 1;}
+ let r: int=1;while(r<s){x=(x*x)%value;if(x==value-1){return 1;}r=r+1;}return 0;
+}
+fn prime_is(value: int): int {
+ if(value<2){return 0;}if(value==2||value==3||value==5){return 1;}if(value%2==0){return 0;}
+ if(value%3==0||value%5==0){return 0;}
+ if(value<1373653){if(prime_mr_pass(value,2)==0){return 0;}return prime_mr_pass(value,3);}
+ let d: int=3;while(d<=value/d){if(value%d==0){return 0;}d=d+2;}return 1;
+}
+fn primes(n: int, rounds: int, seed: int): int {
+ let sum: int=0;let r: int=0;
+ while(r<rounds){let i: int=0;while(i<n){let value: int=1000001+seed+r*n+i;
+  if(prime_is(value)!=0){sum=sum+value;}i=i+1;}r=r+1;}return sum;
+}
+fn pattern(n: int, seed: int): string {
+ let builder: int=str_builder_with_capacity(n);if(builder==0){return "";}let i: int=0;
+ while(i<n){if(str_builder_char(builder,65+(i+seed)%26)==0){return "";}i=i+1;}return str_builder_finish_take(builder);
+}
+fn weighted(view: int, offset: int): int {
+ let n: int=str_view_len(view);let i: int=0;let sum: int=0;let weight: int=offset%13+1;
+ while(i<n){sum=sum+str_view_at(view,i)*weight;i=i+1;weight=weight+1;if(weight>13){weight=1;}}return sum;
+}
+fn scan(view: int, rounds: int, seed: int): int {
+ let sum: int=seed;let r: int=0;while(r<rounds){sum=sum+weighted(view,sum%13);r=r+1;}return sum;
+}
+fn builder(n: int, rounds: int, seed: int): int {
+ let sum: int=0;let r: int=0;
+ while(r<rounds){let text: string=pattern(n,seed+r);if(str_len(text)!=n){return -1;}let view: int=str_view(text);sum=sum+weighted(view,r%13);str_reset_arena();r=r+1;}return sum;
+}
+fn immutable(n: int, rounds: int, seed: int): int {
+ let sum: int=0;let r: int=0;
+ while(r<rounds){let text: string="";let i: int=0;while(i<n){text=str_append(text,65+(i+seed+r)%26);i=i+1;}
+  if(str_len(text)!=n){return -1;}let view: int=str_view(text);sum=sum+weighted(view,r%13);str_reset_arena();r=r+1;}return sum;
+}
+fn immutable_view(n: int, rounds: int, seed: int): int {
+ let sum: int=0;let r: int=0;
+ while(r<rounds){let view: int=str_view("");let i: int=0;while(i<n){view=str_view_append_byte(view,65+(i+seed+r)%26);i=i+1;}
+  if(str_view_len(view)!=n){return -1;}sum=sum+weighted(view,r%13);str_reset_arena();r=r+1;}return sum;
+}
+native main {
+ let mode: string=os_argv(1);let n: int=number(2);let rounds: int=number(3);let seed: int=number(4);
+ let view: int=0;
+ if(str_eq(mode,"scan")!=0){let text: string=pattern(n,seed);view=str_view(text);}
+ let start: int=bench_clock_ns();n=bench_observe_i64(n);rounds=bench_observe_i64(rounds);seed=bench_observe_i64(seed);let checksum: int=-1;
+ if(str_eq(mode,"lcg")!=0){checksum=lcg(n,rounds,seed);}
+ if(str_eq(mode,"primes")!=0){checksum=primes(n,rounds,seed);}
+ if(str_eq(mode,"scan")!=0){checksum=scan(view,rounds,seed);}
+ if(str_eq(mode,"builder")!=0){checksum=builder(n,rounds,seed);}
+ if(str_eq(mode,"immutable")!=0){checksum=immutable(n,rounds,seed);}
+ if(str_eq(mode,"immutable_view")!=0){checksum=immutable_view(n,rounds,seed);}
+ checksum=bench_observe_i64(checksum);let elapsed: int=bench_clock_ns()-start;
+ str_reset_arena();println(checksum);println(elapsed);return 0;
+}

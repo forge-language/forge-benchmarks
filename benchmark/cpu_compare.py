@@ -198,6 +198,10 @@ def main():
     parser.add_argument('--stdlib-library', type=Path, default=SIBLINGS / 'forge/build/lib/libforge_std.a')
     parser.add_argument('--runtime-root', type=Path, default=SIBLINGS / 'forge-runtime')
     parser.add_argument('--stdlib-root', type=Path, default=SIBLINGS / 'forge-stdlib')
+    parser.add_argument('--forge-source', type=Path, default=ROOT / 'benchmark/cpu/kernels.fg',
+                        help='Forge fixture source to snapshot (default: benchmark/cpu/kernels.fg)')
+    parser.add_argument('--rust-source', type=Path, default=ROOT / 'benchmark/cpu/kernels.rs',
+                        help='Rust fixture source to snapshot (default: benchmark/cpu/kernels.rs)')
     parser.add_argument('--build-dir', type=Path, default=ROOT / 'build-cpu-comparison')
     parser.add_argument('--output', type=Path, default=ROOT / ('docs/cpu-rust-forge-' + time.strftime('%Y%m%dT%H%M%SZ', time.gmtime()) + '.json'))
     parser.add_argument('--overwrite', action='store_true', help='Explicitly replace an existing JSON/Markdown report')
@@ -243,8 +247,9 @@ def main():
         for source in [args.runtime_root / 'include', args.stdlib_root / 'include']:
             shutil.copytree(source, snapshot / 'include', dirs_exist_ok=True)
         header_hashes = {str(file.relative_to(snapshot / 'include')): sha(file) for file in (snapshot / 'include').rglob('*') if file.is_file()}
-        for name in ['kernels.fg', 'kernels.rs', 'clock.c']:
-            shutil.copyfile(ROOT / 'benchmark/cpu' / name, snapshot / name)
+        shutil.copyfile(args.forge_source, snapshot / 'kernels.fg')
+        shutil.copyfile(args.rust_source, snapshot / 'kernels.rs')
+        shutil.copyfile(ROOT / 'benchmark/cpu/clock.c', snapshot / 'clock.c')
         commands = [
             [str(snapshot / 'forge'), str(snapshot / 'kernels.fg'), '--emit-c', '-o', str(snapshot / 'kernels.c'), '--forge-root', str(snapshot)],
             [args.cc, '-std=gnu11', '-O3', '-DNDEBUG', '-march=native', '-flto', '-I', str(snapshot / 'include'), str(snapshot / 'kernels.c'), str(snapshot / 'clock.c'), '-Wl,--start-group', str(snapshot / 'libforge_std.a'), str(snapshot / 'libforge_runtime.a'), '-Wl,--end-group', '-lpthread', '-lm', '-o', str(directory / 'forge-cpu')],
@@ -255,6 +260,8 @@ def main():
             subprocess.run(command, check=True)
         build = {'artifacts': artifacts, 'header_sha256': header_hashes, 'commands': commands,
                  'source_state': {name: source_state(root) for name, root in [('forge', args.forge_root), ('runtime', args.runtime_root), ('stdlib', args.stdlib_root)]},
+                 'fixture_sources': {'forge': str(args.forge_source.resolve()),
+                                     'rust': str(args.rust_source.resolve())},
                  'fixture_sha256': {name: sha(snapshot / name) for name in ['kernels.fg', 'kernels.rs', 'kernels.c', 'clock.c']},
                  'executables': {language: {'path': str(directory / (language + '-cpu')), 'sha256': sha(directory / (language + '-cpu'))} for language in ['forge', 'rust']},
                  'cc_version': capture([args.cc, '--version']).splitlines()[0], 'rust_version': capture([args.rustc, '--version'])}
