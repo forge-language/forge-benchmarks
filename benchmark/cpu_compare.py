@@ -59,21 +59,61 @@ def stable_copy(source, destination):
     raise RuntimeError('Artifact is being rebuilt; retry when builds are idle: ' + str(source))
 
 
+def signed_remainder(value, divisor):
+    """Match Forge and Rust's truncating signed-remainder semantics."""
+    return value % divisor if value >= 0 else -((-value) % divisor)
+
+
+def wrap_i64(value):
+    """Match the benchmark kernels' wrapping signed 64-bit arithmetic."""
+    value &= (1 << 64) - 1
+    return value - (1 << 64) if value >= (1 << 63) else value
+
+
 def weighted_reference(n, seed, offset):
-    period = sum((65 + (i + seed) % 26) * ((i + offset) % 13 + 1) for i in range(26))
-    return (n // 26) * period + sum((65 + (i + seed) % 26) * ((i + offset) % 13 + 1) for i in range(n % 26))
+    if n <= 0:
+        return 0
+    # Split at signed-zero and int64-wrap boundaries. Truncating signed
+    # remainder is period 26 only while both wrapped operands retain one sign.
+    boundaries = {0, n}
+    for base in (seed, offset):
+        boundary = -base if base < 0 else (1 << 63) - base if base > 0 else 0
+        if 0 < boundary < n:
+            boundaries.add(boundary)
+    boundaries = sorted(boundaries)
+    total = 0
+    for begin, end in zip(boundaries, boundaries[1:]):
+        count = end - begin
+        period = sum((65 + signed_remainder(wrap_i64(begin + i + seed), 26)) *
+                     (signed_remainder(wrap_i64(begin + i + offset), 13) + 1)
+                     for i in range(26))
+        tail = sum((65 + signed_remainder(wrap_i64(begin + i + seed), 26)) *
+                   (signed_remainder(wrap_i64(begin + i + offset), 13) + 1)
+                   for i in range(count % 26))
+        total += (count // 26) * period + tail
+    return wrap_i64(total)
 
 
 def reference(mode, n, rounds, seed):
     if mode == 'lcg':
-        return seed * pow(48271, n * rounds, 2147483647) % 2147483647
+        steps = max(n, 0) * max(rounds, 0)
+        if steps == 0:
+            return seed
+        first = signed_remainder(wrap_i64(seed * 48271), 2147483647)
+        if first == 0:
+            return 0
+        magnitude = abs(first) * pow(48271, steps - 1, 2147483647) % 2147483647
+        return -magnitude if first < 0 else magnitude
     if mode == 'scan':
         total = seed
         for _ in range(rounds):
-            total += weighted_reference(n, seed, total % 13)
+            total = wrap_i64(total + weighted_reference(n, seed, signed_remainder(total, 13)))
         return total
     if mode in ('builder', 'immutable', 'immutable_view'):
-        return sum(weighted_reference(n, seed + r, r % 13) for r in range(rounds))
+        total = 0
+        for r in range(rounds):
+            total = wrap_i64(total + weighted_reference(n, wrap_i64(seed + r), r % 13))
+        return total
     if mode == 'primes':
         low = 1000001 + seed
         high = low + n * rounds

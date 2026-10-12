@@ -13,13 +13,11 @@ fn primes(n:i64,rounds:i64,seed:i64)->i64 {
 fn pattern(n:i64,seed:i64)->String {
  let mut builder=String::with_capacity(n.max(0) as usize);let mut i=0;
  while i<n {builder.push((65+(i+seed)%26) as u8 as char);i+=1;}
- // Forge builder.finish returns a separate immutable snapshot. Keep both
- // live until the function returns so this path includes the same final copy.
- builder.clone()
+ builder
 }
 fn weighted(bytes:&[u8],offset:i64)->i64 {
- let n=bytes.len() as i64;let mut i=0;let mut sum=0;
- while i<n {sum+=bytes[i as usize] as i64*((i+offset)%13+1);i+=1;}sum
+ let n=bytes.len() as i64;let mut i=0;let mut sum=0;let mut weight=offset%13+1;
+ while i<n {sum+=bytes[i as usize] as i64*weight;i+=1;weight+=1;if weight>13 {weight=1;}}sum
 }
 fn scan(bytes:&[u8],rounds:i64,seed:i64)->i64 {
  let mut sum=seed;let mut r=0;while r<rounds {sum+=weighted(bytes,sum%13);r+=1;}sum
