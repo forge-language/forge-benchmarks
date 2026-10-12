@@ -191,3 +191,12 @@ The same below-target workloads were screened with GCC `-funroll-loops` in
 LCG binary grew by 2.8 KB and showed duplicated loop bodies, but neither
 workload gained measurable speed. Default `-O3` remains unchanged. [Conditions
 and data](gcc-loop-unroll-screen-2026-10-12.md).
+
+A follow-up tested a per-value signed-32-bit fast path for trial division,
+guarded once by `0 <= value <= INT32_MAX`, with the original checked 64-bit
+loop as fallback. The candidate passed reference checks and 13 direct
+primality cases spanning the signed-32-bit boundary. Across 24 paired groups,
+candidate/baseline Forge throughput was 0.9979 [0.9937, 0.9994]; Forge/Rust
+was 1.0101 [1.0073, 1.0170]. Disassembly contains both `idivl` and `idivq`,
+and the guard/split outweighed the narrower divide. The candidate is rejected.
+[Conditions, proof boundary and raw samples](prime-hoisted-int32-remainder-2026-10-12.md).
