@@ -47,12 +47,12 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: forge-language/forge
-          ref: ${{ inputs.baseline == 'current' && 'd4c632b59e215806944a74fa3e80aea7752a5bba' || '9f70e9d0de349c70358f6c81505c2844efbed788' }}
+          ref: ${{ inputs.baseline == 'current' && '5481e3a4a6a79117cf39c181e5f812a0871c669f' || '9f70e9d0de349c70358f6c81505c2844efbed788' }}
           path: toolchain/forge-before
       - uses: actions/checkout@v4
         with:
           repository: forge-language/forge
-          ref: d4c632b59e215806944a74fa3e80aea7752a5bba
+          ref: 5481e3a4a6a79117cf39c181e5f812a0871c669f
           path: toolchain/forge-after
       - uses: actions/checkout@v4
         with:
