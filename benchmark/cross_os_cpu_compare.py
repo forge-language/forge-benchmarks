@@ -78,6 +78,44 @@ def hardware_description():
 def apply_probe(text, kind):
     """Explicit fixture experiments, never implicit changes to measured code."""
     changes = {}
+    if kind == 'tight-pow':
+        # Generated-C screening only. For 1 < d <= 2^21 and n < d^2,
+        # n*d < 2^63 < 2^64, so ceil(2^64/d) gives the exact quotient.
+        # The guarded products are nonnegative and cannot overflow i64.
+        signature = 'static int64_t prime_mod_pow(int64_t base, int64_t exponent, int64_t modulus) {'
+        begin = text.index(signature)
+        end = text.index('\n}\n', begin) + 3
+        body = text[begin:end]
+        prefix = '''
+#if defined(__SIZEOF_INT128__)
+    if (base >= 0 && exponent >= 0 && modulus > 1 && modulus <= INT64_C(2097152)) {
+        uint64_t probe_d = (uint64_t)modulus;
+        uint64_t probe_reciprocal = UINT64_MAX / probe_d + UINT64_C(1);
+        uint64_t probe_factor = (uint64_t)base % probe_d;
+        uint64_t probe_result = 1, probe_power = (uint64_t)exponent;
+        if (probe_power) {
+            if (probe_power & 1) probe_result = probe_factor;
+            probe_power >>= 1;
+            while (probe_power) {
+                uint64_t probe_product = probe_factor * probe_factor;
+                uint64_t probe_q = (uint64_t)(((unsigned __int128)probe_product * probe_reciprocal) >> 64);
+                probe_factor = probe_product - probe_q * probe_d;
+                if (probe_power & 1) {
+                    probe_product = probe_result * probe_factor;
+                    probe_q = (uint64_t)(((unsigned __int128)probe_product * probe_reciprocal) >> 64);
+                    probe_result = probe_product - probe_q * probe_d;
+                }
+                probe_power >>= 1;
+            }
+        }
+        return (int64_t)probe_result;
+    }
+#endif
+'''
+        replacement = body.replace(signature, signature + prefix, 1)
+        text = text[:begin] + replacement + text[end:]
+        return text, {'bounded_power': {'before': body, 'after': replacement},
+                      'domain': 'base/exponent nonnegative; 1 < modulus <= 2^21; int128 required; unchanged original fallback'}
     if kind == 'target-remainder':
         # Explicit target-policy screening: no arithmetic, loop order or Rust
         # control changes. Zen 3 tests the original hardware remainder; ARM64
@@ -383,7 +421,7 @@ def main():
     parser.add_argument('--pairs', type=int, default=60)
     parser.add_argument('--random-seed', type=int, default=20261013)
     parser.add_argument('--seed-offset', type=int, default=0)
-    parser.add_argument('--after-probe', choices=['none', 'bounded-hint', 'bounded-inline', 'reserved-builder', 'hardware-builder', 'range-kernels', 'hybrid-range', 'precision-range', 'target-remainder'], default='none',
+    parser.add_argument('--after-probe', choices=['none', 'bounded-hint', 'bounded-inline', 'reserved-builder', 'hardware-builder', 'range-kernels', 'hybrid-range', 'precision-range', 'target-remainder', 'tight-pow'], default='none',
                         help='Explicit generated-C experiment; never report it as shipped compiler code')
     parser.add_argument('--workloads', nargs='+', default=['lcg', 'primes', 'scan', 'builder', 'immutable'])
     args = parser.parse_args()

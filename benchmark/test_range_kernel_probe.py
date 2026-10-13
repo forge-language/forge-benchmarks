@@ -56,7 +56,7 @@ def main():
     parser.add_argument('--generated-c', type=Path, required=True)
     parser.add_argument('--sdk', type=Path, required=True)
     parser.add_argument('--cc', default='cc')
-    parser.add_argument('--probe', choices=['range-kernels','hybrid-range','precision-range','target-remainder'], default='range-kernels')
+    parser.add_argument('--probe', choices=['range-kernels','hybrid-range','precision-range','target-remainder','tight-pow'], default='range-kernels')
     parser.add_argument('--extra-c-flag', action='append', default=[])
     args = parser.parse_args()
     original = args.generated_c.read_text()
@@ -91,7 +91,8 @@ int main(int argc, char **argv) {
                 for _ in range(max(n, 0)):
                     value = remainder(wrap(value * 48271), 2147483647)
             cases.append(('lcg',(n,rounds,seed),value))
-    bounds = (MIN,-26,-1,1,2,3,26,3037000498,3037000499,3037000500,MAX)
+    bounds = (MIN,-26,-1,1,2,3,26,65537,1000003,1373651,
+              2097151,2097152,2097153,3037000498,3037000499,3037000500,MAX)
     for modulus in bounds:
         for base, exponent in ((MIN,-1),(-1,3),(0,0),(1,MAX),(MAX,0),(MAX,63),(modulus-1 if modulus>0 else 3,31)):
             try: expected = power(base,exponent,modulus)
