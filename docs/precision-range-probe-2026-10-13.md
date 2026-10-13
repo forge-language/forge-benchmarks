@@ -7,3 +7,5 @@ In the positive guard (base>=0, exponent>=0, 1<modulus<=3037000499), reduced fac
 The positive helper returns n directly if n<d. ARM64/no-int128 can use word-size division when n<=UINT32_MAX; d<=3037000499 already fits uint32 and is nonzero, so casts preserve both operands and the remainder. Larger n uses full-width division. The reciprocal branch keeps exact high multiply/correction and exposes only its proved remainder<d postcondition to the optimizer. These are private guarded calls, not assumptions imposed on arbitrary inputs.
 
 Original/candidate each pass 671 independent arithmetic, trap and weighted-boundary cases at -O0/-O3 with UBSan, for native-int128 and forced hardware remainder (5368 executions). No performance claim follows from this validation. Native target measurements and a general AST-based compiler implementation remain required.
+
+The six-job [native result](precision-range-cross-os-2026-10-13.md) completed but worsened macOS primes to roughly 0.83× Rust. The composite is rejected and is not a compiler release.
