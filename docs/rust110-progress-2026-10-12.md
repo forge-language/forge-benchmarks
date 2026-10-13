@@ -362,7 +362,7 @@ per-OS compiler/hardware/architecture details, raw observations and paired
 intervals. Compare improvement ratios within each OS and report absolute
 throughput separately across different hardware. A successful build or an
 unmeasured portability fallback does not prove a performance improvement on
-another OS. This requirement is pending; current evidence is Linux-only.
+another OS. The implementation was subsequently measured on native macOS and Windows. The cross-OS similarity requirement remains unachieved; see the measured negative evidence below.
 
 ## Invariant parameter remainder: compiler implementation
 
@@ -384,3 +384,10 @@ small regression is retained in the report, and immutable's direct interval
 includes no change. The earlier 60-group builder interval crossed 1.10,
 so this does not prove stable cross-run or cross-OS support. No language-wide
 completion is claimed. [Proof, implementation scope and validation](invariant-mod-lowering-2026-10-13.md), [120-group full measurements](invariant-mod-compiler-full-120-2026-10-12.json), [OMO arithmetic review and correction](invariant-mod-omo-review-2026-10-12.md).
+
+
+## Native cross-OS evidence and Windows fixes
+
+The unchanged compiler was measured twice on native Windows after fixing temporary-file collision handling, const-correct spawn arguments, CRT file close/stat ABI, canonical source checking and the Rust control's QPC link order. Both native Windows API tests and all workload checks passed. Windows prime throughput gained about 5.6% versus old Forge and reached about 1.24× Rust, but scan and builder reached only about 0.53× and 0.77× Rust. Virtual Apple M1 prime throughput repeatedly fell to about 0.73× old Forge and 0.70× Rust. Identical Linux OS runners also differed by CPU: about 0.80× old Forge on EPYC 7763 versus 1.21× on Xeon 8573C. The current evidence contradicts a blanket similar effect across OSes and does not complete the 1.10 target.
+
+Eight attempts preserve all 40 job outcomes, 26 completed reports and four failed-before-measurement reports. Generated-C bounded-range and forced-inline experiments failed to solve the ARM64 regression and remain rejected. Reserved-buffer and hardware-remainder prototypes are being measured separately; their results cannot be credited to the shipped compiler. [Cross-OS protocol, all current workload intervals, failures and OMO proof corrections](cross-os-verification-2026-10-13.md), [run ledger](cross-os-attempts-2026-10-13.json).

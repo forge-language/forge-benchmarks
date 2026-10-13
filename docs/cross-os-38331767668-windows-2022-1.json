@@ -1,0 +1,219 @@
+{
+  "status": "failed_no_claim",
+  "output": "results/cpu-1.json",
+  "started_at_utc": "2026-10-13T01:24:00Z",
+  "environment": {
+    "platform": "Windows-2022Server-10.0.20348-SP0",
+    "architecture": "AMD64",
+    "python": "3.14.8",
+    "logical_cpus": 4,
+    "runner_name": "GitHub Actions 1000000608",
+    "runner_os": "Windows",
+    "run_url": "https://github.com/forge-language/forge-benchmarks/actions/runs/38331767668",
+    "hardware": "INTEL(R) XEON(R) PLATINUM 8573C"
+  },
+  "method": {
+    "pairs": 60,
+    "random_seed": 20261014,
+    "order": "all six permutations equally represented, randomized per workload",
+    "prewarm": "identical input immediately before every measurement",
+    "cpu_affinity": "unpinned on all platforms",
+    "target_ratio": 1.1,
+    "confidence": "10000 paired-ratio median bootstrap resamples; row-wise percentile 95%",
+    "dimensions_sha256": "2c674961337a475c3a9b788671d321c688addfbd3f574b7864f8fd2b35d2d56a"
+  },
+  "commands": [
+    [
+      "D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/snapshot/forge-before.exe",
+      "D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/snapshot/kernels.fg",
+      "--emit-c",
+      "-o",
+      "D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/snapshot/before.c",
+      "--forge-root",
+      "D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/snapshot"
+    ],
+    [
+      "gcc",
+      "-std=gnu11",
+      "-O3",
+      "-DNDEBUG",
+      "-march=native",
+      "-flto",
+      "-I",
+      "D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/snapshot/include",
+      "D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/snapshot/before.c",
+      "D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/snapshot/clock.c",
+      "D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/snapshot/libforge_std.a",
+      "D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/snapshot/libforge_runtime.a",
+      "-lws2_32",
+      "-lm",
+      "-o",
+      "D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/before.exe"
+    ],
+    [
+      "D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/snapshot/forge-after.exe",
+      "D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/snapshot/kernels.fg",
+      "--emit-c",
+      "-o",
+      "D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/snapshot/after.c",
+      "--forge-root",
+      "D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/snapshot"
+    ],
+    [
+      "gcc",
+      "-std=gnu11",
+      "-O3",
+      "-DNDEBUG",
+      "-march=native",
+      "-flto",
+      "-I",
+      "D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/snapshot/include",
+      "D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/snapshot/after.c",
+      "D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/snapshot/clock.c",
+      "D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/snapshot/libforge_std.a",
+      "D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/snapshot/libforge_runtime.a",
+      "-lws2_32",
+      "-lm",
+      "-o",
+      "D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/after.exe"
+    ],
+    [
+      "gcc",
+      "-std=gnu11",
+      "-O3",
+      "-march=native",
+      "-c",
+      "D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/snapshot/clock.c",
+      "-o",
+      "D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/snapshot/clock.o"
+    ],
+    [
+      "rustc",
+      "-C",
+      "opt-level=3",
+      "-C",
+      "target-cpu=native",
+      "-C",
+      "lto=thin",
+      "-C",
+      "codegen-units=1",
+      "-C",
+      "overflow-checks=off",
+      "-C",
+      "link-arg=D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/snapshot/clock.o",
+      "--target",
+      "x86_64-pc-windows-gnu",
+      "-C",
+      "linker=gcc",
+      "D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/snapshot/kernels.rs",
+      "-o",
+      "D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/rust.exe"
+    ]
+  ],
+  "build": {
+    "snapshot_sha256": {
+      "kernels.fg": "4d235a89b31943a9ede11ab6c58a2bff2b716e71de713b472784c5a73e7cbc02",
+      "kernels.rs": "5cc14a43ebc8365b0a272c4d34bf6b7f5b3f965f721670b9143adf82909813c6",
+      "clock.c": "836e97ac7eb2cd318c70b49006c0e0c36f92536c671a37d0d9b4eba84bd1e570",
+      "libforge_std.a": "882a93d343709337edaafb1fc96fe45c2a62a3a4d259f4e5f1ab51cf34d63a1a",
+      "libforge_runtime.a": "e33e7ed6cbaf125e0723a3290a844b9f699e754b2d12447938f7f20e7c8f2f81",
+      "forge-before.exe": "422d099a50c87489a975eee648ab64c06dc469caad6322896c4c4c45f151e1c6",
+      "forge-after.exe": "1f89d54c42c6dc220dd5fb22731bab9bfe75751476dccf31b170c45d8514d7dc"
+    },
+    "header_sha256": {
+      "forge_runtime.h": "04d046511b0f12a004e6e2eeffa8fdbd7670fb1c709aac00e32b65d542e43aea",
+      "forge/arena.h": "197781d99aab96686c2cca1b8ce4c9109555f1c128213c73a7f8856320bdb0d0",
+      "forge/docstore.h": "68d0d0e2c86e21dc7570dfafff1daa635b75cb1dbd1763ba4ed10e50dde2e56b",
+      "forge/event.h": "2c4fcd1e097051f1e835b54b072bf6ec61808b9030a421e3d47c9112f859e497",
+      "forge/fs.h": "ad161985f331dbff96a9ccb2c219591e0d12433d6b010fe1fc1dea961500b55b",
+      "forge/gpu.h": "fe3a2deaa304e51c3187e0997089b106a01fc5c4d9ec809caa4ff52600aa9c02",
+      "forge/http.h": "409c2aebc6c2fdf7b816e92fe949fc8c7aa24bad0e7b18dc9a132f52db4288cb",
+      "forge/io.h": "6bb5939e465077861c2f0caf3b2c31585ce65f19f9ce7d79d66c3baee1cef322",
+      "forge/json.h": "267b62cd0cfe522303d0d337d727032c8a75482cc4a97fd194bae6f30e36aa4f",
+      "forge/lsprpc.h": "a09967929dfa39b2f5407f4d55df6d46d03549e08ba6ad88ad89dd39a9b7b6c7",
+      "forge/math.h": "5f7e49e78eea227560bf7ec0901dc1f6890e43443da18cb7f3563e8102ffe5d6",
+      "forge/os.h": "5f2a6bbe589f67cc8d6039e89ddac07a73c83275bc728a0906e493ec94000ea6",
+      "forge/ownership.h": "b061564bbf38508f4d1d309e67439adbf4e6f132e2356a8779d80be53024886c",
+      "forge/platform.h": "50627ce2c816eeb80fefe42737b9772b207ca5b2b43d056fb538966545d0de5a",
+      "forge/process.h": "a8877cae3dcc26deb579961e50dec52186415bd28c1087f9482f1b383366d553",
+      "forge/string.h": "6ae562bc5bbd91a7284ad540738f04ab69523ba0ced06efcb308b90fed666579",
+      "forge/tcp.h": "3ca77a7212183522954e7a495ba2ec04255a4074062f74b15ab0e2c0175a671f",
+      "forge/thread.h": "779df7c638b27f387690e1e6a560eb36eb0c74971103629ad19f09ba321f2d7a",
+      "forge/threading.h": "a5d97fb64baea25b850ccd045e505f21eb171afe83b5337b8bf2e5632edf02dd",
+      "forge/time.h": "bf8dda5d705c6ebb981fca5bff7b4dee79dcdc2d116e808aa25043ed3a0f4f5a",
+      "forge/udp.h": "a6a04ff0cbab36394bee5be92c4bca3de857a8fc73c67c20dc68fd7c67b55f95",
+      "forge/detail/string_views.h": "b579d05659605c160bbee1d0c1bdfa717405b2cb8a64fc672b84436dc31dede4"
+    },
+    "cc_version": "gcc (Rev5, Built by MSYS2 project) 16.2.0",
+    "rust_version": "rustc 1.99.0 (b940084d7 2026-09-28)\nbinary: rustc\ncommit-hash: b940084d7eb6a299eb4bfeb8e34901bc051e7ac4\ncommit-date: 2026-09-28\nhost: x86_64-pc-windows-msvc\nrelease: 1.99.0\nLLVM version: 23.1.1",
+    "int128_bytes": 16,
+    "cc_target": "x86_64-w64-mingw32",
+    "native_cpu_flag": "-march=native",
+    "timer": "QueryPerformanceCounter"
+  },
+  "correctness": [],
+  "warmups": [],
+  "measurements": [],
+  "summary": [],
+  "runner_sha256": "814db9067d2cbf984ce3cd88bfa24cbcd419b6ca4486d045103042e3e93f7135",
+  "runner_source": "#!/usr/bin/env python3\n\"\"\"Native three-way CPU comparison for Linux, macOS and MinGW Windows.\n\nBoth Forge compilers share one SDK, algorithm sources, timer and Rust control.\nKernel timings are printed by the common C timer, excluding process startup.\n\"\"\"\nimport argparse\nimport itertools\nimport json\nimport os\nfrom pathlib import Path\nimport platform\nimport random\nimport shutil\nimport statistics\nimport subprocess\nimport time\n\nfrom cpu_compare import confidence, reference, sha\n\nROOT = Path(__file__).resolve().parents[1]\n\n\ndef command(argv, timeout=180):\n    result = subprocess.run(list(map(str, argv)), capture_output=True, text=True, timeout=timeout)\n    if result.returncode:\n        raise RuntimeError(f'{argv!r} failed ({result.returncode}):\\n{result.stderr}\\n{result.stdout}')\n    return result.stdout.strip()\n\n\ndef run_binary(binary, mode, n, rounds, seed):\n    start = time.perf_counter_ns()\n    output = command([binary, mode, n, rounds, seed], timeout=60)\n    wall = time.perf_counter_ns() - start\n    lines = output.splitlines()\n    if len(lines) != 2:\n        raise RuntimeError('Unexpected output: ' + repr(output))\n    checksum, elapsed = map(int, lines)\n    if elapsed < 0:\n        raise RuntimeError('Timer went backwards')\n    return {'checksum': checksum, 'kernel_ns': elapsed, 'process_wall_ns': wall}\n\n\ndef source_revision(root):\n    # checkout runs Windows Git; native Python in MSYS2 may invoke MSYS2 Git\n    # with a different global autocrlf setting. Compare canonical content with\n    # the Windows checkout filter, rather than treating every CRLF file as an\n    # edit. This does not discard real content changes.\n    overrides = ['-c', 'core.autocrlf=true', '-c', 'core.filemode=false'] if os.name == 'nt' else []\n    git = ['git', *overrides, '-C', root]\n    dirty = command([*git, 'status', '--porcelain', '--untracked-files=no'])\n    crlf_equivalent = False\n    if os.name == 'nt' and dirty:\n        # Git's cached index/stat state may still report M after switching\n        # filters. Compare content explicitly, ignoring only CR at line ends.\n        diff = subprocess.run(list(map(str, [*git, 'diff', '--exit-code', '--ignore-cr-at-eol', 'HEAD', '--'])),\n                              capture_output=True, text=True, timeout=180)\n        if diff.returncode not in (0, 1):\n            raise RuntimeError('Source comparison failed: ' + diff.stderr)\n        if diff.returncode == 0:\n            dirty = ''\n            crlf_equivalent = True\n    return {'head': command([*git, 'rev-parse', 'HEAD']), 'tracked_dirty': dirty,\n            'git_config_overrides': overrides, 'crlf_equivalent_to_head': crlf_equivalent}\n\n\ndef hardware_description():\n    if platform.system() == 'Linux':\n        return command(['lscpu'])\n    if platform.system() == 'Darwin':\n        return command(['sysctl', '-n', 'machdep.cpu.brand_string', 'hw.model', 'hw.ncpu'])\n    if os.name == 'nt':\n        return command(['powershell.exe', '-NoProfile', '-Command',\n                        'Get-CimInstance Win32_Processor | Select-Object -ExpandProperty Name'])\n    return platform.processor()\n\n\ndef markdown(report):\n    lines = ['# Native cross-OS CPU comparison', '',\n             f\"Platform: `{report['environment']['platform']}` / `{report['environment']['architecture']}`. \"\n             f\"Measured {report['method']['pairs']} balanced triples per workload, seed {report['method']['random_seed']}.\", '',\n             '| Workload | Candidate / baseline (95% interval) | Candidate / Rust (95% interval) | Rust 1.10 |',\n             '| --- | ---: | ---: | --- |']\n    probe = report['build'].get('after_probe', {}).get('name', 'none')\n    if probe != 'none':\n        lines[3:3] = [f'**Generated-C experiment `{probe}`: the candidate C helper is modified after emission. '\n                       'These results do not measure the shipped compiler unchanged.**', '']\n    for row in report['summary']:\n        gain, rust = row['candidate_speedup'], row['candidate_over_rust']\n        lines.append(f\"| {row['workload']} | {gain['median']:.4f} [{gain['ci95'][0]:.4f}, {gain['ci95'][1]:.4f}] | \"\n                     f\"{rust['median']:.4f} [{rust['ci95'][0]:.4f}, {rust['ci95'][1]:.4f}] | {row['target_status']} |\")\n    lines += ['', 'All measured checksums and same-input warmups match an independent Python reference. '\n              'All six three-way permutations occur equally often. Each row has a paired-ratio bootstrap '\n              '95% interval; this is not simultaneous confidence over workloads or proof for all programs.', '',\n              'Both Forge versions share identical SDK archives/headers, source algorithms and clock; '\n              'one Rust control is used throughout. C uses -O3/native CPU tuning/LTO; Rust uses opt-level=3, '\n              'target-cpu=native, thin LTO and disabled overflow checks. Process startup is excluded from kernel '\n              'times. All platforms use unpinned child processes; virtualized/shared runners and frequency '\n              'changes remain sources of noise. Compare before/after ratios within each OS; absolute times '\n              'across different OS/hardware/architectures are not OS-only causal comparisons.', '',\n              'Builder transfers the buffer in both implementations. Immutable append uses different '\n              'allocation/lifetime policies. CPU results do not prove HTTP capacity, memory-safety equivalence '\n              'or universal language throughput. Build failures are recorded as failed_no_claim and must '\n              'not be silently removed from the cross-OS report.', '',\n              f\"Full samples, commands and hashes: [{Path(report['output']).name}]({Path(report['output']).name}).\", '']\n    return '\\n'.join(lines)\n\n\ndef main():\n    parser = argparse.ArgumentParser(description=__doc__)\n    for name in ('before', 'after', 'sdk', 'before-root', 'after-root', 'runtime-root', 'stdlib-root', 'dimensions', 'build-dir', 'output'):\n        parser.add_argument('--' + name, type=Path, required=True)\n    parser.add_argument('--cc', default='cc')\n    parser.add_argument('--rustc', default='rustc')\n    parser.add_argument('--rust-target')\n    parser.add_argument('--rust-linker')\n    parser.add_argument('--pairs', type=int, default=60)\n    parser.add_argument('--random-seed', type=int, default=20261013)\n    parser.add_argument('--seed-offset', type=int, default=0)\n    parser.add_argument('--after-probe', choices=['none', 'bounded-hint', 'bounded-inline'], default='none',\n                        help='Explicit generated-C experiment; never report it as shipped compiler code')\n    parser.add_argument('--workloads', nargs='+', default=['lcg', 'primes', 'scan', 'builder', 'immutable'])\n    args = parser.parse_args()\n    args.random_seed += args.seed_offset\n    if args.pairs < 12 or args.pairs % 6:\n        parser.error('Choose >=12 pairs divisible by six')\n    if args.build_dir.exists() or args.output.exists() or args.output.with_suffix('.md').exists():\n        parser.error('Choose fresh build/output paths')\n    dimensions = {row['workload']: (row['n'], row['rounds']) for row in json.loads(args.dimensions.read_text())['summary']}\n    if set(args.workloads) - dimensions.keys():\n        parser.error('Every workload must have frozen dimensions')\n    directory = args.build_dir.resolve()\n    snapshot = directory / 'snapshot'\n    snapshot.mkdir(parents=True)\n    args.output.parent.mkdir(parents=True, exist_ok=True)\n    report = {'status': 'running', 'output': str(args.output),\n              'started_at_utc': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),\n              'environment': {'platform': platform.platform(), 'architecture': platform.machine(),\n                              'python': platform.python_version(), 'logical_cpus': os.cpu_count(),\n                              'runner_name': os.environ.get('RUNNER_NAME'), 'runner_os': os.environ.get('RUNNER_OS'),\n                              'run_url': 'https://github.com/forge-language/forge-benchmarks/actions/runs/' + os.environ['GITHUB_RUN_ID'] if os.environ.get('GITHUB_RUN_ID') else None},\n              'method': {'pairs': args.pairs, 'random_seed': args.random_seed,\n                         'order': 'all six permutations equally represented, randomized per workload',\n                         'prewarm': 'identical input immediately before every measurement',\n                         'cpu_affinity': 'unpinned on all platforms', 'target_ratio': 1.10,\n                         'confidence': '10000 paired-ratio median bootstrap resamples; row-wise percentile 95%',\n                         'dimensions_sha256': sha(args.dimensions)},\n              'commands': [], 'build': {}, 'correctness': [], 'warmups': [], 'measurements': [], 'summary': [],\n              'runner_sha256': sha(Path(__file__)), 'runner_source': Path(__file__).read_text()}\n\n    def checkpoint():\n        args.output.write_text(json.dumps(report, indent=2) + '\\n')\n\n    def build_command(argv):\n        report['commands'].append(list(map(str, argv)))\n        checkpoint()\n        return command(argv)\n\n    checkpoint()\n    try:\n        report['environment']['hardware'] = hardware_description()\n        report['revisions'] = {name: source_revision(root) for name, root in\n                               [('before', args.before_root), ('after', args.after_root),\n                                ('runtime', args.runtime_root), ('stdlib', args.stdlib_root), ('benchmarks', ROOT)]}\n        if any(value['tracked_dirty'] for value in report['revisions'].values()):\n            raise RuntimeError('Cross-OS evidence requires clean tracked source trees')\n        shutil.copytree(args.sdk / 'include', snapshot / 'include')\n        extension = '.exe' if os.name == 'nt' else ''\n        sources = {'kernels.fg': ROOT / 'benchmark/cpu/kernels_prime_miller_rabin_smallprime.fg',\n                   'kernels.rs': ROOT / 'benchmark/cpu/kernels_prime_miller_rabin_smallprime.rs',\n                   'clock.c': ROOT / 'benchmark/cpu/clock_portable.c',\n                   'libforge_std.a': args.sdk / 'lib/libforge_std.a',\n                   'libforge_runtime.a': args.sdk / 'lib/libforge_runtime.a',\n                   'forge-before' + extension: args.before, 'forge-after' + extension: args.after}\n        for name, source in sources.items():\n            shutil.copy2(source, snapshot / name)\n        report['build']['snapshot_sha256'] = {name: sha(snapshot / name) for name in sources}\n        report['build']['header_sha256'] = {str(p.relative_to(snapshot / 'include')): sha(p) for p in (snapshot / 'include').rglob('*') if p.is_file()}\n        report['build']['cc_version'] = command([args.cc, '--version']).splitlines()[0]\n        report['build']['rust_version'] = command([args.rustc, '--version', '--verbose'])\n        cpu_flag = '-mcpu=native' if platform.machine().lower() in ('arm64', 'aarch64') else '-march=native'\n        macros = command([args.cc, '-std=gnu11', cpu_flag, '-dM', '-E', snapshot / 'clock.c'])\n        int128 = [line.split()[-1] for line in macros.splitlines() if line.startswith('#define __SIZEOF_INT128__ ')]\n        report['build']['int128_bytes'] = int(int128[0]) if int128 else None\n        report['build']['cc_target'] = command([args.cc, '-dumpmachine'])\n        report['build']['native_cpu_flag'] = cpu_flag\n        report['build']['timer'] = 'QueryPerformanceCounter' if os.name == 'nt' else 'CLOCK_MONOTONIC'\n        binaries = {}\n        for name in ('before', 'after'):\n            c_file, binary = snapshot / (name + '.c'), directory / (name + extension)\n            build_command([snapshot / ('forge-' + name + extension), snapshot / 'kernels.fg', '--emit-c', '-o', c_file, '--forge-root', snapshot])\n            if name == 'after' and args.after_probe != 'none':\n                original_hash = sha(c_file)\n                old = ('        if (product > n) product -= d;\\n'\n                       '        return (int64_t)(n - product);')\n                new = ('        if ((n >= (UINT64_C(1) << 43) || d > (UINT64_C(1) << 21)) && product > n) product -= d;\\n'\n                       '        uint64_t remainder = n - product;\\n'\n                       '        if (remainder >= d) __builtin_unreachable();\\n'\n                       '        return (int64_t)remainder;')\n                text = c_file.read_text()\n                if text.count(old) != 1:\n                    raise RuntimeError('Unexpected invariant-mod helper shape')\n                c_file.write_text(text.replace(old, new))\n                report['build']['after_probe'] = {'name': args.after_probe,\n                                                 'original_c_sha256': original_hash,\n                                                 'replaced_body': old, 'new_body': new}\n                if args.after_probe == 'bounded-inline':\n                    text = c_file.read_text()\n                    for function in ['prime_mod_pow', 'prime_mr_pass']:\n                        declaration = 'static int64_t ' + function + '('\n                        if text.count(declaration) != 2:\n                            raise RuntimeError('Unexpected prime function declaration/definition shape')\n                        text = text.replace(declaration,\n                                            'static inline __attribute__((always_inline)) int64_t ' + function + '(')\n                    c_file.write_text(text)\n                    report['build']['after_probe']['always_inline_functions'] = ['prime_mod_pow', 'prime_mr_pass']\n            link = ['-lpthread', '-lm'] if os.name != 'nt' else ['-lws2_32', '-lm']\n            build_command([args.cc, '-std=gnu11', '-O3', '-DNDEBUG', cpu_flag, '-flto', '-I', snapshot / 'include',\n                           c_file, snapshot / 'clock.c', snapshot / 'libforge_std.a', snapshot / 'libforge_runtime.a',\n                           *link, '-o', binary])\n            binaries[name] = binary\n        clock_object = snapshot / 'clock.o'\n        build_command([args.cc, '-std=gnu11', '-O3', cpu_flag, '-c', snapshot / 'clock.c', '-o', clock_object])\n        rust_binary = directory / ('rust' + extension)\n        rust_command = [args.rustc, '-C', 'opt-level=3', '-C', 'target-cpu=native', '-C', 'lto=thin',\n                        '-C', 'codegen-units=1', '-C', 'overflow-checks=off', '-C', 'link-arg=' + str(clock_object)]\n        if args.rust_target:\n            rust_command += ['--target', args.rust_target]\n        if args.rust_linker:\n            rust_command += ['-C', 'linker=' + args.rust_linker]\n        build_command([*rust_command, snapshot / 'kernels.rs', '-o', rust_binary])\n        binaries['rust'] = rust_binary\n        report['build']['executables'] = {name: {'path': str(path), 'sha256': sha(path)} for name, path in binaries.items()}\n        report['build']['generated_c_sha256'] = {name: sha(snapshot / (name + '.c')) for name in ('before', 'after')}\n        report['build'].setdefault('after_probe', {'name': 'none'})\n        for name, path in binaries.items():\n            disassembler = ['otool', '-tvV'] if platform.system() == 'Darwin' else ['objdump', '-d']\n            if shutil.which(disassembler[0]):\n                listing = directory / (name + '-disassembly.txt')\n                listing.write_text(command([*disassembler, path]))\n                report['build'].setdefault('disassembly_sha256', {})[name] = sha(listing)\n        checkpoint()\n\n        def checked(name, mode, n, rounds, seed, expected):\n            row = run_binary(binaries[name], mode, n, rounds, seed)\n            if row['checksum'] != expected:\n                raise RuntimeError(f'Checksum mismatch {name}/{mode}/{n}/{rounds}/{seed}: {row[\"checksum\"]} != {expected}')\n            return {'implementation': name, 'workload': mode, 'n': n, 'rounds': rounds,\n                    'seed': seed, 'reference_checksum': expected, **row}\n\n        rng = random.Random(args.random_seed)\n        for mode in args.workloads:\n            cases = [(0, 3, 0), (1, 1, 1), (13, 3, -100000), (31, 3, 17), (127, 2, 719)]\n            if mode != 'primes':\n                cases += [(13, 3, -(1 << 63)), (13, 3, (1 << 63) - 1)]\n            else:\n                cases += [(1, 1, value - 1000001) for value in (2, 3, 5, 1373652, 1373653, 1373654, 2000003)]\n            for n, rounds, seed in cases:\n                expected = reference(mode, n, rounds, seed)\n                for name in binaries:\n                    report['correctness'].append(checked(name, mode, n, rounds, seed, expected))\n            n, rounds = dimensions[mode]\n            orders = list(itertools.permutations(binaries)) * (args.pairs // 6)\n            rng.shuffle(orders)\n            elapsed = {name: [] for name in binaries}\n            ratios = {'candidate_speedup': [], 'candidate_over_rust': [], 'baseline_over_rust': []}\n            for pair, order in enumerate(orders):\n                seed = rng.randint(1, 100000)\n                expected = reference(mode, n, rounds, seed)\n                paired = {}\n                for position, name in enumerate(order):\n                    warm = checked(name, mode, n, rounds, seed, expected)\n                    report['warmups'].append({'pair': pair, 'position': position, **warm})\n                    measured = checked(name, mode, n, rounds, seed, expected)\n                    if measured['kernel_ns'] <= 0:\n                        raise RuntimeError('Measured timer did not advance')\n                    report['measurements'].append({'pair': pair, 'position': position, **measured})\n                    paired[name] = measured['kernel_ns']\n                    elapsed[name].append(measured['kernel_ns'])\n                ratios['candidate_speedup'].append(paired['before'] / paired['after'])\n                ratios['candidate_over_rust'].append(paired['rust'] / paired['after'])\n                ratios['baseline_over_rust'].append(paired['rust'] / paired['before'])\n                checkpoint()\n            row = {'workload': mode, 'n': n, 'rounds': rounds,\n                   'median_ms': {name: statistics.median(values) / 1e6 for name, values in elapsed.items()},\n                   **{name: {'median': statistics.median(values), 'ci95': confidence(values, args.random_seed + index)}\n                      for index, (name, values) in enumerate(ratios.items())}}\n            low, high = row['candidate_over_rust']['ci95']\n            row['target_status'] = 'supported for this case' if low >= 1.10 else 'below target' if high < 1.10 else 'inconclusive'\n            report['summary'].append(row)\n            print(f\"{mode}: speedup={row['candidate_speedup']['median']:.4f}, Forge/Rust={row['candidate_over_rust']['median']:.4f}\", flush=True)\n        report['status'] = 'completed'\n        report['finished_at_utc'] = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())\n        checkpoint()\n        args.output.with_suffix('.md').write_text(markdown(report))\n    except Exception as error:\n        report['status'] = 'failed_no_claim'\n        report['error'] = str(error)\n        report['finished_at_utc'] = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())\n        checkpoint()\n        raise\n\n\nif __name__ == '__main__':\n    main()\n",
+  "revisions": {
+    "before": {
+      "head": "9f70e9d0de349c70358f6c81505c2844efbed788",
+      "tracked_dirty": "",
+      "git_config_overrides": [
+        "-c",
+        "core.autocrlf=true",
+        "-c",
+        "core.filemode=false"
+      ],
+      "crlf_equivalent_to_head": false
+    },
+    "after": {
+      "head": "12d8ff4e1202cbf7939681141eb2538cb8de03e9",
+      "tracked_dirty": "",
+      "git_config_overrides": [
+        "-c",
+        "core.autocrlf=true",
+        "-c",
+        "core.filemode=false"
+      ],
+      "crlf_equivalent_to_head": false
+    },
+    "runtime": {
+      "head": "dcbb1929b17c2f1d11fd367ecf80c7c87c58a274",
+      "tracked_dirty": "",
+      "git_config_overrides": [
+        "-c",
+        "core.autocrlf=true",
+        "-c",
+        "core.filemode=false"
+      ],
+      "crlf_equivalent_to_head": false
+    },
+    "stdlib": {
+      "head": "6aa28667b83009a415ab2d7ac13ef6c675af7012",
+      "tracked_dirty": "",
+      "git_config_overrides": [
+        "-c",
+        "core.autocrlf=true",
+        "-c",
+        "core.filemode=false"
+      ],
+      "crlf_equivalent_to_head": false
+    },
+    "benchmarks": {
+      "head": "2d287b4d1d0309508c4ba68af15675ea0a98714b",
+      "tracked_dirty": "",
+      "git_config_overrides": [
+        "-c",
+        "core.autocrlf=true",
+        "-c",
+        "core.filemode=false"
+      ],
+      "crlf_equivalent_to_head": false
+    }
+  },
+  "error": "['rustc', '-C', 'opt-level=3', '-C', 'target-cpu=native', '-C', 'lto=thin', '-C', 'codegen-units=1', '-C', 'overflow-checks=off', '-C', 'link-arg=D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/snapshot/clock.o', '--target', 'x86_64-pc-windows-gnu', '-C', 'linker=gcc', WindowsPath('D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/snapshot/kernels.rs'), '-o', WindowsPath('D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/rust.exe')] failed (1):\nerror: linking with `gcc` failed: exit code: 1\n  |\n  = note: \"gcc\" \"-fno-use-linker-plugin\" \"-Wl,--dynamicbase\" \"-Wl,--disable-auto-image-base\" \"-m64\" \"-Wl,--high-entropy-va\" \"<21 object files omitted>\" \"-Wl,-Bstatic\" \"D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1\\\\rustc91ylGL/libstd-0c34d80c532a28e1.rlib\" \"<sysroot>\\\\lib\\\\rustlib\\\\x86_64-pc-windows-gnu\\\\lib/libcompiler_builtins-*.rlib\" \"-Wl,-Bdynamic\" \"-lkernel32\" \"-lkernel32\" \"-lkernel32\" \"-lntdll\" \"-luserenv\" \"-lws2_32\" \"-ldbghelp\" \"-lgcc_eh\" \"-l:libpthread.a\" \"-lmsvcrt\" \"-lmingwex\" \"-lmingw32\" \"-lgcc\" \"-lmsvcrt\" \"-lmingwex\" \"-luser32\" \"-lkernel32\" \"-Wl,--nxcompat\" \"-o\" \"D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/rust.exe\" \"-Wl,--gc-sections\" \"-Wl,-O1\" \"-nodefaultlibs\" \"D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/snapshot/clock.o\"\n  = note: some arguments are omitted. use `--verbose` to show all linker arguments\n  = note: D:/a/_temp/msys64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe: D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/snapshot/clock.o:clock.c:(.text+0x11): undefined reference to `__imp_QueryPerformanceCounter'\n          D:/a/_temp/msys64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe: D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/snapshot/clock.o:clock.c:(.text+0x79): undefined reference to `__imp_QueryPerformanceFrequency'\n          D:/a/_temp/msys64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/16.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe: D:/a/forge-benchmarks/forge-benchmarks/results/frozen-1/snapshot/clock.o:clock.c:(.text+0x96): undefined reference to `__imp_QueryPerformanceCounter'\n          collect2.exe: error: ld returned 1 exit status\n          \n  = note: some `extern` functions couldn't be found; some native libraries may need to be installed or have their path specified\n  = note: use the `-l` flag to specify native libraries to link\n\nerror: aborting due to 1 previous error\n\n\n",
+  "finished_at_utc": "2026-10-13T01:24:30Z"
+}
