@@ -1,6 +1,6 @@
 # Cross-OS verification: measured regressions and remaining work
 
-Status: **not achieved**. Linux developer-machine gains are not evidence of the same effect on another OS. Twelve hosted-runner attempts preserve 50 completed CPU reports, four failed-before-measurement reports and all 64 job outcomes (50 successes, 14 failures). Native Windows measurement now completed twice, but scan and builder remain below Rust and the macOS prime regression persists.
+Status: **not achieved**. Linux developer-machine gains are not evidence of the same effect on another OS. Thirteen hosted-runner attempts preserve 56 completed CPU reports, four failed-before-measurement reports and all 70 job outcomes (56 successes, 14 failures). Native Windows measurement now completed twice, but scan and builder remain below Rust and the macOS prime regression persists.
 
 ## Protocol
 
@@ -142,3 +142,5 @@ Frozen inputs, executables, assembly and failure logs are preserved in [the firs
 The integrated compiler matrix is frozen in [its native archive](cross-os-reserved-compiler-2026-10-13.raw.tar.gz). The screening matrices remain in [the separate prototype archive](cross-os-reserved-probes-2026-10-13.raw.tar.gz).
 
 The subsequent generated-C [range-kernel screening](range-kernels-cross-os-2026-10-13.md) adds a macOS LCG gain but still fails prime/scan thresholds and is retained as a partially useful experiment, not a compiler release.
+
+The generated-C [current-control periodic scan report](hybrid-range-cross-os-2026-10-13.md) demonstrates a strong scan/builder improvement in every native job, while macOS prime still misses Rust 1.10. It remains a prototype awaiting general compiler integration.
