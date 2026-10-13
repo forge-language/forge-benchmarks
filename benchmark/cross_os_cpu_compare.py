@@ -78,6 +78,32 @@ def hardware_description():
 def apply_probe(text, kind):
     """Explicit fixture experiments, never implicit changes to measured code."""
     changes = {}
+    if kind == 'target-remainder':
+        # Explicit target-policy screening: no arithmetic, loop order or Rust
+        # control changes. Zen 3 tests the original hardware remainder; ARM64
+        # tests a branch hint to discourage speculative conditional remainder.
+        guard = '#if defined(__SIZEOF_INT128__) && !defined(__aarch64__) && !defined(_M_ARM64)'
+        if text.count(guard) != 2:
+            raise RuntimeError('Unexpected current invariant-remainder policy')
+        text = text.replace(guard, guard + ' && !defined(__znver3__)')
+        signature = 'static int64_t prime_mod_pow(int64_t base, int64_t exponent, int64_t modulus) {'
+        begin = text.index(signature)
+        end = text.index('\n}\n', begin) + 3
+        body = text[begin:end]
+        predicate = 'if (((power % INT64_C(2)) == INT64_C(1)))'
+        if body.count(predicate) != 1:
+            raise RuntimeError('Unexpected conditional-power fixture')
+        replacement = body.replace(predicate,
+            'if (__forge_probe_expensive_branch((power % INT64_C(2)) == INT64_C(1)))')
+        text = text[:begin] + replacement + text[end:]
+        text = '''#if defined(__aarch64__) || defined(_M_ARM64)
+#define __forge_probe_expensive_branch(condition) __builtin_expect(!!(condition), 0)
+#else
+#define __forge_probe_expensive_branch(condition) (condition)
+#endif
+''' + text
+        return text, {'target_policy': 'hardware remainder on __znver3__; ARM64 conditional remainder branch hint',
+                      'conditional_power': {'before': body, 'after': replacement}}
     if kind in ('range-kernels', 'hybrid-range', 'precision-range'):
         # Explicit benchmark-generated C screening, not a compiler feature.
         # Each prefix proves a closed scalar range and keeps the old body for
@@ -357,7 +383,7 @@ def main():
     parser.add_argument('--pairs', type=int, default=60)
     parser.add_argument('--random-seed', type=int, default=20261013)
     parser.add_argument('--seed-offset', type=int, default=0)
-    parser.add_argument('--after-probe', choices=['none', 'bounded-hint', 'bounded-inline', 'reserved-builder', 'hardware-builder', 'range-kernels', 'hybrid-range', 'precision-range'], default='none',
+    parser.add_argument('--after-probe', choices=['none', 'bounded-hint', 'bounded-inline', 'reserved-builder', 'hardware-builder', 'range-kernels', 'hybrid-range', 'precision-range', 'target-remainder'], default='none',
                         help='Explicit generated-C experiment; never report it as shipped compiler code')
     parser.add_argument('--workloads', nargs='+', default=['lcg', 'primes', 'scan', 'builder', 'immutable'])
     args = parser.parse_args()
@@ -422,6 +448,11 @@ def main():
         macros = command([args.cc, '-std=gnu11', cpu_flag, '-dM', '-E', snapshot / 'clock.c'])
         int128 = [line.split()[-1] for line in macros.splitlines() if line.startswith('#define __SIZEOF_INT128__ ')]
         report['build']['int128_bytes'] = int(int128[0]) if int128 else None
+        policy_macros = {'__SIZEOF_INT128__', '__aarch64__', '_M_ARM64',
+                         '__znver3__', '__tune_znver3__'}
+        report['build']['remainder_policy_macros'] = {
+            pieces[1]: ' '.join(pieces[2:]) for line in macros.splitlines()
+            if len(pieces := line.split()) >= 3 and pieces[1] in policy_macros}
         report['build']['cc_target'] = command([args.cc, '-dumpmachine'])
         report['build']['native_cpu_flag'] = cpu_flag
         report['build']['timer'] = 'QueryPerformanceCounter' if os.name == 'nt' else 'CLOCK_MONOTONIC'
