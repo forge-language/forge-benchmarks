@@ -88,7 +88,7 @@ def main():
     parser.add_argument('--pairs', type=int, default=60)
     parser.add_argument('--random-seed', type=int, default=20261013)
     parser.add_argument('--seed-offset', type=int, default=0)
-    parser.add_argument('--after-probe', choices=['none', 'bounded-hint'], default='none',
+    parser.add_argument('--after-probe', choices=['none', 'bounded-hint', 'bounded-inline'], default='none',
                         help='Explicit generated-C experiment; never report it as shipped compiler code')
     parser.add_argument('--workloads', nargs='+', default=['lcg', 'primes', 'scan', 'builder', 'immutable'])
     args = parser.parse_args()
@@ -174,6 +174,16 @@ def main():
                 report['build']['after_probe'] = {'name': args.after_probe,
                                                  'original_c_sha256': original_hash,
                                                  'replaced_body': old, 'new_body': new}
+                if args.after_probe == 'bounded-inline':
+                    text = c_file.read_text()
+                    for function in ['prime_mod_pow', 'prime_mr_pass']:
+                        declaration = 'static int64_t ' + function + '('
+                        if text.count(declaration) != 2:
+                            raise RuntimeError('Unexpected prime function declaration/definition shape')
+                        text = text.replace(declaration,
+                                            'static inline __attribute__((always_inline)) int64_t ' + function + '(')
+                    c_file.write_text(text)
+                    report['build']['after_probe']['always_inline_functions'] = ['prime_mod_pow', 'prime_mr_pass']
             link = ['-lpthread', '-lm'] if os.name != 'nt' else ['-lws2_32', '-lm']
             build_command([args.cc, '-std=gnu11', '-O3', '-DNDEBUG', cpu_flag, '-flto', '-I', snapshot / 'include',
                            c_file, snapshot / 'clock.c', snapshot / 'libforge_std.a', snapshot / 'libforge_runtime.a',

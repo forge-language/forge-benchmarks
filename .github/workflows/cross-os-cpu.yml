@@ -13,7 +13,7 @@ on:
       after_probe:
         description: Explicit generated-C experiment (none measures shipped code)
         type: choice
-        options: [none, bounded-hint]
+        options: [none, bounded-hint, bounded-inline]
         default: none
 permissions:
   contents: read
@@ -42,7 +42,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: forge-language/forge
-          ref: 3a7e5e15d91ce8822c0269fdc90f5aa2d60a9bd0
+          ref: 7ac669a67036f5e07a45c0e873f333e9085940c4
           path: toolchain/forge-after
       - uses: actions/checkout@v4
         with:
@@ -102,6 +102,7 @@ jobs:
           for variant in before after; do
             cmake -G Ninja -S "toolchain/forge-$variant" -B "toolchain/build-$variant" \
               -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=gcc -DBUILD_TESTING=ON \
+              -DCMAKE_C_FLAGS=-Wno-error=incompatible-pointer-types \
               -DFORGE_ENABLE_GPU=OFF -DFORGE_ENABLE_TLS=OFF -DFORGE_ENABLE_IO_URING=OFF \
               -DFORGE_RUNTIME_SOURCE_DIR="$GITHUB_WORKSPACE/toolchain/forge-runtime" \
               -DFORGE_STDLIB_SOURCE_DIR="$GITHUB_WORKSPACE/toolchain/forge-stdlib"
