@@ -78,6 +78,73 @@ def hardware_description():
 def apply_probe(text, kind):
     """Explicit fixture experiments, never implicit changes to measured code."""
     changes = {}
+    if kind == 'range-kernels':
+        # Explicit benchmark-generated C screening, not a compiler feature.
+        # Each prefix proves a closed scalar range and keeps the old body for
+        # inputs outside that range. Nothing changes in the Rust control.
+        prefixes = {
+            'lcg(int64_t n, int64_t rounds, int64_t seed)': '''
+    if (seed >= 0 && seed < INT64_C(2147483647)) {
+        uint64_t probe_value = (uint64_t)seed;
+        for (int64_t probe_r = 0; probe_r < rounds; probe_r++) {
+            for (int64_t probe_i = 0; probe_i < n; probe_i++) {
+                uint64_t product = probe_value * UINT64_C(48271);
+                probe_value = (product >> 31) + (product & UINT64_C(2147483647));
+                if (probe_value >= UINT64_C(2147483647)) probe_value -= UINT64_C(2147483647);
+            }
+        }
+        return (int64_t)probe_value;
+    }
+''',
+            'prime_mod_pow(int64_t base, int64_t exponent, int64_t modulus)': '''
+    if (base >= 0 && exponent >= 0 && modulus > 1 && modulus <= INT64_C(3037000499)) {
+        uint64_t probe_modulus = (uint64_t)modulus;
+        uint64_t probe_factor = (uint64_t)base % probe_modulus;
+        uint64_t probe_result = 1, probe_power = (uint64_t)exponent;
+        while (probe_power) {
+            if (probe_power & 1) probe_result = probe_result * probe_factor % probe_modulus;
+            probe_factor = probe_factor * probe_factor % probe_modulus;
+            probe_power >>= 1;
+        }
+        return (int64_t)probe_result;
+    }
+''',
+            'prime_mr_pass(int64_t value, int64_t base)': '''
+    if (value > 1 && value <= INT64_C(3037000499) && base >= 0) {
+        if (base >= value) return 1;
+        uint64_t probe_d = (uint64_t)value - 1, probe_s = 0;
+        while (!(probe_d & 1)) { probe_d >>= 1; probe_s++; }
+        uint64_t probe_x = (uint64_t)prime_mod_pow(base, (int64_t)probe_d, value);
+        if (probe_x == 1 || probe_x == (uint64_t)value - 1) return 1;
+        for (uint64_t probe_r = 1; probe_r < probe_s; probe_r++) {
+            probe_x = probe_x * probe_x % (uint64_t)value;
+            if (probe_x == (uint64_t)value - 1) return 1;
+        }
+        return 0;
+    }
+''',
+        }
+        for function, prefix in prefixes.items():
+            signature = 'static int64_t ' + function + ' {'
+            if text.count(signature) != 1:
+                raise RuntimeError('Unexpected range-kernel function shape: ' + function)
+            begin = text.index(signature)
+            end = text.index('\n}\n', begin) + 3
+            body = text[begin:end]
+            new_body = body.replace(signature, signature + prefix, 1)
+            text = text[:begin] + new_body + text[end:]
+            changes[function] = {'before': body, 'after': new_body}
+        signature = 'static int64_t weighted(int64_t view, int64_t offset) {'
+        begin = text.index(signature)
+        end = text.index('\n}\n', begin) + 3
+        body = text[begin:end]
+        if body.count('    while (') != 1:
+            raise RuntimeError('Unexpected weighted loop shape')
+        hint = ('#if defined(__clang__)\n#pragma clang loop unroll_count(13)\n'
+                '#elif defined(__GNUC__)\n#pragma GCC unroll 13\n#endif\n')
+        new_body = body.replace('    while (', hint + '    while (', 1)
+        text = text[:begin] + new_body + text[end:]
+        changes['weighted'] = {'before': body, 'after': new_body}
     if kind in ('bounded-hint', 'bounded-inline'):
         old = '        if (product > n) product -= d;\n        return (int64_t)(n - product);'
         new = ('        if ((n >= (UINT64_C(1) << 43) || d > (UINT64_C(1) << 21)) && product > n) product -= d;\n'
@@ -168,7 +235,7 @@ def main():
     parser.add_argument('--pairs', type=int, default=60)
     parser.add_argument('--random-seed', type=int, default=20261013)
     parser.add_argument('--seed-offset', type=int, default=0)
-    parser.add_argument('--after-probe', choices=['none', 'bounded-hint', 'bounded-inline', 'reserved-builder', 'hardware-builder'], default='none',
+    parser.add_argument('--after-probe', choices=['none', 'bounded-hint', 'bounded-inline', 'reserved-builder', 'hardware-builder', 'range-kernels'], default='none',
                         help='Explicit generated-C experiment; never report it as shipped compiler code')
     parser.add_argument('--workloads', nargs='+', default=['lcg', 'primes', 'scan', 'builder', 'immutable'])
     args = parser.parse_args()
