@@ -1,0 +1,118 @@
+name: Cross-OS CPU evidence
+on:
+  workflow_dispatch:
+    inputs:
+      pairs:
+        description: Balanced three-way groups per workload (multiple of six)
+        required: true
+        default: '60'
+      random_seed:
+        description: First independent-run seed
+        required: true
+        default: '20261013'
+permissions:
+  contents: read
+jobs:
+  compare:
+    name: ${{ matrix.os }} / independent run ${{ matrix.repeat }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, macos-15, windows-2022]
+        repeat: [0, 1]
+    env:
+      PAIRS: ${{ inputs.pairs }}
+      FIRST_SEED: ${{ inputs.random_seed }}
+      RUN_REPEAT: ${{ matrix.repeat }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: forge-language/forge
+          ref: 9f70e9d0de349c70358f6c81505c2844efbed788
+          path: toolchain/forge-before
+      - uses: actions/checkout@v4
+        with:
+          repository: forge-language/forge
+          ref: 9e6bf6f2699ce22ca837ee91f5cf80a5286f545c
+          path: toolchain/forge-after
+      - uses: actions/checkout@v4
+        with:
+          repository: forge-language/forge-runtime
+          ref: 0b1e7d4e6ae0996422553666e349fc40f11e3ac6
+          path: toolchain/forge-runtime
+      - uses: actions/checkout@v4
+        with:
+          repository: forge-language/forge-stdlib
+          ref: a16cf1bf1fe81c92f64aa6df675a353674715c98
+          path: toolchain/forge-stdlib
+      - uses: actions/setup-python@v5
+        if: runner.os != 'Windows'
+        with:
+          python-version: '3.12'
+      - uses: msys2/setup-msys2@v2
+        if: runner.os == 'Windows'
+        with:
+          msystem: MINGW64
+          update: true
+          path-type: inherit
+          install: >-
+            git
+            mingw-w64-x86_64-gcc
+            mingw-w64-x86_64-cmake
+            mingw-w64-x86_64-ninja
+            mingw-w64-x86_64-python
+      - name: Prepare native Rust GNU target on Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: rustup target add x86_64-pc-windows-gnu
+      - name: Build and compare on Linux/macOS
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          mkdir -p results
+          for variant in before after; do
+            cmake -S "toolchain/forge-$variant" -B "toolchain/build-$variant" \
+              -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF \
+              -DFORGE_ENABLE_GPU=OFF -DFORGE_ENABLE_TLS=OFF -DFORGE_ENABLE_IO_URING=OFF \
+              -DFORGE_RUNTIME_SOURCE_DIR="$GITHUB_WORKSPACE/toolchain/forge-runtime" \
+              -DFORGE_STDLIB_SOURCE_DIR="$GITHUB_WORKSPACE/toolchain/forge-stdlib"
+            cmake --build "toolchain/build-$variant" --target forge forge_std -j2
+          done
+          python3 benchmark/cross_os_cpu_compare.py \
+            --before toolchain/build-before/bin/forge --after toolchain/build-after/bin/forge \
+            --sdk toolchain/build-after --before-root toolchain/forge-before --after-root toolchain/forge-after \
+            --runtime-root toolchain/forge-runtime --stdlib-root toolchain/forge-stdlib \
+            --dimensions docs/cpu-current-all-2026-10-12.json \
+            --build-dir "results/frozen-$RUN_REPEAT" --output "results/cpu-$RUN_REPEAT.json" \
+            --pairs "$PAIRS" --random-seed "$FIRST_SEED" --seed-offset "$RUN_REPEAT"
+      - name: Build and compare native Windows executables
+        if: runner.os == 'Windows'
+        shell: msys2 {0}
+        run: |
+          mkdir -p results
+          for variant in before after; do
+            cmake -G Ninja -S "toolchain/forge-$variant" -B "toolchain/build-$variant" \
+              -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=gcc -DBUILD_TESTING=OFF \
+              -DFORGE_ENABLE_GPU=OFF -DFORGE_ENABLE_TLS=OFF -DFORGE_ENABLE_IO_URING=OFF \
+              -DFORGE_RUNTIME_SOURCE_DIR="$GITHUB_WORKSPACE/toolchain/forge-runtime" \
+              -DFORGE_STDLIB_SOURCE_DIR="$GITHUB_WORKSPACE/toolchain/forge-stdlib"
+            cmake --build "toolchain/build-$variant" --target forge forge_std -j2
+          done
+          python benchmark/cross_os_cpu_compare.py \
+            --before toolchain/build-before/bin/forge.exe --after toolchain/build-after/bin/forge.exe \
+            --sdk toolchain/build-after --before-root toolchain/forge-before --after-root toolchain/forge-after \
+            --runtime-root toolchain/forge-runtime --stdlib-root toolchain/forge-stdlib \
+            --dimensions docs/cpu-current-all-2026-10-12.json --cc gcc \
+            --rust-target x86_64-pc-windows-gnu --rust-linker gcc \
+            --build-dir "results/frozen-$RUN_REPEAT" --output "results/cpu-$RUN_REPEAT.json" \
+            --pairs "$PAIRS" --random-seed "$FIRST_SEED" --seed-offset "$RUN_REPEAT"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cross-os-${{ matrix.os }}-${{ matrix.repeat }}-${{ github.run_id }}
+          path: results/
+          if-no-files-found: warn
+          retention-days: 90
