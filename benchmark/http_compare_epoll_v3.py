@@ -26,7 +26,7 @@ from cpu_compare import confidence, sha
 from thread_compare import physical_cpus
 
 ROOT = Path(__file__).resolve().parents[1]
-PROTOCOL = "prepared-http-v3.2-multisource-windowed-epoll"
+PROTOCOL = "prepared-http-v3.3-observed-inflight-peaks"
 FIXTURE = v2.FIXTURE
 IO_TIMEOUT_MS = 10000
 
@@ -90,6 +90,20 @@ def validate_request_rows(columns, rows, wanted, requested, attempted, completed
         )
     if len(rows) != requested:
         raise RuntimeError(f"Epoll TSV row count {len(rows)} does not match requested={requested}")
+
+
+def parse_footer(line, concurrency, requests):
+    footer = list(map(int, line.split(b"\t")))
+    if len(footer) != 6:
+        raise RuntimeError("V3.3 requires actual observed concurrency gauges")
+    elapsed, attempted, errors, active, connected, pending = footer
+    if not (elapsed > 0 and 0 <= errors <= attempted <= requests
+            and 0 <= connected <= active <= min(concurrency, attempted)
+            and 0 <= pending <= min(256, active)
+            and active <= connected + pending
+            and (attempted == errors or active > 0)):
+        raise RuntimeError("Observer concurrency gauges or counters exceed physical/configured bounds")
+    return footer
 
 
 def run_trial(server_binary, load_binary, workers, concurrency, requests, seed,
@@ -171,9 +185,14 @@ def run_trial(server_binary, load_binary, workers, concurrency, requests, seed,
             lines = output.splitlines()
             if len(lines) != 2:
                 raise RuntimeError("Malformed epoll observer stdout footer")
-            elapsed, attempted, errors = map(int, lines[1].split(b"\t"))
+            elapsed, attempted, errors, peak_active, peak_connected, peak_pending = parse_footer(
+                lines[1], concurrency, requests)
             result.update(elapsed_ns=elapsed, attempted_requests=attempted,
-                          completed_requests=attempted - errors, errors=errors)
+                          completed_requests=attempted - errors, errors=errors,
+                          observed_peak_inflight_requests=peak_active,
+                          observed_peak_connected_client_states=peak_connected,
+                          observed_peak_pending_connects=peak_pending,
+                          concurrency_gauge_scope="client request states through EOF handling; not accepted server sockets, sessions or users")
 
         with samples_path.open(newline="") as stream:
             reader = csv.DictReader(stream, delimiter="\t")
@@ -228,14 +247,17 @@ def run_trial(server_binary, load_binary, workers, concurrency, requests, seed,
 
 
 def markdown(report, output):
-    lines = ["# Prepared HTTP benchmark — observer protocol V3.2 (windowed multi-source epoll)", "",
-        "This separately versioned path drives the unchanged prepared HTTP servers with a single Linux epoll client reactor. It binds across the configured number of 127/8 source addresses to expand ephemeral-port tuples, caps pending connects at 256, and checks socket deadlines every 25 ms while polling events. V3.2 timing is not compatible with V1/V2 and must not be pooled with them.", "",
-        "| Body bytes | Workers | Concurrent sockets | Forge req/s | Rust req/s | Paired Rust/Forge ratio (95% interval) | 1.10 target |",
-        "| ---: | ---: | ---: | ---: | ---: | --- | --- |"]
+    lines = ["# Prepared HTTP benchmark — observer protocol V3.3 (observed request-state peaks)", "",
+        "A single Linux epoll client drives the prepared HTTP servers, binds across the configured 127/8 source addresses, caps pending connects at 256, and checks deadlines every 25 ms. V3.3 adds constant-time peak gauges and is reported separately from V1/V2/V3.2; do not pool timings across observer versions.", "",
+        "| Body bytes | Workers | Configured ceiling | Forge req/s | Rust req/s | Forge peak in-flight / connected | Rust peak in-flight / connected | Paired Rust/Forge ratio (95% interval) | 1.10 target |",
+        "| ---: | ---: | ---: | ---: | ---: | --- | --- | --- | --- |"]
     for row in report["summary"]:
         low, high = row["ci95"]
-        lines.append(f"| {row['body_bytes']} | {row['workers']} | {row['concurrency']} | {row['forge_median_rps']:.1f} | {row['rust_median_rps']:.1f} | {row['paired_ratio_median']:.4f} [{low:.4f}, {high:.4f}] | {row['target_status']} |")
+        peaks = row['observed_peaks']
+        forge, rust = peaks['forge'], peaks['rust']
+        lines.append(f"| {row['body_bytes']} | {row['workers']} | {row['concurrency']} | {row['forge_median_rps']:.1f} | {row['rust_median_rps']:.1f} | {forge['inflight_min']}–{forge['inflight_max']} / {forge['connected_min']}–{forge['connected_max']} | {rust['inflight_min']}–{rust['inflight_max']} / {rust['connected_min']}–{rust['connected_max']} | {row['paired_ratio_median']:.4f} [{low:.4f}, {high:.4f}] | {row['target_status']} |")
     lines += ["", f"Every request uses a new loopback connection across {report['method']['source_address_count']} source addresses. The observer has one pinned reactor thread and at most the configured number of active sockets, with no more than 256 pending connects. It checks every response byte against an independently generated packet, then separately requires EOF. Partial/failed trials preserve completed TSV rows and fail the comparison without retries or excluded failures. Its CPU, readiness polling, epoll work, deadline checks, request validation, TSV writes, and final process completion are in the reported elapsed interval.", "",
+        "Peak ranges are the minimum and maximum per-trial peaks among measured samples. In-flight includes pending connects and connected client request states; connected states last through response validation and EOF processing, and may outlive the server's socket. They do not measure accepted server sockets, sessions, users, or maximum capacity. The configured ceiling is a limit, not a measured population.", "",
         "The Forge and Rust server fixtures, server correctness probes, CPU setup, kernel snapshots, and paired-order statistics reuse the V2 runner helpers. The client source, runner, resulting binary hash, snapshot hashes and commands are retained in the build/report metadata. The client uses the same implementation for both server languages, so its work is part of the measured end-to-end loopback workload. Results do not establish general HTTP framework, TLS, keepalive, internet-facing capacity, or language-wide performance.", "",
         f"Raw run and retained attempts: [{output.name}]({output.name}); directory `{report['raw_directory']}`.", ""]
     return "\n".join(lines)
@@ -312,7 +334,8 @@ def main():
             "scope": "single reactor; closed-loop fixed-count TCP connect + request write + exact response bytes + separate EOF + immediate TSV writes",
             "connect_window": "at most 256 pending TCP connects; the reactor polls and sends request bytes while additional lanes are launched; socket deadlines are checked every 25 ms instead of scanning all active sockets for every event batch",
             "observer_failure_policy": "stop new requests after first failure; drain active attempts; no retry",
-            "timing_compatibility": "not comparable/poolable with V1 or V2"},
+            "timing_compatibility": "separate protocol; do not pool with V1, V2 or V3.2",
+            "concurrency_gauge_scope": "client request states through EOF handling; not accepted server sockets, sessions or users"},
         "correctness_checks": [], "warmups": [], "measurements": [], "summary": []}
     save(output, report)
     servers = {name: args.build_dir.resolve() / (name + "-http") for name in ["forge", "rust"]}
@@ -364,7 +387,17 @@ def main():
                 paired = {row["language"]: row for row in samples if row["pair"] == pair}
                 ratios.append(paired["rust"]["elapsed_ns"] / paired["forge"]["elapsed_ns"])
             interval = confidence(ratios, args.random_seed + workers + body + concurrency)
+            peaks = {}
+            for name in ["forge", "rust"]:
+                group = [row for row in samples if row["language"] == name]
+                peaks[name] = {}
+                for label, field in [("inflight", "observed_peak_inflight_requests"),
+                                     ("connected", "observed_peak_connected_client_states"),
+                                     ("pending", "observed_peak_pending_connects")]:
+                    peaks[name][label + "_min"] = min(row[field] for row in group)
+                    peaks[name][label + "_max"] = max(row[field] for row in group)
             report["summary"].append({"body_bytes": body, "workers": workers, "concurrency": concurrency,
+                "observed_peaks": peaks,
                 "forge_median_rps": statistics.median(row["requests_per_second"] for row in samples if row["language"] == "forge"),
                 "rust_median_rps": statistics.median(row["requests_per_second"] for row in samples if row["language"] == "rust"),
                 "paired_ratios": ratios, "paired_ratio_median": statistics.median(ratios), "ci95": interval,

@@ -69,6 +69,21 @@ struct Completed {
     error: String,
 }
 
+#[derive(Default)]
+struct Peaks {
+    active: usize,
+    connected: usize,
+    pending: usize,
+}
+
+impl Peaks {
+    fn observe(&mut self, connected: usize, pending: usize) {
+        self.active = self.active.max(connected + pending);
+        self.connected = self.connected.max(connected);
+        self.pending = self.pending.max(pending);
+    }
+}
+
 fn socket_connect(port: u16, source_address: u8) -> io::Result<(OwnedFd, bool)> {
     // SAFETY: socket returns either an owned descriptor or -1.
     let raw = unsafe {
@@ -463,6 +478,8 @@ fn main() -> io::Result<()> {
     let mut active: std::collections::HashMap<u64, Request> =
         std::collections::HashMap::with_capacity(concurrency);
     let mut pending_connects = 0usize;
+    let mut connected_active = 0usize;
+    let mut peaks = Peaks::default();
     let mut next_id = 0usize;
     let mut next_token = 1u64;
     let mut attempts = 0usize;
@@ -494,7 +511,10 @@ fn main() -> io::Result<()> {
             Ok(req) => {
                 if req.phase == Phase::Connect {
                     pending_connects += 1;
+                } else {
+                    connected_active += 1;
                 }
+                peaks.observe(connected_active, pending_connects);
                 active.insert(token, req);
             }
             Err(row) => {
@@ -568,6 +588,8 @@ fn main() -> io::Result<()> {
                         return Err(io::Error::from_raw_os_error(socket_error));
                     }
                     pending_connects -= 1;
+                    connected_active += 1;
+                    peaks.observe(connected_active, pending_connects);
                     enter_setup(req)?;
                 }
                 let socket_failure =
@@ -663,6 +685,8 @@ fn main() -> io::Result<()> {
             };
             if req.phase == Phase::Connect {
                 pending_connects -= 1;
+            } else {
+                connected_active -= 1;
             }
             let _ = unsafe {
                 libc::epoll_ctl(
@@ -705,7 +729,10 @@ fn main() -> io::Result<()> {
                 Ok(req) => {
                     if req.phase == Phase::Connect {
                         pending_connects += 1;
+                    } else {
+                        connected_active += 1;
                     }
+                    peaks.observe(connected_active, pending_connects);
                     active.insert(token, req);
                 }
                 Err(row) => {
@@ -717,7 +744,17 @@ fn main() -> io::Result<()> {
             }
         }
     }
-    println!("{}\t{}\t{}", started.elapsed().as_nanos(), attempts, errors);
+    debug_assert_eq!(connected_active, 0);
+    debug_assert_eq!(pending_connects, 0);
+    println!(
+        "{}\t{}\t{}\t{}\t{}\t{}",
+        started.elapsed().as_nanos(),
+        attempts,
+        errors,
+        peaks.active,
+        peaks.connected,
+        peaks.pending
+    );
     Ok(())
 }
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bounded observer correctness tests. Requires an already built V2 http-load.
+"""Bounded observer correctness tests. Requires an already built HTTP observer.
 
 No builds, benchmarking, external addresses, retries or packet-filter changes.
 Run only after the benchmark coordinator authorizes test execution. Every test
@@ -167,6 +167,7 @@ class ObserverTests(unittest.TestCase):
         child.test_stderr = error_output
         self.children.append(child)
         self.metadata.update(command=command, cpu=OPTIONS.cpu, supervisor_deadline_seconds=OPTIONS.deadline)
+        self.metadata.update(requested=requests, configured_concurrency=concurrency)
         self.store()
         self.assertTrue(select.select([child.stdout], [], [], OPTIONS.deadline)[0], 'Readiness deadline')
         self.assertEqual(child.stdout.readline(), b'ready\n')
@@ -183,8 +184,14 @@ class ObserverTests(unittest.TestCase):
         child.stdout.close()
         self.assertEqual(child.returncode, 0)
         footer = output.strip().split(b'\t')
-        self.assertEqual(len(footer), 3)
-        elapsed, attempts, errors = map(int, footer)
+        self.assertIn(len(footer), [6] if OPTIONS.require_peaks else [3, 6])
+        elapsed, attempts, errors = map(int, footer[:3])
+        if len(footer) == 6:
+            active, connected, pending = map(int, footer[3:])
+            self.assertTrue(0 <= connected <= active <= min(attempts, self.metadata['configured_concurrency']))
+            self.assertTrue(0 <= pending <= min(256, active))
+            self.assertLessEqual(active, connected + pending)
+            self.metadata['observed_peaks'] = dict(inflight=active, connected=connected, pending=pending)
         self.metadata.update(observer_elapsed_ns=elapsed, attempts=attempts, errors=errors,
                              observer_exit_code=child.returncode)
         self.store()
@@ -205,6 +212,20 @@ class ObserverTests(unittest.TestCase):
         self.assertEqual(sorted(int(row['id']) for row in observed), list(range(23)))
         self.assertTrue(all(int(row['response_bytes']) == len(self.expected) and not row['failed_stage'] for row in observed))
 
+    def test_observed_connected_peak_with_peer_barrier(self):
+        if not OPTIONS.require_peaks:
+            self.skipTest('Requires V3.3 peak gauges')
+        barrier = threading.Barrier(4)
+        def respond(connection, request, exit):
+            # No request can finish before all four full requests reach the peer.
+            barrier.wait(timeout=2)
+            connection.sendall(self.expected)
+        peer = self.peer(respond)
+        _, attempts, errors = self.finish(self.start(peer.port, requests=4, concurrency=4, timeout_ms=1000))
+        self.assertEqual((attempts, errors), (4, 0))
+        self.assertEqual(self.metadata['observed_peaks']['inflight'], 4)
+        self.assertEqual(self.metadata['observed_peaks']['connected'], 4)
+
     def test_read_and_eof_durations_are_separate(self):
         def respond(connection, request, exit):
             exit.wait(.12)
@@ -223,7 +244,8 @@ class ObserverTests(unittest.TestCase):
         peer = self.peer(lambda connection, request, exit: connection.sendall(malformed))
         observed, attempts, errors = self.finish(self.start(peer.port, requests=100))
         self.assertEqual((attempts, errors), (1, 1))
-        self.assertEqual(observed[0]['failed_stage'], 'response')
+        # Epoll checks bytes incrementally during Read; V2 checks the full packet.
+        self.assertEqual(observed[0]['failed_stage'], 'read' if OPTIONS.require_peaks else 'response')
         self.assertEqual(int(observed[0]['response_bytes']), len(self.expected))
 
     def test_early_eof_preserves_actual_partial_bytes(self):
@@ -248,7 +270,8 @@ class ObserverTests(unittest.TestCase):
         self.assertLessEqual(attempts, 4)
         self.assertEqual(errors, attempts)
         self.assertEqual(len(set(row['id'] for row in observed)), attempts)
-        self.assertTrue(all(row['failed_stage'] == 'response' for row in observed))
+        mismatch_stage = 'read' if OPTIONS.require_peaks else 'response'
+        self.assertTrue(all(row['failed_stage'] == mismatch_stage for row in observed))
 
     def test_completed_row_survives_supervisor_termination(self):
         second_inflight = threading.Event()
@@ -314,6 +337,7 @@ def main():
     parser.add_argument('--evidence-dir', type=Path, required=True)
     parser.add_argument('--deadline', type=float, default=5)
     parser.add_argument('--cpu', type=int, default=min(os.sched_getaffinity(0)))
+    parser.add_argument('--require-peaks', action='store_true', help='Require V3.3 footer and validate simultaneous connected states')
     OPTIONS = parser.parse_args()
     if not OPTIONS.load_binary.is_file() or OPTIONS.deadline <= 0 or OPTIONS.deadline > 10 or OPTIONS.cpu not in os.sched_getaffinity(0):
         parser.error('Require existing observer, allowed CPU and supervisor deadline <=10s')
