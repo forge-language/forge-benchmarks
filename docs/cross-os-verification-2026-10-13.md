@@ -1,6 +1,6 @@
 # Cross-OS verification: measured regressions and remaining work
 
-Status: **not achieved**. Linux developer-machine gains are not evidence of the same effect on another OS. Fifteen hosted-runner attempts preserve 68 completed CPU reports, four failed-before-measurement reports and all 82 job outcomes (68 successes, 14 failures). Native Windows measurement now completed twice, but scan and builder remain below Rust and the macOS prime regression persists.
+Status: **not achieved**. Linux developer-machine gains are not evidence of the same effect on another OS. Sixteen hosted-runner attempts preserve74 completed CPU reports, four failed-before-measurement reports and all88 job outcomes (74 successes,14 failures). Native Windows measurement now completed twice, but scan and builder remain below Rust and the macOS prime regression persists.
 
 ## Protocol
 
@@ -145,4 +145,4 @@ The subsequent generated-C [range-kernel screening](range-kernels-cross-os-2026-
 
 The generated-C [current-control periodic scan report](hybrid-range-cross-os-2026-10-13.md) demonstrates a strong scan/builder improvement in every native job, while macOS prime still misses Rust 1.10. It remains a prototype awaiting general compiler integration.
 
-The [actual Mersenne loop lowering](mersenne-loop-cross-os-2026-10-13.md) reproduces the Apple M1 LCG improvement. The [word-size arithmetic variant](precision-range-cross-os-2026-10-13.md) worsens macOS primes and is rejected. The final integrated periodic-sum/ARM64-policy compiler verification run 38352449216 remains pending.
+The [actual Mersenne loop lowering](mersenne-loop-cross-os-2026-10-13.md) reproduces the Apple M1 LCG improvement. The [word-size arithmetic variant](precision-range-cross-os-2026-10-13.md) worsens macOS primes and is rejected. The final integrated periodic-sum/ARM64-policy compiler verification run38352449216 completed; [its unchanged-compiler results](integrated-compiler-cross-os-2026-10-13.md) demonstrate scan/builder gains on all three tested OSes, while prime misses remain.

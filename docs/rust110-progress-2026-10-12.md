@@ -413,3 +413,8 @@ The periodic byte-sum transformation is now a name-independent, bounded compiler
 
 
 The unchanged compiler420d66f local full-suite60-group recheck completed: LCG/prime/scan/builder/immutable reached1.2697/1.4033/2.6677/1.6526/8.1081× matched Rust, with all five lower95% row-wise bounds above1.10. All120 direct checks,900 prewarms and900 measurements passed. [Conditions and full data](periodic-compiler-full-60-2026-10-13.md). This supports the local representative suite; native OS results and the remaining macOS prime threshold must still be assessed independently.
+
+
+## Integrated unchanged-compiler native verification
+
+Compiler420d66f completed six native jobs (720 direct checks,5400 prewarms,5400 measured executions). Relative to original9f70e9d, scan gains are Linux2.12–2.61×/macOS8.64–8.97×/Windows4.42–7.41×, and builder gains are1.58–1.66×/5.30–5.76×/1.98–2.08×. Every scan/builder lower row-wise interval exceeds1.10, establishing a consistent positive effect across the tested OSes for those workloads. macOS LCG also improves1.84–1.90×. ARM64 prime returns to roughly original Forge, but macOS prime remains0.936–0.957× Rust and one Linux EPYC job remains1.016× Rust/0.798× old Forge. Therefore the local five-case Rust1.10 success is not a full cross-OS suite success; the goal remains active. [Complete native results and limits](integrated-compiler-cross-os-2026-10-13.md).
