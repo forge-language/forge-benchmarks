@@ -78,7 +78,7 @@ def hardware_description():
 def apply_probe(text, kind):
     """Explicit fixture experiments, never implicit changes to measured code."""
     changes = {}
-    if kind in ('range-kernels', 'hybrid-range'):
+    if kind in ('range-kernels', 'hybrid-range', 'precision-range'):
         # Explicit benchmark-generated C screening, not a compiler feature.
         # Each prefix proves a closed scalar range and keeps the old body for
         # inputs outside that range. Nothing changes in the Rust control.
@@ -124,7 +124,7 @@ def apply_probe(text, kind):
     }
 ''',
         }
-        if kind == 'hybrid-range':
+        if kind in ('hybrid-range', 'precision-range'):
             helper = '''
 static inline uint64_t __forge_probe_reciprocal(uint64_t divisor) {
 #if defined(__SIZEOF_INT128__) && !defined(__aarch64__) && !defined(_M_ARM64)
@@ -146,6 +146,18 @@ static inline uint64_t __forge_probe_positive_mod(uint64_t value, uint64_t divis
 #endif
 }
 '''
+            if kind == 'precision-range':
+                helper = helper.replace(
+                    '    uint64_t q =',
+                    '    if (value < divisor) return value;\n    uint64_t q =', 1).replace(
+                    '    return value - product;',
+                    '    uint64_t remainder = value - product;\n'
+                    '    if (remainder >= divisor) __builtin_unreachable();\n'
+                    '    return remainder;', 1).replace(
+                    '    return value % divisor;',
+                    '    if (value < divisor) return value;\n'
+                    '    if (value <= UINT32_MAX) return (uint32_t)value % (uint32_t)divisor;\n'
+                    '    return value % divisor;', 1)
             position = text.index('static int64_t lcg(')
             text = text[:position] + helper + text[position:]
             changes['positive_remainder_helpers'] = helper
@@ -167,6 +179,37 @@ static inline uint64_t __forge_probe_positive_mod(uint64_t value, uint64_t divis
                 '        uint64_t probe_reciprocal = __forge_probe_reciprocal((uint64_t)value);').replace(
                 'probe_x * probe_x % (uint64_t)value',
                 '__forge_probe_positive_mod(probe_x * probe_x, (uint64_t)value, probe_reciprocal)')
+            if kind == 'precision-range':
+                name = 'prime_mod_pow(int64_t base, int64_t exponent, int64_t modulus)'
+                prefixes[name] = '''
+    if (base >= 0 && exponent >= 0 && modulus > 1 && modulus <= INT64_C(3037000499)) {
+        uint32_t probe_modulus = (uint32_t)modulus;
+        uint64_t probe_reciprocal = __forge_probe_reciprocal(probe_modulus);
+        uint64_t probe_base = (uint64_t)base;
+        uint32_t probe_factor = (uint32_t)(probe_base < probe_modulus ? probe_base :
+            __forge_probe_positive_mod(probe_base, probe_modulus, probe_reciprocal));
+        uint32_t probe_result = 1;
+        uint64_t probe_power = (uint64_t)exponent;
+        if (probe_power) {
+            if (probe_power & 1) probe_result = probe_factor;
+            probe_power >>= 1;
+            while (probe_power) {
+                probe_factor = (uint32_t)__forge_probe_positive_mod(
+                    (uint64_t)probe_factor * probe_factor, probe_modulus, probe_reciprocal);
+                if (probe_power & 1) probe_result = (uint32_t)__forge_probe_positive_mod(
+                    (uint64_t)probe_result * probe_factor, probe_modulus, probe_reciprocal);
+                probe_power >>= 1;
+            }
+        }
+        return (int64_t)probe_result;
+    }
+'''
+                name = 'prime_mr_pass(int64_t value, int64_t base)'
+                prefixes[name] = prefixes[name].replace(
+                    'uint64_t probe_x = (uint64_t)prime_mod_pow',
+                    'uint32_t probe_x = (uint32_t)prime_mod_pow').replace(
+                    'probe_x * probe_x, (uint64_t)value',
+                    '(uint64_t)probe_x * probe_x, (uint64_t)value')
         for function, prefix in prefixes.items():
             signature = 'static int64_t ' + function + ' {'
             if text.count(signature) != 1:
@@ -175,13 +218,13 @@ static inline uint64_t __forge_probe_positive_mod(uint64_t value, uint64_t divis
             end = text.index('\n}\n', begin) + 3
             body = text[begin:end]
             new_body = body.replace(signature, signature + prefix, 1)
-            if kind == 'hybrid-range' and function.startswith('prime_'):
+            if kind in ('hybrid-range', 'precision-range') and function.startswith('prime_'):
                 function_name = function.split('(')[0]
                 declaration = 'static int64_t ' + function_name + '('
                 inline = 'static inline __attribute__((always_inline)) int64_t ' + function_name + '('
                 new_body = new_body.replace(declaration, inline, 1)
             text = text[:begin] + new_body + text[end:]
-            if kind == 'hybrid-range' and function.startswith('prime_'):
+            if kind in ('hybrid-range', 'precision-range') and function.startswith('prime_'):
                 if text.count(declaration) != 1:
                     raise RuntimeError('Unexpected remaining prime declaration')
                 text = text.replace(declaration, inline, 1)
@@ -196,7 +239,7 @@ static inline uint64_t __forge_probe_positive_mod(uint64_t value, uint64_t divis
         hint = ('#if defined(__clang__)\n#pragma clang loop unroll_count(13)\n'
                 '#elif defined(__GNUC__)\n#pragma GCC unroll 13\n#endif\n')
         new_body = body.replace('    while (', hint + '    while (', 1)
-        if kind == 'hybrid-range':
+        if kind in ('hybrid-range', 'precision-range'):
             prefix = '''
     const fr_detail_str_view *probe_view = (const fr_detail_str_view *)(intptr_t)view;
     int64_t probe_weight = offset % INT64_C(13) + 1;
@@ -314,7 +357,7 @@ def main():
     parser.add_argument('--pairs', type=int, default=60)
     parser.add_argument('--random-seed', type=int, default=20261013)
     parser.add_argument('--seed-offset', type=int, default=0)
-    parser.add_argument('--after-probe', choices=['none', 'bounded-hint', 'bounded-inline', 'reserved-builder', 'hardware-builder', 'range-kernels', 'hybrid-range'], default='none',
+    parser.add_argument('--after-probe', choices=['none', 'bounded-hint', 'bounded-inline', 'reserved-builder', 'hardware-builder', 'range-kernels', 'hybrid-range', 'precision-range'], default='none',
                         help='Explicit generated-C experiment; never report it as shipped compiler code')
     parser.add_argument('--workloads', nargs='+', default=['lcg', 'primes', 'scan', 'builder', 'immutable'])
     args = parser.parse_args()

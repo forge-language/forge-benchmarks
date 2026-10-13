@@ -56,7 +56,7 @@ def main():
     parser.add_argument('--generated-c', type=Path, required=True)
     parser.add_argument('--sdk', type=Path, required=True)
     parser.add_argument('--cc', default='cc')
-    parser.add_argument('--probe', choices=['range-kernels','hybrid-range'], default='range-kernels')
+    parser.add_argument('--probe', choices=['range-kernels','hybrid-range','precision-range'], default='range-kernels')
     parser.add_argument('--extra-c-flag', action='append', default=[])
     args = parser.parse_args()
     original = args.generated_c.read_text()

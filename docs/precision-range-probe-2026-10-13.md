@@ -1,0 +1,9 @@
+# Bounded modular-power precision screening
+
+Explicit generated-C candidate on compiler d4c632b; no compiler-release speed claim. The hybrid range/periodic-scan matrix improves most rows but macOS prime remains about 0.95–0.96× Rust. This follow-up tests further bounded modular-power simplification.
+
+In the positive guard (base>=0, exponent>=0, 1<modulus<=3037000499), reduced factors/results fit uint32. Every multiply explicitly promotes one operand to uint64 before computing the product, preserving exactness and the INT64_MAX product proof. The initial reduction returns base directly if base<modulus; otherwise it uses the exact positive helper. A first-bit peel sets result=factor for an odd exponent because 1*factor%modulus=factor. Subsequent iterations square before the next bit and omit only the final dead factor update. That omitted update cannot trap or overflow in this guard and has no observers; exponent zero still evaluates the safe initial factor reduction and returns 1. Outside the guard the original checked body remains unchanged.
+
+The positive helper returns n directly if n<d. ARM64/no-int128 can use word-size division when n<=UINT32_MAX; d<=3037000499 already fits uint32 and is nonzero, so casts preserve both operands and the remainder. Larger n uses full-width division. The reciprocal branch keeps exact high multiply/correction and exposes only its proved remainder<d postcondition to the optimizer. These are private guarded calls, not assumptions imposed on arbitrary inputs.
+
+Original/candidate each pass 671 independent arithmetic, trap and weighted-boundary cases at -O0/-O3 with UBSan, for native-int128 and forced hardware remainder (5368 executions). No performance claim follows from this validation. Native target measurements and a general AST-based compiler implementation remain required.
