@@ -42,8 +42,15 @@ def run_binary(binary, mode, n, rounds, seed):
 
 
 def source_revision(root):
-    return {'head': command(['git', '-C', root, 'rev-parse', 'HEAD']),
-            'tracked_dirty': command(['git', '-C', root, 'status', '--porcelain', '--untracked-files=no'])}
+    # checkout runs Windows Git; native Python in MSYS2 may invoke MSYS2 Git
+    # with a different global autocrlf setting. Compare canonical content with
+    # the Windows checkout filter, rather than treating every CRLF file as an
+    # edit. This does not discard real content changes.
+    overrides = ['-c', 'core.autocrlf=true', '-c', 'core.filemode=false'] if os.name == 'nt' else []
+    git = ['git', *overrides, '-C', root]
+    return {'head': command([*git, 'rev-parse', 'HEAD']),
+            'tracked_dirty': command([*git, 'status', '--porcelain', '--untracked-files=no']),
+            'git_config_overrides': overrides}
 
 
 def hardware_description():
