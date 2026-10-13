@@ -42,7 +42,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: forge-language/forge
-          ref: 7ac669a67036f5e07a45c0e873f333e9085940c4
+          ref: 12d8ff4e1202cbf7939681141eb2538cb8de03e9
           path: toolchain/forge-after
       - uses: actions/checkout@v4
         with:
@@ -52,7 +52,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: forge-language/forge-stdlib
-          ref: 3e86c4c9c2f6646711b894942c92b927ea8578bf
+          ref: 6aa28667b83009a415ab2d7ac13ef6c675af7012
           path: toolchain/forge-stdlib
       - uses: actions/setup-python@v5
         if: runner.os != 'Windows'
@@ -106,9 +106,10 @@ jobs:
               -DFORGE_ENABLE_GPU=OFF -DFORGE_ENABLE_TLS=OFF -DFORGE_ENABLE_IO_URING=OFF \
               -DFORGE_RUNTIME_SOURCE_DIR="$GITHUB_WORKSPACE/toolchain/forge-runtime" \
               -DFORGE_STDLIB_SOURCE_DIR="$GITHUB_WORKSPACE/toolchain/forge-stdlib"
-            cmake --build "toolchain/build-$variant" --target forge forge_std platform_temp_test -j2
+            cmake --build "toolchain/build-$variant" --target forge forge_std platform_temp_test fs_test -j2
           done
           toolchain/build-after/bin/platform_temp_test.exe
+          toolchain/build-after/bin/fs_test.exe
           python benchmark/cross_os_cpu_compare.py \
             --before toolchain/build-before/bin/forge.exe --after toolchain/build-after/bin/forge.exe \
             --sdk toolchain/build-after --before-root toolchain/forge-before --after-root toolchain/forge-after \

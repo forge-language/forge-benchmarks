@@ -46,6 +46,17 @@ def source_revision(root):
             'tracked_dirty': command(['git', '-C', root, 'status', '--porcelain', '--untracked-files=no'])}
 
 
+def hardware_description():
+    if platform.system() == 'Linux':
+        return command(['lscpu'])
+    if platform.system() == 'Darwin':
+        return command(['sysctl', '-n', 'machdep.cpu.brand_string', 'hw.model', 'hw.ncpu'])
+    if os.name == 'nt':
+        return command(['powershell.exe', '-NoProfile', '-Command',
+                        'Get-CimInstance Win32_Processor | Select-Object -ExpandProperty Name'])
+    return platform.processor()
+
+
 def markdown(report):
     lines = ['# Native cross-OS CPU comparison', '',
              f"Platform: `{report['environment']['platform']}` / `{report['environment']['architecture']}`. "
@@ -129,6 +140,7 @@ def main():
 
     checkpoint()
     try:
+        report['environment']['hardware'] = hardware_description()
         report['revisions'] = {name: source_revision(root) for name, root in
                                [('before', args.before_root), ('after', args.after_root),
                                 ('runtime', args.runtime_root), ('stdlib', args.stdlib_root), ('benchmarks', ROOT)]}
@@ -203,6 +215,12 @@ def main():
         report['build']['executables'] = {name: {'path': str(path), 'sha256': sha(path)} for name, path in binaries.items()}
         report['build']['generated_c_sha256'] = {name: sha(snapshot / (name + '.c')) for name in ('before', 'after')}
         report['build'].setdefault('after_probe', {'name': 'none'})
+        for name, path in binaries.items():
+            disassembler = ['otool', '-tvV'] if platform.system() == 'Darwin' else ['objdump', '-d']
+            if shutil.which(disassembler[0]):
+                listing = directory / (name + '-disassembly.txt')
+                listing.write_text(command([*disassembler, path]))
+                report['build'].setdefault('disassembly_sha256', {})[name] = sha(listing)
         checkpoint()
 
         def checked(name, mode, n, rounds, seed, expected):
