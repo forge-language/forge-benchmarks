@@ -79,14 +79,14 @@ def read_sample(binary, load, workers, concurrency, requests, seed, body_bytes,
 def markdown(report, output):
     lines = [
         '# Prepared HTTP capacity and throughput — observer protocol V2', '',
-        'This reports the largest tested concurrency level with all requests '
-        'successful in every measured repeat. Each client lane holds at most '
-        'one connection at a time; concurrency therefore means simultaneous '
-        'in-flight loopback clients for this connection-per-request workload. '
-        'It is not a general internet-facing user limit.', '',
-        '| Body bytes | Workers | Concurrent clients | Forge clean repeats | Rust clean repeats | '
+        'This reports the largest configured client-lane count whose requests '
+        'all succeeded in every measured repeat. A common start barrier '
+        'releases one thread per lane; actual simultaneous connected or accepted '
+        'sockets are not measured. No simultaneous population lower bound or '
+        'maximum user count is established.', '',
+        '| Body bytes | Workers | Configured client lanes | Forge clean repeats | Rust clean repeats | '
         'Forge successful req/s (median) | Rust successful req/s (median) | '
-        'Forge response MB/s | Rust response MB/s | Error-free max observed |',
+        'Forge response MB/s | Rust response MB/s | Largest clean lane configuration |',
         '| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |',
     ]
     for row in report['summary']:
@@ -98,7 +98,7 @@ def markdown(report, output):
             f"{display_number(row['rust_median_success_rps'])} | "
             f"{display_number(row['forge_median_response_bytes_per_second']/1e6 if row['forge_median_response_bytes_per_second'] is not None else None, 3)} | "
             f"{display_number(row['rust_median_response_bytes_per_second']/1e6 if row['rust_median_response_bytes_per_second'] is not None else None, 3)} | "
-            f"{row['error_free_max_observed']} |"
+            f"{row['error_free_max_configured_lanes']} |"
         )
     lines += [
         '',
@@ -110,8 +110,8 @@ def markdown(report, output):
         'connect/setup/write/read/EOF time, and writes each completed attempt '
         'immediately. Its logging and loopback client work are included in the '
         'observer interval.', '',
-        'Capacity is a tested bound: if the highest tested level passes, the '
-        'result is “at least N”; it does not claim the absolute maximum. '
+        'A successful lane configuration records finite request completion; '
+        'it does not establish a simultaneous connection count or maximum capacity. '
         'Throughput reports successful requests/s and successful response '
         'payload bytes/s. Latency medians and p95/p99 are retained per trial in '
         'the JSON and raw TSV files. These are prepared-response endpoints, not '
@@ -272,11 +272,11 @@ def main():
                             if max_clean is not None and row['concurrency'] > max_clean and
                             (row['forge_clean_repeats'] < args.repeats or
                              row['rust_clean_repeats'] < args.repeats)]
-            bound = (f'at least {max_clean}' if max_clean == max(args.concurrency) else
+            bound = (f'{max_clean} configured lanes' if max_clean == max(args.concurrency) else
                      f'{max_clean}; failures observed at {min(failed_above)}' if failed_above else
                      str(max_clean)) if max_clean is not None else 'no error-free level observed'
             for row in body_rows:
-                row['error_free_max_observed'] = bound
+                row['error_free_max_configured_lanes'] = bound
         report['status'] = 'completed_with_capacity_outcomes'
         report['finished_at_utc'] = v2.stamp()
         v2.save(output, report)

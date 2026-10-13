@@ -2,7 +2,7 @@
 
 ## Result
 
-Forge and Rust each completed all 128,000 requests in all eight measured samples with four server workers, 32-byte response bodies, and eight loopback client source addresses. This establishes a repeatable tested lower bound of **at least 128,000 simultaneous request lanes** for this local connection-per-request workload. It does not establish an absolute server maximum. Separate single-shot smoke trials completed at 220,000 lanes for both programs, while other high-load trials at 128,000–200,000 lanes had connect timeouts. Those conflicting outcomes are retained as evidence that the host's TCP and observer limits make the boundary unstable.
+Forge and Rust each completed all 128,000 requests in all eight measured samples with four server workers, 32-byte response bodies, and eight loopback client source addresses. The configured concurrency ceiling and total request count were both 128,000, but the observer did not record peak active/connected sockets. Its 256-pending-connect window launches more work while completed requests are drained. Therefore these samples establish repeated completion of 128,000 total one-shot requests per sample, **not 128,000 actual simultaneous clients, accepted connections, or users**, and no absolute server maximum. Separate single-shot smoke trials completed 220,000 total requests with that configured ceiling for both programs, while other high-load trials at 128,000–200,000 lanes had connect timeouts. Those conflicting outcomes are retained as evidence that the host's TCP and observer limits make the boundary unstable.
 
 | Metric | Forge | Rust |
 | --- | ---: | ---: |
@@ -29,3 +29,6 @@ The V3.2 observer improves ramp-up with a bounded connect window and periodic de
 The machine-readable report is [`http-v32-capacity-128k-paired-120s-2026-10-12.json`](http-v32-capacity-128k-paired-120s-2026-10-12.json). It retains every measured sample, command, correctness check, environment snapshot, and failed-attempt detail. All warmup and measurement JSON/TSV files are in [`http-v32-capacity-128k-paired-120s-2026-10-12.raw.tar.gz`](http-v32-capacity-128k-paired-120s-2026-10-12.raw.tar.gz), SHA-256 `1ac66244b50ddc3f0759698da68a6f274e90b03b9afbca8541b976e28078ba24`.
 
 Related capacity attempts at 56k, 128k, 180k, 200k, and 220k, including failed and single-shot trials, are preserved in the [attempt summary JSON files](http-v32-capacity-220k-paired-2026-10-12.json) and [`http-v32-capacity-attempts-2026-10-12.raw.tar.gz`](http-v32-capacity-attempts-2026-10-12.raw.tar.gz), SHA-256 `403a9f052a16b027efffa6599170c112ba1f0960e970dff9e2c21e6c28f66955`. Do not combine them with the V2 throughput baseline.
+
+
+Correction 2026-10-13: the original "at least 128,000 simultaneous request lanes" lower-bound claim was unsupported by the observer telemetry and is withdrawn. The original JSON/TSV samples and throughput statistics are retained unchanged. A new observer protocol will measure actual peak in-flight request states and connected-client states; those gauges still must not be equated with accepted server sessions or user population.

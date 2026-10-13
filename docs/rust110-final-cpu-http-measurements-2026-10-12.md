@@ -20,7 +20,7 @@ These are workload-level results against the checked-in Rust controls, not a cla
 
 ## Prepared HTTP concurrency and throughput
 
-On this host, a 4-worker prepared-response server passed four measured repeats at each tested concurrency through **28,000 simultaneous loopback client lanes** for both Forge and Rust. Each lane sent one 32-byte-body request and closed its connection. The highest error-free tested level is therefore **at least 28,000 clients**; the server's absolute maximum was not found.
+On this host, a 4-worker prepared-response server passed four measured repeats at each tested client configuration through **28,000 loopback client threads/lanes** for both Forge and Rust. Each lane sent one 32-byte-body request and closed its connection. Actual peak simultaneous connected/accepted sockets were not measured, so this establishes finite burst completion at that configuration, not a lower bound on simultaneous clients or maximum users. Correction 2026-10-13: the previous capacity interpretation is withdrawn; the original throughput statistics remain unchanged.
 
 | Concurrent clients | Forge clean repeats | Rust clean repeats | Forge successful req/s | Rust successful req/s | Forge / Rust paired throughput ratio (95% interval) |
 | ---: | ---: | ---: | ---: | ---: | ---: |
