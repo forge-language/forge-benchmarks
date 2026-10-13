@@ -15,6 +15,11 @@ on:
         type: choice
         options: [none, bounded-hint, bounded-inline]
         default: none
+      os_scope:
+        description: Run every platform or resume Windows validation only
+        type: choice
+        options: [all, windows]
+        default: all
 permissions:
   contents: read
 jobs:
@@ -25,7 +30,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-24.04, macos-15, windows-2022]
+        os: ${{ fromJSON(inputs.os_scope == 'windows' && '["windows-2022"]' || '["ubuntu-24.04","macos-15","windows-2022"]') }}
         repeat: [0, 1]
     env:
       PAIRS: ${{ inputs.pairs }}
