@@ -423,3 +423,7 @@ Compiler420d66f completed six native jobs (720 direct checks,5400 prewarms,5400 
 ## HTTP capacity interpretation correction
 
 The V3.2 observer launches requests while draining completed sockets and caps pending connects at 256. Its configured concurrency 128,000 and total completed requests 128,000 do not prove 128,000 simultaneous connected clients or maximum users. That earlier inference is withdrawn in the report; old raw samples/RPS remain unchanged. Actual observed in-flight and connected-state peaks need new instrumentation. CPU native verification remains valid and independent of this HTTP interpretation correction.
+
+## HTTP V3.3 observed request states
+
+The new observer records in-flight, connected-client-state and pending-connect peaks. At configured ceilings 256/4,096, all 32 measured and 32 prewarmed samples completed 4,096 requests with zero errors. Forge median throughput was 8,585/8,671 req/s. At ceiling 4,096 its actual peak was 512–575 in-flight states and 256–319 connected states, showing that the ceiling is not a measured population. Neither paired interval establishes a Forge/Rust throughput winner. These gauges last through client EOF handling and do not establish accepted server sockets, sessions, users or absolute capacity. Seven unit checks, nine epoll controlled-peer checks and eight V2 compatibility checks pass; both initial protocol-stage assertion failures are preserved with the corrected validation. [Full method, peaks and evidence](http-v33-observed-2026-10-13.md).
