@@ -75,6 +75,57 @@ def hardware_description():
     return platform.processor()
 
 
+def apply_probe(text, kind):
+    """Explicit fixture experiments, never implicit changes to measured code."""
+    changes = {}
+    if kind in ('bounded-hint', 'bounded-inline'):
+        old = '        if (product > n) product -= d;\n        return (int64_t)(n - product);'
+        new = ('        if ((n >= (UINT64_C(1) << 43) || d > (UINT64_C(1) << 21)) && product > n) product -= d;\n'
+               '        uint64_t remainder = n - product;\n'
+               '        if (remainder >= d) __builtin_unreachable();\n'
+               '        return (int64_t)remainder;')
+        if text.count(old) != 1:
+            raise RuntimeError('Unexpected invariant-mod helper shape')
+        text = text.replace(old, new)
+        changes.update(replaced_body=old, new_body=new)
+        if kind == 'bounded-inline':
+            for function in ['prime_mod_pow', 'prime_mr_pass']:
+                declaration = 'static int64_t ' + function + '('
+                if text.count(declaration) != 2:
+                    raise RuntimeError('Unexpected prime function shape')
+                text = text.replace(declaration, 'static inline __attribute__((always_inline)) int64_t ' + function + '(')
+            changes['always_inline_functions'] = ['prime_mod_pow', 'prime_mr_pass']
+    if kind in ('reserved-builder', 'hardware-builder'):
+        signature = 'static const char* pattern(int64_t n, int64_t seed) {'
+        begin = text.index(signature)
+        end = text.index('\n}\n', begin) + 3
+        body = text[begin:end]
+        loop = ('    int64_t i = INT64_C(0);\n    while (\n(i < n)) {\n'
+                '        if ((fr_str_builder_char(builder,FORGE_ADD(INT64_C(65), (FORGE_ADD(i, seed) % INT64_C(26)))) == INT64_C(0))) {\n'
+                '            return "";\n        }\n        i = (i + INT64_C(1));\n    }')
+        if body.count(loop) != 1:
+            raise RuntimeError('Unexpected reserved builder loop shape')
+        fast = ('    fr_detail_str_builder *probe_builder = (fr_detail_str_builder *)(intptr_t)builder;\n'
+                '    if (n > 0 && probe_builder->data && probe_builder->len == 0 && probe_builder->cap > (uint64_t)n) {\n'
+                '        char *probe_data = probe_builder->data;\n'
+                '        int64_t i = 0;\n        while (i < n) {\n'
+                '            probe_data[i] = (char)FORGE_ADD(INT64_C(65), (FORGE_ADD(i, seed) % INT64_C(26)));\n'
+                '            i = i + 1;\n        }\n'
+                '        probe_builder->len = (size_t)n;\n'
+                '        return fr_str_builder_finish_take(builder);\n    }\n')
+        new_body = body.replace(loop, fast + loop)
+        text = text[:begin] + new_body + text[end:]
+        changes['builder_body_before'] = body
+        changes['builder_body_after'] = new_body
+        if kind == 'hardware-builder':
+            directive = '#if defined(__SIZEOF_INT128__)'
+            if text.count(directive) != 2:
+                raise RuntimeError('Unexpected reciprocal preprocessor guards')
+            text = text.replace(directive, '#if 0 /* explicit hardware-remainder experiment */')
+            changes['reciprocal_disabled'] = True
+    return text, changes
+
+
 def markdown(report):
     lines = ['# Native cross-OS CPU comparison', '',
              f"Platform: `{report['environment']['platform']}` / `{report['environment']['architecture']}`. "
@@ -117,7 +168,7 @@ def main():
     parser.add_argument('--pairs', type=int, default=60)
     parser.add_argument('--random-seed', type=int, default=20261013)
     parser.add_argument('--seed-offset', type=int, default=0)
-    parser.add_argument('--after-probe', choices=['none', 'bounded-hint', 'bounded-inline'], default='none',
+    parser.add_argument('--after-probe', choices=['none', 'bounded-hint', 'bounded-inline', 'reserved-builder', 'hardware-builder'], default='none',
                         help='Explicit generated-C experiment; never report it as shipped compiler code')
     parser.add_argument('--workloads', nargs='+', default=['lcg', 'primes', 'scan', 'builder', 'immutable'])
     args = parser.parse_args()
@@ -191,29 +242,11 @@ def main():
             build_command([snapshot / ('forge-' + name + extension), snapshot / 'kernels.fg', '--emit-c', '-o', c_file, '--forge-root', snapshot])
             if name == 'after' and args.after_probe != 'none':
                 original_hash = sha(c_file)
-                old = ('        if (product > n) product -= d;\n'
-                       '        return (int64_t)(n - product);')
-                new = ('        if ((n >= (UINT64_C(1) << 43) || d > (UINT64_C(1) << 21)) && product > n) product -= d;\n'
-                       '        uint64_t remainder = n - product;\n'
-                       '        if (remainder >= d) __builtin_unreachable();\n'
-                       '        return (int64_t)remainder;')
-                text = c_file.read_text()
-                if text.count(old) != 1:
-                    raise RuntimeError('Unexpected invariant-mod helper shape')
-                c_file.write_text(text.replace(old, new))
+                text, changes = apply_probe(c_file.read_text(), args.after_probe)
+                c_file.write_text(text)
                 report['build']['after_probe'] = {'name': args.after_probe,
                                                  'original_c_sha256': original_hash,
-                                                 'replaced_body': old, 'new_body': new}
-                if args.after_probe == 'bounded-inline':
-                    text = c_file.read_text()
-                    for function in ['prime_mod_pow', 'prime_mr_pass']:
-                        declaration = 'static int64_t ' + function + '('
-                        if text.count(declaration) != 2:
-                            raise RuntimeError('Unexpected prime function declaration/definition shape')
-                        text = text.replace(declaration,
-                                            'static inline __attribute__((always_inline)) int64_t ' + function + '(')
-                    c_file.write_text(text)
-                    report['build']['after_probe']['always_inline_functions'] = ['prime_mod_pow', 'prime_mr_pass']
+                                                 **changes}
             link = ['-lpthread', '-lm'] if os.name != 'nt' else ['-lws2_32', '-lm']
             build_command([args.cc, '-std=gnu11', '-O3', '-DNDEBUG', cpu_flag, '-flto', '-I', snapshot / 'include',
                            c_file, snapshot / 'clock.c', snapshot / 'libforge_std.a', snapshot / 'libforge_runtime.a',
