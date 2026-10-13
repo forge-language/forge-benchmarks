@@ -12,14 +12,20 @@ from pathlib import Path
 import platform
 import statistics
 import subprocess
+import sys
 import tempfile
 
 REPOSITORIES = ('forge', 'forge-runtime', 'forge-stdlib', 'forge-benchmarks')
 
 
 def run(command, **kwargs):
-    return subprocess.run(list(map(str, command)), check=True, capture_output=True, text=True,
-                          timeout=120, **kwargs).stdout
+    try:
+        return subprocess.run(list(map(str, command)), check=True, capture_output=True, text=True,
+                              timeout=120, **kwargs).stdout
+    except subprocess.CalledProcessError as error:
+        if error.stderr:
+            print(error.stderr, file=sys.stderr, end='')
+        raise
 
 
 def digest(path):
@@ -104,7 +110,8 @@ def main():
         validate_strings(strings['runs'], args.repeats)
         binary = temp / 'parser-bench'
         run([args.cc, '-std=c11', '-O3', '-DNDEBUG', '-I', compiler, source,
-             compiler / 'lexer.c', compiler / 'parser.c', compiler / 'ast.c', '-Wl,--wrap=realloc', '-o', binary])
+             compiler / 'lexer.c', compiler / 'parser.c', compiler / 'ast.c',
+             compiler / 'source.c', '-Wl,--wrap=realloc', '-o', binary])
         parser_rows = []
         for repeat in range(args.repeats):
             raw = run([binary])

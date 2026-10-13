@@ -21,6 +21,9 @@ with tempfile.TemporaryDirectory(prefix='forge-parser-compare-') as directory:
         root = root.resolve()
         compiler = root / 'compiler'
         sources = [compiler / name for name in ['lexer.c', 'parser.c', 'ast.c']]
+        # Older baselines predate the separate diagnostic implementation.
+        if (compiler / 'source.c').exists():
+            sources.append(compiler / 'source.c')
         binary = Path(directory) / variant
         subprocess.run([args.cc, '-std=c11', '-O3', '-DNDEBUG', '-I', str(compiler),
                         str(harness), *map(str, sources), '-Wl,--wrap=realloc', '-o', str(binary)], check=True)
