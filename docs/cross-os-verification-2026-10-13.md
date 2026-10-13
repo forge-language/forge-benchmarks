@@ -1,6 +1,6 @@
 # Cross-OS verification: measured regressions and remaining work
 
-Status: **not achieved**. Linux developer-machine gains are not evidence of the same effect on another OS. Eleven hosted-runner attempts preserve 44 completed CPU reports, four failed-before-measurement reports and all 58 job outcomes (44 successes, 14 failures). Native Windows measurement now completed twice, but scan and builder remain below Rust and the macOS prime regression persists.
+Status: **not achieved**. Linux developer-machine gains are not evidence of the same effect on another OS. Twelve hosted-runner attempts preserve 50 completed CPU reports, four failed-before-measurement reports and all 64 job outcomes (50 successes, 14 failures). Native Windows measurement now completed twice, but scan and builder remain below Rust and the macOS prime regression persists.
 
 ## Protocol
 
@@ -140,3 +140,5 @@ All workload rows, checks, warmups, raw samples, flags, generated-C/source/binar
 Frozen inputs, executables, assembly and failure logs are preserved in [the first five matrices archive](cross-os-first-five-matrices-2026-10-13.raw.tar.gz) and [the native follow-up archive](cross-os-followup-native-2026-10-13.raw.tar.gz). Archive hashes are recorded in `cross-os-archives-2026-10-13.sha256`.
 
 The integrated compiler matrix is frozen in [its native archive](cross-os-reserved-compiler-2026-10-13.raw.tar.gz). The screening matrices remain in [the separate prototype archive](cross-os-reserved-probes-2026-10-13.raw.tar.gz).
+
+The subsequent generated-C [range-kernel screening](range-kernels-cross-os-2026-10-13.md) adds a macOS LCG gain but still fails prime/scan thresholds and is retained as a partially useful experiment, not a compiler release.

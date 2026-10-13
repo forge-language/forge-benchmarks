@@ -56,9 +56,11 @@ def main():
     parser.add_argument('--generated-c', type=Path, required=True)
     parser.add_argument('--sdk', type=Path, required=True)
     parser.add_argument('--cc', default='cc')
+    parser.add_argument('--probe', choices=['range-kernels','hybrid-range'], default='range-kernels')
+    parser.add_argument('--extra-c-flag', action='append', default=[])
     args = parser.parse_args()
     original = args.generated_c.read_text()
-    candidate, _ = apply_probe(original, 'range-kernels')
+    candidate, _ = apply_probe(original, args.probe)
     driver = '''
 int main(int argc, char **argv) {
     if (argc != 5) return 2;
@@ -67,6 +69,15 @@ int main(int argc, char **argv) {
     if (!strcmp(argv[1],"lcg")) result=lcg(a,b,c);
     else if (!strcmp(argv[1],"pow")) result=prime_mod_pow(a,b,c);
     else if (!strcmp(argv[1],"mr")) result=prime_mr_pass(a,b);
+    else if (!strcmp(argv[1],"weighted")) {
+        size_t count = a > 0 ? (size_t)a : 0;
+        char *data = malloc(count+1);
+        if (!data) return 2;
+        for (size_t i=0;i<count;i++) data[i]=(char)(1+(((uint64_t)i+(uint64_t)b)%255));
+        data[count]=0;
+        result=weighted(fr_str_view(data),c);
+        free(data);
+    }
     else return 2;
     printf("%lld\\n",(long long)result); return 0;
 }
@@ -98,6 +109,16 @@ int main(int argc, char **argv) {
             cases.append(('mr',(value,base,0),expected))
     for base, exponent, modulus in ((1,0,0),(MIN,1,-1)):
         cases.append(('pow',(base,exponent,modulus),None))
+    for n in (0,1,12,13,14,25,26,27,128):
+        for seed in (MIN,-1,0,MAX):
+            for offset in (MIN,-26,-13,-12,-1,0,1,12,13,MAX):
+                weight=remainder(offset,13)+1;result=0
+                for i in range(n):
+                    byte=1+(((i+seed)&((1<<64)-1))%255)
+                    result=wrap(result+byte*weight)
+                    weight+=1
+                    if weight>13:weight=1
+                cases.append(('weighted',(n,seed,offset),result))
     with tempfile.TemporaryDirectory() as directory:
         work = Path(directory)
         for name, source in (('original',original),('candidate',candidate)):
@@ -108,6 +129,7 @@ int main(int argc, char **argv) {
                 binary=work/(name+opt+('.exe' if os.name=='nt' else ''))
                 link=['-lws2_32','-lkernel32','-lm'] if os.name=='nt' else ['-lpthread','-lm']
                 subprocess.run([args.cc,'-std=gnu11',opt,'-fsanitize=undefined','-fno-sanitize-recover=all',
+                                *args.extra_c_flag,
                                 '-I',str(args.sdk/'include'),str(c),str(ROOT/'benchmark/cpu/clock_portable.c'),
                                 '-L',str(args.sdk/'lib'),'-lforge_std','-lforge_runtime',*link,'-o',str(binary)],
                                check=True,capture_output=True,text=True,timeout=60)
