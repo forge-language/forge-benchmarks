@@ -22,6 +22,9 @@ def main():
     parser.add_argument('--cpu', type=int, default=min(os.sched_getaffinity(0)))
     parser.add_argument('--pairs', type=int, default=18)
     parser.add_argument('--random-seed', type=int, default=20261010)
+    parser.add_argument('--title', default='Checked builder-byte inline fast path')
+    parser.add_argument('--candidate-description',
+                        default='The baseline retains checked inline views; the candidate additionally inlines capacity-backed builder byte writes.')
     args = parser.parse_args()
     if args.pairs < 12 or args.pairs % 6:
         parser.error('Choose >=12 pairs divisible by 6 for balanced three-way ordering')
@@ -104,12 +107,13 @@ def main():
                               'logical_cpus': os.cpu_count(), 'allowed_cpu_affinity': sorted(os.sched_getaffinity(0)),
                               'load_average_end': os.getloadavg(), 'lscpu': capture(['lscpu']),
                               'cpu_governor': Path(f'/sys/devices/system/cpu/cpu{args.cpu}/cpufreq/scaling_governor').read_text().strip() if Path(f'/sys/devices/system/cpu/cpu{args.cpu}/cpufreq/scaling_governor').exists() else None},
+              'experiment': {'title': args.title, 'candidate_description': args.candidate_description},
               'builds': builds, 'rust_control': builds['baseline']['executables']['rust'], 'correctness_checks': checks, 'warmups': warmups,
               'measurements': measurements, 'summary': summary}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(report, indent=2) + '\n')
-    lines = ['# Checked builder-byte inline fast path', '',
-             f'Same-session measurement from `{started}` to `{report["finished_at_utc"]}`. Each workload has {args.pairs} randomized, order-balanced triples of baseline, candidate and Rust, with checked same-input prewarming. Compiler/runtime and workload/timer source hashes are identical. The baseline retains checked inline views; the candidate additionally inlines capacity-backed builder byte writes.', '',
+    lines = ['# ' + args.title, '',
+             f'Same-session measurement from `{started}` to `{report["finished_at_utc"]}`. Each workload has {args.pairs} randomized, order-balanced triples of baseline, candidate and Rust, with checked same-input prewarming. Compiler/runtime and workload/timer source hashes are identical. {args.candidate_description}', '',
              '| Workload | Baseline / Rust | Candidate / Rust (95% interval) | Candidate speedup (95% interval) | 1.10 target |',
              '| --- | ---: | --- | --- | --- |']
     for row in summary:
@@ -118,7 +122,7 @@ def main():
     if builds['baseline']['artifacts']['stdlib']['sha256'] == builds['candidate']['artifacts']['stdlib']['sha256']:
         lines += ['', 'The native stdlib archive is also byte-for-byte identical between these snapshots. This experiment isolates changes in the checked installed header when compiling callers; it reuses the preserved compiler/runtime rather than attributing concurrent compiler/runtime changes to this optimization.']
     lines += ['', 'Every correctness, prewarm and measured checksum matches an independent Python reference. All samples remain in the raw report. Confidence intervals describe these paired ratios on this host and are not simultaneous confidence over all workloads. The original and earlier different-date view-inline reports remain preserved separately.', '',
-              'The fast path preserves exported builder-char symbols and the existing data/length/capacity layout. Invalid bytes and null handles fail, capacity subtraction avoids overflow, and growth delegates to the external ABI. Views/builders still require trusted live arena handles; this is not a general memory-safety guarantee. Snapshots remain immutable copies. Rust and Forge retain their documented allocation lifetime differences.', '',
+              'The fast path preserves exported builder-char symbols and the existing data/length/capacity layout. Invalid bytes and null handles fail, capacity subtraction avoids overflow, and growth delegates to the external ABI. Views/builders still require trusted live arena handles; this is not a general memory-safety guarantee. Snapshot contracts are those of the recorded fixtures and source APIs; copying finish and ownership-transfer finish both preserve independence from subsequent builder mutation. Rust and Forge retain their documented allocation lifetime differences.', '',
               'Finite CPU kernels do not establish language-wide 110% throughput, HTTP/application performance, safe vector support, or cross-machine portability. Whole-process RSS is a diagnostic and can include the forked runner before exec.', '',
               f'Raw samples and source/artifact hashes: [{args.output.name}]({args.output.name}).', '']
     args.output.with_suffix('.md').write_text('\n'.join(lines))
