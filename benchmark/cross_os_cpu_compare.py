@@ -52,6 +52,10 @@ def markdown(report):
              f"Measured {report['method']['pairs']} balanced triples per workload, seed {report['method']['random_seed']}.", '',
              '| Workload | Candidate / baseline (95% interval) | Candidate / Rust (95% interval) | Rust 1.10 |',
              '| --- | ---: | ---: | --- |']
+    probe = report['build'].get('after_probe', {}).get('name', 'none')
+    if probe != 'none':
+        lines[3:3] = [f'**Generated-C experiment `{probe}`: the candidate C helper is modified after emission. '
+                       'These results do not measure the shipped compiler unchanged.**', '']
     for row in report['summary']:
         gain, rust = row['candidate_speedup'], row['candidate_over_rust']
         lines.append(f"| {row['workload']} | {gain['median']:.4f} [{gain['ci95'][0]:.4f}, {gain['ci95'][1]:.4f}] | "
@@ -84,6 +88,8 @@ def main():
     parser.add_argument('--pairs', type=int, default=60)
     parser.add_argument('--random-seed', type=int, default=20261013)
     parser.add_argument('--seed-offset', type=int, default=0)
+    parser.add_argument('--after-probe', choices=['none', 'bounded-hint'], default='none',
+                        help='Explicit generated-C experiment; never report it as shipped compiler code')
     parser.add_argument('--workloads', nargs='+', default=['lcg', 'primes', 'scan', 'builder', 'immutable'])
     args = parser.parse_args()
     args.random_seed += args.seed_offset
@@ -153,6 +159,21 @@ def main():
         for name in ('before', 'after'):
             c_file, binary = snapshot / (name + '.c'), directory / (name + extension)
             build_command([snapshot / ('forge-' + name + extension), snapshot / 'kernels.fg', '--emit-c', '-o', c_file, '--forge-root', snapshot])
+            if name == 'after' and args.after_probe != 'none':
+                original_hash = sha(c_file)
+                old = ('        if (product > n) product -= d;\n'
+                       '        return (int64_t)(n - product);')
+                new = ('        if ((n >= (UINT64_C(1) << 43) || d > (UINT64_C(1) << 21)) && product > n) product -= d;\n'
+                       '        uint64_t remainder = n - product;\n'
+                       '        if (remainder >= d) __builtin_unreachable();\n'
+                       '        return (int64_t)remainder;')
+                text = c_file.read_text()
+                if text.count(old) != 1:
+                    raise RuntimeError('Unexpected invariant-mod helper shape')
+                c_file.write_text(text.replace(old, new))
+                report['build']['after_probe'] = {'name': args.after_probe,
+                                                 'original_c_sha256': original_hash,
+                                                 'replaced_body': old, 'new_body': new}
             link = ['-lpthread', '-lm'] if os.name != 'nt' else ['-lws2_32', '-lm']
             build_command([args.cc, '-std=gnu11', '-O3', '-DNDEBUG', cpu_flag, '-flto', '-I', snapshot / 'include',
                            c_file, snapshot / 'clock.c', snapshot / 'libforge_std.a', snapshot / 'libforge_runtime.a',
@@ -171,6 +192,7 @@ def main():
         binaries['rust'] = rust_binary
         report['build']['executables'] = {name: {'path': str(path), 'sha256': sha(path)} for name, path in binaries.items()}
         report['build']['generated_c_sha256'] = {name: sha(snapshot / (name + '.c')) for name in ('before', 'after')}
+        report['build'].setdefault('after_probe', {'name': 'none'})
         checkpoint()
 
         def checked(name, mode, n, rounds, seed, expected):

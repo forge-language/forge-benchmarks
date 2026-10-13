@@ -55,6 +55,9 @@ int main(int argc, char **argv) {
             check(d, d); check(-d, d);
         }
     }
+    for (int dn = -2; dn <= 2; ++dn)
+        for (int dd = -2; dd <= 2; ++dd)
+            check((INT64_C(1) << 43) + dn, (INT64_C(1) << 21) + dd);
     uint64_t state = UINT64_C(20261012);
     for (unsigned i = 0; i < 300000; ++i) {
         uint64_t bits = random_bits(&state); int64_t n, d;
@@ -72,8 +75,9 @@ int main(int argc, char **argv) {
 class InvariantModProbeTest(unittest.TestCase):
     def test_oracle_and_traps(self):
         header = Path(__file__).parent / 'cpu'
-        for optimization, fallback in [('0', False), ('3', False), ('3', True)]:
-            with self.subTest(optimization=optimization, portable_fallback=fallback), tempfile.TemporaryDirectory() as directory:
+        for optimization, fallback, hint in [('0', False, False), ('3', False, False), ('3', True, False),
+                                             ('0', False, True), ('3', False, True)]:
+            with self.subTest(optimization=optimization, portable_fallback=fallback, bounded_hint=hint), tempfile.TemporaryDirectory() as directory:
                 source, binary = Path(directory)/'check.c', Path(directory)/'check'
                 source.write_text(SOURCE)
                 command = [os.environ.get('CC', 'gcc'), '-std=gnu11', '-O'+optimization,
@@ -81,9 +85,11 @@ class InvariantModProbeTest(unittest.TestCase):
                            str(source), '-o', str(binary)]
                 if fallback:
                     command.insert(1, '-U__SIZEOF_INT128__')
+                if hint:
+                    command.insert(1, '-DFORGE_PROBE_BOUNDED_HINT')
                 subprocess.run(command, check=True)
                 result = subprocess.run([str(binary)], check=True, capture_output=True, text=True)
-                self.assertIn('301169 native signed-remainder oracle cases passed', result.stdout)
+                self.assertIn('301194 native signed-remainder oracle cases passed', result.stdout)
                 for n, d in [(0, 0), (1, 0), (-1, 0), (-(1<<63), -1)]:
                     result = subprocess.run([str(binary), str(n), str(d)], capture_output=True)
                     self.assertEqual(result.returncode, 1, (optimization, fallback, n, d, result.stderr))

@@ -27,8 +27,20 @@ static inline int64_t forge_probe_mod(int64_t value, forge_probe_mod_descriptor 
          * q*d <= n+d <= 2^64-2 since both n and d are <= INT64_MAX.
          * Thus this product cannot wrap, and one correction is sufficient. */
         uint64_t product = q * d;
+#ifdef FORGE_PROBE_BOUNDED_HINT
+        /* For n < 2^43 and d <= 2^21, n*d < 2^64 and the upward
+         * reciprocal error cannot reach the next quotient. q is exact. */
+        if ((n >= (UINT64_C(1) << 43) || d > (UINT64_C(1) << 21)) && product > n)
+            product -= d;
+        uint64_t remainder = n - product;
+        /* The descriptor construction and correction prove 0 <= r < d.
+         * Expose that proven range to optimizers across loop iterations. */
+        if (remainder >= d) __builtin_unreachable();
+        return (int64_t)remainder;
+#else
         if (product > n) product -= d;
         return (int64_t)(n - product);
+#endif
     }
 #endif
     return __forge_mod_i64(value, descriptor.divisor);
