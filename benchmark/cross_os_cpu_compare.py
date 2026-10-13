@@ -48,9 +48,20 @@ def source_revision(root):
     # edit. This does not discard real content changes.
     overrides = ['-c', 'core.autocrlf=true', '-c', 'core.filemode=false'] if os.name == 'nt' else []
     git = ['git', *overrides, '-C', root]
-    return {'head': command([*git, 'rev-parse', 'HEAD']),
-            'tracked_dirty': command([*git, 'status', '--porcelain', '--untracked-files=no']),
-            'git_config_overrides': overrides}
+    dirty = command([*git, 'status', '--porcelain', '--untracked-files=no'])
+    crlf_equivalent = False
+    if os.name == 'nt' and dirty:
+        # Git's cached index/stat state may still report M after switching
+        # filters. Compare content explicitly, ignoring only CR at line ends.
+        diff = subprocess.run(list(map(str, [*git, 'diff', '--exit-code', '--ignore-cr-at-eol', 'HEAD', '--'])),
+                              capture_output=True, text=True, timeout=180)
+        if diff.returncode not in (0, 1):
+            raise RuntimeError('Source comparison failed: ' + diff.stderr)
+        if diff.returncode == 0:
+            dirty = ''
+            crlf_equivalent = True
+    return {'head': command([*git, 'rev-parse', 'HEAD']), 'tracked_dirty': dirty,
+            'git_config_overrides': overrides, 'crlf_equivalent_to_head': crlf_equivalent}
 
 
 def hardware_description():
