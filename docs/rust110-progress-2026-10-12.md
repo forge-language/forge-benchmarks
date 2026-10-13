@@ -327,3 +327,60 @@ builder run](cpu-prime-mr-smallprime-builder-120-2026-10-12.md).
 The matched 30-wheel prime fixture was also checked and measured at 1.0020
 [1.0011, 1.0039] across 60 pairs. It is retained as a rejected experiment;
 it does not support the 1.10 threshold. [Wheel report and samples](cpu-prime-wheel30-matched-2026-10-12.md).
+
+## Algorithm-matched small-prime control and rejected builder predicate
+
+The previous small-prime run kept the Rust Miller–Rabin control unchanged.
+Applying the same 3/5 prefilter to Rust removes the algorithm asymmetry. In a
+fresh 60-group balanced three-way run, the original Forge binary measured
+1.0314 [1.0177, 1.0436] Rust/Forge prime throughput, below 1.10. Its executable,
+compiler/runtime/stdlib archives and installed headers are byte-for-byte
+identical to the prior Forge small-prime run; only the Rust fixture/binary
+changes. The earlier ~1.69 ratio therefore must not establish a matched-
+algorithm compiler advantage.
+
+The same run screened a header-only candidate dropping `cap > len` from
+`cap > len && cap - len > 1`. API-created builders maintain `len <= cap`, so
+subtraction cannot underflow even for an empty/detached builder. The candidate
+passed all 11 stdlib CTests (including checked-inline and ABI string variants)
+and an optimized UBSan-instrumented string caller test. Builder improvement
+was 1.0052 [0.9322, 1.0562], while scan regressed slightly to 0.9939
+[0.9833, 0.9997] of baseline throughput. The candidate is rejected and the
+original header restored. All 45 correctness checks, 900 prewarms and 900
+measurements passed; an additional 175 matched-prime input cases in each
+binary passed the sieve reference. The original Forge baseline's matched
+Rust ratios for LCG/scan/builder/immutable were 1.5049/1.9384/0.9883/18.5695
+in this session. Builder and primes still do not support the target.
+[Three-way report](builder-capacity-invariant-2026-10-12.md), [all samples](builder-capacity-invariant-2026-10-12.json), [extended prime correctness](prime-smallprime-matched-correctness-2026-10-12.json), [candidate patch](builder-capacity-invariant-2026-10-12.patch), [frozen binaries, SDK inputs and runner](builder-capacity-invariant-2026-10-12.raw.tar.gz) (SHA-256 `83067692b91a1bc7eef1b7cc57b414a295913a98e0246b5de7f15966b049091c`).
+
+## Cross-OS verification requirement
+
+After validating the remaining implementation improvements, repeat the
+matched before/after and Forge/Rust experiments on macOS and Windows, with
+identical workload sources, dimensions and independent output oracles. Keep
+per-OS compiler/hardware/architecture details, raw observations and paired
+intervals. Compare improvement ratios within each OS and report absolute
+throughput separately across different hardware. A successful build or an
+unmeasured portability fallback does not prove a performance improvement on
+another OS. This requirement is pending; current evidence is Linux-only.
+
+## Invariant parameter remainder: compiler implementation
+
+A compiler-only change now caches an exact reciprocal for stable, unshadowed
+integer parameters used as divisors in loops. The preparation keeps its own
+`divisor > 1` guard; negative dividends/divisors, exceptional cases and targets
+without int128 retain checked signed remainder. The scan rejects all writes,
+shadowing and move/coroutine paths, is bounded, and avoids generated-name
+collisions. OMO reviewed the arithmetic and hoisting guard; one incorrect
+special-case explanation was corrected against exact integer calculation.
+
+With matched small-prime filters in both languages, the independent-seed
+120-group repeat measured LCG 1.5024 [1.4996,1.5061], primes 1.5616
+[1.5408,1.5752], scan 2.2639 [2.2523,2.2712], builder 1.2148
+[1.1358,1.2764] and immutable 13.1377 [11.3787,17.1067] Rust/Forge
+throughput. All five row-wise lower bounds exceed 1.10 in this run. Direct
+baseline Forge speedups were 0.9984/1.5272/1.1634/1.0725/1.0009; LCG's
+small regression is retained in the report, and immutable's direct interval
+includes no change. The earlier 60-group builder interval crossed 1.10,
+so this does not prove stable cross-run or cross-OS support. No language-wide
+completion is claimed. [Proof, implementation scope and validation](invariant-mod-lowering-2026-10-13.md), [120-group full measurements](invariant-mod-compiler-full-120-2026-10-12.json), [OMO arithmetic review and correction](invariant-mod-omo-review-2026-10-12.md).

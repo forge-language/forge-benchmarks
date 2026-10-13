@@ -1,0 +1,18 @@
+diff --git a/include/forge/string.h b/include/forge/string.h
+index d1ecc8b..4ee4f2d 100644
+--- a/include/forge/string.h
++++ b/include/forge/string.h
+@@ -88,9 +88,10 @@ static inline int64_t fr_detail_str_builder_append_view(int64_t handle,
+ static inline int64_t fr_detail_str_builder_char(int64_t handle, int64_t ch) {
+     fr_detail_str_builder *builder = (fr_detail_str_builder *)(intptr_t)handle;
+     if (!builder || ch <= 0 || ch > 255) return 0;
+-    /* Subtraction keeps the spare-capacity test free of size_t overflow.
+-     * Valid builders have data whenever capacity is nonzero. */
+-    if (builder->cap > builder->len && builder->cap - builder->len > 1) {
++    /* API-created builders maintain len <= cap, including empty/detached
++     * builders with len == cap == 0. Subtraction cannot underflow and counts
++     * the byte reserved for NUL. Nonzero capacity always has backing data. */
++    if (builder->cap - builder->len > 1) {
+         builder->data[builder->len++] = (char)ch;
+         return handle;
+     }
