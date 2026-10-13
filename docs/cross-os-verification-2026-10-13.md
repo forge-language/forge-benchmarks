@@ -1,6 +1,6 @@
 # Cross-OS verification: measured regressions and remaining work
 
-Status: **not achieved**. Linux developer-machine gains are not evidence of the same effect on another OS. Ten hosted-runner attempts preserve 38 completed CPU reports, four failed-before-measurement reports and all 52 job outcomes (38 successes, 14 failures). Native Windows measurement now completed twice, but scan and builder remain below Rust and the macOS prime regression persists.
+Status: **not achieved**. Linux developer-machine gains are not evidence of the same effect on another OS. Eleven hosted-runner attempts preserve 44 completed CPU reports, four failed-before-measurement reports and all 58 job outcomes (44 successes, 14 failures). Native Windows measurement now completed twice, but scan and builder remain below Rust and the macOS prime regression persists.
 
 ## Protocol
 
@@ -45,7 +45,7 @@ The updated SDK is pinned in Forge `12d8ff4`. [Run 38330922225](https://github.c
 
 [Run 38337628850](https://github.com/forge-language/forge-benchmarks/actions/runs/38337628850) completed both independent native Windows jobs. Each report contains 120 direct oracle checks, 900 same-input prewarms and 900 measured executions. Both Windows API tests passed before measurement. This is evidence for Windows execution and the rows below; it does not establish a universal speedup.
 
-## Latest unchanged-compiler results
+## Prior unchanged compiler `12d8ff4` results
 
 Ratios are throughput ratios (reference elapsed time / candidate elapsed time); greater than one is faster. Each cell shows median [row-wise paired-bootstrap 95% interval]. Linux/macOS rows use run 38330922225; Windows rows use 38337628850. All use shipped compiler `12d8ff4` without generated-C changes and the same final runtime/stdlib pins.
 
@@ -90,7 +90,46 @@ The `reserved-builder` generated-C prototype validates a fresh builder's live da
 
 OMO worker `ses_ecce1af5bffelUJqkHCnD5cHJ5` reviewed the abstract proof read-only. Its useful obligations are no builder escape or observers, no mutation/reset/calls inside the pure loop, one-byte append semantics, defined wrapping arithmetic, exactly n iterations, spare terminator capacity and fallback preservation. The actual builder-char implementation appends one byte and writes its terminator at finish. The worker's assertion that a terminator per append would make `cap >= n+1` insufficient is incorrect: even that extra store fits; observer equivalence would still require analysis. Its suggestion that shared undefined overflow is acceptable is also rejected: `FORGE_ADD` must provide defined wrapping semantics. The candidate uses it for i+seed; the loop index cannot overflow because it increments only while 0 <= i < n <= INT64_MAX. For every signed seed, truncating remainder by 26 is in -25..25, hence emitted bytes are 40..90 and nonzero. A generic compiler lowering must prove the full conditions rather than assume them.
 
-Full 60-group independent cross-OS prototype matrices were dispatched as [reserved-builder 38338169330](https://github.com/forge-language/forge-benchmarks/actions/runs/38338169330) and [hardware-builder 38338361083](https://github.com/forge-language/forge-benchmarks/actions/runs/38338361083). The latter also exercises the original checked hardware remainder instead of reciprocal caching. Both matrices completed successfully. Reserved-builder gains were 2.16–2.28× old Forge on macOS, 1.21–1.27× on Linux and 1.24–1.25× on Windows; all six lower interval bounds exceed 1.10. Windows builder still misses Rust 1.10. Hardware-builder restores macOS primes to about old Forge but only ~0.95× Rust. Full rows and the guarded compiler integration `d4c632b` appear in [the lowering report](reserved-builder-lowering-2026-10-13.md). The actual compiler verification run 38339445212 is pending; prototype evidence remains separate.
+Full 60-group independent cross-OS prototype matrices were dispatched as [reserved-builder 38338169330](https://github.com/forge-language/forge-benchmarks/actions/runs/38338169330) and [hardware-builder 38338361083](https://github.com/forge-language/forge-benchmarks/actions/runs/38338361083). The latter also exercises the original checked hardware remainder instead of reciprocal caching. Both matrices completed successfully. Reserved-builder gains were 2.16–2.28× old Forge on macOS, 1.21–1.27× on Linux and 1.24–1.25× on Windows; all six lower interval bounds exceed 1.10. Windows builder still misses Rust 1.10. Hardware-builder restores macOS primes to about old Forge but only ~0.95× Rust. Full rows and the guarded compiler integration `d4c632b` appear in [the lowering report](reserved-builder-lowering-2026-10-13.md). The actual compiler verification run 38339445212 completed all six jobs; prototype evidence remains separate. Its unmodified compiler results follow.
+
+## Actual compiler `d4c632b` verification
+
+[Run 38339445212](https://github.com/forge-language/forge-benchmarks/actions/runs/38339445212) uses the integrated reserved-builder lowering, with no generated-C modification. All six native jobs passed 120 direct checks, 900 prewarms and 900 measured executions each; Windows API regression checks also passed. Both Forge programs use the same per-run SDK archives/headers and unchanged matched workload sources.
+
+| Platform / repeat | CPU | Workload | Candidate / old Forge (95% interval) | Candidate / Rust (95% interval) |
+| --- | --- | --- | ---: | ---: |
+| macos-15-0 | Apple M1 (Virtual) | lcg | 1.0333 [1.0077,1.0637] | 0.8675 [0.8440,0.8936] |
+| macos-15-0 | Apple M1 (Virtual) | primes | 0.7378 [0.7303,0.7458] | 0.7092 [0.7014,0.7156] |
+| macos-15-0 | Apple M1 (Virtual) | scan | 0.9807 [0.9359,1.0047] | 0.9530 [0.9274,0.9949] |
+| macos-15-0 | Apple M1 (Virtual) | builder | 2.2491 [2.0764,2.3659] | 1.3518 [1.2449,1.4194] |
+| macos-15-0 | Apple M1 (Virtual) | immutable | 0.9980 [0.9842,1.0069] | 18.9938 [17.1311,19.7786] |
+| macos-15-1 | Apple M1 (Virtual) | lcg | 0.9982 [0.9904,1.0109] | 0.8779 [0.8643,0.8859] |
+| macos-15-1 | Apple M1 (Virtual) | primes | 0.7360 [0.7323,0.7429] | 0.7056 [0.7001,0.7150] |
+| macos-15-1 | Apple M1 (Virtual) | scan | 0.9964 [0.9933,1.0025] | 1.0005 [0.9946,1.0053] |
+| macos-15-1 | Apple M1 (Virtual) | builder | 2.2830 [2.2795,2.2901] | 1.3050 [1.3021,1.3076] |
+| macos-15-1 | Apple M1 (Virtual) | immutable | 1.0031 [0.9988,1.0108] | 16.5934 [16.4966,16.7364] |
+| ubuntu-24.04-0 | AMD EPYC 7763 | lcg | 0.9999 [0.9995,1.0002] | 1.8553 [1.8544,1.8563] |
+| ubuntu-24.04-0 | AMD EPYC 7763 | primes | 0.7999 [0.7993,0.8016] | 1.0111 [1.0085,1.0123] |
+| ubuntu-24.04-0 | AMD EPYC 7763 | scan | 1.0135 [1.0129,1.0151] | 0.9221 [0.9208,0.9233] |
+| ubuntu-24.04-0 | AMD EPYC 7763 | builder | 1.2678 [1.2652,1.2695] | 1.1917 [1.1902,1.1929] |
+| ubuntu-24.04-0 | AMD EPYC 7763 | immutable | 1.0015 [0.9984,1.0036] | 22.5728 [22.4347,22.6016] |
+| ubuntu-24.04-1 | see hardware record | lcg | 0.9990 [0.9939,1.0020] | 1.6212 [1.6171,1.6260] |
+| ubuntu-24.04-1 | see hardware record | primes | 0.9367 [0.9349,0.9387] | 1.1314 [1.1267,1.1359] |
+| ubuntu-24.04-1 | see hardware record | scan | 1.0057 [1.0003,1.0080] | 0.8090 [0.8050,0.8128] |
+| ubuntu-24.04-1 | see hardware record | builder | 1.2942 [1.2901,1.2989] | 1.2240 [1.2190,1.2293] |
+| ubuntu-24.04-1 | see hardware record | immutable | 0.9989 [0.9966,1.0005] | 18.8358 [18.6985,18.9137] |
+| windows-2022-0 | AMD EPYC 7763 | lcg | 0.9996 [0.9990,1.0002] | 1.8579 [1.8562,1.8595] |
+| windows-2022-0 | AMD EPYC 7763 | primes | 1.0594 [1.0583,1.0621] | 1.2456 [1.2439,1.2468] |
+| windows-2022-0 | AMD EPYC 7763 | scan | 1.0000 [0.9991,1.0006] | 0.5327 [0.5324,0.5330] |
+| windows-2022-0 | AMD EPYC 7763 | builder | 1.2953 [1.2935,1.2987] | 0.9585 [0.9574,0.9611] |
+| windows-2022-0 | AMD EPYC 7763 | immutable | 1.0067 [1.0053,1.0083] | 50.4061 [50.0975,50.6247] |
+| windows-2022-1 | see hardware record | lcg | 1.0011 [0.9972,1.0028] | 1.6285 [1.6231,1.6345] |
+| windows-2022-1 | see hardware record | primes | 1.0809 [1.0753,1.0861] | 1.3544 [1.3488,1.3579] |
+| windows-2022-1 | see hardware record | scan | 0.9958 [0.9922,0.9997] | 0.3867 [0.3848,0.3897] |
+| windows-2022-1 | see hardware record | builder | 1.1868 [1.1840,1.1897] | 0.8712 [0.8682,0.8735] |
+| windows-2022-1 | see hardware record | immutable | 1.0009 [0.9978,1.0031] | 53.9900 [53.5330,54.2429] |
+
+**A similar positive builder effect is now established on the three tested OSes**, relative to each runner's old Forge baseline: Linux 1.27–1.29×, macOS 2.25–2.28× and Windows 1.19–1.30×. All six lower row-wise interval bounds exceed 1.10. This is a workload-specific before/after conclusion. Windows builder still falls below Rust and macOS primes still regress; the overall Rust 1.10 / cross-OS suite goal remains unachieved. CPU/toolchain differences confound OS-only causal interpretations.
 
 ## Sources and preserved evidence
 
@@ -99,3 +138,5 @@ Windows API behavior was checked against [Microsoft MoveFileEx](https://learn.mi
 All workload rows, checks, warmups, raw samples, flags, generated-C/source/binary hashes and runner source remain in the individual JSON files listed by [the attempt ledger](cross-os-attempts-2026-10-13.json). [The OMO review](cross-os-omo-review-2026-10-13.md) has a narrower scope than the executable pipeline and includes explicit limitations. No failure is dropped to improve the reported result.
 
 Frozen inputs, executables, assembly and failure logs are preserved in [the first five matrices archive](cross-os-first-five-matrices-2026-10-13.raw.tar.gz) and [the native follow-up archive](cross-os-followup-native-2026-10-13.raw.tar.gz). Archive hashes are recorded in `cross-os-archives-2026-10-13.sha256`.
+
+The integrated compiler matrix is frozen in [its native archive](cross-os-reserved-compiler-2026-10-13.raw.tar.gz). The screening matrices remain in [the separate prototype archive](cross-os-reserved-probes-2026-10-13.raw.tar.gz).
