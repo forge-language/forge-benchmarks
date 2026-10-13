@@ -224,6 +224,10 @@ def main():
         rust_binary = directory / ('rust' + extension)
         rust_command = [args.rustc, '-C', 'opt-level=3', '-C', 'target-cpu=native', '-C', 'lto=thin',
                         '-C', 'codegen-units=1', '-C', 'overflow-checks=off', '-C', 'link-arg=' + str(clock_object)]
+        if os.name == 'nt':
+            # Rust appends user link arguments after its import libraries.
+            # Repeat Kernel32 after clock.o to resolve the QPC references.
+            rust_command += ['-C', 'link-arg=-lkernel32']
         if args.rust_target:
             rust_command += ['--target', args.rust_target]
         if args.rust_linker:
