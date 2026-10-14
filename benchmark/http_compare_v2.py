@@ -189,8 +189,11 @@ def exchange(port, request, expected, fragmented=False):
             'response_bytes': len(received), 'fragmented': fragmented}
 
 
-def start_server(binary, workers, body, cpus, raw_prefix):
-    port = unused_port()
+def start_server(binary, workers, body, cpus, raw_prefix, port=None):
+    # Cohort callers can reserve a wildcard-compatible candidate: a port free
+    # on 127.0.0.1 can still conflict with TIME_WAIT on another source alias.
+    # Existing V2/V3 callers retain their original port-selection protocol.
+    port = unused_port() if port is None else port
     env = dict(os.environ, FORGE_BENCH_CPUS=','.join(map(str, cpus)), FORGE_MAX_FDS='65536')
     command = [str(binary), str(port), str(workers), body]
     stdout = open(str(raw_prefix) + '-server.stdout', 'xb')

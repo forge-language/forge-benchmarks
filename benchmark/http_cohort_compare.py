@@ -22,7 +22,13 @@ import http_compare_v2 as v2
 from cpu_compare import sha
 from thread_compare import physical_cpus
 
-PROTOCOL = "prepared-http-v4-connected-cohort"
+PROTOCOL = "prepared-http-v4.1-wildcard-connected-cohort"
+
+
+def cohort_port():
+    with socket.socket() as candidate:
+        candidate.bind(("0.0.0.0", 0))
+        return candidate.getsockname()[1]
 
 
 def percentile(values, fraction):
@@ -169,7 +175,8 @@ def run_trial(binary, count, seed, cpus, prefix, args):
     result = dict(status="running", language=binary.name, cohort=count, seed=seed)
     v2.save(prefix.with_suffix(".json"), result)
     try:
-        server, port, command, audit = v2.start_server(binary, len(cpus), body, cpus, prefix)
+        server, port, command, audit = v2.start_server(
+            binary, len(cpus), body, cpus, prefix, port=cohort_port())
         result.update(server_command=command, server_affinity=audit,
                       independent_probe=v2.exchange(port, request, expected),
                       kernel_before=v2.passive_kernel(port), expected_sha256=sha_bytes(expected))

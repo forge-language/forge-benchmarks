@@ -4,7 +4,7 @@ import socket
 import threading
 import unittest
 
-from http_cohort_compare import observe, percentile
+from http_cohort_compare import cohort_port, observe, percentile
 
 
 class CohortTests(unittest.TestCase):
@@ -96,6 +96,12 @@ class CohortTests(unittest.TestCase):
 
     def test_nearest_rank_percentile(self):
         self.assertEqual(percentile(list(range(1, 101)), .99), 99)
+
+    def test_wildcard_port_avoids_other_loopback_alias(self):
+        with socket.socket() as occupied:
+            occupied.bind(("127.0.0.2", 0))
+            occupied.listen()
+            self.assertNotEqual(cohort_port(), occupied.getsockname()[1])
 
 
 if __name__ == "__main__":

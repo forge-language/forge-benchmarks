@@ -1,6 +1,6 @@
 # Connected cohort protocol
 
-`benchmark/http_cohort_compare.py` is a separate V4 finite burst-capacity
+`benchmark/http_cohort_compare.py` is a separate V4.1 finite burst-capacity
 experiment. Its single Python selector establishes every TCP connection before
 sending any GET. A nonblocking peek rejects a socket already closed or carrying
 unexpected bytes at the barrier. The cohort is then released together; all
@@ -16,6 +16,13 @@ deadline. A setup failure releases no partial cohort; every requested lane,
 including unattempted lanes, is retained as a failure. There are no retries or
 outlier exclusions. A response succeeds only when all expected bytes match and
 EOF is observed; correct bytes without EOF still time out.
+
+V4.1 chooses the candidate server port with a wildcard bind, matching the
+server's address scope. V4's loopback-only selector could choose a port occupied
+by TIME_WAIT on another source alias. Old failed runs remain recorded; timing
+samples are not pooled across these versions. The reservation closes before
+server launch, so an unrelated concurrent process can still win the port race;
+startup failure remains a retained failed observation without a trial retry.
 
 The server fixture, independent byte probe, immutable compiler/SDK build,
 four-core worker pinning and Rust implementation are shared with V2. Order is
