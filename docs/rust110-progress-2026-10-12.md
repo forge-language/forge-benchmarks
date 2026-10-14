@@ -441,3 +441,5 @@ Six native tight-pow generated-C screening jobs completed; all 30 candidate/Rust
 ## Generic bounded modular-power integration
 
 Compiler a750b60 implements the proven complete pure exponentiation pattern without benchmark-name matching, with checked fallback outside its domain. Final 22-suite regression, 40 named compiler and 36 named arithmetic tests pass. Six actual OMO child reviews completed; strengthened ABI/coroutine/collision/trap tests and measurement/provenance clarifications address their findings. Actual unchanged-compiler local/native speed gates remain pending. [Implementation proof, six reviews and validation evidence](bounded-modpow-lowering-2026-10-14.md).
+
+The unchanged a750b60 local 60-group recheck completed: all five lower row-wise 95% Forge/Rust bounds exceed 1.10, with medians 1.3052/1.5680/2.5841/1.6182/8.1309 for LCG/prime/scan/builder/immutable. All 120 direct checks, 900 prewarms and 900 measurements pass; no generated-C probe is applied. Native release proof remains pending. [Full local current-compiler evidence](bounded-modpow-generic-full-60-2026-10-14.md).
