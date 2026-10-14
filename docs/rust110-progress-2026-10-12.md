@@ -437,3 +437,7 @@ Six native generated-C screening jobs completed without arithmetic mismatches. A
 ## Exact bounded modular-power prototype
 
 Six native tight-pow generated-C screening jobs completed; all 30 candidate/Rust row-wise lower 95% bounds exceed 1.10 across five workloads. Prime gains current Forge by 1.32–1.35× on macOS, 1.36× on Linux and 1.11–1.13× on Windows. All 720 direct checks, 5,400 prewarms and 5,400 measurements match. This is a prototype, not unchanged-compiler release evidence: the generic matcher implementation requires its own semantic/regression and native performance gate. [Full rows and proof](tight-pow-prototype-cross-os-2026-10-13.md).
+
+## Generic bounded modular-power integration
+
+Compiler a750b60 implements the proven complete pure exponentiation pattern without benchmark-name matching, with checked fallback outside its domain. Final 22-suite regression, 40 named compiler and 36 named arithmetic tests pass. Six actual OMO child reviews completed; strengthened ABI/coroutine/collision/trap tests and measurement/provenance clarifications address their findings. Actual unchanged-compiler local/native speed gates remain pending. [Implementation proof, six reviews and validation evidence](bounded-modpow-lowering-2026-10-14.md).
