@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "measured_at": "2026-10-14T05:26:32.395272+00:00",
+  "measured_at": "2026-10-14T05:35:19.944083+00:00",
   "source_revisions": {
     "forge": "a750b60923bcc71adda025596664dd9a0413f80b",
     "forge-runtime": "dcbb1929b17c2f1d11fd367ecf80c7c87c58a274",
     "forge-stdlib": "6aa28667b83009a415ab2d7ac13ef6c675af7012",
-    "forge-benchmarks": "bafd90f31cba66970325febb09b9c8c090f16469"
+    "forge-benchmarks": "c9567139a01d653262391383f60f596a48905eca"
   },
   "source_tree_clean": {
     "forge": true,
@@ -13,14 +13,14 @@
     "forge-stdlib": true,
     "forge-benchmarks": true
   },
-  "run_url": "https://github.com/forge-language/forge-benchmarks/actions/runs/38516592683",
+  "run_url": "https://github.com/forge-language/forge-benchmarks/actions/runs/38517375791",
   "environment": {
     "os": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
-    "cpu": "Intel(R) Xeon(R) 6973P-C",
+    "cpu": "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
     "logical_cpus": 4,
     "compiler": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "python": "3.12.3",
-    "runner": "GitHub Actions 1000000778",
+    "runner": "GitHub Actions 1000000780",
     "runner_os": "Linux"
   },
   "scope": "Shared host; bounded CPU/parser/scheduler API workloads, not application request throughput. Parser timing excludes fixture construction/free; scheduler timing excludes task creation; string legacy/new algorithms execute in fixed order. CI hosts vary; compare matching environments.",
@@ -30,40 +30,40 @@
       {
         "case": "dispatch_10000_1",
         "wall_ms": {
-          "median": 0.949,
-          "min": 0.887,
-          "max": 1.095
+          "median": 1.034,
+          "min": 0.999,
+          "max": 1.35
         },
         "process_cpu_ms": {
-          "median": 0.935,
-          "min": 0.868,
-          "max": 1.116
+          "median": 1.04,
+          "min": 1.006,
+          "max": 1.36
         }
       },
       {
         "case": "dispatch_10000_4",
         "wall_ms": {
-          "median": 3.492,
-          "min": 3.316,
-          "max": 3.967
+          "median": 4.027,
+          "min": 3.754,
+          "max": 4.678
         },
         "process_cpu_ms": {
-          "median": 8.576,
-          "min": 8.394,
-          "max": 9.478
+          "median": 10.703,
+          "min": 9.803,
+          "max": 12.48
         }
       },
       {
         "case": "idle_50ms",
         "wall_ms": {
-          "median": 50.379,
-          "min": 50.356,
-          "max": 50.404
+          "median": 50.371,
+          "min": 50.327,
+          "max": 50.457
         },
         "process_cpu_ms": {
-          "median": 0.576,
-          "min": 0.529,
-          "max": 0.596
+          "median": 0.646,
+          "min": 0.573,
+          "max": 0.84
         }
       }
     ],
@@ -73,194 +73,194 @@
         "bytes": 4096,
         "algorithms": {
           "builder": {
-            "median_seconds": 3.643e-06,
-            "min_seconds": 3.579e-06,
-            "max_seconds": 3.892e-06
+            "median_seconds": 8.106e-06,
+            "min_seconds": 5.168e-06,
+            "max_seconds": 2.4398e-05
           },
           "legacy": {
-            "median_seconds": 0.001798722,
-            "min_seconds": 0.001760864,
-            "max_seconds": 0.001846698
+            "median_seconds": 0.001887975,
+            "min_seconds": 0.001867696,
+            "max_seconds": 0.004091451
           }
         },
-        "speedup": 493.7474608838869
+        "speedup": 232.91080680977055
       },
       {
         "operation": "append",
         "bytes": 16384,
         "algorithms": {
           "builder": {
-            "median_seconds": 1.466e-05,
-            "min_seconds": 1.4543e-05,
-            "max_seconds": 1.4932e-05
+            "median_seconds": 3.825e-05,
+            "min_seconds": 1.8759e-05,
+            "max_seconds": 4.0265e-05
           },
           "legacy": {
-            "median_seconds": 0.023614385,
-            "min_seconds": 0.022933014,
-            "max_seconds": 0.023811374
+            "median_seconds": 0.029146793,
+            "min_seconds": 0.026858381,
+            "max_seconds": 0.031912575
           }
         },
-        "speedup": 1610.8038881309687
+        "speedup": 762.0076601307189
       },
       {
         "operation": "append_slice",
         "bytes": 4096,
         "algorithms": {
           "substring": {
-            "median_seconds": 5.525e-06,
-            "min_seconds": 5.291e-06,
-            "max_seconds": 6.532e-06
+            "median_seconds": 6.078e-06,
+            "min_seconds": 5.951e-06,
+            "max_seconds": 6.438e-06
           },
           "view": {
-            "median_seconds": 9.89e-07,
-            "min_seconds": 9.13e-07,
-            "max_seconds": 1.079e-06
+            "median_seconds": 1.24e-06,
+            "min_seconds": 1.159e-06,
+            "max_seconds": 1.31e-06
           }
         },
-        "speedup": 5.5864509605662285
+        "speedup": 4.901612903225806
       },
       {
         "operation": "append_slice",
         "bytes": 16384,
         "algorithms": {
           "substring": {
-            "median_seconds": 5.4468e-05,
-            "min_seconds": 5.2957e-05,
-            "max_seconds": 5.621e-05
+            "median_seconds": 5.5647e-05,
+            "min_seconds": 5.4717e-05,
+            "max_seconds": 5.9761e-05
           },
           "view": {
-            "median_seconds": 2.474e-06,
-            "min_seconds": 2.386e-06,
-            "max_seconds": 3.283e-06
+            "median_seconds": 3.295e-06,
+            "min_seconds": 3.257e-06,
+            "max_seconds": 3.345e-06
           }
         },
-        "speedup": 22.01616814874697
+        "speedup": 16.888315629742035
       },
       {
         "operation": "append_slice",
         "bytes": 65536,
         "algorithms": {
           "substring": {
-            "median_seconds": 0.001049263,
-            "min_seconds": 0.001046966,
-            "max_seconds": 0.001080207
+            "median_seconds": 0.001357386,
+            "min_seconds": 0.001305012,
+            "max_seconds": 0.001417218
           },
           "view": {
-            "median_seconds": 1.269e-05,
-            "min_seconds": 1.2462e-05,
-            "max_seconds": 1.3097e-05
+            "median_seconds": 1.6532e-05,
+            "min_seconds": 1.5792e-05,
+            "max_seconds": 1.8132e-05
           }
         },
-        "speedup": 82.68423955870763
+        "speedup": 82.10658117590128
       },
       {
         "operation": "match",
         "bytes": 4096,
         "algorithms": {
           "substring": {
-            "median_seconds": 0.000171627,
-            "min_seconds": 0.000131173,
-            "max_seconds": 0.000184344
+            "median_seconds": 0.000150872,
+            "min_seconds": 0.000149113,
+            "max_seconds": 0.000297371
           },
           "view": {
-            "median_seconds": 1.1511e-05,
-            "min_seconds": 1.1479e-05,
-            "max_seconds": 1.2189e-05
+            "median_seconds": 1.1875e-05,
+            "min_seconds": 1.1863e-05,
+            "max_seconds": 5.1883e-05
           }
         },
-        "speedup": 14.909825384414907
+        "speedup": 12.705010526315789
       },
       {
         "operation": "match",
         "bytes": 16384,
         "algorithms": {
           "substring": {
-            "median_seconds": 0.000424467,
-            "min_seconds": 0.000410284,
-            "max_seconds": 0.000443736
+            "median_seconds": 0.000416676,
+            "min_seconds": 0.000415413,
+            "max_seconds": 0.000447856
           },
           "view": {
-            "median_seconds": 1.2212e-05,
-            "min_seconds": 1.1907e-05,
-            "max_seconds": 1.2381e-05
+            "median_seconds": 1.1927e-05,
+            "min_seconds": 1.1905e-05,
+            "max_seconds": 1.1961e-05
           }
         },
-        "speedup": 34.75818866688503
+        "speedup": 34.93552444034543
       },
       {
         "operation": "match",
         "bytes": 65536,
         "algorithms": {
           "substring": {
-            "median_seconds": 0.002058389,
-            "min_seconds": 0.002056997,
-            "max_seconds": 0.002187109
+            "median_seconds": 0.002629395,
+            "min_seconds": 0.002566362,
+            "max_seconds": 0.003044469
           },
           "view": {
-            "median_seconds": 1.2152e-05,
-            "min_seconds": 1.1962e-05,
-            "max_seconds": 1.2581e-05
+            "median_seconds": 1.2429e-05,
+            "min_seconds": 1.2395e-05,
+            "max_seconds": 1.2519e-05
           }
         },
-        "speedup": 169.38684990125083
+        "speedup": 211.55322230267922
       },
       {
         "operation": "scan",
         "bytes": 4096,
         "algorithms": {
           "legacy": {
-            "median_seconds": 0.000149004,
-            "min_seconds": 0.000147962,
-            "max_seconds": 0.000153475
+            "median_seconds": 0.000154781,
+            "min_seconds": 0.000104783,
+            "max_seconds": 0.000178776
           },
           "view": {
-            "median_seconds": 9.098e-06,
-            "min_seconds": 8.807e-06,
-            "max_seconds": 9.936e-06
+            "median_seconds": 1.0766e-05,
+            "min_seconds": 9.65e-06,
+            "max_seconds": 1.1545e-05
           }
         },
-        "speedup": 16.377665420971642
+        "speedup": 14.376834478915102
       },
       {
         "operation": "scan",
         "bytes": 16384,
         "algorithms": {
           "legacy": {
-            "median_seconds": 0.001576245,
-            "min_seconds": 0.001571433,
-            "max_seconds": 0.001610769
+            "median_seconds": 0.001471374,
+            "min_seconds": 0.001456335,
+            "max_seconds": 0.004056322
           },
           "view": {
-            "median_seconds": 9.918e-06,
-            "min_seconds": 9.871e-06,
-            "max_seconds": 9.947e-06
+            "median_seconds": 1.4293e-05,
+            "min_seconds": 9.688e-06,
+            "max_seconds": 1.776e-05
           }
         },
-        "speedup": 158.92770719903206
+        "speedup": 102.94367872385082
       },
       {
         "operation": "scan",
         "bytes": 65536,
         "algorithms": {
           "legacy": {
-            "median_seconds": 0.032363536,
-            "min_seconds": 0.032316996,
-            "max_seconds": 0.032621919
+            "median_seconds": 0.043987536,
+            "min_seconds": 0.040320418,
+            "max_seconds": 0.050937958
           },
           "view": {
-            "median_seconds": 3.9596e-05,
-            "min_seconds": 3.9223e-05,
-            "max_seconds": 4.238e-05
+            "median_seconds": 5.7155e-05,
+            "min_seconds": 4.7827e-05,
+            "max_seconds": 5.7254e-05
           }
         },
-        "speedup": 817.3435700575816
+        "speedup": 769.618336103578
       }
     ],
     "parser": {
       "parse_seconds": {
-        "median": 0.485333597,
-        "min": 0.482471039,
-        "max": 0.486986184
+        "median": 0.56135436,
+        "min": 0.546206813,
+        "max": 0.610455287
       },
       "realloc_calls": {
         "median": 225,
@@ -276,140 +276,140 @@
         "repeat": 1,
         "coroutines": 10000.0,
         "workers": 1.0,
-        "wall_ms": 1.095,
-        "process_cpu_ms": 1.116,
+        "wall_ms": 1.35,
+        "process_cpu_ms": 1.36,
         "completed": 10000.0,
-        "raw_csv": "coroutines,workers,wall_ms,process_cpu_ms,completed\n10000,1,1.095,1.116,10000\n"
+        "raw_csv": "coroutines,workers,wall_ms,process_cpu_ms,completed\n10000,1,1.350,1.360,10000\n"
       },
       {
         "case": "dispatch_10000_4",
         "repeat": 1,
         "coroutines": 10000.0,
         "workers": 4.0,
-        "wall_ms": 3.389,
-        "process_cpu_ms": 8.394,
+        "wall_ms": 4.678,
+        "process_cpu_ms": 12.48,
         "completed": 10000.0,
-        "raw_csv": "coroutines,workers,wall_ms,process_cpu_ms,completed\n10000,4,3.389,8.394,10000\n"
+        "raw_csv": "coroutines,workers,wall_ms,process_cpu_ms,completed\n10000,4,4.678,12.480,10000\n"
       },
       {
         "case": "idle_50ms",
         "repeat": 1,
         "wait_ms": 50.0,
-        "wall_ms": 50.367,
-        "process_cpu_ms": 0.576,
-        "raw_csv": "wait_ms,wall_ms,process_cpu_ms\n50,50.367,0.576\n"
+        "wall_ms": 50.327,
+        "process_cpu_ms": 0.606,
+        "raw_csv": "wait_ms,wall_ms,process_cpu_ms\n50,50.327,0.606\n"
       },
       {
         "case": "idle_50ms",
         "repeat": 2,
         "wait_ms": 50.0,
-        "wall_ms": 50.379,
-        "process_cpu_ms": 0.596,
-        "raw_csv": "wait_ms,wall_ms,process_cpu_ms\n50,50.379,0.596\n"
+        "wall_ms": 50.371,
+        "process_cpu_ms": 0.713,
+        "raw_csv": "wait_ms,wall_ms,process_cpu_ms\n50,50.371,0.713\n"
       },
       {
         "case": "dispatch_10000_4",
         "repeat": 2,
         "coroutines": 10000.0,
         "workers": 4.0,
-        "wall_ms": 3.967,
-        "process_cpu_ms": 9.478,
+        "wall_ms": 4.578,
+        "process_cpu_ms": 12.016,
         "completed": 10000.0,
-        "raw_csv": "coroutines,workers,wall_ms,process_cpu_ms,completed\n10000,4,3.967,9.478,10000\n"
+        "raw_csv": "coroutines,workers,wall_ms,process_cpu_ms,completed\n10000,4,4.578,12.016,10000\n"
       },
       {
         "case": "dispatch_10000_1",
         "repeat": 2,
         "coroutines": 10000.0,
         "workers": 1.0,
-        "wall_ms": 0.956,
-        "process_cpu_ms": 0.946,
+        "wall_ms": 1.046,
+        "process_cpu_ms": 1.055,
         "completed": 10000.0,
-        "raw_csv": "coroutines,workers,wall_ms,process_cpu_ms,completed\n10000,1,0.956,0.946,10000\n"
+        "raw_csv": "coroutines,workers,wall_ms,process_cpu_ms,completed\n10000,1,1.046,1.055,10000\n"
       },
       {
         "case": "dispatch_10000_1",
         "repeat": 3,
         "coroutines": 10000.0,
         "workers": 1.0,
-        "wall_ms": 0.943,
-        "process_cpu_ms": 0.935,
+        "wall_ms": 1.034,
+        "process_cpu_ms": 1.04,
         "completed": 10000.0,
-        "raw_csv": "coroutines,workers,wall_ms,process_cpu_ms,completed\n10000,1,0.943,0.935,10000\n"
+        "raw_csv": "coroutines,workers,wall_ms,process_cpu_ms,completed\n10000,1,1.034,1.040,10000\n"
       },
       {
         "case": "dispatch_10000_4",
         "repeat": 3,
         "coroutines": 10000.0,
         "workers": 4.0,
-        "wall_ms": 3.492,
-        "process_cpu_ms": 8.444,
+        "wall_ms": 4.027,
+        "process_cpu_ms": 10.703,
         "completed": 10000.0,
-        "raw_csv": "coroutines,workers,wall_ms,process_cpu_ms,completed\n10000,4,3.492,8.444,10000\n"
+        "raw_csv": "coroutines,workers,wall_ms,process_cpu_ms,completed\n10000,4,4.027,10.703,10000\n"
       },
       {
         "case": "idle_50ms",
         "repeat": 3,
         "wait_ms": 50.0,
-        "wall_ms": 50.404,
-        "process_cpu_ms": 0.59,
-        "raw_csv": "wait_ms,wall_ms,process_cpu_ms\n50,50.404,0.590\n"
+        "wall_ms": 50.386,
+        "process_cpu_ms": 0.646,
+        "raw_csv": "wait_ms,wall_ms,process_cpu_ms\n50,50.386,0.646\n"
       },
       {
         "case": "idle_50ms",
         "repeat": 4,
         "wait_ms": 50.0,
-        "wall_ms": 50.356,
+        "wall_ms": 50.457,
+        "process_cpu_ms": 0.84,
+        "raw_csv": "wait_ms,wall_ms,process_cpu_ms\n50,50.457,0.840\n"
+      },
+      {
+        "case": "dispatch_10000_4",
+        "repeat": 4,
+        "coroutines": 10000.0,
+        "workers": 4.0,
+        "wall_ms": 3.892,
+        "process_cpu_ms": 10.11,
+        "completed": 10000.0,
+        "raw_csv": "coroutines,workers,wall_ms,process_cpu_ms,completed\n10000,4,3.892,10.110,10000\n"
+      },
+      {
+        "case": "dispatch_10000_1",
+        "repeat": 4,
+        "coroutines": 10000.0,
+        "workers": 1.0,
+        "wall_ms": 1.029,
+        "process_cpu_ms": 1.028,
+        "completed": 10000.0,
+        "raw_csv": "coroutines,workers,wall_ms,process_cpu_ms,completed\n10000,1,1.029,1.028,10000\n"
+      },
+      {
+        "case": "dispatch_10000_1",
+        "repeat": 5,
+        "coroutines": 10000.0,
+        "workers": 1.0,
+        "wall_ms": 0.999,
+        "process_cpu_ms": 1.006,
+        "completed": 10000.0,
+        "raw_csv": "coroutines,workers,wall_ms,process_cpu_ms,completed\n10000,1,0.999,1.006,10000\n"
+      },
+      {
+        "case": "dispatch_10000_4",
+        "repeat": 5,
+        "coroutines": 10000.0,
+        "workers": 4.0,
+        "wall_ms": 3.754,
+        "process_cpu_ms": 9.803,
+        "completed": 10000.0,
+        "raw_csv": "coroutines,workers,wall_ms,process_cpu_ms,completed\n10000,4,3.754,9.803,10000\n"
+      },
+      {
+        "case": "idle_50ms",
+        "repeat": 5,
+        "wait_ms": 50.0,
+        "wall_ms": 50.352,
         "process_cpu_ms": 0.573,
-        "raw_csv": "wait_ms,wall_ms,process_cpu_ms\n50,50.356,0.573\n"
-      },
-      {
-        "case": "dispatch_10000_4",
-        "repeat": 4,
-        "coroutines": 10000.0,
-        "workers": 4.0,
-        "wall_ms": 3.846,
-        "process_cpu_ms": 9.168,
-        "completed": 10000.0,
-        "raw_csv": "coroutines,workers,wall_ms,process_cpu_ms,completed\n10000,4,3.846,9.168,10000\n"
-      },
-      {
-        "case": "dispatch_10000_1",
-        "repeat": 4,
-        "coroutines": 10000.0,
-        "workers": 1.0,
-        "wall_ms": 0.949,
-        "process_cpu_ms": 0.934,
-        "completed": 10000.0,
-        "raw_csv": "coroutines,workers,wall_ms,process_cpu_ms,completed\n10000,1,0.949,0.934,10000\n"
-      },
-      {
-        "case": "dispatch_10000_1",
-        "repeat": 5,
-        "coroutines": 10000.0,
-        "workers": 1.0,
-        "wall_ms": 0.887,
-        "process_cpu_ms": 0.868,
-        "completed": 10000.0,
-        "raw_csv": "coroutines,workers,wall_ms,process_cpu_ms,completed\n10000,1,0.887,0.868,10000\n"
-      },
-      {
-        "case": "dispatch_10000_4",
-        "repeat": 5,
-        "coroutines": 10000.0,
-        "workers": 4.0,
-        "wall_ms": 3.316,
-        "process_cpu_ms": 8.576,
-        "completed": 10000.0,
-        "raw_csv": "coroutines,workers,wall_ms,process_cpu_ms,completed\n10000,4,3.316,8.576,10000\n"
-      },
-      {
-        "case": "idle_50ms",
-        "repeat": 5,
-        "wait_ms": 50.0,
-        "wall_ms": 50.403,
-        "process_cpu_ms": 0.529,
-        "raw_csv": "wait_ms,wall_ms,process_cpu_ms\n50,50.403,0.529\n"
+        "raw_csv": "wait_ms,wall_ms,process_cpu_ms\n50,50.352,0.573\n"
       }
     ],
     "strings": [
@@ -417,7 +417,7 @@
         "operation": "scan",
         "implementation": "legacy",
         "bytes": 4096,
-        "seconds": 0.000147962,
+        "seconds": 0.000104783,
         "checksum": 491520,
         "repeat": 1
       },
@@ -425,7 +425,7 @@
         "operation": "scan",
         "implementation": "view",
         "bytes": 4096,
-        "seconds": 9.098e-06,
+        "seconds": 1.0766e-05,
         "checksum": 491520,
         "repeat": 1
       },
@@ -433,7 +433,7 @@
         "operation": "append",
         "implementation": "legacy",
         "bytes": 4096,
-        "seconds": 0.001842715,
+        "seconds": 0.004091451,
         "checksum": 4096,
         "repeat": 1
       },
@@ -441,7 +441,7 @@
         "operation": "append",
         "implementation": "builder",
         "bytes": 4096,
-        "seconds": 3.579e-06,
+        "seconds": 2.4398e-05,
         "checksum": 4096,
         "repeat": 1
       },
@@ -449,7 +449,7 @@
         "operation": "match",
         "implementation": "substring",
         "bytes": 4096,
-        "seconds": 0.000171627,
+        "seconds": 0.000297371,
         "checksum": 4096,
         "repeat": 1
       },
@@ -457,7 +457,7 @@
         "operation": "match",
         "implementation": "view",
         "bytes": 4096,
-        "seconds": 1.1479e-05,
+        "seconds": 1.1875e-05,
         "checksum": 4096,
         "repeat": 1
       },
@@ -465,7 +465,7 @@
         "operation": "append_slice",
         "implementation": "substring",
         "bytes": 4096,
-        "seconds": 6.532e-06,
+        "seconds": 6.078e-06,
         "checksum": 4096,
         "repeat": 1
       },
@@ -473,7 +473,7 @@
         "operation": "append_slice",
         "implementation": "view",
         "bytes": 4096,
-        "seconds": 1.005e-06,
+        "seconds": 1.31e-06,
         "checksum": 4096,
         "repeat": 1
       },
@@ -481,7 +481,7 @@
         "operation": "scan",
         "implementation": "legacy",
         "bytes": 16384,
-        "seconds": 0.001571433,
+        "seconds": 0.001456335,
         "checksum": 1966080,
         "repeat": 1
       },
@@ -489,7 +489,7 @@
         "operation": "scan",
         "implementation": "view",
         "bytes": 16384,
-        "seconds": 9.871e-06,
+        "seconds": 1.4265e-05,
         "checksum": 1966080,
         "repeat": 1
       },
@@ -497,7 +497,7 @@
         "operation": "append",
         "implementation": "legacy",
         "bytes": 16384,
-        "seconds": 0.023643558,
+        "seconds": 0.030165526,
         "checksum": 16384,
         "repeat": 1
       },
@@ -505,7 +505,7 @@
         "operation": "append",
         "implementation": "builder",
         "bytes": 16384,
-        "seconds": 1.4543e-05,
+        "seconds": 2.0027e-05,
         "checksum": 16384,
         "repeat": 1
       },
@@ -513,7 +513,7 @@
         "operation": "match",
         "implementation": "substring",
         "bytes": 16384,
-        "seconds": 0.000434986,
+        "seconds": 0.000447856,
         "checksum": 4096,
         "repeat": 1
       },
@@ -521,7 +521,7 @@
         "operation": "match",
         "implementation": "view",
         "bytes": 16384,
-        "seconds": 1.2381e-05,
+        "seconds": 1.1927e-05,
         "checksum": 4096,
         "repeat": 1
       },
@@ -529,7 +529,7 @@
         "operation": "append_slice",
         "implementation": "substring",
         "bytes": 16384,
-        "seconds": 5.4091e-05,
+        "seconds": 5.4937e-05,
         "checksum": 16384,
         "repeat": 1
       },
@@ -537,7 +537,7 @@
         "operation": "append_slice",
         "implementation": "view",
         "bytes": 16384,
-        "seconds": 2.593e-06,
+        "seconds": 3.345e-06,
         "checksum": 16384,
         "repeat": 1
       },
@@ -545,7 +545,7 @@
         "operation": "scan",
         "implementation": "legacy",
         "bytes": 65536,
-        "seconds": 0.032536478,
+        "seconds": 0.04397365,
         "checksum": 7864320,
         "repeat": 1
       },
@@ -553,7 +553,7 @@
         "operation": "scan",
         "implementation": "view",
         "bytes": 65536,
-        "seconds": 3.9223e-05,
+        "seconds": 5.7254e-05,
         "checksum": 7864320,
         "repeat": 1
       },
@@ -561,7 +561,7 @@
         "operation": "match",
         "implementation": "substring",
         "bytes": 65536,
-        "seconds": 0.002058389,
+        "seconds": 0.003044469,
         "checksum": 4096,
         "repeat": 1
       },
@@ -569,7 +569,7 @@
         "operation": "match",
         "implementation": "view",
         "bytes": 65536,
-        "seconds": 1.2581e-05,
+        "seconds": 1.2519e-05,
         "checksum": 4096,
         "repeat": 1
       },
@@ -577,7 +577,7 @@
         "operation": "append_slice",
         "implementation": "substring",
         "bytes": 65536,
-        "seconds": 0.001079779,
+        "seconds": 0.001332883,
         "checksum": 65536,
         "repeat": 1
       },
@@ -585,7 +585,7 @@
         "operation": "append_slice",
         "implementation": "view",
         "bytes": 65536,
-        "seconds": 1.3097e-05,
+        "seconds": 1.6098e-05,
         "checksum": 65536,
         "repeat": 1
       },
@@ -593,7 +593,7 @@
         "operation": "scan",
         "implementation": "legacy",
         "bytes": 4096,
-        "seconds": 0.000153475,
+        "seconds": 0.000178776,
         "checksum": 491520,
         "repeat": 2
       },
@@ -601,7 +601,7 @@
         "operation": "scan",
         "implementation": "view",
         "bytes": 4096,
-        "seconds": 9.912e-06,
+        "seconds": 1.0264e-05,
         "checksum": 491520,
         "repeat": 2
       },
@@ -609,7 +609,7 @@
         "operation": "append",
         "implementation": "legacy",
         "bytes": 4096,
-        "seconds": 0.001760864,
+        "seconds": 0.001867696,
         "checksum": 4096,
         "repeat": 2
       },
@@ -617,7 +617,7 @@
         "operation": "append",
         "implementation": "builder",
         "bytes": 4096,
-        "seconds": 3.643e-06,
+        "seconds": 5.168e-06,
         "checksum": 4096,
         "repeat": 2
       },
@@ -625,7 +625,7 @@
         "operation": "match",
         "implementation": "substring",
         "bytes": 4096,
-        "seconds": 0.000170751,
+        "seconds": 0.000150872,
         "checksum": 4096,
         "repeat": 2
       },
@@ -633,7 +633,7 @@
         "operation": "match",
         "implementation": "view",
         "bytes": 4096,
-        "seconds": 1.1503e-05,
+        "seconds": 1.1867e-05,
         "checksum": 4096,
         "repeat": 2
       },
@@ -641,7 +641,7 @@
         "operation": "append_slice",
         "implementation": "substring",
         "bytes": 4096,
-        "seconds": 5.405e-06,
+        "seconds": 6.179e-06,
         "checksum": 4096,
         "repeat": 2
       },
@@ -649,7 +649,7 @@
         "operation": "append_slice",
         "implementation": "view",
         "bytes": 4096,
-        "seconds": 9.17e-07,
+        "seconds": 1.233e-06,
         "checksum": 4096,
         "repeat": 2
       },
@@ -657,7 +657,7 @@
         "operation": "scan",
         "implementation": "legacy",
         "bytes": 16384,
-        "seconds": 0.001580063,
+        "seconds": 0.001467149,
         "checksum": 1966080,
         "repeat": 2
       },
@@ -665,7 +665,7 @@
         "operation": "scan",
         "implementation": "view",
         "bytes": 16384,
-        "seconds": 9.931e-06,
+        "seconds": 1.4305e-05,
         "checksum": 1966080,
         "repeat": 2
       },
@@ -673,7 +673,7 @@
         "operation": "append",
         "implementation": "legacy",
         "bytes": 16384,
-        "seconds": 0.023614385,
+        "seconds": 0.028080704,
         "checksum": 16384,
         "repeat": 2
       },
@@ -681,7 +681,7 @@
         "operation": "append",
         "implementation": "builder",
         "bytes": 16384,
-        "seconds": 1.4849e-05,
+        "seconds": 3.825e-05,
         "checksum": 16384,
         "repeat": 2
       },
@@ -689,7 +689,7 @@
         "operation": "match",
         "implementation": "substring",
         "bytes": 16384,
-        "seconds": 0.000443736,
+        "seconds": 0.000415413,
         "checksum": 4096,
         "repeat": 2
       },
@@ -697,7 +697,7 @@
         "operation": "match",
         "implementation": "view",
         "bytes": 16384,
-        "seconds": 1.2359e-05,
+        "seconds": 1.1961e-05,
         "checksum": 4096,
         "repeat": 2
       },
@@ -705,7 +705,7 @@
         "operation": "append_slice",
         "implementation": "substring",
         "bytes": 16384,
-        "seconds": 5.621e-05,
+        "seconds": 5.9761e-05,
         "checksum": 16384,
         "repeat": 2
       },
@@ -713,7 +713,7 @@
         "operation": "append_slice",
         "implementation": "view",
         "bytes": 16384,
-        "seconds": 2.427e-06,
+        "seconds": 3.279e-06,
         "checksum": 16384,
         "repeat": 2
       },
@@ -721,7 +721,7 @@
         "operation": "scan",
         "implementation": "legacy",
         "bytes": 65536,
-        "seconds": 0.032316996,
+        "seconds": 0.045384693,
         "checksum": 7864320,
         "repeat": 2
       },
@@ -729,7 +729,7 @@
         "operation": "scan",
         "implementation": "view",
         "bytes": 65536,
-        "seconds": 3.9248e-05,
+        "seconds": 4.7916e-05,
         "checksum": 7864320,
         "repeat": 2
       },
@@ -737,7 +737,7 @@
         "operation": "match",
         "implementation": "substring",
         "bytes": 65536,
-        "seconds": 0.002056997,
+        "seconds": 0.002629395,
         "checksum": 4096,
         "repeat": 2
       },
@@ -745,7 +745,7 @@
         "operation": "match",
         "implementation": "view",
         "bytes": 65536,
-        "seconds": 1.2579e-05,
+        "seconds": 1.2429e-05,
         "checksum": 4096,
         "repeat": 2
       },
@@ -753,7 +753,7 @@
         "operation": "append_slice",
         "implementation": "substring",
         "bytes": 65536,
-        "seconds": 0.001048851,
+        "seconds": 0.001376766,
         "checksum": 65536,
         "repeat": 2
       },
@@ -761,7 +761,7 @@
         "operation": "append_slice",
         "implementation": "view",
         "bytes": 65536,
-        "seconds": 1.2462e-05,
+        "seconds": 1.6682e-05,
         "checksum": 65536,
         "repeat": 2
       },
@@ -769,7 +769,7 @@
         "operation": "scan",
         "implementation": "legacy",
         "bytes": 4096,
-        "seconds": 0.000149891,
+        "seconds": 0.000105402,
         "checksum": 491520,
         "repeat": 3
       },
@@ -777,7 +777,7 @@
         "operation": "scan",
         "implementation": "view",
         "bytes": 4096,
-        "seconds": 8.807e-06,
+        "seconds": 1.1545e-05,
         "checksum": 491520,
         "repeat": 3
       },
@@ -785,7 +785,7 @@
         "operation": "append",
         "implementation": "legacy",
         "bytes": 4096,
-        "seconds": 0.001846698,
+        "seconds": 0.001887975,
         "checksum": 4096,
         "repeat": 3
       },
@@ -793,7 +793,7 @@
         "operation": "append",
         "implementation": "builder",
         "bytes": 4096,
-        "seconds": 3.892e-06,
+        "seconds": 9.583e-06,
         "checksum": 4096,
         "repeat": 3
       },
@@ -801,7 +801,7 @@
         "operation": "match",
         "implementation": "substring",
         "bytes": 4096,
-        "seconds": 0.000172054,
+        "seconds": 0.000151054,
         "checksum": 4096,
         "repeat": 3
       },
@@ -809,7 +809,7 @@
         "operation": "match",
         "implementation": "view",
         "bytes": 4096,
-        "seconds": 1.1511e-05,
+        "seconds": 5.1883e-05,
         "checksum": 4096,
         "repeat": 3
       },
@@ -817,7 +817,7 @@
         "operation": "append_slice",
         "implementation": "substring",
         "bytes": 4096,
-        "seconds": 5.525e-06,
+        "seconds": 6.438e-06,
         "checksum": 4096,
         "repeat": 3
       },
@@ -825,7 +825,7 @@
         "operation": "append_slice",
         "implementation": "view",
         "bytes": 4096,
-        "seconds": 9.89e-07,
+        "seconds": 1.252e-06,
         "checksum": 4096,
         "repeat": 3
       },
@@ -833,7 +833,7 @@
         "operation": "scan",
         "implementation": "legacy",
         "bytes": 16384,
-        "seconds": 0.001610769,
+        "seconds": 0.001471374,
         "checksum": 1966080,
         "repeat": 3
       },
@@ -841,7 +841,7 @@
         "operation": "scan",
         "implementation": "view",
         "bytes": 16384,
-        "seconds": 9.947e-06,
+        "seconds": 1.4293e-05,
         "checksum": 1966080,
         "repeat": 3
       },
@@ -849,7 +849,7 @@
         "operation": "append",
         "implementation": "legacy",
         "bytes": 16384,
-        "seconds": 0.022933014,
+        "seconds": 0.026858381,
         "checksum": 16384,
         "repeat": 3
       },
@@ -857,7 +857,7 @@
         "operation": "append",
         "implementation": "builder",
         "bytes": 16384,
-        "seconds": 1.466e-05,
+        "seconds": 4.0265e-05,
         "checksum": 16384,
         "repeat": 3
       },
@@ -865,7 +865,7 @@
         "operation": "match",
         "implementation": "substring",
         "bytes": 16384,
-        "seconds": 0.000410284,
+        "seconds": 0.000419615,
         "checksum": 4096,
         "repeat": 3
       },
@@ -873,7 +873,7 @@
         "operation": "match",
         "implementation": "view",
         "bytes": 16384,
-        "seconds": 1.2085e-05,
+        "seconds": 1.1925e-05,
         "checksum": 4096,
         "repeat": 3
       },
@@ -881,7 +881,7 @@
         "operation": "append_slice",
         "implementation": "substring",
         "bytes": 16384,
-        "seconds": 5.2957e-05,
+        "seconds": 5.4717e-05,
         "checksum": 16384,
         "repeat": 3
       },
@@ -889,7 +889,7 @@
         "operation": "append_slice",
         "implementation": "view",
         "bytes": 16384,
-        "seconds": 2.386e-06,
+        "seconds": 3.257e-06,
         "checksum": 16384,
         "repeat": 3
       },
@@ -897,7 +897,7 @@
         "operation": "scan",
         "implementation": "legacy",
         "bytes": 65536,
-        "seconds": 0.032363536,
+        "seconds": 0.043987536,
         "checksum": 7864320,
         "repeat": 3
       },
@@ -905,7 +905,7 @@
         "operation": "scan",
         "implementation": "view",
         "bytes": 65536,
-        "seconds": 3.9653e-05,
+        "seconds": 5.7239e-05,
         "checksum": 7864320,
         "repeat": 3
       },
@@ -913,7 +913,7 @@
         "operation": "match",
         "implementation": "substring",
         "bytes": 65536,
-        "seconds": 0.002088334,
+        "seconds": 0.00291482,
         "checksum": 4096,
         "repeat": 3
       },
@@ -921,7 +921,7 @@
         "operation": "match",
         "implementation": "view",
         "bytes": 65536,
-        "seconds": 1.2058e-05,
+        "seconds": 1.2467e-05,
         "checksum": 4096,
         "repeat": 3
       },
@@ -929,7 +929,7 @@
         "operation": "append_slice",
         "implementation": "substring",
         "bytes": 65536,
-        "seconds": 0.001049263,
+        "seconds": 0.001357386,
         "checksum": 65536,
         "repeat": 3
       },
@@ -937,7 +937,7 @@
         "operation": "append_slice",
         "implementation": "view",
         "bytes": 65536,
-        "seconds": 1.269e-05,
+        "seconds": 1.6532e-05,
         "checksum": 65536,
         "repeat": 3
       },
@@ -945,7 +945,7 @@
         "operation": "scan",
         "implementation": "legacy",
         "bytes": 4096,
-        "seconds": 0.000149004,
+        "seconds": 0.000154781,
         "checksum": 491520,
         "repeat": 4
       },
@@ -953,7 +953,7 @@
         "operation": "scan",
         "implementation": "view",
         "bytes": 4096,
-        "seconds": 9.04e-06,
+        "seconds": 9.65e-06,
         "checksum": 491520,
         "repeat": 4
       },
@@ -961,7 +961,7 @@
         "operation": "append",
         "implementation": "legacy",
         "bytes": 4096,
-        "seconds": 0.001798722,
+        "seconds": 0.001882161,
         "checksum": 4096,
         "repeat": 4
       },
@@ -969,7 +969,7 @@
         "operation": "append",
         "implementation": "builder",
         "bytes": 4096,
-        "seconds": 3.776e-06,
+        "seconds": 5.169e-06,
         "checksum": 4096,
         "repeat": 4
       },
@@ -977,7 +977,7 @@
         "operation": "match",
         "implementation": "substring",
         "bytes": 4096,
-        "seconds": 0.000131173,
+        "seconds": 0.000149113,
         "checksum": 4096,
         "repeat": 4
       },
@@ -985,7 +985,7 @@
         "operation": "match",
         "implementation": "view",
         "bytes": 4096,
-        "seconds": 1.2189e-05,
+        "seconds": 1.1863e-05,
         "checksum": 4096,
         "repeat": 4
       },
@@ -993,7 +993,7 @@
         "operation": "append_slice",
         "implementation": "substring",
         "bytes": 4096,
-        "seconds": 5.291e-06,
+        "seconds": 5.951e-06,
         "checksum": 4096,
         "repeat": 4
       },
@@ -1001,7 +1001,7 @@
         "operation": "append_slice",
         "implementation": "view",
         "bytes": 4096,
-        "seconds": 1.079e-06,
+        "seconds": 1.24e-06,
         "checksum": 4096,
         "repeat": 4
       },
@@ -1009,7 +1009,7 @@
         "operation": "scan",
         "implementation": "legacy",
         "bytes": 16384,
-        "seconds": 0.00157582,
+        "seconds": 0.001815322,
         "checksum": 1966080,
         "repeat": 4
       },
@@ -1017,7 +1017,7 @@
         "operation": "scan",
         "implementation": "view",
         "bytes": 16384,
-        "seconds": 9.918e-06,
+        "seconds": 1.776e-05,
         "checksum": 1966080,
         "repeat": 4
       },
@@ -1025,7 +1025,7 @@
         "operation": "append",
         "implementation": "legacy",
         "bytes": 16384,
-        "seconds": 0.023008519,
+        "seconds": 0.029146793,
         "checksum": 16384,
         "repeat": 4
       },
@@ -1033,7 +1033,7 @@
         "operation": "append",
         "implementation": "builder",
         "bytes": 16384,
-        "seconds": 1.4591e-05,
+        "seconds": 4.0219e-05,
         "checksum": 16384,
         "repeat": 4
       },
@@ -1041,7 +1041,7 @@
         "operation": "match",
         "implementation": "substring",
         "bytes": 16384,
-        "seconds": 0.000419551,
+        "seconds": 0.000415971,
         "checksum": 4096,
         "repeat": 4
       },
@@ -1049,7 +1049,7 @@
         "operation": "match",
         "implementation": "view",
         "bytes": 16384,
-        "seconds": 1.2212e-05,
+        "seconds": 1.1905e-05,
         "checksum": 4096,
         "repeat": 4
       },
@@ -1057,7 +1057,7 @@
         "operation": "append_slice",
         "implementation": "substring",
         "bytes": 16384,
-        "seconds": 5.6016e-05,
+        "seconds": 5.5664e-05,
         "checksum": 16384,
         "repeat": 4
       },
@@ -1065,7 +1065,7 @@
         "operation": "append_slice",
         "implementation": "view",
         "bytes": 16384,
-        "seconds": 3.283e-06,
+        "seconds": 3.295e-06,
         "checksum": 16384,
         "repeat": 4
       },
@@ -1073,7 +1073,7 @@
         "operation": "scan",
         "implementation": "legacy",
         "bytes": 65536,
-        "seconds": 0.032621919,
+        "seconds": 0.050937958,
         "checksum": 7864320,
         "repeat": 4
       },
@@ -1081,7 +1081,7 @@
         "operation": "scan",
         "implementation": "view",
         "bytes": 65536,
-        "seconds": 3.9596e-05,
+        "seconds": 5.7155e-05,
         "checksum": 7864320,
         "repeat": 4
       },
@@ -1089,7 +1089,7 @@
         "operation": "match",
         "implementation": "substring",
         "bytes": 65536,
-        "seconds": 0.002058259,
+        "seconds": 0.002568789,
         "checksum": 4096,
         "repeat": 4
       },
@@ -1097,7 +1097,7 @@
         "operation": "match",
         "implementation": "view",
         "bytes": 65536,
-        "seconds": 1.1962e-05,
+        "seconds": 1.2401e-05,
         "checksum": 4096,
         "repeat": 4
       },
@@ -1105,7 +1105,7 @@
         "operation": "append_slice",
         "implementation": "substring",
         "bytes": 65536,
-        "seconds": 0.001046966,
+        "seconds": 0.001417218,
         "checksum": 65536,
         "repeat": 4
       },
@@ -1113,7 +1113,7 @@
         "operation": "append_slice",
         "implementation": "view",
         "bytes": 65536,
-        "seconds": 1.2549e-05,
+        "seconds": 1.8132e-05,
         "checksum": 65536,
         "repeat": 4
       },
@@ -1121,7 +1121,7 @@
         "operation": "scan",
         "implementation": "legacy",
         "bytes": 4096,
-        "seconds": 0.000148776,
+        "seconds": 0.000178056,
         "checksum": 491520,
         "repeat": 5
       },
@@ -1129,7 +1129,7 @@
         "operation": "scan",
         "implementation": "view",
         "bytes": 4096,
-        "seconds": 9.936e-06,
+        "seconds": 1.0942e-05,
         "checksum": 491520,
         "repeat": 5
       },
@@ -1137,7 +1137,7 @@
         "operation": "append",
         "implementation": "legacy",
         "bytes": 4096,
-        "seconds": 0.00178521,
+        "seconds": 0.001904787,
         "checksum": 4096,
         "repeat": 5
       },
@@ -1145,7 +1145,7 @@
         "operation": "append",
         "implementation": "builder",
         "bytes": 4096,
-        "seconds": 3.602e-06,
+        "seconds": 8.106e-06,
         "checksum": 4096,
         "repeat": 5
       },
@@ -1153,7 +1153,7 @@
         "operation": "match",
         "implementation": "substring",
         "bytes": 4096,
-        "seconds": 0.000184344,
+        "seconds": 0.000150774,
         "checksum": 4096,
         "repeat": 5
       },
@@ -1161,7 +1161,7 @@
         "operation": "match",
         "implementation": "view",
         "bytes": 4096,
-        "seconds": 1.1518e-05,
+        "seconds": 1.1917e-05,
         "checksum": 4096,
         "repeat": 5
       },
@@ -1169,7 +1169,7 @@
         "operation": "append_slice",
         "implementation": "substring",
         "bytes": 4096,
-        "seconds": 6.071e-06,
+        "seconds": 6.01e-06,
         "checksum": 4096,
         "repeat": 5
       },
@@ -1177,7 +1177,7 @@
         "operation": "append_slice",
         "implementation": "view",
         "bytes": 4096,
-        "seconds": 9.13e-07,
+        "seconds": 1.159e-06,
         "checksum": 4096,
         "repeat": 5
       },
@@ -1185,7 +1185,7 @@
         "operation": "scan",
         "implementation": "legacy",
         "bytes": 16384,
-        "seconds": 0.001576245,
+        "seconds": 0.004056322,
         "checksum": 1966080,
         "repeat": 5
       },
@@ -1193,7 +1193,7 @@
         "operation": "scan",
         "implementation": "view",
         "bytes": 16384,
-        "seconds": 9.88e-06,
+        "seconds": 9.688e-06,
         "checksum": 1966080,
         "repeat": 5
       },
@@ -1201,7 +1201,7 @@
         "operation": "append",
         "implementation": "legacy",
         "bytes": 16384,
-        "seconds": 0.023811374,
+        "seconds": 0.031912575,
         "checksum": 16384,
         "repeat": 5
       },
@@ -1209,7 +1209,7 @@
         "operation": "append",
         "implementation": "builder",
         "bytes": 16384,
-        "seconds": 1.4932e-05,
+        "seconds": 1.8759e-05,
         "checksum": 16384,
         "repeat": 5
       },
@@ -1217,7 +1217,7 @@
         "operation": "match",
         "implementation": "substring",
         "bytes": 16384,
-        "seconds": 0.000424467,
+        "seconds": 0.000416676,
         "checksum": 4096,
         "repeat": 5
       },
@@ -1225,7 +1225,7 @@
         "operation": "match",
         "implementation": "view",
         "bytes": 16384,
-        "seconds": 1.1907e-05,
+        "seconds": 1.1951e-05,
         "checksum": 4096,
         "repeat": 5
       },
@@ -1233,7 +1233,7 @@
         "operation": "append_slice",
         "implementation": "substring",
         "bytes": 16384,
-        "seconds": 5.4468e-05,
+        "seconds": 5.5647e-05,
         "checksum": 16384,
         "repeat": 5
       },
@@ -1241,7 +1241,7 @@
         "operation": "append_slice",
         "implementation": "view",
         "bytes": 16384,
-        "seconds": 2.474e-06,
+        "seconds": 3.345e-06,
         "checksum": 16384,
         "repeat": 5
       },
@@ -1249,7 +1249,7 @@
         "operation": "scan",
         "implementation": "legacy",
         "bytes": 65536,
-        "seconds": 0.032342292,
+        "seconds": 0.040320418,
         "checksum": 7864320,
         "repeat": 5
       },
@@ -1257,7 +1257,7 @@
         "operation": "scan",
         "implementation": "view",
         "bytes": 65536,
-        "seconds": 4.238e-05,
+        "seconds": 4.7827e-05,
         "checksum": 7864320,
         "repeat": 5
       },
@@ -1265,7 +1265,7 @@
         "operation": "match",
         "implementation": "substring",
         "bytes": 65536,
-        "seconds": 0.002187109,
+        "seconds": 0.002566362,
         "checksum": 4096,
         "repeat": 5
       },
@@ -1273,7 +1273,7 @@
         "operation": "match",
         "implementation": "view",
         "bytes": 65536,
-        "seconds": 1.2152e-05,
+        "seconds": 1.2395e-05,
         "checksum": 4096,
         "repeat": 5
       },
@@ -1281,7 +1281,7 @@
         "operation": "append_slice",
         "implementation": "substring",
         "bytes": 65536,
-        "seconds": 0.001080207,
+        "seconds": 0.001305012,
         "checksum": 65536,
         "repeat": 5
       },
@@ -1289,7 +1289,7 @@
         "operation": "append_slice",
         "implementation": "view",
         "bytes": 65536,
-        "seconds": 1.2794e-05,
+        "seconds": 1.5792e-05,
         "checksum": 65536,
         "repeat": 5
       }
@@ -1299,41 +1299,41 @@
         "repeat": 1,
         "declarations": 100000,
         "iterations": 15,
-        "parse_seconds": 0.485333597,
+        "parse_seconds": 0.610455287,
         "realloc_calls": 225,
-        "raw_stdout": "declarations=100000 iterations=15 parse_seconds=0.485333597 realloc_calls=225\n"
+        "raw_stdout": "declarations=100000 iterations=15 parse_seconds=0.610455287 realloc_calls=225\n"
       },
       {
         "repeat": 2,
         "declarations": 100000,
         "iterations": 15,
-        "parse_seconds": 0.486897728,
+        "parse_seconds": 0.578380421,
         "realloc_calls": 225,
-        "raw_stdout": "declarations=100000 iterations=15 parse_seconds=0.486897728 realloc_calls=225\n"
+        "raw_stdout": "declarations=100000 iterations=15 parse_seconds=0.578380421 realloc_calls=225\n"
       },
       {
         "repeat": 3,
         "declarations": 100000,
         "iterations": 15,
-        "parse_seconds": 0.482471039,
+        "parse_seconds": 0.56135436,
         "realloc_calls": 225,
-        "raw_stdout": "declarations=100000 iterations=15 parse_seconds=0.482471039 realloc_calls=225\n"
+        "raw_stdout": "declarations=100000 iterations=15 parse_seconds=0.561354360 realloc_calls=225\n"
       },
       {
         "repeat": 4,
         "declarations": 100000,
         "iterations": 15,
-        "parse_seconds": 0.485016847,
+        "parse_seconds": 0.546423453,
         "realloc_calls": 225,
-        "raw_stdout": "declarations=100000 iterations=15 parse_seconds=0.485016847 realloc_calls=225\n"
+        "raw_stdout": "declarations=100000 iterations=15 parse_seconds=0.546423453 realloc_calls=225\n"
       },
       {
         "repeat": 5,
         "declarations": 100000,
         "iterations": 15,
-        "parse_seconds": 0.486986184,
+        "parse_seconds": 0.546206813,
         "realloc_calls": 225,
-        "raw_stdout": "declarations=100000 iterations=15 parse_seconds=0.486986184 realloc_calls=225\n"
+        "raw_stdout": "declarations=100000 iterations=15 parse_seconds=0.546206813 realloc_calls=225\n"
       }
     ]
   },
