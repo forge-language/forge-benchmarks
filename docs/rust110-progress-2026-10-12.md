@@ -433,3 +433,7 @@ The 128,000-request V3.3 observation also completed all eight measured and eight
 ## Rejected target remainder policy
 
 Six native generated-C screening jobs completed without arithmetic mismatches. ARM64 branch hints did not improve macOS prime, while disabling reciprocal on a Windows Zen 3 runner regressed prime by about 5.4%. A Linux EPYC 9V74 runner exposed no selected macro and produced byte-identical control/candidate binaries. Neither policy is adopted in the compiler; the all-platform prime target remains unresolved. [All rows, rejected hypotheses and attempt ledger](target-remainder-cross-os-2026-10-13.md).
+
+## Exact bounded modular-power prototype
+
+Six native tight-pow generated-C screening jobs completed; all 30 candidate/Rust row-wise lower 95% bounds exceed 1.10 across five workloads. Prime gains current Forge by 1.32–1.35× on macOS, 1.36× on Linux and 1.11–1.13× on Windows. All 720 direct checks, 5,400 prewarms and 5,400 measurements match. This is a prototype, not unchanged-compiler release evidence: the generic matcher implementation requires its own semantic/regression and native performance gate. [Full rows and proof](tight-pow-prototype-cross-os-2026-10-13.md).
