@@ -1,0 +1,818 @@
+{
+  "status": "passed",
+  "protocol": "prepared-http-v2-bounded-connect-stage-observer",
+  "workers": 4,
+  "concurrency": 128,
+  "requests": 1024,
+  "seed": 809410301,
+  "body_bytes": 4096,
+  "connect_timeout_ms": 5000,
+  "observer_failure_policy": "first failure stops new requests; all in-flight attempts retained; trial fails without retry",
+  "body_sha256": "413312ec488e6d38090dcfbcf836e8732940eb4bf97edf97b011e76edead3abc",
+  "expected_response_sha256": "96ddcd8276e153554b35f3b9f345e335c248a82bccbb9779f024447f33d0717e",
+  "expected_response_bytes": 4156,
+  "raw_prefix": "/home/helloworld0822/coding/forge-benchmarks/docs/http-v2-capacity-2026-10-12.raw/w4-b4096-c128-r01-0-rust-measurement",
+  "server_cpus": [
+    0,
+    2,
+    4,
+    6
+  ],
+  "client_cpus": [
+    8,
+    10
+  ],
+  "server_command": [
+    "/tmp/forge-http-v2-capacity-build-20261012/rust-http",
+    "49591",
+    "4",
+    "UNDSQRMMZTPQPYNOBHCACGDVSFUZDJQKEEDQUPWCESZKNFUSZHFUGMWEJKODHZLSECLKVUXMPREOJOUKLPCCVTNHJSJMDHJQVHIWTICGRZOVMUHKEHKEDIRGHUNGSCRTLMNEJNFBDDPDHRXTEXDBJOCJKQIPLTRBNKRTEVUPDSIFBWHSOLMWYXOLSPHMOHFFABCAWAMMIFMPCEHVEUWNIRZLZNQNBPASCLNNSFCDNNPUASQEWBWKZQKESAZZSREHPFSXLBUVBVKTFWGYLZSPOBZMAYIIVDSLJKKHXHEAPKRTUQMFBVNFPFNVYSLNFHJKXOTJOVOTHRQRRMZWZIQJKSZPNJSFASKJXDWNVLXOZSJBKDEREXHTBHNKYVZGMIURMCGXZCCISDTTDLLSGQDSJZHXERZEBZNUFRSFIJILUNKYKALBMDNJHANJANNJUTERATHEJKASLZJDWYRLMGSMGAZBPGPFQAKPLCQUSQNEAPEWXIUWBIUYOBNKUNKGSQSWEEDKYFGOXRQNXZVSFRCGJBLONBIGPDRFSXDLASYPIJMCCGHBTQGUJXPLVGKOKYIOJSQVHIWKBTEHTONPLGXPNSALRWFRMALMTFYLHQVOWJEIHWQTHXQNEKZCRLXXZIVBWWAWKSRMSPUQQZWFRRBYOJJNLNGOXYGATMFQQTBVSWFNCYFAYCXNRAJDXFMAEZJALUKNXWDUGOPDZRGNLUQMCQNPMAUCYIYAFHVCWTTUEZWLLLVUGSGGMIBRUANKSHTLHJSKOCGCDREVVICYLUMWYLPHMDNGSSNHGABWSSVXAFGDPNSVPWQIAREOYYUWZTBIQISOHXDRADZYJPEGCFFYVYCXTSEUJBIUFBJXDXMCJXFYCADIPFKOHBVEQYIWTXVNAZXGRNEABNEJZIATVQCIZPUANYOCUSAKCHPKVENUYKBPGMKFPBXAUSCZEYWUIMHAKVSERXQSNFFBRSMWBZBUXCIZWTDJZBDLJBMRNMCQDTDWJEHRXDULZAYFVQIFAWJQVPGLRYCCFCCWJOMEVVMQUXAEKAIFSCUKBTLSFCGYAWGCDVEOUEEESWMWJKTVMUNKJRGDWBFJPVKXPQGDEWLOPCFRPZFVYEUWYKRXXNEHJMBVURRZDXOFVTLQYPQFPDSYVTYHTMFTCDMVXLWYVOGWEAFCDQSDZUCMYNEJDCTORQCELUFTOPFZXCVQGHLYMWXAOEXALKSXFXYZAKRVOSYTPFVXTNAURYMCTQXAYUQBHEZWNVGHHLSQGIMNSOAERSYVXBLMRZHPDSJDPHZBCAQKOQJAJLQUMIRYTYWGRPEDWGUCFDGUBZTXSGHTQQRFNLPQZBFLQJQDRZIKYNBNNTMRTLQNNPVZHQLSUKAIRDFYUSJQRVHKGCUWVPDWQPTMAKYAITZTYDCNVLWXGZKAWEFUSRDXTTMQIOJHDNHWGPKSPSUVFFCNRLGQDPJHBSFKTYZWYHVWXUPEMJEMSCIQBUUSDLMIOZHKAWSLRDLGSZBXSXXQBWMLXZXLNGAQDNGGHXCGAFBMSCFICZZHRZBVKHJUXDMSGVELLXXUWXDQVXEPPOYIYCHNBOWRVATCDCFYNCBVWNTZNMBIVYTIYLADCRQIQZOGJFXLRFZWZZLUHBIJITJFFXKZBORHYKJXZHOBRDHYYUVCWCLUNLXFICAEWVDYMBEYSYWASTKVFVMNMKCQSCVYZJIXBDENSSHFOUTCCWRJBLCISFDANUFKLNNJQYQESMYXYJGLRXSMCPDISIRMQXVGUQRZYXKEUVHRQANOOPDYOBGEBTUABLJTDHQBUPBVHMFEWKGLPLBLCEBODMFBSTZOFSMQFZKODDWESFYALNJPQERSLGAVROKPWYNVEWQECICFVZFOSQMGPMNHFRPGINZWZBKVWNVJKPRLBOXBDXETNBHBYNDEDBUIFMXIYYBAYMPKXGITANYKYHUCHLGZFQLORYPLMWICXEOCXDYVVNEYIIGSHLXETXNVIVMRQSJOFFDEDNYWFRPNSWMUTIYDQGXZACWIZQZDQXZYMOSVCZTLWEIAPOSAYDOYCSVEYCBXVPLJJYSNWMVWEQLNNJUNJPBKTCYDIFSDMGZYDTAVIDIXNENVGRABMANEJKXEQJJAYCMFXJOYASIISRWQWIDBWKDUXOKZMDMHXUSZNZMOIIDDWWOCIZPCASXKROBHVXAIYLPEWHZEAAUAIALRYDUFJVNZJQUHMKWHGLSWXIOVHTFPNZZDLTQEANRNHTQDRNQRZDHKPYPNSVNAOIFZGASYVKVYXUNESRBGIXANLHNIHAZBDBWLYHDDORUZFCZIXIEIVLUUIKLDZPCBDNSADUORXQKBVKVBENWXANCNQYLYJBQNLLTUEIBZJZPDQJLYXDKBCYXFZOKZUAFPXTARCXWKODCYKYGPOVOIVEIMXSUEJJVXZWMSSZEGCEELFEXIEOCZVEXGNGXZFYYTPKVFAIVBUEIYJABHMZRSYVEZUGMSWVLAUYCAAWIMTXLJONKLMNOHUVGDHLZGFZPVDVLZLLOCVYGJLOXBOSLWIPMPKEVKKORDJXQSVUGISGZYFMOOCCSECTZZQYJPCRONAXQCZWCJHVNXKSFXEHEXJFTJGCBPNXRYAYBQRGMXJNHHCIKHIOIDWRXQDGZVVCNKQIHHVVGXJQAHXHVAQRJAWRZFQQVALKNGUHNDLHSYCQWJIVVBRNYVWFPSVHBPRLVOPDIKUGFRSDXODPNWZYJFBKJOGWPDODSHWIDTHRFMOSMKGSXJNEAMOLLLWGSZFKRKYSRRUNCUROCELKXKFZAKWAUIUCHVJHWZNOUIBEQILIFOGEGVPJZDOGUINTPFYJAQDWXFWLWFOVCWKIRASXCUVOJXZEGXQMLCNWDWGWWMFEQURHLCFNVEKIVNHPCXAECECNDSVMYRUJZKEGKMKLLZVIADLSDVVTYOPVHAMFEJZPCVGEXYNPLGPOHFKKULZWISTIHUXIMQWJPIUILVUHIYPNPDBKDGZSEQRZAMAABBDYWKCIFKQXLVTPEWVASEDXISSZNDKBVLBGOKSYPONSQGSURDKDLKKXITLJFTTYKELYSPRTDZOCHFYMMYIGWESWARLUCQCYBUMXZGIHRMYTMXCDNCSYEGYVTXAFQJEIYFPOMVPGYZWRTZYMHUMGKZTCWLBJLAKIBPCQEEKKUJDENSTFJZKVGZFDUKEFNWGLXWVUKBJQVOCOELIYPAZSGXAXUTGGYLZAFWZPPHVKSGNQIIRECWGKLIYGYSDZMSZZLPDBATNWPFTJQPSCNFFOHKHLYPGJWWJIUMEFAIMYJSKVLXTTFSCWDXUWCDCJINDSDLOYUXYDKGSUOOUOMCKTXNHPAAFVXPPGLNSHATHAIPEDKDHOQSCYWCOPDHXMQGBJKUTMXWQSJEFRYXQBFVKQVTLENDZIOSDYNKAWULEWAGJAFANCVGRFXFXHPMBCDQTUIIGGKZJVXCSUZVFLTPRVGPAMYNEDUCSMDZWJLMFAKXKYKVMZYROJIKXFNVIYTZBZMBWDPNDZOCBKEGNNZQKDHRJQHSUCWMYFTPFKIFQVQBGLPFMFPFZOJJKWNQLHREGJPXAQLJIFXORPAPVLUGYCOTGBPUHYRIXDYYLXXZNSLLMABORFGMENJAJCNYWRXPQKTZRPJJGTFZTNLIIFPGQZFWMUYRRDAPOHLRIAKTADDLKQUKVPFXNQQPTSLTPUVSJOCNMKRFJOCNHCKHHOZNIMEBBDQVAAXVGCVXXVBGGVVDFYPMTFMUWMZHBTYJRLKIZPJDDVRALBXWMMCXNWOKXTEYKUDYDGRWXDBAZMLUNNCREFTWOVMQJHDRNGWIRFRHMPUBYMCLDPURDTVRUKZIAMEWIDPMMUDOYHIXXGEIZCHIBFQLMKXHSUKUCRKVIAMNKXLGUZMSRCBPDNLWZESIGOHNILNXSWZEFDTZXOPOMTNPSBKSSXAMFPBWFLFRUBBDGVJFTYMMFAGPZJGVDASIKWMXDVKJISGZTMZABNXJHDNKAUQTZNHQMDSKGOYZOKXEGCYSHKEYLGWWGUFHLLDEQYTOYNVHELIVHEQFUEVFUYEFMQPPQCBWHDINTHJW"
+  ],
+  "server_affinity_before": {
+    "295589": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "295590": [
+      0
+    ],
+    "295591": [
+      2
+    ],
+    "295592": [
+      4
+    ],
+    "295593": [
+      6
+    ]
+  },
+  "independent_probe": {
+    "request_sha256": "01723beabbc7a34f3c101b1347cd6ab5c68843cdd7b2d52157decbefee6abcc6",
+    "response_sha256": "96ddcd8276e153554b35f3b9f345e335c248a82bccbb9779f024447f33d0717e",
+    "response_bytes": 4156,
+    "fragmented": false
+  },
+  "load_command": [
+    "/tmp/forge-http-v2-capacity-build-20261012/http-load",
+    "49591",
+    "128",
+    "1024",
+    "809410301",
+    "/home/helloworld0822/coding/forge-benchmarks/docs/http-v2-capacity-2026-10-12.raw/w4-b4096-c128-r01-0-rust-measurement-expected.bin",
+    "/home/helloworld0822/coding/forge-benchmarks/docs/http-v2-capacity-2026-10-12.raw/w4-b4096-c128-r01-0-rust-measurement-requests.tsv",
+    "5000"
+  ],
+  "client_affinity": {
+    "295594": [
+      8,
+      10
+    ],
+    "295595": [
+      8,
+      10
+    ],
+    "295596": [
+      8,
+      10
+    ],
+    "295597": [
+      8,
+      10
+    ],
+    "295598": [
+      8,
+      10
+    ],
+    "295599": [
+      8,
+      10
+    ],
+    "295600": [
+      8,
+      10
+    ],
+    "295601": [
+      8,
+      10
+    ],
+    "295602": [
+      8,
+      10
+    ],
+    "295603": [
+      8,
+      10
+    ],
+    "295604": [
+      8,
+      10
+    ],
+    "295605": [
+      8,
+      10
+    ],
+    "295606": [
+      8,
+      10
+    ],
+    "295607": [
+      8,
+      10
+    ],
+    "295608": [
+      8,
+      10
+    ],
+    "295609": [
+      8,
+      10
+    ],
+    "295610": [
+      8,
+      10
+    ],
+    "295611": [
+      8,
+      10
+    ],
+    "295612": [
+      8,
+      10
+    ],
+    "295613": [
+      8,
+      10
+    ],
+    "295614": [
+      8,
+      10
+    ],
+    "295615": [
+      8,
+      10
+    ],
+    "295616": [
+      8,
+      10
+    ],
+    "295617": [
+      8,
+      10
+    ],
+    "295618": [
+      8,
+      10
+    ],
+    "295619": [
+      8,
+      10
+    ],
+    "295620": [
+      8,
+      10
+    ],
+    "295621": [
+      8,
+      10
+    ],
+    "295622": [
+      8,
+      10
+    ],
+    "295623": [
+      8,
+      10
+    ],
+    "295624": [
+      8,
+      10
+    ],
+    "295625": [
+      8,
+      10
+    ],
+    "295626": [
+      8,
+      10
+    ],
+    "295627": [
+      8,
+      10
+    ],
+    "295628": [
+      8,
+      10
+    ],
+    "295629": [
+      8,
+      10
+    ],
+    "295630": [
+      8,
+      10
+    ],
+    "295631": [
+      8,
+      10
+    ],
+    "295632": [
+      8,
+      10
+    ],
+    "295633": [
+      8,
+      10
+    ],
+    "295634": [
+      8,
+      10
+    ],
+    "295635": [
+      8,
+      10
+    ],
+    "295636": [
+      8,
+      10
+    ],
+    "295637": [
+      8,
+      10
+    ],
+    "295638": [
+      8,
+      10
+    ],
+    "295639": [
+      8,
+      10
+    ],
+    "295640": [
+      8,
+      10
+    ],
+    "295641": [
+      8,
+      10
+    ],
+    "295642": [
+      8,
+      10
+    ],
+    "295643": [
+      8,
+      10
+    ],
+    "295644": [
+      8,
+      10
+    ],
+    "295645": [
+      8,
+      10
+    ],
+    "295646": [
+      8,
+      10
+    ],
+    "295647": [
+      8,
+      10
+    ],
+    "295648": [
+      8,
+      10
+    ],
+    "295649": [
+      8,
+      10
+    ],
+    "295650": [
+      8,
+      10
+    ],
+    "295651": [
+      8,
+      10
+    ],
+    "295652": [
+      8,
+      10
+    ],
+    "295653": [
+      8,
+      10
+    ],
+    "295654": [
+      8,
+      10
+    ],
+    "295655": [
+      8,
+      10
+    ],
+    "295656": [
+      8,
+      10
+    ],
+    "295657": [
+      8,
+      10
+    ],
+    "295658": [
+      8,
+      10
+    ],
+    "295659": [
+      8,
+      10
+    ],
+    "295660": [
+      8,
+      10
+    ],
+    "295661": [
+      8,
+      10
+    ],
+    "295662": [
+      8,
+      10
+    ],
+    "295663": [
+      8,
+      10
+    ],
+    "295664": [
+      8,
+      10
+    ],
+    "295665": [
+      8,
+      10
+    ],
+    "295666": [
+      8,
+      10
+    ],
+    "295667": [
+      8,
+      10
+    ],
+    "295668": [
+      8,
+      10
+    ],
+    "295669": [
+      8,
+      10
+    ],
+    "295670": [
+      8,
+      10
+    ],
+    "295671": [
+      8,
+      10
+    ],
+    "295672": [
+      8,
+      10
+    ],
+    "295673": [
+      8,
+      10
+    ],
+    "295674": [
+      8,
+      10
+    ],
+    "295675": [
+      8,
+      10
+    ],
+    "295676": [
+      8,
+      10
+    ],
+    "295677": [
+      8,
+      10
+    ],
+    "295678": [
+      8,
+      10
+    ],
+    "295679": [
+      8,
+      10
+    ],
+    "295680": [
+      8,
+      10
+    ],
+    "295681": [
+      8,
+      10
+    ],
+    "295682": [
+      8,
+      10
+    ],
+    "295683": [
+      8,
+      10
+    ],
+    "295684": [
+      8,
+      10
+    ],
+    "295685": [
+      8,
+      10
+    ],
+    "295686": [
+      8,
+      10
+    ],
+    "295687": [
+      8,
+      10
+    ],
+    "295688": [
+      8,
+      10
+    ],
+    "295689": [
+      8,
+      10
+    ],
+    "295690": [
+      8,
+      10
+    ],
+    "295691": [
+      8,
+      10
+    ],
+    "295692": [
+      8,
+      10
+    ],
+    "295693": [
+      8,
+      10
+    ],
+    "295694": [
+      8,
+      10
+    ],
+    "295695": [
+      8,
+      10
+    ],
+    "295696": [
+      8,
+      10
+    ],
+    "295697": [
+      8,
+      10
+    ],
+    "295698": [
+      8,
+      10
+    ],
+    "295699": [
+      8,
+      10
+    ],
+    "295700": [
+      8,
+      10
+    ],
+    "295701": [
+      8,
+      10
+    ],
+    "295702": [
+      8,
+      10
+    ],
+    "295703": [
+      8,
+      10
+    ],
+    "295704": [
+      8,
+      10
+    ],
+    "295705": [
+      8,
+      10
+    ],
+    "295706": [
+      8,
+      10
+    ],
+    "295707": [
+      8,
+      10
+    ],
+    "295708": [
+      8,
+      10
+    ],
+    "295709": [
+      8,
+      10
+    ],
+    "295710": [
+      8,
+      10
+    ],
+    "295711": [
+      8,
+      10
+    ],
+    "295712": [
+      8,
+      10
+    ],
+    "295713": [
+      8,
+      10
+    ],
+    "295714": [
+      8,
+      10
+    ],
+    "295715": [
+      8,
+      10
+    ],
+    "295716": [
+      8,
+      10
+    ],
+    "295717": [
+      8,
+      10
+    ],
+    "295718": [
+      8,
+      10
+    ],
+    "295719": [
+      8,
+      10
+    ],
+    "295720": [
+      8,
+      10
+    ],
+    "295721": [
+      8,
+      10
+    ],
+    "295722": [
+      8,
+      10
+    ]
+  },
+  "passive_kernel_before": {
+    "observed_at_utc": "2026-10-12T06:38:57Z",
+    "scope": "network namespace/global; attribution unproven",
+    "sysctls": {
+      "net/ipv4/tcp_syn_retries": "6",
+      "net/ipv4/tcp_syn_linear_timeouts": "4",
+      "net/ipv4/tcp_tw_reuse": "2",
+      "net/ipv4/ip_local_port_range": "32768\t60999",
+      "net/ipv4/tcp_max_tw_buckets": "65536",
+      "net/ipv4/tcp_max_syn_backlog": "1024",
+      "net/core/somaxconn": "4096",
+      "net/netfilter/nf_conntrack_count": "148685",
+      "net/netfilter/nf_conntrack_max": "262144",
+      "net/ipv4/tcp_mem": "180369\t240493\t360738"
+    },
+    "errors": [],
+    "global_tcp_ext_counters": {
+      "ListenOverflows": 1,
+      "ListenDrops": 1,
+      "TCPSynRetrans": 26202,
+      "TCPTimeouts": 2143588,
+      "TCPMemoryPressures": 1,
+      "TCPTimeWaitOverflow": 5591258,
+      "TCPReqQFullDrop": 0,
+      "TCPReqQFullDoCookies": 0,
+      "TCPBacklogDrop": 0,
+      "TCPRcvQDrop": 3306
+    },
+    "sockstat": "sockets: used 1859\nTCP: inuse 334 orphan 5 tw 64600 alloc 1511 mem 272259\nUDP: inuse 3 mem 492\nUDPLITE: inuse 0\nRAW: inuse 0\nFRAG: inuse 0 memory 0\n",
+    "port": 49591,
+    "port_socket_state_counts": {
+      "0A": 4,
+      "06": 2
+    },
+    "listeners_and_pending": [
+      {
+        "local_address_hex": "00000000:C1B7",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "227378494"
+      },
+      {
+        "local_address_hex": "00000000:C1B7",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "227378493"
+      },
+      {
+        "local_address_hex": "00000000:C1B7",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "227378492"
+      },
+      {
+        "local_address_hex": "00000000:C1B7",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "227378491"
+      }
+    ]
+  },
+  "server_stats_before": {
+    "user_seconds": 0.0,
+    "system_seconds": 0.0,
+    "resident_pages": 512,
+    "threads": 5
+  },
+  "observer_wall_ns": 62897276,
+  "server_stats_after": {
+    "user_seconds": 0.0,
+    "system_seconds": 0.09,
+    "resident_pages": 512,
+    "threads": 5
+  },
+  "server_affinity_after": {
+    "295589": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "295590": [
+      0
+    ],
+    "295591": [
+      2
+    ],
+    "295592": [
+      4
+    ],
+    "295593": [
+      6
+    ]
+  },
+  "passive_kernel_after": {
+    "observed_at_utc": "2026-10-12T06:38:57Z",
+    "scope": "network namespace/global; attribution unproven",
+    "sysctls": {
+      "net/ipv4/tcp_syn_retries": "6",
+      "net/ipv4/tcp_syn_linear_timeouts": "4",
+      "net/ipv4/tcp_tw_reuse": "2",
+      "net/ipv4/ip_local_port_range": "32768\t60999",
+      "net/ipv4/tcp_max_tw_buckets": "65536",
+      "net/ipv4/tcp_max_syn_backlog": "1024",
+      "net/core/somaxconn": "4096",
+      "net/netfilter/nf_conntrack_count": "149555",
+      "net/netfilter/nf_conntrack_max": "262144",
+      "net/ipv4/tcp_mem": "180369\t240493\t360738"
+    },
+    "errors": [],
+    "global_tcp_ext_counters": {
+      "ListenOverflows": 1,
+      "ListenDrops": 1,
+      "TCPSynRetrans": 26202,
+      "TCPTimeouts": 2143588,
+      "TCPMemoryPressures": 1,
+      "TCPTimeWaitOverflow": 5591346,
+      "TCPReqQFullDrop": 0,
+      "TCPReqQFullDoCookies": 0,
+      "TCPBacklogDrop": 0,
+      "TCPRcvQDrop": 3306
+    },
+    "sockstat": "sockets: used 1861\nTCP: inuse 334 orphan 5 tw 65536 alloc 1511 mem 272008\nUDP: inuse 3 mem 492\nUDPLITE: inuse 0\nRAW: inuse 0\nFRAG: inuse 0 memory 0\n",
+    "port": 49591,
+    "port_socket_state_counts": {
+      "0A": 4,
+      "06": 938
+    },
+    "listeners_and_pending": [
+      {
+        "local_address_hex": "00000000:C1B7",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "227378494"
+      },
+      {
+        "local_address_hex": "00000000:C1B7",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "227378493"
+      },
+      {
+        "local_address_hex": "00000000:C1B7",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "227378492"
+      },
+      {
+        "local_address_hex": "00000000:C1B7",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "227378491"
+      }
+    ]
+  },
+  "client_exit_code": 0,
+  "client_process_usage": {
+    "user_seconds": 0.007949,
+    "system_seconds": 0.127184,
+    "peak_rss_kib": 55508
+  },
+  "elapsed_ns": 60392029,
+  "attempted_requests": 1024,
+  "completed_requests": 1024,
+  "errors": 0,
+  "all_request_ids_once": true,
+  "every_response_exact": true,
+  "request_samples_sha256": "72bdf88df1fd63da46b3f320f9805b20d9c3a723ab82e4006c45c4f144e63e26",
+  "requests_per_second": 16955.88005496553,
+  "phase_durations": {
+    "connect_ns": {
+      "median_ns": 41281.5,
+      "p99_ns": 71556,
+      "max_ns": 1141856
+    },
+    "setup_ns": {
+      "median_ns": 2134.0,
+      "p99_ns": 3004,
+      "max_ns": 10737
+    },
+    "write_ns": {
+      "median_ns": 13518.0,
+      "p99_ns": 24416,
+      "max_ns": 1728454
+    },
+    "read_ns": {
+      "median_ns": 1234274.5,
+      "p99_ns": 3815182,
+      "max_ns": 4199730
+    },
+    "eof_ns": {
+      "median_ns": 874.5,
+      "p99_ns": 47119,
+      "max_ns": 541707
+    }
+  },
+  "latency_median_ns": 1324690.5,
+  "latency_p99_ns": 3942309,
+  "client_cleanup_usage": {
+    "exit_code": 0
+  },
+  "server_process_usage": {
+    "exit_code": -15,
+    "user_seconds": 0.0044069999999999995,
+    "system_seconds": 0.092343,
+    "peak_rss_kib": 55508
+  },
+  "retained_request_rows": 1024,
+  "retained_failed_rows": []
+}

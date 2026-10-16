@@ -1,0 +1,1329 @@
+{
+  "status": "passed",
+  "protocol": "prepared-http-v2-bounded-connect-stage-observer",
+  "workers": 4,
+  "concurrency": 256,
+  "requests": 1024,
+  "seed": 983402159,
+  "body_bytes": 4096,
+  "connect_timeout_ms": 5000,
+  "observer_failure_policy": "first failure stops new requests; all in-flight attempts retained; trial fails without retry",
+  "body_sha256": "085cd31fb1e24cf16384361687e4c5415da108b029a5216e888f8a68b2f10708",
+  "expected_response_sha256": "26a183d17171936e43323a725dc83888a85ac8760a91f39af28ee6c9f68e89d7",
+  "expected_response_bytes": 4156,
+  "raw_prefix": "/home/helloworld0822/coding/forge-benchmarks/docs/http-v2-capacity-2026-10-12.raw/w4-b4096-c256-r00-0-rust-measurement",
+  "server_cpus": [
+    0,
+    2,
+    4,
+    6
+  ],
+  "client_cpus": [
+    8,
+    10
+  ],
+  "server_command": [
+    "/tmp/forge-http-v2-capacity-build-20261012/rust-http",
+    "36269",
+    "4",
+    "QZYVTENETBOUSQARTXKLAYRFNFXJBGBNQTCABHVRBKOAKOHIICBRGMDRLWBITLICSQRDBWKLCTJBVCTAHGYPLSWGSYOREQRYOPSCHTFZDMPMGQKVVBFZYTCBSWPKCLDIXGHPSDCOJLLDLVIUYCZKBFLTPSGBEDUGPEBMQMSSFWXVSDTQFNPFNOXGBISSRPYFZXJRFTNWWDCZRMMGPMEFYCJVJXMSBKGHMYXCDEUMKKXBWWNJQQIBIKKJLHJEYIAWPYOEYPBPEFCSBMJEUFBSLRULGRCWZIBLAJCQWIJMMPGFLBGQXMNSVBMEJULWDSMHDSQCVVWDEIYFQLOMLWVAUHZGJMUPMFABQYBTMKKEURZDKZFXGQMEYBKDXVAAXRAWFVJMYIEJGFOEEQYBNJBYKUIPEHJCJWKWJULDUNVFYTRLENFABFBYXMFOEBWBVIYNDWCOUVFMPTBOCAWDOUPTSTNLMJLCTREPKGEAXCTAFIDZGUWXUHZQZPGGCRQLJKTREFCOWDOJNIWXXIGCVFLGOFXOEPCYOEMCUVHQBRUGAUELUKLIHZBUSRMHLIVOHQYBPNVQHAHRZFQXGMIYKTNZABCXCVDWIGYEZAQINXJEGJTHSKJHODBYYESROHIGFHIDLHVTLABSBDAYKPPXDHIHSGYJPGJIYWQMHHVUJGBADKIZWZDIDQWMZEBRDSDIHYBIJGGZMMRJAPMTZFISRZLTBUDUAQOKLUGUELOJBOUAYCCKIREKYEARISYDFLHROCINJSHNNOXFYVHWFGAITOLFIHNPJZCCTCVFXQXVCHCJDPASVIMFFHMJVTETVVMWCYVZDCYWQMNDODSIDIUUPNGUIIAMKUZTTUTQZTGSGJFAJRODOUTNHTTVMJXZIRGYBSLBHLLDLYTOWGSRNZEQVKOXVUTBEBRDIDAWNJYPDWJNCCICHYGNDSKYWOEBPITZEQRTXNMBNXFRLHWNHNIMTHSKJSTWBNQDIBTNOCECNDMHVGRPDFDZLTBSUZDOKHQJUZPKTKZIVESXYVXPLWFQNHVKTVEVWBBCZXWXAPFCBFSDIOALQNJKFLRDUAHYYWFESPSQXRYSHFAUCZCBSHIWWKWYCWBRKVXYWMFOYZWUQAVLZWBDXQJVFDSMROUSGPWACLNTHQRJZHYFPXSZSPOBZBPMOKPGZTGQVZOTOCCGOEQWVRPSYZGCIJHJYZPFXGQSIFXEXEVDSDAKKEIOKYNPNKJXFGNQXUEZMFBCPOXAPIVBSGRKHMPMIZRZKTHYDUSVYXFBFTBMCOHJZSSJNEEFAMUXXFAZNDANYDYVMLIKYQBKZEPREWGLTALMKVSFTWFHROYBSYRYPYDODDNJVDUYSEXKLCHRUJRXQYDPNZEBCIJUYZUXDOYVALSRXOVVPDZSMLNFEZFGNLKFMIEJUWGXXJIOXZQNVWNSTAQDJLLWPJMCSMRWYSJDCAQYIHRTVQFBZAWVNNIJMGNSBTNANBUJLQGGFXREJYCOSLMDVIRKKZNWNYZKVMQOWGJWTTSSQTNDPJDAXBBQUFZYAYLFNVTYAXEPRVGKEIOQTTTLMVIOHRIAVMGRYSHVJWZQGIMTXTRQTGTBDLCZWVDMJPJCWSACHAPLUDWGQWXNZWPZHSXWHBXSENZSHVIPELLGDARXCBYKDCYWXNBPPTQMQJQETJYNLYNUBVQZKEZOOEWHRGSDZPBXFIIOBQXWUMANWMMTNFKPPCTTARHRUBNKMVINHHLJHEXAHQEUKZOIZDZJYOCNNHGWVZVDIFNGVAFFUCRYPKHVQUDJRCGYABQLXSFJPCVDWGBWOTEHUDMSZGSSOYRBOWBYJSSVQVFQATZRTVFOROKABZRSQYSNIXNOITOWVIMEJXTGCMGZGYDAAQCTORHPZKOPHJTHRHTWSEULIELJRWRWIZAHHGYCABIBDDTTFXIYKECJYAJBEOEYJLYXFCQCROSVBCTJZVPNMPHNYHDJVCLKTWFDEEPSRBVBBKGCUJNPGUCDREZJYEJACGQSFRGRCWSWVBEAJUHTRIHTVFIFKWUQJPJEVZZSZWJYJIULLPQVCYQHOKBSPTCFOWBLUIMBXMCGOLGTJGLOADNFSMOTJHAKUPLJTEKHXEAABMHFQZEGQARZKZJMIPXAPYNAYRIGXONHIAJWKKRPPWHAWQBRTBDKFMNWCZEOHEPIOXQRXYOFHPBIUVCZURZLTLLBDPVOFZYDNPDXAHCUGDOYHRSAERGIINKBFWYBXBXSDLRTVDPHXYVSSOXVDYJZXYMLPTGKJILKXIEPOZSQRUVVNVKELVQSXBZRXLLIBAFQHGCOWIVVVNYZQBRQSQRWVHQKYIZSKBMOUXJQMQSGPRFLJYFWYDQTHGNRYYBGURNMUWECBQXFMNFJYPQHIAFGNMHOUFVKRUAGTSNFGAEQMAJCSHRXIYGAGHGEPVHAMWBMXMNEYNUTLRZGMEKZSDCVRLYBSOYMZKNCMPRIHTPYZXWMWLHJBCYUGMCKIQZMEQJWPJHJOSVOTNBKZSUNAAGZJEHHCSMVHRBHQYOKBNWTDCQFOROPFWYJJQZJHGAUBJDIJQINKDTGIRLWFITRVMZWSMVENCXGAIAOXARRAILDXCLEEAQWTSSTUQKTYDPNHUYCHMWNBZPVCDNGGANOFWBXBMBYYIADDYWDYUUXDCRFLXFRBYSWDQGYLDJGWBQMGXWTYSDZGADXBWIIAQQEPEMFYXAONNYPXYUWHUONXFCDSZPPNWESGFHJKGPGTAGDTYWGMZNUJTRGTUKWYSJNTBGRKIIEFOMOOQZEZKVGPOHSJIURJQFSFSIYPYQKOTBSLSDZESWGZKBALMZMRGJFPCHITMOLTMDHBTAYUWBTGUIVCSQZTKMXRWKBHBYGDJNQMAYKCMIDIONZTUDXRUCHDPHCSKXKNXKCOXOYHLWKIPMTPJNDXFCYBLEOKHAROYPULFLJIYVDRZMGRGWBOYVFHJXFWRSSSDLRYBRZDCZMBRFGAHZBHKBEJPCINSKARCVYAIBLYSDQUKCPQKHFHSVNCUQMBBVWTLIXRKHVGCLEIZAETZAZMFUZFNABLOXHNWMKOUVJVOQUMSLPEIFCWWEKVECLDSPXXVMNFWZSZZRSBUWEJBWAHPVWQNHUWBSYSNIOJGJUKHOXASSYSQXKIMBDOJKVBSJJYWDAEOBLFMAJGCGHDVPKZBTXEYAPNHEPBXMGITZVIUIXFMLTCVVSHNRHTPPZJYVYGNMNWADSBTHSFZDINYQZEKFTYSUDIYWBEUZJVIYIOLWESLERWNFYZMCUKEWPBMMSHAODAGZJVOSHBIYMJNUHEDCFSCYWYAFKCXIMBNVPZPXGIYWHYKSIWQMNHIWEFBMTFZFATERIOJXLNXXCXALCMPXPFCIWMFJJCEDFRCFJPHNAPPCADKTHXLJHGELZOXHWCFATJDEJCKLXJKLQWWNZLQIPSQWTAHAKENVMDLECXSNRXCCAOLJZTTTMOFSUQGMFEIJXKNLKLRNNQJKLORJZMOWYLBNIYOYPMMPXTNTNDRDKQGVKDGOYOWQWJKXCSBLNYEUPTUFAKKJJRHPDHGKLTOGJDVOXYEMZIYVACQTWKPVSQXYVIIZQZXUVDJEMLPZGBBBPIGGKHLWQVZVRAADUXBBDTQBFVDSQUHLRTZPKCANUNFWLICKDBSMYZDQIHUAUGTMIEMKRUPVFXSXPMBWHWMRJZKWMJAAYPMBOQFCOYBNILLCZIHHXJLBUOHDXDBEYFIBMOCFXSPZAUGYPHREFSIXSMSHIZWRESNUELOGEKSGLHLLGGMRVEKEXCAXGLDWYJGSEPHVCPGCUZVIZSDRHRYRLEPTHCEOASCCSNCCKWCNPZAAUOGBHFSTBJRGLUBICEWRVNNEENSNSDTTVXHLALGRFMBHQFELBDSCJVVKRNWSLLOFDITRQNVAIEQMOAGLLTRXQVDNANGDTBKBULSIOISIQLDRJBNNABNXLQTSKTAMUOZMUIKTVZUXSAWVJSXTUZAYJCGHNKJIJSNZGZANSTDQWVCBGTOXCDIZKRJJWGFJIDOTMKRFBPDSTLOHNLUIXLQCPPAJEXOOFOJLAJKKGNLCLALBUYJQO"
+  ],
+  "server_affinity_before": {
+    "300486": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "300487": [
+      0
+    ],
+    "300488": [
+      2
+    ],
+    "300489": [
+      4
+    ],
+    "300490": [
+      6
+    ]
+  },
+  "independent_probe": {
+    "request_sha256": "c9cbb0333c5bb831c59d73063bd481ee984dbd15ad67f245faba1e3ebf6eef65",
+    "response_sha256": "26a183d17171936e43323a725dc83888a85ac8760a91f39af28ee6c9f68e89d7",
+    "response_bytes": 4156,
+    "fragmented": false
+  },
+  "load_command": [
+    "/tmp/forge-http-v2-capacity-build-20261012/http-load",
+    "36269",
+    "256",
+    "1024",
+    "983402159",
+    "/home/helloworld0822/coding/forge-benchmarks/docs/http-v2-capacity-2026-10-12.raw/w4-b4096-c256-r00-0-rust-measurement-expected.bin",
+    "/home/helloworld0822/coding/forge-benchmarks/docs/http-v2-capacity-2026-10-12.raw/w4-b4096-c256-r00-0-rust-measurement-requests.tsv",
+    "5000"
+  ],
+  "client_affinity": {
+    "300491": [
+      8,
+      10
+    ],
+    "300492": [
+      8,
+      10
+    ],
+    "300493": [
+      8,
+      10
+    ],
+    "300494": [
+      8,
+      10
+    ],
+    "300495": [
+      8,
+      10
+    ],
+    "300496": [
+      8,
+      10
+    ],
+    "300497": [
+      8,
+      10
+    ],
+    "300498": [
+      8,
+      10
+    ],
+    "300499": [
+      8,
+      10
+    ],
+    "300500": [
+      8,
+      10
+    ],
+    "300501": [
+      8,
+      10
+    ],
+    "300502": [
+      8,
+      10
+    ],
+    "300503": [
+      8,
+      10
+    ],
+    "300504": [
+      8,
+      10
+    ],
+    "300505": [
+      8,
+      10
+    ],
+    "300506": [
+      8,
+      10
+    ],
+    "300507": [
+      8,
+      10
+    ],
+    "300508": [
+      8,
+      10
+    ],
+    "300509": [
+      8,
+      10
+    ],
+    "300510": [
+      8,
+      10
+    ],
+    "300511": [
+      8,
+      10
+    ],
+    "300512": [
+      8,
+      10
+    ],
+    "300513": [
+      8,
+      10
+    ],
+    "300514": [
+      8,
+      10
+    ],
+    "300515": [
+      8,
+      10
+    ],
+    "300516": [
+      8,
+      10
+    ],
+    "300517": [
+      8,
+      10
+    ],
+    "300518": [
+      8,
+      10
+    ],
+    "300519": [
+      8,
+      10
+    ],
+    "300520": [
+      8,
+      10
+    ],
+    "300521": [
+      8,
+      10
+    ],
+    "300522": [
+      8,
+      10
+    ],
+    "300523": [
+      8,
+      10
+    ],
+    "300524": [
+      8,
+      10
+    ],
+    "300525": [
+      8,
+      10
+    ],
+    "300526": [
+      8,
+      10
+    ],
+    "300527": [
+      8,
+      10
+    ],
+    "300528": [
+      8,
+      10
+    ],
+    "300529": [
+      8,
+      10
+    ],
+    "300530": [
+      8,
+      10
+    ],
+    "300531": [
+      8,
+      10
+    ],
+    "300532": [
+      8,
+      10
+    ],
+    "300533": [
+      8,
+      10
+    ],
+    "300534": [
+      8,
+      10
+    ],
+    "300535": [
+      8,
+      10
+    ],
+    "300536": [
+      8,
+      10
+    ],
+    "300537": [
+      8,
+      10
+    ],
+    "300538": [
+      8,
+      10
+    ],
+    "300539": [
+      8,
+      10
+    ],
+    "300540": [
+      8,
+      10
+    ],
+    "300541": [
+      8,
+      10
+    ],
+    "300542": [
+      8,
+      10
+    ],
+    "300543": [
+      8,
+      10
+    ],
+    "300544": [
+      8,
+      10
+    ],
+    "300545": [
+      8,
+      10
+    ],
+    "300546": [
+      8,
+      10
+    ],
+    "300547": [
+      8,
+      10
+    ],
+    "300548": [
+      8,
+      10
+    ],
+    "300549": [
+      8,
+      10
+    ],
+    "300550": [
+      8,
+      10
+    ],
+    "300551": [
+      8,
+      10
+    ],
+    "300552": [
+      8,
+      10
+    ],
+    "300553": [
+      8,
+      10
+    ],
+    "300554": [
+      8,
+      10
+    ],
+    "300555": [
+      8,
+      10
+    ],
+    "300556": [
+      8,
+      10
+    ],
+    "300557": [
+      8,
+      10
+    ],
+    "300558": [
+      8,
+      10
+    ],
+    "300559": [
+      8,
+      10
+    ],
+    "300560": [
+      8,
+      10
+    ],
+    "300561": [
+      8,
+      10
+    ],
+    "300562": [
+      8,
+      10
+    ],
+    "300563": [
+      8,
+      10
+    ],
+    "300564": [
+      8,
+      10
+    ],
+    "300565": [
+      8,
+      10
+    ],
+    "300566": [
+      8,
+      10
+    ],
+    "300567": [
+      8,
+      10
+    ],
+    "300568": [
+      8,
+      10
+    ],
+    "300569": [
+      8,
+      10
+    ],
+    "300570": [
+      8,
+      10
+    ],
+    "300571": [
+      8,
+      10
+    ],
+    "300572": [
+      8,
+      10
+    ],
+    "300573": [
+      8,
+      10
+    ],
+    "300574": [
+      8,
+      10
+    ],
+    "300575": [
+      8,
+      10
+    ],
+    "300576": [
+      8,
+      10
+    ],
+    "300577": [
+      8,
+      10
+    ],
+    "300578": [
+      8,
+      10
+    ],
+    "300579": [
+      8,
+      10
+    ],
+    "300580": [
+      8,
+      10
+    ],
+    "300581": [
+      8,
+      10
+    ],
+    "300582": [
+      8,
+      10
+    ],
+    "300583": [
+      8,
+      10
+    ],
+    "300584": [
+      8,
+      10
+    ],
+    "300585": [
+      8,
+      10
+    ],
+    "300586": [
+      8,
+      10
+    ],
+    "300587": [
+      8,
+      10
+    ],
+    "300588": [
+      8,
+      10
+    ],
+    "300589": [
+      8,
+      10
+    ],
+    "300590": [
+      8,
+      10
+    ],
+    "300591": [
+      8,
+      10
+    ],
+    "300592": [
+      8,
+      10
+    ],
+    "300593": [
+      8,
+      10
+    ],
+    "300594": [
+      8,
+      10
+    ],
+    "300595": [
+      8,
+      10
+    ],
+    "300596": [
+      8,
+      10
+    ],
+    "300597": [
+      8,
+      10
+    ],
+    "300598": [
+      8,
+      10
+    ],
+    "300599": [
+      8,
+      10
+    ],
+    "300600": [
+      8,
+      10
+    ],
+    "300601": [
+      8,
+      10
+    ],
+    "300602": [
+      8,
+      10
+    ],
+    "300603": [
+      8,
+      10
+    ],
+    "300604": [
+      8,
+      10
+    ],
+    "300605": [
+      8,
+      10
+    ],
+    "300606": [
+      8,
+      10
+    ],
+    "300607": [
+      8,
+      10
+    ],
+    "300608": [
+      8,
+      10
+    ],
+    "300609": [
+      8,
+      10
+    ],
+    "300610": [
+      8,
+      10
+    ],
+    "300611": [
+      8,
+      10
+    ],
+    "300612": [
+      8,
+      10
+    ],
+    "300613": [
+      8,
+      10
+    ],
+    "300614": [
+      8,
+      10
+    ],
+    "300615": [
+      8,
+      10
+    ],
+    "300616": [
+      8,
+      10
+    ],
+    "300617": [
+      8,
+      10
+    ],
+    "300618": [
+      8,
+      10
+    ],
+    "300619": [
+      8,
+      10
+    ],
+    "300620": [
+      8,
+      10
+    ],
+    "300621": [
+      8,
+      10
+    ],
+    "300622": [
+      8,
+      10
+    ],
+    "300623": [
+      8,
+      10
+    ],
+    "300624": [
+      8,
+      10
+    ],
+    "300625": [
+      8,
+      10
+    ],
+    "300626": [
+      8,
+      10
+    ],
+    "300627": [
+      8,
+      10
+    ],
+    "300628": [
+      8,
+      10
+    ],
+    "300629": [
+      8,
+      10
+    ],
+    "300630": [
+      8,
+      10
+    ],
+    "300631": [
+      8,
+      10
+    ],
+    "300632": [
+      8,
+      10
+    ],
+    "300633": [
+      8,
+      10
+    ],
+    "300634": [
+      8,
+      10
+    ],
+    "300635": [
+      8,
+      10
+    ],
+    "300636": [
+      8,
+      10
+    ],
+    "300637": [
+      8,
+      10
+    ],
+    "300638": [
+      8,
+      10
+    ],
+    "300639": [
+      8,
+      10
+    ],
+    "300640": [
+      8,
+      10
+    ],
+    "300641": [
+      8,
+      10
+    ],
+    "300642": [
+      8,
+      10
+    ],
+    "300643": [
+      8,
+      10
+    ],
+    "300644": [
+      8,
+      10
+    ],
+    "300645": [
+      8,
+      10
+    ],
+    "300646": [
+      8,
+      10
+    ],
+    "300647": [
+      8,
+      10
+    ],
+    "300648": [
+      8,
+      10
+    ],
+    "300649": [
+      8,
+      10
+    ],
+    "300650": [
+      8,
+      10
+    ],
+    "300651": [
+      8,
+      10
+    ],
+    "300652": [
+      8,
+      10
+    ],
+    "300653": [
+      8,
+      10
+    ],
+    "300654": [
+      8,
+      10
+    ],
+    "300655": [
+      8,
+      10
+    ],
+    "300656": [
+      8,
+      10
+    ],
+    "300657": [
+      8,
+      10
+    ],
+    "300658": [
+      8,
+      10
+    ],
+    "300659": [
+      8,
+      10
+    ],
+    "300660": [
+      8,
+      10
+    ],
+    "300661": [
+      8,
+      10
+    ],
+    "300662": [
+      8,
+      10
+    ],
+    "300663": [
+      8,
+      10
+    ],
+    "300664": [
+      8,
+      10
+    ],
+    "300665": [
+      8,
+      10
+    ],
+    "300666": [
+      8,
+      10
+    ],
+    "300667": [
+      8,
+      10
+    ],
+    "300668": [
+      8,
+      10
+    ],
+    "300669": [
+      8,
+      10
+    ],
+    "300670": [
+      8,
+      10
+    ],
+    "300671": [
+      8,
+      10
+    ],
+    "300672": [
+      8,
+      10
+    ],
+    "300673": [
+      8,
+      10
+    ],
+    "300674": [
+      8,
+      10
+    ],
+    "300675": [
+      8,
+      10
+    ],
+    "300676": [
+      8,
+      10
+    ],
+    "300677": [
+      8,
+      10
+    ],
+    "300678": [
+      8,
+      10
+    ],
+    "300679": [
+      8,
+      10
+    ],
+    "300680": [
+      8,
+      10
+    ],
+    "300681": [
+      8,
+      10
+    ],
+    "300682": [
+      8,
+      10
+    ],
+    "300683": [
+      8,
+      10
+    ],
+    "300684": [
+      8,
+      10
+    ],
+    "300685": [
+      8,
+      10
+    ],
+    "300686": [
+      8,
+      10
+    ],
+    "300687": [
+      8,
+      10
+    ],
+    "300688": [
+      8,
+      10
+    ],
+    "300689": [
+      8,
+      10
+    ],
+    "300690": [
+      8,
+      10
+    ],
+    "300691": [
+      8,
+      10
+    ],
+    "300692": [
+      8,
+      10
+    ],
+    "300693": [
+      8,
+      10
+    ],
+    "300694": [
+      8,
+      10
+    ],
+    "300695": [
+      8,
+      10
+    ],
+    "300696": [
+      8,
+      10
+    ],
+    "300697": [
+      8,
+      10
+    ],
+    "300698": [
+      8,
+      10
+    ],
+    "300699": [
+      8,
+      10
+    ],
+    "300700": [
+      8,
+      10
+    ],
+    "300701": [
+      8,
+      10
+    ],
+    "300702": [
+      8,
+      10
+    ],
+    "300703": [
+      8,
+      10
+    ],
+    "300704": [
+      8,
+      10
+    ],
+    "300705": [
+      8,
+      10
+    ],
+    "300706": [
+      8,
+      10
+    ],
+    "300707": [
+      8,
+      10
+    ],
+    "300708": [
+      8,
+      10
+    ],
+    "300709": [
+      8,
+      10
+    ],
+    "300710": [
+      8,
+      10
+    ],
+    "300711": [
+      8,
+      10
+    ],
+    "300712": [
+      8,
+      10
+    ],
+    "300713": [
+      8,
+      10
+    ],
+    "300714": [
+      8,
+      10
+    ],
+    "300715": [
+      8,
+      10
+    ],
+    "300716": [
+      8,
+      10
+    ],
+    "300717": [
+      8,
+      10
+    ],
+    "300718": [
+      8,
+      10
+    ],
+    "300719": [
+      8,
+      10
+    ],
+    "300720": [
+      8,
+      10
+    ],
+    "300721": [
+      8,
+      10
+    ],
+    "300722": [
+      8,
+      10
+    ],
+    "300723": [
+      8,
+      10
+    ],
+    "300724": [
+      8,
+      10
+    ],
+    "300725": [
+      8,
+      10
+    ],
+    "300726": [
+      8,
+      10
+    ],
+    "300727": [
+      8,
+      10
+    ],
+    "300728": [
+      8,
+      10
+    ],
+    "300729": [
+      8,
+      10
+    ],
+    "300730": [
+      8,
+      10
+    ],
+    "300731": [
+      8,
+      10
+    ],
+    "300732": [
+      8,
+      10
+    ],
+    "300733": [
+      8,
+      10
+    ],
+    "300734": [
+      8,
+      10
+    ],
+    "300735": [
+      8,
+      10
+    ],
+    "300736": [
+      8,
+      10
+    ],
+    "300737": [
+      8,
+      10
+    ],
+    "300738": [
+      8,
+      10
+    ],
+    "300739": [
+      8,
+      10
+    ],
+    "300740": [
+      8,
+      10
+    ],
+    "300741": [
+      8,
+      10
+    ],
+    "300742": [
+      8,
+      10
+    ],
+    "300743": [
+      8,
+      10
+    ],
+    "300744": [
+      8,
+      10
+    ],
+    "300745": [
+      8,
+      10
+    ],
+    "300746": [
+      8,
+      10
+    ],
+    "300747": [
+      8,
+      10
+    ]
+  },
+  "passive_kernel_before": {
+    "observed_at_utc": "2026-10-12T06:39:23Z",
+    "scope": "network namespace/global; attribution unproven",
+    "sysctls": {
+      "net/ipv4/tcp_syn_retries": "6",
+      "net/ipv4/tcp_syn_linear_timeouts": "4",
+      "net/ipv4/tcp_tw_reuse": "2",
+      "net/ipv4/ip_local_port_range": "32768\t60999",
+      "net/ipv4/tcp_max_tw_buckets": "65536",
+      "net/ipv4/tcp_max_syn_backlog": "1024",
+      "net/core/somaxconn": "4096",
+      "net/netfilter/nf_conntrack_count": "167472",
+      "net/netfilter/nf_conntrack_max": "262144",
+      "net/ipv4/tcp_mem": "180369\t240493\t360738"
+    },
+    "errors": [],
+    "global_tcp_ext_counters": {
+      "ListenOverflows": 1,
+      "ListenDrops": 1,
+      "TCPSynRetrans": 26202,
+      "TCPTimeouts": 2143622,
+      "TCPMemoryPressures": 1,
+      "TCPTimeWaitOverflow": 5594613,
+      "TCPReqQFullDrop": 0,
+      "TCPReqQFullDoCookies": 0,
+      "TCPBacklogDrop": 0,
+      "TCPRcvQDrop": 3306
+    },
+    "sockstat": "sockets: used 1855\nTCP: inuse 330 orphan 4 tw 65536 alloc 1507 mem 272097\nUDP: inuse 3 mem 492\nUDPLITE: inuse 0\nRAW: inuse 0\nFRAG: inuse 0 memory 0\n",
+    "port": 36269,
+    "port_socket_state_counts": {
+      "0A": 4
+    },
+    "listeners_and_pending": [
+      {
+        "local_address_hex": "00000000:8DAD",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "227462284"
+      },
+      {
+        "local_address_hex": "00000000:8DAD",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "227462283"
+      },
+      {
+        "local_address_hex": "00000000:8DAD",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "227462282"
+      },
+      {
+        "local_address_hex": "00000000:8DAD",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "227462281"
+      }
+    ]
+  },
+  "server_stats_before": {
+    "user_seconds": 0.0,
+    "system_seconds": 0.0,
+    "resident_pages": 512,
+    "threads": 5
+  },
+  "observer_wall_ns": 234479263,
+  "server_stats_after": {
+    "user_seconds": 0.0,
+    "system_seconds": 0.08,
+    "resident_pages": 512,
+    "threads": 5
+  },
+  "server_affinity_after": {
+    "300486": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "300487": [
+      0
+    ],
+    "300488": [
+      2
+    ],
+    "300489": [
+      4
+    ],
+    "300490": [
+      6
+    ]
+  },
+  "passive_kernel_after": {
+    "observed_at_utc": "2026-10-12T06:39:24Z",
+    "scope": "network namespace/global; attribution unproven",
+    "sysctls": {
+      "net/ipv4/tcp_syn_retries": "6",
+      "net/ipv4/tcp_syn_linear_timeouts": "4",
+      "net/ipv4/tcp_tw_reuse": "2",
+      "net/ipv4/ip_local_port_range": "32768\t60999",
+      "net/ipv4/tcp_max_tw_buckets": "65536",
+      "net/ipv4/tcp_max_syn_backlog": "1024",
+      "net/core/somaxconn": "4096",
+      "net/netfilter/nf_conntrack_count": "167935",
+      "net/netfilter/nf_conntrack_max": "262144",
+      "net/ipv4/tcp_mem": "180369\t240493\t360738"
+    },
+    "errors": [],
+    "global_tcp_ext_counters": {
+      "ListenOverflows": 1,
+      "ListenDrops": 1,
+      "TCPSynRetrans": 26202,
+      "TCPTimeouts": 2143622,
+      "TCPMemoryPressures": 1,
+      "TCPTimeWaitOverflow": 5594613,
+      "TCPReqQFullDrop": 0,
+      "TCPReqQFullDoCookies": 0,
+      "TCPBacklogDrop": 0,
+      "TCPRcvQDrop": 3306
+    },
+    "sockstat": "sockets: used 1855\nTCP: inuse 330 orphan 4 tw 61430 alloc 1507 mem 272097\nUDP: inuse 3 mem 492\nUDPLITE: inuse 0\nRAW: inuse 0\nFRAG: inuse 0 memory 0\n",
+    "port": 36269,
+    "port_socket_state_counts": {
+      "0A": 4,
+      "06": 1024
+    },
+    "listeners_and_pending": [
+      {
+        "local_address_hex": "00000000:8DAD",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "227462284"
+      },
+      {
+        "local_address_hex": "00000000:8DAD",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "227462283"
+      },
+      {
+        "local_address_hex": "00000000:8DAD",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "227462282"
+      },
+      {
+        "local_address_hex": "00000000:8DAD",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "227462281"
+      }
+    ]
+  },
+  "client_exit_code": 0,
+  "client_process_usage": {
+    "user_seconds": 0.01897,
+    "system_seconds": 0.184717,
+    "peak_rss_kib": 50644
+  },
+  "elapsed_ns": 229808958,
+  "attempted_requests": 1024,
+  "completed_requests": 1024,
+  "errors": 0,
+  "all_request_ids_once": true,
+  "every_response_exact": true,
+  "request_samples_sha256": "64a2f74896434d78a6d7195bfb6d190b10261d18dc3fcc2ce87282be7da71d80",
+  "requests_per_second": 4455.875040345468,
+  "phase_durations": {
+    "connect_ns": {
+      "median_ns": 41956.5,
+      "p99_ns": 13283594,
+      "max_ns": 15669519
+    },
+    "setup_ns": {
+      "median_ns": 2151.5,
+      "p99_ns": 9327,
+      "max_ns": 255617
+    },
+    "write_ns": {
+      "median_ns": 14635.0,
+      "p99_ns": 59192,
+      "max_ns": 3399902
+    },
+    "read_ns": {
+      "median_ns": 909222.5,
+      "p99_ns": 4997254,
+      "max_ns": 6556285
+    },
+    "eof_ns": {
+      "median_ns": 893.0,
+      "p99_ns": 1150948,
+      "max_ns": 208261548
+    }
+  },
+  "latency_median_ns": 1068401.5,
+  "latency_p99_ns": 14754805,
+  "client_cleanup_usage": {
+    "exit_code": 0
+  },
+  "server_process_usage": {
+    "exit_code": -15,
+    "user_seconds": 0.0,
+    "system_seconds": 0.08234999999999999,
+    "peak_rss_kib": 50644
+  },
+  "retained_request_rows": 1024,
+  "retained_failed_rows": []
+}

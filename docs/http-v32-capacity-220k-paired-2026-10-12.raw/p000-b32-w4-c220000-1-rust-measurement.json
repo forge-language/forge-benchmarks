@@ -1,0 +1,339 @@
+{
+  "status": "failed",
+  "protocol": "prepared-http-v3.2-multisource-windowed-epoll",
+  "workers": 4,
+  "concurrency": 220000,
+  "requests": 220000,
+  "seed": 238993160,
+  "source_address_count": 8,
+  "body_bytes": 32,
+  "connect_timeout_ms": 60000,
+  "io_timeout_ms": 60000,
+  "observer_failure_policy": "first failure stops new requests; all in-flight attempts finish/time out and are retained; fail without retry",
+  "observer_thread_model": "one epoll reactor thread; at most concurrency active sockets",
+  "body_sha256": "06bdb87f7e4dbf8a3e9016903a31b84524000fc96cbec7d4c7885dd8daaea1b5",
+  "expected_response_sha256": "74806711200bac4e28dc47d97fe67599d75a1f62e2eb5ad438ca92b377a497b3",
+  "expected_response_bytes": 90,
+  "raw_prefix": "/home/helloworld0822/coding/forge-benchmarks/docs/http-v32-capacity-220k-paired-2026-10-12.raw/p000-b32-w4-c220000-1-rust-measurement",
+  "server_cpus": [
+    0,
+    2,
+    4,
+    6
+  ],
+  "client_cpus": [
+    8
+  ],
+  "server_command": [
+    "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/rust-http",
+    "41585",
+    "4",
+    "UGZJOTFIWACDPJFXMLJDABOACKYVOCUD"
+  ],
+  "server_affinity_before": {
+    "439642": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "439643": [
+      0
+    ],
+    "439644": [
+      2
+    ],
+    "439645": [
+      4
+    ],
+    "439646": [
+      6
+    ]
+  },
+  "independent_probe": {
+    "request_sha256": "a116760be15f3b59c69d10ffea1b25cb9e5bd909da9ba33dff3b647119150bf6",
+    "response_sha256": "74806711200bac4e28dc47d97fe67599d75a1f62e2eb5ad438ca92b377a497b3",
+    "response_bytes": 90,
+    "fragmented": false
+  },
+  "load_command": [
+    "/home/helloworld0822/coding/forge-benchmarks/build-http-v32-windowed-20261012/http-load-epoll",
+    "41585",
+    "220000",
+    "220000",
+    "238993160",
+    "/home/helloworld0822/coding/forge-benchmarks/docs/http-v32-capacity-220k-paired-2026-10-12.raw/p000-b32-w4-c220000-1-rust-measurement-expected.bin",
+    "/home/helloworld0822/coding/forge-benchmarks/docs/http-v32-capacity-220k-paired-2026-10-12.raw/p000-b32-w4-c220000-1-rust-measurement-requests.tsv",
+    "60000",
+    "60000",
+    "8"
+  ],
+  "client_affinity": {
+    "439647": [
+      8
+    ]
+  },
+  "passive_kernel_before": {
+    "observed_at_utc": "2026-10-12T22:24:44Z",
+    "scope": "network namespace/global; attribution unproven",
+    "sysctls": {
+      "net/ipv4/tcp_syn_retries": "6",
+      "net/ipv4/tcp_syn_linear_timeouts": "4",
+      "net/ipv4/tcp_tw_reuse": "2",
+      "net/ipv4/ip_local_port_range": "32768\t60999",
+      "net/ipv4/tcp_max_tw_buckets": "65536",
+      "net/ipv4/tcp_max_syn_backlog": "1024",
+      "net/core/somaxconn": "4096",
+      "net/netfilter/nf_conntrack_count": "257858",
+      "net/netfilter/nf_conntrack_max": "262144",
+      "net/ipv4/tcp_mem": "180369\t240493\t360738"
+    },
+    "errors": [],
+    "global_tcp_ext_counters": {
+      "ListenOverflows": 388417,
+      "ListenDrops": 388417,
+      "TCPSynRetrans": 682033,
+      "TCPTimeouts": 3078686,
+      "TCPMemoryPressures": 1,
+      "TCPTimeWaitOverflow": 8082427,
+      "TCPReqQFullDrop": 0,
+      "TCPReqQFullDoCookies": 0,
+      "TCPBacklogDrop": 0,
+      "TCPRcvQDrop": 3308
+    },
+    "sockstat": "sockets: used 1890\nTCP: inuse 338 orphan 11 tw 63926 alloc 1516 mem 272074\nUDP: inuse 3 mem 748\nUDPLITE: inuse 0\nRAW: inuse 0\nFRAG: inuse 0 memory 0\n",
+    "port": 41585,
+    "port_socket_state_counts": {
+      "0A": 4,
+      "06": 11
+    },
+    "listeners_and_pending": [
+      {
+        "local_address_hex": "00000000:A271",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "251808672"
+      },
+      {
+        "local_address_hex": "00000000:A271",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "251808671"
+      },
+      {
+        "local_address_hex": "00000000:A271",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "251808670"
+      },
+      {
+        "local_address_hex": "00000000:A271",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "251808669"
+      }
+    ]
+  },
+  "server_stats_before": {
+    "user_seconds": 0.0,
+    "system_seconds": 0.01,
+    "resident_pages": 512,
+    "threads": 5
+  },
+  "observer_wall_ns": 60567230327,
+  "server_stats_after": {
+    "user_seconds": 0.89,
+    "system_seconds": 20.93,
+    "resident_pages": 512,
+    "threads": 5
+  },
+  "server_affinity_after": {
+    "439642": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "439643": [
+      0
+    ],
+    "439644": [
+      2
+    ],
+    "439645": [
+      4
+    ],
+    "439646": [
+      6
+    ]
+  },
+  "passive_kernel_after": {
+    "observed_at_utc": "2026-10-12T22:25:45Z",
+    "scope": "network namespace/global; attribution unproven",
+    "sysctls": {
+      "net/ipv4/tcp_syn_retries": "6",
+      "net/ipv4/tcp_syn_linear_timeouts": "4",
+      "net/ipv4/tcp_tw_reuse": "2",
+      "net/ipv4/ip_local_port_range": "32768\t60999",
+      "net/ipv4/tcp_max_tw_buckets": "65536",
+      "net/ipv4/tcp_max_syn_backlog": "1024",
+      "net/core/somaxconn": "4096",
+      "net/netfilter/nf_conntrack_count": "238479",
+      "net/netfilter/nf_conntrack_max": "262144",
+      "net/ipv4/tcp_mem": "180369\t240493\t360738"
+    },
+    "errors": [],
+    "global_tcp_ext_counters": {
+      "ListenOverflows": 388417,
+      "ListenDrops": 388417,
+      "TCPSynRetrans": 687633,
+      "TCPTimeouts": 3084436,
+      "TCPMemoryPressures": 1,
+      "TCPTimeWaitOverflow": 8172009,
+      "TCPReqQFullDrop": 0,
+      "TCPReqQFullDoCookies": 0,
+      "TCPBacklogDrop": 0,
+      "TCPRcvQDrop": 3308
+    },
+    "sockstat": "sockets: used 1887\nTCP: inuse 334 orphan 7 tw 62685 alloc 1512 mem 272330\nUDP: inuse 4 mem 748\nUDPLITE: inuse 0\nRAW: inuse 0\nFRAG: inuse 0 memory 0\n",
+    "port": 41585,
+    "port_socket_state_counts": {
+      "0A": 4,
+      "06": 62680
+    },
+    "listeners_and_pending": [
+      {
+        "local_address_hex": "00000000:A271",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "251808672"
+      },
+      {
+        "local_address_hex": "00000000:A271",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "251808671"
+      },
+      {
+        "local_address_hex": "00000000:A271",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "251808670"
+      },
+      {
+        "local_address_hex": "00000000:A271",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "251808669"
+      }
+    ]
+  },
+  "client_exit_code": 0,
+  "client_process_usage": {
+    "user_seconds": 1.983472,
+    "system_seconds": 23.123215,
+    "peak_rss_kib": 82560
+  },
+  "elapsed_ns": 60557307550,
+  "attempted_requests": 207824,
+  "completed_requests": 207819,
+  "errors": 5,
+  "error": "RuntimeError('Epoll observer failed: requested=220000, attempted=207824, completed=207819, errors=5; first failure id=4485 stage=connect error=Custom { kind: TimedOut, error: \"stage deadline exceeded\" }')",
+  "client_cleanup_usage": {
+    "exit_code": 0
+  },
+  "server_process_usage": {
+    "exit_code": -15,
+    "user_seconds": 0.894266,
+    "system_seconds": 20.940739,
+    "peak_rss_kib": 82560
+  },
+  "request_samples_sha256": "c8c695c6630b7de4af2c89cae99c4a995811194ce4775c110a1ecc1bac580e05",
+  "retained_request_rows": 207824,
+  "retained_failed_rows": [
+    {
+      "id": "4485",
+      "latency_ns": "60001871776",
+      "connect_ns": "60001867968",
+      "setup_ns": "0",
+      "write_ns": "0",
+      "read_ns": "0",
+      "eof_ns": "0",
+      "response_bytes": "0",
+      "failed_stage": "connect",
+      "error": "Custom { kind: TimedOut, error: \"stage deadline exceeded\" }"
+    },
+    {
+      "id": "4493",
+      "latency_ns": "60001757415",
+      "connect_ns": "60001756721",
+      "setup_ns": "0",
+      "write_ns": "0",
+      "read_ns": "0",
+      "eof_ns": "0",
+      "response_bytes": "0",
+      "failed_stage": "connect",
+      "error": "Custom { kind: TimedOut, error: \"stage deadline exceeded\" }"
+    },
+    {
+      "id": "4533",
+      "latency_ns": "60000972050",
+      "connect_ns": "60000971651",
+      "setup_ns": "0",
+      "write_ns": "0",
+      "read_ns": "0",
+      "eof_ns": "0",
+      "response_bytes": "0",
+      "failed_stage": "connect",
+      "error": "Custom { kind: TimedOut, error: \"stage deadline exceeded\" }"
+    },
+    {
+      "id": "4614",
+      "latency_ns": "60011495199",
+      "connect_ns": "60011490009",
+      "setup_ns": "0",
+      "write_ns": "0",
+      "read_ns": "0",
+      "eof_ns": "0",
+      "response_bytes": "0",
+      "failed_stage": "connect",
+      "error": "Custom { kind: TimedOut, error: \"stage deadline exceeded\" }"
+    },
+    {
+      "id": "4627",
+      "latency_ns": "60011367890",
+      "connect_ns": "60011366616",
+      "setup_ns": "0",
+      "write_ns": "0",
+      "read_ns": "0",
+      "eof_ns": "0",
+      "response_bytes": "0",
+      "failed_stage": "connect",
+      "error": "Custom { kind: TimedOut, error: \"stage deadline exceeded\" }"
+    }
+  ]
+}

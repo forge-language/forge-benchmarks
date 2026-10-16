@@ -1,0 +1,1330 @@
+{
+  "status": "passed",
+  "protocol": "prepared-http-v2-bounded-connect-stage-observer",
+  "workers": 4,
+  "concurrency": 256,
+  "requests": 1024,
+  "seed": 983402159,
+  "body_bytes": 4096,
+  "connect_timeout_ms": 5000,
+  "observer_failure_policy": "first failure stops new requests; all in-flight attempts retained; trial fails without retry",
+  "body_sha256": "085cd31fb1e24cf16384361687e4c5415da108b029a5216e888f8a68b2f10708",
+  "expected_response_sha256": "26a183d17171936e43323a725dc83888a85ac8760a91f39af28ee6c9f68e89d7",
+  "expected_response_bytes": 4156,
+  "raw_prefix": "/home/helloworld0822/coding/forge-benchmarks/docs/http-v2-capacity-2026-10-12.raw/w4-b4096-c256-r00-0-rust-prewarm",
+  "server_cpus": [
+    0,
+    2,
+    4,
+    6
+  ],
+  "client_cpus": [
+    8,
+    10
+  ],
+  "server_command": [
+    "/tmp/forge-http-v2-capacity-build-20261012/rust-http",
+    "53001",
+    "4",
+    "QZYVTENETBOUSQARTXKLAYRFNFXJBGBNQTCABHVRBKOAKOHIICBRGMDRLWBITLICSQRDBWKLCTJBVCTAHGYPLSWGSYOREQRYOPSCHTFZDMPMGQKVVBFZYTCBSWPKCLDIXGHPSDCOJLLDLVIUYCZKBFLTPSGBEDUGPEBMQMSSFWXVSDTQFNPFNOXGBISSRPYFZXJRFTNWWDCZRMMGPMEFYCJVJXMSBKGHMYXCDEUMKKXBWWNJQQIBIKKJLHJEYIAWPYOEYPBPEFCSBMJEUFBSLRULGRCWZIBLAJCQWIJMMPGFLBGQXMNSVBMEJULWDSMHDSQCVVWDEIYFQLOMLWVAUHZGJMUPMFABQYBTMKKEURZDKZFXGQMEYBKDXVAAXRAWFVJMYIEJGFOEEQYBNJBYKUIPEHJCJWKWJULDUNVFYTRLENFABFBYXMFOEBWBVIYNDWCOUVFMPTBOCAWDOUPTSTNLMJLCTREPKGEAXCTAFIDZGUWXUHZQZPGGCRQLJKTREFCOWDOJNIWXXIGCVFLGOFXOEPCYOEMCUVHQBRUGAUELUKLIHZBUSRMHLIVOHQYBPNVQHAHRZFQXGMIYKTNZABCXCVDWIGYEZAQINXJEGJTHSKJHODBYYESROHIGFHIDLHVTLABSBDAYKPPXDHIHSGYJPGJIYWQMHHVUJGBADKIZWZDIDQWMZEBRDSDIHYBIJGGZMMRJAPMTZFISRZLTBUDUAQOKLUGUELOJBOUAYCCKIREKYEARISYDFLHROCINJSHNNOXFYVHWFGAITOLFIHNPJZCCTCVFXQXVCHCJDPASVIMFFHMJVTETVVMWCYVZDCYWQMNDODSIDIUUPNGUIIAMKUZTTUTQZTGSGJFAJRODOUTNHTTVMJXZIRGYBSLBHLLDLYTOWGSRNZEQVKOXVUTBEBRDIDAWNJYPDWJNCCICHYGNDSKYWOEBPITZEQRTXNMBNXFRLHWNHNIMTHSKJSTWBNQDIBTNOCECNDMHVGRPDFDZLTBSUZDOKHQJUZPKTKZIVESXYVXPLWFQNHVKTVEVWBBCZXWXAPFCBFSDIOALQNJKFLRDUAHYYWFESPSQXRYSHFAUCZCBSHIWWKWYCWBRKVXYWMFOYZWUQAVLZWBDXQJVFDSMROUSGPWACLNTHQRJZHYFPXSZSPOBZBPMOKPGZTGQVZOTOCCGOEQWVRPSYZGCIJHJYZPFXGQSIFXEXEVDSDAKKEIOKYNPNKJXFGNQXUEZMFBCPOXAPIVBSGRKHMPMIZRZKTHYDUSVYXFBFTBMCOHJZSSJNEEFAMUXXFAZNDANYDYVMLIKYQBKZEPREWGLTALMKVSFTWFHROYBSYRYPYDODDNJVDUYSEXKLCHRUJRXQYDPNZEBCIJUYZUXDOYVALSRXOVVPDZSMLNFEZFGNLKFMIEJUWGXXJIOXZQNVWNSTAQDJLLWPJMCSMRWYSJDCAQYIHRTVQFBZAWVNNIJMGNSBTNANBUJLQGGFXREJYCOSLMDVIRKKZNWNYZKVMQOWGJWTTSSQTNDPJDAXBBQUFZYAYLFNVTYAXEPRVGKEIOQTTTLMVIOHRIAVMGRYSHVJWZQGIMTXTRQTGTBDLCZWVDMJPJCWSACHAPLUDWGQWXNZWPZHSXWHBXSENZSHVIPELLGDARXCBYKDCYWXNBPPTQMQJQETJYNLYNUBVQZKEZOOEWHRGSDZPBXFIIOBQXWUMANWMMTNFKPPCTTARHRUBNKMVINHHLJHEXAHQEUKZOIZDZJYOCNNHGWVZVDIFNGVAFFUCRYPKHVQUDJRCGYABQLXSFJPCVDWGBWOTEHUDMSZGSSOYRBOWBYJSSVQVFQATZRTVFOROKABZRSQYSNIXNOITOWVIMEJXTGCMGZGYDAAQCTORHPZKOPHJTHRHTWSEULIELJRWRWIZAHHGYCABIBDDTTFXIYKECJYAJBEOEYJLYXFCQCROSVBCTJZVPNMPHNYHDJVCLKTWFDEEPSRBVBBKGCUJNPGUCDREZJYEJACGQSFRGRCWSWVBEAJUHTRIHTVFIFKWUQJPJEVZZSZWJYJIULLPQVCYQHOKBSPTCFOWBLUIMBXMCGOLGTJGLOADNFSMOTJHAKUPLJTEKHXEAABMHFQZEGQARZKZJMIPXAPYNAYRIGXONHIAJWKKRPPWHAWQBRTBDKFMNWCZEOHEPIOXQRXYOFHPBIUVCZURZLTLLBDPVOFZYDNPDXAHCUGDOYHRSAERGIINKBFWYBXBXSDLRTVDPHXYVSSOXVDYJZXYMLPTGKJILKXIEPOZSQRUVVNVKELVQSXBZRXLLIBAFQHGCOWIVVVNYZQBRQSQRWVHQKYIZSKBMOUXJQMQSGPRFLJYFWYDQTHGNRYYBGURNMUWECBQXFMNFJYPQHIAFGNMHOUFVKRUAGTSNFGAEQMAJCSHRXIYGAGHGEPVHAMWBMXMNEYNUTLRZGMEKZSDCVRLYBSOYMZKNCMPRIHTPYZXWMWLHJBCYUGMCKIQZMEQJWPJHJOSVOTNBKZSUNAAGZJEHHCSMVHRBHQYOKBNWTDCQFOROPFWYJJQZJHGAUBJDIJQINKDTGIRLWFITRVMZWSMVENCXGAIAOXARRAILDXCLEEAQWTSSTUQKTYDPNHUYCHMWNBZPVCDNGGANOFWBXBMBYYIADDYWDYUUXDCRFLXFRBYSWDQGYLDJGWBQMGXWTYSDZGADXBWIIAQQEPEMFYXAONNYPXYUWHUONXFCDSZPPNWESGFHJKGPGTAGDTYWGMZNUJTRGTUKWYSJNTBGRKIIEFOMOOQZEZKVGPOHSJIURJQFSFSIYPYQKOTBSLSDZESWGZKBALMZMRGJFPCHITMOLTMDHBTAYUWBTGUIVCSQZTKMXRWKBHBYGDJNQMAYKCMIDIONZTUDXRUCHDPHCSKXKNXKCOXOYHLWKIPMTPJNDXFCYBLEOKHAROYPULFLJIYVDRZMGRGWBOYVFHJXFWRSSSDLRYBRZDCZMBRFGAHZBHKBEJPCINSKARCVYAIBLYSDQUKCPQKHFHSVNCUQMBBVWTLIXRKHVGCLEIZAETZAZMFUZFNABLOXHNWMKOUVJVOQUMSLPEIFCWWEKVECLDSPXXVMNFWZSZZRSBUWEJBWAHPVWQNHUWBSYSNIOJGJUKHOXASSYSQXKIMBDOJKVBSJJYWDAEOBLFMAJGCGHDVPKZBTXEYAPNHEPBXMGITZVIUIXFMLTCVVSHNRHTPPZJYVYGNMNWADSBTHSFZDINYQZEKFTYSUDIYWBEUZJVIYIOLWESLERWNFYZMCUKEWPBMMSHAODAGZJVOSHBIYMJNUHEDCFSCYWYAFKCXIMBNVPZPXGIYWHYKSIWQMNHIWEFBMTFZFATERIOJXLNXXCXALCMPXPFCIWMFJJCEDFRCFJPHNAPPCADKTHXLJHGELZOXHWCFATJDEJCKLXJKLQWWNZLQIPSQWTAHAKENVMDLECXSNRXCCAOLJZTTTMOFSUQGMFEIJXKNLKLRNNQJKLORJZMOWYLBNIYOYPMMPXTNTNDRDKQGVKDGOYOWQWJKXCSBLNYEUPTUFAKKJJRHPDHGKLTOGJDVOXYEMZIYVACQTWKPVSQXYVIIZQZXUVDJEMLPZGBBBPIGGKHLWQVZVRAADUXBBDTQBFVDSQUHLRTZPKCANUNFWLICKDBSMYZDQIHUAUGTMIEMKRUPVFXSXPMBWHWMRJZKWMJAAYPMBOQFCOYBNILLCZIHHXJLBUOHDXDBEYFIBMOCFXSPZAUGYPHREFSIXSMSHIZWRESNUELOGEKSGLHLLGGMRVEKEXCAXGLDWYJGSEPHVCPGCUZVIZSDRHRYRLEPTHCEOASCCSNCCKWCNPZAAUOGBHFSTBJRGLUBICEWRVNNEENSNSDTTVXHLALGRFMBHQFELBDSCJVVKRNWSLLOFDITRQNVAIEQMOAGLLTRXQVDNANGDTBKBULSIOISIQLDRJBNNABNXLQTSKTAMUOZMUIKTVZUXSAWVJSXTUZAYJCGHNKJIJSNZGZANSTDQWVCBGTOXCDIZKRJJWGFJIDOTMKRFBPDSTLOHNLUIXLQCPPAJEXOOFOJLAJKKGNLCLALBUYJQO"
+  ],
+  "server_affinity_before": {
+    "300224": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "300225": [
+      0
+    ],
+    "300226": [
+      2
+    ],
+    "300227": [
+      4
+    ],
+    "300228": [
+      6
+    ]
+  },
+  "independent_probe": {
+    "request_sha256": "c9cbb0333c5bb831c59d73063bd481ee984dbd15ad67f245faba1e3ebf6eef65",
+    "response_sha256": "26a183d17171936e43323a725dc83888a85ac8760a91f39af28ee6c9f68e89d7",
+    "response_bytes": 4156,
+    "fragmented": false
+  },
+  "load_command": [
+    "/tmp/forge-http-v2-capacity-build-20261012/http-load",
+    "53001",
+    "256",
+    "1024",
+    "983402159",
+    "/home/helloworld0822/coding/forge-benchmarks/docs/http-v2-capacity-2026-10-12.raw/w4-b4096-c256-r00-0-rust-prewarm-expected.bin",
+    "/home/helloworld0822/coding/forge-benchmarks/docs/http-v2-capacity-2026-10-12.raw/w4-b4096-c256-r00-0-rust-prewarm-requests.tsv",
+    "5000"
+  ],
+  "client_affinity": {
+    "300229": [
+      8,
+      10
+    ],
+    "300230": [
+      8,
+      10
+    ],
+    "300231": [
+      8,
+      10
+    ],
+    "300232": [
+      8,
+      10
+    ],
+    "300233": [
+      8,
+      10
+    ],
+    "300234": [
+      8,
+      10
+    ],
+    "300235": [
+      8,
+      10
+    ],
+    "300236": [
+      8,
+      10
+    ],
+    "300237": [
+      8,
+      10
+    ],
+    "300238": [
+      8,
+      10
+    ],
+    "300239": [
+      8,
+      10
+    ],
+    "300240": [
+      8,
+      10
+    ],
+    "300241": [
+      8,
+      10
+    ],
+    "300242": [
+      8,
+      10
+    ],
+    "300243": [
+      8,
+      10
+    ],
+    "300244": [
+      8,
+      10
+    ],
+    "300245": [
+      8,
+      10
+    ],
+    "300246": [
+      8,
+      10
+    ],
+    "300247": [
+      8,
+      10
+    ],
+    "300248": [
+      8,
+      10
+    ],
+    "300249": [
+      8,
+      10
+    ],
+    "300250": [
+      8,
+      10
+    ],
+    "300251": [
+      8,
+      10
+    ],
+    "300252": [
+      8,
+      10
+    ],
+    "300253": [
+      8,
+      10
+    ],
+    "300254": [
+      8,
+      10
+    ],
+    "300255": [
+      8,
+      10
+    ],
+    "300256": [
+      8,
+      10
+    ],
+    "300257": [
+      8,
+      10
+    ],
+    "300258": [
+      8,
+      10
+    ],
+    "300259": [
+      8,
+      10
+    ],
+    "300260": [
+      8,
+      10
+    ],
+    "300261": [
+      8,
+      10
+    ],
+    "300262": [
+      8,
+      10
+    ],
+    "300263": [
+      8,
+      10
+    ],
+    "300264": [
+      8,
+      10
+    ],
+    "300265": [
+      8,
+      10
+    ],
+    "300266": [
+      8,
+      10
+    ],
+    "300267": [
+      8,
+      10
+    ],
+    "300268": [
+      8,
+      10
+    ],
+    "300269": [
+      8,
+      10
+    ],
+    "300270": [
+      8,
+      10
+    ],
+    "300271": [
+      8,
+      10
+    ],
+    "300272": [
+      8,
+      10
+    ],
+    "300273": [
+      8,
+      10
+    ],
+    "300274": [
+      8,
+      10
+    ],
+    "300275": [
+      8,
+      10
+    ],
+    "300276": [
+      8,
+      10
+    ],
+    "300277": [
+      8,
+      10
+    ],
+    "300278": [
+      8,
+      10
+    ],
+    "300279": [
+      8,
+      10
+    ],
+    "300280": [
+      8,
+      10
+    ],
+    "300281": [
+      8,
+      10
+    ],
+    "300282": [
+      8,
+      10
+    ],
+    "300283": [
+      8,
+      10
+    ],
+    "300284": [
+      8,
+      10
+    ],
+    "300285": [
+      8,
+      10
+    ],
+    "300286": [
+      8,
+      10
+    ],
+    "300287": [
+      8,
+      10
+    ],
+    "300288": [
+      8,
+      10
+    ],
+    "300289": [
+      8,
+      10
+    ],
+    "300290": [
+      8,
+      10
+    ],
+    "300291": [
+      8,
+      10
+    ],
+    "300292": [
+      8,
+      10
+    ],
+    "300293": [
+      8,
+      10
+    ],
+    "300294": [
+      8,
+      10
+    ],
+    "300295": [
+      8,
+      10
+    ],
+    "300296": [
+      8,
+      10
+    ],
+    "300297": [
+      8,
+      10
+    ],
+    "300298": [
+      8,
+      10
+    ],
+    "300299": [
+      8,
+      10
+    ],
+    "300300": [
+      8,
+      10
+    ],
+    "300301": [
+      8,
+      10
+    ],
+    "300302": [
+      8,
+      10
+    ],
+    "300303": [
+      8,
+      10
+    ],
+    "300304": [
+      8,
+      10
+    ],
+    "300305": [
+      8,
+      10
+    ],
+    "300306": [
+      8,
+      10
+    ],
+    "300307": [
+      8,
+      10
+    ],
+    "300308": [
+      8,
+      10
+    ],
+    "300309": [
+      8,
+      10
+    ],
+    "300310": [
+      8,
+      10
+    ],
+    "300311": [
+      8,
+      10
+    ],
+    "300312": [
+      8,
+      10
+    ],
+    "300313": [
+      8,
+      10
+    ],
+    "300314": [
+      8,
+      10
+    ],
+    "300315": [
+      8,
+      10
+    ],
+    "300316": [
+      8,
+      10
+    ],
+    "300317": [
+      8,
+      10
+    ],
+    "300318": [
+      8,
+      10
+    ],
+    "300319": [
+      8,
+      10
+    ],
+    "300320": [
+      8,
+      10
+    ],
+    "300321": [
+      8,
+      10
+    ],
+    "300322": [
+      8,
+      10
+    ],
+    "300323": [
+      8,
+      10
+    ],
+    "300324": [
+      8,
+      10
+    ],
+    "300325": [
+      8,
+      10
+    ],
+    "300326": [
+      8,
+      10
+    ],
+    "300327": [
+      8,
+      10
+    ],
+    "300328": [
+      8,
+      10
+    ],
+    "300329": [
+      8,
+      10
+    ],
+    "300330": [
+      8,
+      10
+    ],
+    "300331": [
+      8,
+      10
+    ],
+    "300332": [
+      8,
+      10
+    ],
+    "300333": [
+      8,
+      10
+    ],
+    "300334": [
+      8,
+      10
+    ],
+    "300335": [
+      8,
+      10
+    ],
+    "300336": [
+      8,
+      10
+    ],
+    "300337": [
+      8,
+      10
+    ],
+    "300338": [
+      8,
+      10
+    ],
+    "300339": [
+      8,
+      10
+    ],
+    "300340": [
+      8,
+      10
+    ],
+    "300341": [
+      8,
+      10
+    ],
+    "300342": [
+      8,
+      10
+    ],
+    "300343": [
+      8,
+      10
+    ],
+    "300344": [
+      8,
+      10
+    ],
+    "300345": [
+      8,
+      10
+    ],
+    "300346": [
+      8,
+      10
+    ],
+    "300347": [
+      8,
+      10
+    ],
+    "300348": [
+      8,
+      10
+    ],
+    "300349": [
+      8,
+      10
+    ],
+    "300350": [
+      8,
+      10
+    ],
+    "300351": [
+      8,
+      10
+    ],
+    "300352": [
+      8,
+      10
+    ],
+    "300353": [
+      8,
+      10
+    ],
+    "300354": [
+      8,
+      10
+    ],
+    "300355": [
+      8,
+      10
+    ],
+    "300356": [
+      8,
+      10
+    ],
+    "300357": [
+      8,
+      10
+    ],
+    "300358": [
+      8,
+      10
+    ],
+    "300359": [
+      8,
+      10
+    ],
+    "300360": [
+      8,
+      10
+    ],
+    "300361": [
+      8,
+      10
+    ],
+    "300362": [
+      8,
+      10
+    ],
+    "300363": [
+      8,
+      10
+    ],
+    "300364": [
+      8,
+      10
+    ],
+    "300365": [
+      8,
+      10
+    ],
+    "300366": [
+      8,
+      10
+    ],
+    "300367": [
+      8,
+      10
+    ],
+    "300368": [
+      8,
+      10
+    ],
+    "300369": [
+      8,
+      10
+    ],
+    "300370": [
+      8,
+      10
+    ],
+    "300371": [
+      8,
+      10
+    ],
+    "300372": [
+      8,
+      10
+    ],
+    "300373": [
+      8,
+      10
+    ],
+    "300374": [
+      8,
+      10
+    ],
+    "300375": [
+      8,
+      10
+    ],
+    "300376": [
+      8,
+      10
+    ],
+    "300377": [
+      8,
+      10
+    ],
+    "300378": [
+      8,
+      10
+    ],
+    "300379": [
+      8,
+      10
+    ],
+    "300380": [
+      8,
+      10
+    ],
+    "300381": [
+      8,
+      10
+    ],
+    "300382": [
+      8,
+      10
+    ],
+    "300383": [
+      8,
+      10
+    ],
+    "300384": [
+      8,
+      10
+    ],
+    "300385": [
+      8,
+      10
+    ],
+    "300386": [
+      8,
+      10
+    ],
+    "300387": [
+      8,
+      10
+    ],
+    "300388": [
+      8,
+      10
+    ],
+    "300389": [
+      8,
+      10
+    ],
+    "300390": [
+      8,
+      10
+    ],
+    "300391": [
+      8,
+      10
+    ],
+    "300392": [
+      8,
+      10
+    ],
+    "300393": [
+      8,
+      10
+    ],
+    "300394": [
+      8,
+      10
+    ],
+    "300395": [
+      8,
+      10
+    ],
+    "300396": [
+      8,
+      10
+    ],
+    "300397": [
+      8,
+      10
+    ],
+    "300398": [
+      8,
+      10
+    ],
+    "300399": [
+      8,
+      10
+    ],
+    "300400": [
+      8,
+      10
+    ],
+    "300401": [
+      8,
+      10
+    ],
+    "300402": [
+      8,
+      10
+    ],
+    "300403": [
+      8,
+      10
+    ],
+    "300404": [
+      8,
+      10
+    ],
+    "300405": [
+      8,
+      10
+    ],
+    "300406": [
+      8,
+      10
+    ],
+    "300407": [
+      8,
+      10
+    ],
+    "300408": [
+      8,
+      10
+    ],
+    "300409": [
+      8,
+      10
+    ],
+    "300410": [
+      8,
+      10
+    ],
+    "300411": [
+      8,
+      10
+    ],
+    "300412": [
+      8,
+      10
+    ],
+    "300413": [
+      8,
+      10
+    ],
+    "300414": [
+      8,
+      10
+    ],
+    "300415": [
+      8,
+      10
+    ],
+    "300416": [
+      8,
+      10
+    ],
+    "300417": [
+      8,
+      10
+    ],
+    "300418": [
+      8,
+      10
+    ],
+    "300419": [
+      8,
+      10
+    ],
+    "300420": [
+      8,
+      10
+    ],
+    "300421": [
+      8,
+      10
+    ],
+    "300422": [
+      8,
+      10
+    ],
+    "300423": [
+      8,
+      10
+    ],
+    "300424": [
+      8,
+      10
+    ],
+    "300425": [
+      8,
+      10
+    ],
+    "300426": [
+      8,
+      10
+    ],
+    "300427": [
+      8,
+      10
+    ],
+    "300428": [
+      8,
+      10
+    ],
+    "300429": [
+      8,
+      10
+    ],
+    "300430": [
+      8,
+      10
+    ],
+    "300431": [
+      8,
+      10
+    ],
+    "300432": [
+      8,
+      10
+    ],
+    "300433": [
+      8,
+      10
+    ],
+    "300434": [
+      8,
+      10
+    ],
+    "300435": [
+      8,
+      10
+    ],
+    "300436": [
+      8,
+      10
+    ],
+    "300437": [
+      8,
+      10
+    ],
+    "300438": [
+      8,
+      10
+    ],
+    "300439": [
+      8,
+      10
+    ],
+    "300440": [
+      8,
+      10
+    ],
+    "300441": [
+      8,
+      10
+    ],
+    "300442": [
+      8,
+      10
+    ],
+    "300443": [
+      8,
+      10
+    ],
+    "300444": [
+      8,
+      10
+    ],
+    "300445": [
+      8,
+      10
+    ],
+    "300446": [
+      8,
+      10
+    ],
+    "300447": [
+      8,
+      10
+    ],
+    "300448": [
+      8,
+      10
+    ],
+    "300449": [
+      8,
+      10
+    ],
+    "300450": [
+      8,
+      10
+    ],
+    "300451": [
+      8,
+      10
+    ],
+    "300452": [
+      8,
+      10
+    ],
+    "300453": [
+      8,
+      10
+    ],
+    "300454": [
+      8,
+      10
+    ],
+    "300455": [
+      8,
+      10
+    ],
+    "300456": [
+      8,
+      10
+    ],
+    "300457": [
+      8,
+      10
+    ],
+    "300458": [
+      8,
+      10
+    ],
+    "300459": [
+      8,
+      10
+    ],
+    "300460": [
+      8,
+      10
+    ],
+    "300461": [
+      8,
+      10
+    ],
+    "300462": [
+      8,
+      10
+    ],
+    "300463": [
+      8,
+      10
+    ],
+    "300464": [
+      8,
+      10
+    ],
+    "300465": [
+      8,
+      10
+    ],
+    "300466": [
+      8,
+      10
+    ],
+    "300467": [
+      8,
+      10
+    ],
+    "300468": [
+      8,
+      10
+    ],
+    "300469": [
+      8,
+      10
+    ],
+    "300470": [
+      8,
+      10
+    ],
+    "300471": [
+      8,
+      10
+    ],
+    "300472": [
+      8,
+      10
+    ],
+    "300473": [
+      8,
+      10
+    ],
+    "300474": [
+      8,
+      10
+    ],
+    "300475": [
+      8,
+      10
+    ],
+    "300476": [
+      8,
+      10
+    ],
+    "300477": [
+      8,
+      10
+    ],
+    "300478": [
+      8,
+      10
+    ],
+    "300479": [
+      8,
+      10
+    ],
+    "300480": [
+      8,
+      10
+    ],
+    "300481": [
+      8,
+      10
+    ],
+    "300482": [
+      8,
+      10
+    ],
+    "300483": [
+      8,
+      10
+    ],
+    "300484": [
+      8,
+      10
+    ],
+    "300485": [
+      8,
+      10
+    ]
+  },
+  "passive_kernel_before": {
+    "observed_at_utc": "2026-10-12T06:39:22Z",
+    "scope": "network namespace/global; attribution unproven",
+    "sysctls": {
+      "net/ipv4/tcp_syn_retries": "6",
+      "net/ipv4/tcp_syn_linear_timeouts": "4",
+      "net/ipv4/tcp_tw_reuse": "2",
+      "net/ipv4/ip_local_port_range": "32768\t60999",
+      "net/ipv4/tcp_max_tw_buckets": "65536",
+      "net/ipv4/tcp_max_syn_backlog": "1024",
+      "net/core/somaxconn": "4096",
+      "net/netfilter/nf_conntrack_count": "166988",
+      "net/netfilter/nf_conntrack_max": "262144",
+      "net/ipv4/tcp_mem": "180369\t240493\t360738"
+    },
+    "errors": [],
+    "global_tcp_ext_counters": {
+      "ListenOverflows": 1,
+      "ListenDrops": 1,
+      "TCPSynRetrans": 26202,
+      "TCPTimeouts": 2143622,
+      "TCPMemoryPressures": 1,
+      "TCPTimeWaitOverflow": 5594611,
+      "TCPReqQFullDrop": 0,
+      "TCPReqQFullDoCookies": 0,
+      "TCPBacklogDrop": 0,
+      "TCPRcvQDrop": 3306
+    },
+    "sockstat": "sockets: used 1855\nTCP: inuse 330 orphan 4 tw 64512 alloc 1507 mem 272095\nUDP: inuse 3 mem 492\nUDPLITE: inuse 0\nRAW: inuse 0\nFRAG: inuse 0 memory 0\n",
+    "port": 53001,
+    "port_socket_state_counts": {
+      "0A": 4,
+      "06": 2
+    },
+    "listeners_and_pending": [
+      {
+        "local_address_hex": "00000000:CF09",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "227453713"
+      },
+      {
+        "local_address_hex": "00000000:CF09",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "227453712"
+      },
+      {
+        "local_address_hex": "00000000:CF09",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "227453711"
+      },
+      {
+        "local_address_hex": "00000000:CF09",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "227453710"
+      }
+    ]
+  },
+  "server_stats_before": {
+    "user_seconds": 0.0,
+    "system_seconds": 0.01,
+    "resident_pages": 512,
+    "threads": 5
+  },
+  "observer_wall_ns": 253763962,
+  "server_stats_after": {
+    "user_seconds": 0.0,
+    "system_seconds": 0.1,
+    "resident_pages": 512,
+    "threads": 5
+  },
+  "server_affinity_after": {
+    "300224": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "300225": [
+      0
+    ],
+    "300226": [
+      2
+    ],
+    "300227": [
+      4
+    ],
+    "300228": [
+      6
+    ]
+  },
+  "passive_kernel_after": {
+    "observed_at_utc": "2026-10-12T06:39:23Z",
+    "scope": "network namespace/global; attribution unproven",
+    "sysctls": {
+      "net/ipv4/tcp_syn_retries": "6",
+      "net/ipv4/tcp_syn_linear_timeouts": "4",
+      "net/ipv4/tcp_tw_reuse": "2",
+      "net/ipv4/ip_local_port_range": "32768\t60999",
+      "net/ipv4/tcp_max_tw_buckets": "65536",
+      "net/ipv4/tcp_max_syn_backlog": "1024",
+      "net/core/somaxconn": "4096",
+      "net/netfilter/nf_conntrack_count": "167473",
+      "net/netfilter/nf_conntrack_max": "262144",
+      "net/ipv4/tcp_mem": "180369\t240493\t360738"
+    },
+    "errors": [],
+    "global_tcp_ext_counters": {
+      "ListenOverflows": 1,
+      "ListenDrops": 1,
+      "TCPSynRetrans": 26202,
+      "TCPTimeouts": 2143622,
+      "TCPMemoryPressures": 1,
+      "TCPTimeWaitOverflow": 5594611,
+      "TCPReqQFullDrop": 0,
+      "TCPReqQFullDoCookies": 0,
+      "TCPBacklogDrop": 0,
+      "TCPRcvQDrop": 3306
+    },
+    "sockstat": "sockets: used 1855\nTCP: inuse 330 orphan 4 tw 65536 alloc 1507 mem 272097\nUDP: inuse 3 mem 492\nUDPLITE: inuse 0\nRAW: inuse 0\nFRAG: inuse 0 memory 0\n",
+    "port": 53001,
+    "port_socket_state_counts": {
+      "0A": 4,
+      "06": 1026
+    },
+    "listeners_and_pending": [
+      {
+        "local_address_hex": "00000000:CF09",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "227453713"
+      },
+      {
+        "local_address_hex": "00000000:CF09",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "227453712"
+      },
+      {
+        "local_address_hex": "00000000:CF09",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "227453711"
+      },
+      {
+        "local_address_hex": "00000000:CF09",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "227453710"
+      }
+    ]
+  },
+  "client_exit_code": 0,
+  "client_process_usage": {
+    "user_seconds": 0.011326,
+    "system_seconds": 0.206972,
+    "peak_rss_kib": 56364
+  },
+  "elapsed_ns": 247970301,
+  "attempted_requests": 1024,
+  "completed_requests": 1024,
+  "errors": 0,
+  "all_request_ids_once": true,
+  "every_response_exact": true,
+  "request_samples_sha256": "1e16aa1426bbbb4580283ff8fc3e85b2a750cd82b8ea42db3fc2e3f2d0bfbd90",
+  "requests_per_second": 4129.5267855484035,
+  "phase_durations": {
+    "connect_ns": {
+      "median_ns": 44040.0,
+      "p99_ns": 11087118,
+      "max_ns": 15235986
+    },
+    "setup_ns": {
+      "median_ns": 2184.0,
+      "p99_ns": 10451,
+      "max_ns": 21933
+    },
+    "write_ns": {
+      "median_ns": 16282.0,
+      "p99_ns": 72574,
+      "max_ns": 7944455
+    },
+    "read_ns": {
+      "median_ns": 689078.5,
+      "p99_ns": 5106331,
+      "max_ns": 7064106
+    },
+    "eof_ns": {
+      "median_ns": 959.5,
+      "p99_ns": 201625965,
+      "max_ns": 209992036
+    }
+  },
+  "latency_median_ns": 870748.5,
+  "latency_p99_ns": 201958635,
+  "client_cleanup_usage": {
+    "exit_code": 0
+  },
+  "server_process_usage": {
+    "exit_code": -15,
+    "user_seconds": 0.005059,
+    "system_seconds": 0.10423199999999999,
+    "peak_rss_kib": 56492
+  },
+  "retained_request_rows": 1024,
+  "retained_failed_rows": []
+}

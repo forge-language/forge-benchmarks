@@ -1,0 +1,2354 @@
+{
+  "status": "passed",
+  "protocol": "prepared-http-v2-bounded-connect-stage-observer",
+  "workers": 4,
+  "concurrency": 512,
+  "requests": 1024,
+  "seed": 481763511,
+  "body_bytes": 4096,
+  "connect_timeout_ms": 5000,
+  "observer_failure_policy": "first failure stops new requests; all in-flight attempts retained; trial fails without retry",
+  "body_sha256": "843330b89c83cb17664275612561bdb5d33fc172252edac5192d35590b76430e",
+  "expected_response_sha256": "4e85b02d8affa427da4714edd830266819e8ccb47a2cfba1ab91d65e10ae63fb",
+  "expected_response_bytes": 4156,
+  "raw_prefix": "/home/helloworld0822/coding/forge-benchmarks/docs/http-v2-capacity-2026-10-12.raw/w4-b4096-c512-r01-0-rust-prewarm",
+  "server_cpus": [
+    0,
+    2,
+    4,
+    6
+  ],
+  "client_cpus": [
+    8,
+    10
+  ],
+  "server_command": [
+    "/tmp/forge-http-v2-capacity-build-20261012/rust-http",
+    "40863",
+    "4",
+    "JEQTTBNDYKOZVBHJEBODIIOJYGPFBXZAGVUHIFXLLGNOZKJRRSLOSCEWZIHCBMYSHOVDPZZWMJVASOPXSEYAOHOXSXCVXAPAEUSCIVZLDRRYKAJHQKQTGUSWFNEARVLJKWHDIKOLYFAKIVNWPXEXFJDTVYNUCFIWUQMOIQMFFQLPIUEDLKCPDHKCYFJHYHOCJAHSJRRTGSKVWAEZPOEYOEXHQBTRMYDQUUMNODAEVZPODUNIRRLFNFBGKTCURJTZPINDWDJHWLLIGGFQMRPZXJAELACPJRYGVGDLVZVNHNCCQDMWNADQKISJXUOLYAPNAMZQTYTTWDEFBYPFEHPZNJZUJDQDVRTYVEPWFSGBNUNOTFVPYHCADHOWHWGUQTZDRKVRVVRKUUWQIPQGBCGEIIKKPHDYITZQHFESQZYSEBAHMWLUTPGOMVZBSLCFLNPVFQQHQPIGBUCLTOHAPGEJIBSDWCLNNDZHVVRBYAMKZLHJMLMGTAYELNFGYCKXHFMKLSYSDWYXGWMTHMUNJIFUUWZWNQDIZCMVYQVEYHCWEPZKMAGLADQYBEKOPMADASAJRUVJAAUUZZLAVGOOFOBRTFXSCFKOZYZHERWIHWNZNJNKMKUSZWMWCQKYLERPKMOTAKECPMDUWRKPJNYCSJXQNXXQXXMWTVPCARZSSPFBKNIKCCKYKVGNKZBQEATCEFVOLAJXKTKCIHDEVPFOZLSHZZSTCAXCMKADESUYOEHXEDEMDUEPVLEPRBXHNAWAWEOPSRYSTYAUYKQUNAJTSDRJRCPPUSQXQVJXOIYNEBGIOYJRQCNHADVCEDXGDZCXHKMHPZQDIRSQPGPRGKMNWZBDFAVZAKCYWCZFXXZBBFMDDVLVBFVFMKPOFCTUDVQKYVSJLKPVOMCWGJALMHROBZFNRBACDGHOPZOVUGCIFTWTLVNUQGCKAOMWKCGUHUVDUPSWYHBSJCVSPZUZQIQFTNFUSOOBBGTKACDMXCFMVADKTMGHSHZVTVZNCXFVETPNIVKUECLLKPWTEMUCKOARBWQUIUOLWJCZZQWKHJVIOMPAFCOIEQFIIWHBUWZIQJFPSHVGEWRQWJGWRKBCLPPQTZBRNQRGDAFXEUYMPSQLEQACNMPDUGRENLJWEAGJHCNIQALBJPSERQMVKQQNUHCWWUCQVSBTMUHZBKOWCRCZCQNFHBPOSXWMVKTLNWVMBONXHORXPPKFCJGJMURGGWCSXDQSHWGVBPGDQYRSMVPVJUEOKDSHCKCJTDPXUZGJQBZWZHZDJFUUGUYIVAHZAVTSLCOOOXGNLHURDWIELQQOBJGMCDWDTECHDCYYHCVORWPRTABQZAFIHOKAARXRIIMQYNGCHYLBVPBMDWUIBLVOXZJRJDBJYNVGFOLVFXRVNPOEVSWXBOCODDFHBQDCVBKLFIQGQPSNMZEFIUJAWXAEXEVFSPXVNDYGJGCGTNRKGLUAXRRZHWIQSBNHAANPXFRFKXMOMCLKRRYBRDOBDVARBWVAEQDANUVOBVGVIHFOMWJRCHAJMBHDHRZGSFIYGGRQPWGRNXEQPORKIYKWIEWKHAVDTDMKRVVOCHONRHGNCGHYFLJBUGBCBOBCWDJEBXYOJDISENHNRKLIDFUJWTPFGMKFUAZKMKSIGMKQRYLJFLJJAIOETRFPKXMHKCXHOWRZASHXBLBWPHHLQBSKDUMOTTOFRBPTIMBIHTGTVBPMKTYHBVXGECPFIBQZISJGXZRZYYWWOORPQPKWCIHWPMGYUBBCEXEEVRMFGNCSVYVXQHTFWTNQYDBARQDJQKUGVBKFQQGCMSWPUZXJMUXLSKKFWAQDODPQFYVDRCNQJRFIKWWEEZLQHVCAFRHTDGUZNXKJWXIPVUWWNQVTTKHJTLXISOFNLQOZJLRNTGBAUSUVIWDDXDGOHPJJXCTZPMFRWUQAXYNLPJRAAJNSTEMAXICQGTUIWBWACLIFUNOCCDHDHUCLQPLAFHFXNDVIKQEHALTHNMKKSZMHXPLGQCVGOWBARDPSIXFYDMHFBGJEPSYAWAMOIMRTVSSSTQIQYWIIXWUBLZWAULEXUIDQWRRFCQCONLKNSMXJQWOVJMINWYJTHUMQFAFHLZVQIGSCSALOVGSLZBGHAKJOZDPYEGGIYPDXGIODFBRERHAPBQIWNAEKFGSIKOCENIZPOJSOGJKJUNXSAGYCQLIZXCLQLHNYDFGSARWYOYMCVJKASODVODHOVPYLWTLZDQWAQQIRWNOJXBNYJJKITCSKUFYXZRFBFBTANPSJIEYDXSYHKLPMLCLCAMQIVFPKSDBFODGISARGSJPFPAXTJSEFCHYKCXVXWKKKWMHGHPARSSAFAGFQAEYDSNZVFFXHMOMCEZGXXSNYQISPJPMBHCWCCISTTHNGJACEDJHMMDQGLHYIIEVETWYAMZTRCWSERBSERMSGCXCXTGQXUHUBUNQFGQSHULDWUTYWPEKVSKLNYUFTJCRRJQEHFBAKQWGOPGXOEHYOOCLTOGUUCOQZNHSZVKPISYKBPCMEIKQIJNVWALFGZQURFEXIUXOKHAPKCEBCAUUMWBLBKRVKTLEQIAZOCUCHOPRTLFMTNFMOATSMBTONGBDPOMRSCFKIICMRFBFOCDOTFYYODQSDJUACXEMGLISWUADVAXJEJUBIIVPBFYSYHVLGAJEJQKELAJIVIHPQSTAVLEIIHDDPVUWOQLVNRFXEDBKHPFXXDMQNTEYTLEVJAVAMENYCYYQFHFVPCQEPQMSHNHONMWORLMOENPNRDLSWZIQENRKPRGYIOXZTYSHFCAPOCIHRHLQMPNIDCRWLIHAELUBCFFKUGZXEKFPZMNPCNMKHYNLACJCBHSRNEIJHKNXLJJCCHEDOYBLWXGUCFULAJYXGQZWZODFOKTANQDJCDNXMZRMMQPTIHDLLDRNKLKNTWDUXZCAGDWHGRKHCRPSWEZVBXQICVIYLJRCADSNVDEXXMTZKNIGPMVRRZTKOWCTCEXYZMBXKIDHAFGCWALLMRMIUCOBLWRPNOEFKJSVJRYVIJWTXGBHJJRRJEBPVBTZZABAMNCZHCTLOORMHZLHGDHRRTGPLXUPECJIVSGEZNAEFBBEJRRPXDFJELWZWJSSYAXKVTLYCTHOPQYSUAEZIZVFDIDXNRRCPYHHOSQMZJGCLMCAGAQSGEYWXKELKEPQZPBVTFCFWUGPZNNNVKSVNLAEPMROTDNZWUTNOQQQQJPRBKTHGNAVURPDSWDCCCYMSEQDGXJPZSDSPNRIEUPNIBFALZIHBQFXXDUXDRAMEXYJBTGQRVJAWABQUPHRXPODDHFMHJZRQXWZEUHRITJDIZTXYNQXMENIBIXKHEMYJOPGTPCYHMQUZJZIBOFVXESYSPZPWYAGACCQLVFVWSDFQFUJZHJNXGEPVNNCSVLQFIIXRUQYDCZIKERBBWZWKDFOMKWIBUFPUGXLWXINYLTJBLBFXKVWVOYRUUFWWNXFCJQBLFQDWUUNXRQXODSRCWQUSJQHBFSVCPNAXPYESXUEZPABBGJCTAHSBZEBAHSUBMIXZAOCWJKIYPQGVDGBDAAITQAJOBMISRHWUJXLDFCUCKHCZENFJGMDEEIFZBGDRRPMEEZNLJEBJDMZRVZNXGUHVQLXLYNLJKZPEXFEVORADLMWRXSVALRRTQWOVBFSAANBPAJCTTLTELMFEHDHJCJWBDZIJASHLVQYRPRFKCRZBYMZHSQOACEHDICIASNZWEEIUSALCFNVZKFSXSLXGCSKKOTMIPZGKCOWMDGOHBCRXVXMAKFBCMHOPHGCEHITHCOPIJKNYPUBHZGFJEMWVKLMQNRVRIJIWYUIUITBKSPQTCMEORINBHXTDBCJXMSVTQHCYOZDQDITQZYNBKXQEFAQBUMWAHQNSXWOIFIDMXCANCYETACBLWXURMQMQBCHUYZJDIRVWZWZSSDSUHHMHEPRGVQVPBXRSNEGREALFZGRMTFIACNFDBVGOEOTXKNQHLDBYYZGRCEZDDLLZXVJDTCOIBIEBDUHGBCFGZJKSQQIWNYSHTHEXHZOLMDDICMUMPWQPMSQUNHKGUMINYFSMQLIFVEJHSHYJVIBZ"
+  ],
+  "server_affinity_before": {
+    "312213": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "312214": [
+      0
+    ],
+    "312215": [
+      2
+    ],
+    "312216": [
+      4
+    ],
+    "312217": [
+      6
+    ]
+  },
+  "independent_probe": {
+    "request_sha256": "73ea18f48f113a43af72c821af2e5f8babd6ad7f606f798dfd817fc236add42c",
+    "response_sha256": "4e85b02d8affa427da4714edd830266819e8ccb47a2cfba1ab91d65e10ae63fb",
+    "response_bytes": 4156,
+    "fragmented": false
+  },
+  "load_command": [
+    "/tmp/forge-http-v2-capacity-build-20261012/http-load",
+    "40863",
+    "512",
+    "1024",
+    "481763511",
+    "/home/helloworld0822/coding/forge-benchmarks/docs/http-v2-capacity-2026-10-12.raw/w4-b4096-c512-r01-0-rust-prewarm-expected.bin",
+    "/home/helloworld0822/coding/forge-benchmarks/docs/http-v2-capacity-2026-10-12.raw/w4-b4096-c512-r01-0-rust-prewarm-requests.tsv",
+    "5000"
+  ],
+  "client_affinity": {
+    "312218": [
+      8,
+      10
+    ],
+    "312219": [
+      8,
+      10
+    ],
+    "312220": [
+      8,
+      10
+    ],
+    "312221": [
+      8,
+      10
+    ],
+    "312222": [
+      8,
+      10
+    ],
+    "312223": [
+      8,
+      10
+    ],
+    "312224": [
+      8,
+      10
+    ],
+    "312225": [
+      8,
+      10
+    ],
+    "312226": [
+      8,
+      10
+    ],
+    "312227": [
+      8,
+      10
+    ],
+    "312228": [
+      8,
+      10
+    ],
+    "312229": [
+      8,
+      10
+    ],
+    "312230": [
+      8,
+      10
+    ],
+    "312231": [
+      8,
+      10
+    ],
+    "312232": [
+      8,
+      10
+    ],
+    "312233": [
+      8,
+      10
+    ],
+    "312234": [
+      8,
+      10
+    ],
+    "312235": [
+      8,
+      10
+    ],
+    "312236": [
+      8,
+      10
+    ],
+    "312237": [
+      8,
+      10
+    ],
+    "312238": [
+      8,
+      10
+    ],
+    "312239": [
+      8,
+      10
+    ],
+    "312240": [
+      8,
+      10
+    ],
+    "312241": [
+      8,
+      10
+    ],
+    "312242": [
+      8,
+      10
+    ],
+    "312243": [
+      8,
+      10
+    ],
+    "312244": [
+      8,
+      10
+    ],
+    "312245": [
+      8,
+      10
+    ],
+    "312246": [
+      8,
+      10
+    ],
+    "312247": [
+      8,
+      10
+    ],
+    "312248": [
+      8,
+      10
+    ],
+    "312249": [
+      8,
+      10
+    ],
+    "312250": [
+      8,
+      10
+    ],
+    "312251": [
+      8,
+      10
+    ],
+    "312252": [
+      8,
+      10
+    ],
+    "312253": [
+      8,
+      10
+    ],
+    "312254": [
+      8,
+      10
+    ],
+    "312255": [
+      8,
+      10
+    ],
+    "312256": [
+      8,
+      10
+    ],
+    "312257": [
+      8,
+      10
+    ],
+    "312258": [
+      8,
+      10
+    ],
+    "312259": [
+      8,
+      10
+    ],
+    "312260": [
+      8,
+      10
+    ],
+    "312261": [
+      8,
+      10
+    ],
+    "312262": [
+      8,
+      10
+    ],
+    "312263": [
+      8,
+      10
+    ],
+    "312264": [
+      8,
+      10
+    ],
+    "312265": [
+      8,
+      10
+    ],
+    "312266": [
+      8,
+      10
+    ],
+    "312267": [
+      8,
+      10
+    ],
+    "312268": [
+      8,
+      10
+    ],
+    "312269": [
+      8,
+      10
+    ],
+    "312270": [
+      8,
+      10
+    ],
+    "312271": [
+      8,
+      10
+    ],
+    "312272": [
+      8,
+      10
+    ],
+    "312273": [
+      8,
+      10
+    ],
+    "312274": [
+      8,
+      10
+    ],
+    "312275": [
+      8,
+      10
+    ],
+    "312276": [
+      8,
+      10
+    ],
+    "312277": [
+      8,
+      10
+    ],
+    "312278": [
+      8,
+      10
+    ],
+    "312279": [
+      8,
+      10
+    ],
+    "312280": [
+      8,
+      10
+    ],
+    "312281": [
+      8,
+      10
+    ],
+    "312282": [
+      8,
+      10
+    ],
+    "312283": [
+      8,
+      10
+    ],
+    "312284": [
+      8,
+      10
+    ],
+    "312285": [
+      8,
+      10
+    ],
+    "312286": [
+      8,
+      10
+    ],
+    "312287": [
+      8,
+      10
+    ],
+    "312288": [
+      8,
+      10
+    ],
+    "312289": [
+      8,
+      10
+    ],
+    "312290": [
+      8,
+      10
+    ],
+    "312291": [
+      8,
+      10
+    ],
+    "312292": [
+      8,
+      10
+    ],
+    "312293": [
+      8,
+      10
+    ],
+    "312294": [
+      8,
+      10
+    ],
+    "312295": [
+      8,
+      10
+    ],
+    "312296": [
+      8,
+      10
+    ],
+    "312297": [
+      8,
+      10
+    ],
+    "312298": [
+      8,
+      10
+    ],
+    "312299": [
+      8,
+      10
+    ],
+    "312300": [
+      8,
+      10
+    ],
+    "312301": [
+      8,
+      10
+    ],
+    "312302": [
+      8,
+      10
+    ],
+    "312303": [
+      8,
+      10
+    ],
+    "312304": [
+      8,
+      10
+    ],
+    "312305": [
+      8,
+      10
+    ],
+    "312306": [
+      8,
+      10
+    ],
+    "312307": [
+      8,
+      10
+    ],
+    "312308": [
+      8,
+      10
+    ],
+    "312309": [
+      8,
+      10
+    ],
+    "312310": [
+      8,
+      10
+    ],
+    "312311": [
+      8,
+      10
+    ],
+    "312312": [
+      8,
+      10
+    ],
+    "312313": [
+      8,
+      10
+    ],
+    "312314": [
+      8,
+      10
+    ],
+    "312315": [
+      8,
+      10
+    ],
+    "312316": [
+      8,
+      10
+    ],
+    "312317": [
+      8,
+      10
+    ],
+    "312318": [
+      8,
+      10
+    ],
+    "312319": [
+      8,
+      10
+    ],
+    "312320": [
+      8,
+      10
+    ],
+    "312321": [
+      8,
+      10
+    ],
+    "312322": [
+      8,
+      10
+    ],
+    "312323": [
+      8,
+      10
+    ],
+    "312324": [
+      8,
+      10
+    ],
+    "312325": [
+      8,
+      10
+    ],
+    "312326": [
+      8,
+      10
+    ],
+    "312327": [
+      8,
+      10
+    ],
+    "312328": [
+      8,
+      10
+    ],
+    "312329": [
+      8,
+      10
+    ],
+    "312330": [
+      8,
+      10
+    ],
+    "312331": [
+      8,
+      10
+    ],
+    "312332": [
+      8,
+      10
+    ],
+    "312333": [
+      8,
+      10
+    ],
+    "312334": [
+      8,
+      10
+    ],
+    "312335": [
+      8,
+      10
+    ],
+    "312336": [
+      8,
+      10
+    ],
+    "312337": [
+      8,
+      10
+    ],
+    "312338": [
+      8,
+      10
+    ],
+    "312339": [
+      8,
+      10
+    ],
+    "312340": [
+      8,
+      10
+    ],
+    "312341": [
+      8,
+      10
+    ],
+    "312342": [
+      8,
+      10
+    ],
+    "312343": [
+      8,
+      10
+    ],
+    "312344": [
+      8,
+      10
+    ],
+    "312345": [
+      8,
+      10
+    ],
+    "312346": [
+      8,
+      10
+    ],
+    "312347": [
+      8,
+      10
+    ],
+    "312348": [
+      8,
+      10
+    ],
+    "312349": [
+      8,
+      10
+    ],
+    "312350": [
+      8,
+      10
+    ],
+    "312351": [
+      8,
+      10
+    ],
+    "312352": [
+      8,
+      10
+    ],
+    "312353": [
+      8,
+      10
+    ],
+    "312354": [
+      8,
+      10
+    ],
+    "312355": [
+      8,
+      10
+    ],
+    "312356": [
+      8,
+      10
+    ],
+    "312357": [
+      8,
+      10
+    ],
+    "312358": [
+      8,
+      10
+    ],
+    "312359": [
+      8,
+      10
+    ],
+    "312360": [
+      8,
+      10
+    ],
+    "312361": [
+      8,
+      10
+    ],
+    "312362": [
+      8,
+      10
+    ],
+    "312363": [
+      8,
+      10
+    ],
+    "312364": [
+      8,
+      10
+    ],
+    "312365": [
+      8,
+      10
+    ],
+    "312366": [
+      8,
+      10
+    ],
+    "312367": [
+      8,
+      10
+    ],
+    "312368": [
+      8,
+      10
+    ],
+    "312369": [
+      8,
+      10
+    ],
+    "312370": [
+      8,
+      10
+    ],
+    "312371": [
+      8,
+      10
+    ],
+    "312372": [
+      8,
+      10
+    ],
+    "312373": [
+      8,
+      10
+    ],
+    "312374": [
+      8,
+      10
+    ],
+    "312375": [
+      8,
+      10
+    ],
+    "312376": [
+      8,
+      10
+    ],
+    "312377": [
+      8,
+      10
+    ],
+    "312378": [
+      8,
+      10
+    ],
+    "312379": [
+      8,
+      10
+    ],
+    "312380": [
+      8,
+      10
+    ],
+    "312381": [
+      8,
+      10
+    ],
+    "312382": [
+      8,
+      10
+    ],
+    "312383": [
+      8,
+      10
+    ],
+    "312384": [
+      8,
+      10
+    ],
+    "312385": [
+      8,
+      10
+    ],
+    "312386": [
+      8,
+      10
+    ],
+    "312387": [
+      8,
+      10
+    ],
+    "312388": [
+      8,
+      10
+    ],
+    "312389": [
+      8,
+      10
+    ],
+    "312390": [
+      8,
+      10
+    ],
+    "312391": [
+      8,
+      10
+    ],
+    "312392": [
+      8,
+      10
+    ],
+    "312393": [
+      8,
+      10
+    ],
+    "312394": [
+      8,
+      10
+    ],
+    "312395": [
+      8,
+      10
+    ],
+    "312396": [
+      8,
+      10
+    ],
+    "312397": [
+      8,
+      10
+    ],
+    "312398": [
+      8,
+      10
+    ],
+    "312399": [
+      8,
+      10
+    ],
+    "312400": [
+      8,
+      10
+    ],
+    "312401": [
+      8,
+      10
+    ],
+    "312402": [
+      8,
+      10
+    ],
+    "312403": [
+      8,
+      10
+    ],
+    "312404": [
+      8,
+      10
+    ],
+    "312405": [
+      8,
+      10
+    ],
+    "312406": [
+      8,
+      10
+    ],
+    "312407": [
+      8,
+      10
+    ],
+    "312408": [
+      8,
+      10
+    ],
+    "312409": [
+      8,
+      10
+    ],
+    "312410": [
+      8,
+      10
+    ],
+    "312411": [
+      8,
+      10
+    ],
+    "312412": [
+      8,
+      10
+    ],
+    "312413": [
+      8,
+      10
+    ],
+    "312414": [
+      8,
+      10
+    ],
+    "312415": [
+      8,
+      10
+    ],
+    "312416": [
+      8,
+      10
+    ],
+    "312417": [
+      8,
+      10
+    ],
+    "312418": [
+      8,
+      10
+    ],
+    "312419": [
+      8,
+      10
+    ],
+    "312420": [
+      8,
+      10
+    ],
+    "312421": [
+      8,
+      10
+    ],
+    "312422": [
+      8,
+      10
+    ],
+    "312423": [
+      8,
+      10
+    ],
+    "312424": [
+      8,
+      10
+    ],
+    "312425": [
+      8,
+      10
+    ],
+    "312426": [
+      8,
+      10
+    ],
+    "312427": [
+      8,
+      10
+    ],
+    "312428": [
+      8,
+      10
+    ],
+    "312429": [
+      8,
+      10
+    ],
+    "312430": [
+      8,
+      10
+    ],
+    "312431": [
+      8,
+      10
+    ],
+    "312432": [
+      8,
+      10
+    ],
+    "312433": [
+      8,
+      10
+    ],
+    "312434": [
+      8,
+      10
+    ],
+    "312435": [
+      8,
+      10
+    ],
+    "312436": [
+      8,
+      10
+    ],
+    "312437": [
+      8,
+      10
+    ],
+    "312438": [
+      8,
+      10
+    ],
+    "312439": [
+      8,
+      10
+    ],
+    "312440": [
+      8,
+      10
+    ],
+    "312441": [
+      8,
+      10
+    ],
+    "312442": [
+      8,
+      10
+    ],
+    "312443": [
+      8,
+      10
+    ],
+    "312444": [
+      8,
+      10
+    ],
+    "312445": [
+      8,
+      10
+    ],
+    "312446": [
+      8,
+      10
+    ],
+    "312447": [
+      8,
+      10
+    ],
+    "312448": [
+      8,
+      10
+    ],
+    "312449": [
+      8,
+      10
+    ],
+    "312450": [
+      8,
+      10
+    ],
+    "312451": [
+      8,
+      10
+    ],
+    "312452": [
+      8,
+      10
+    ],
+    "312453": [
+      8,
+      10
+    ],
+    "312454": [
+      8,
+      10
+    ],
+    "312455": [
+      8,
+      10
+    ],
+    "312456": [
+      8,
+      10
+    ],
+    "312457": [
+      8,
+      10
+    ],
+    "312458": [
+      8,
+      10
+    ],
+    "312459": [
+      8,
+      10
+    ],
+    "312460": [
+      8,
+      10
+    ],
+    "312461": [
+      8,
+      10
+    ],
+    "312462": [
+      8,
+      10
+    ],
+    "312463": [
+      8,
+      10
+    ],
+    "312464": [
+      8,
+      10
+    ],
+    "312465": [
+      8,
+      10
+    ],
+    "312466": [
+      8,
+      10
+    ],
+    "312467": [
+      8,
+      10
+    ],
+    "312468": [
+      8,
+      10
+    ],
+    "312469": [
+      8,
+      10
+    ],
+    "312470": [
+      8,
+      10
+    ],
+    "312471": [
+      8,
+      10
+    ],
+    "312472": [
+      8,
+      10
+    ],
+    "312473": [
+      8,
+      10
+    ],
+    "312474": [
+      8,
+      10
+    ],
+    "312475": [
+      8,
+      10
+    ],
+    "312476": [
+      8,
+      10
+    ],
+    "312477": [
+      8,
+      10
+    ],
+    "312478": [
+      8,
+      10
+    ],
+    "312479": [
+      8,
+      10
+    ],
+    "312480": [
+      8,
+      10
+    ],
+    "312481": [
+      8,
+      10
+    ],
+    "312482": [
+      8,
+      10
+    ],
+    "312483": [
+      8,
+      10
+    ],
+    "312484": [
+      8,
+      10
+    ],
+    "312485": [
+      8,
+      10
+    ],
+    "312486": [
+      8,
+      10
+    ],
+    "312487": [
+      8,
+      10
+    ],
+    "312488": [
+      8,
+      10
+    ],
+    "312489": [
+      8,
+      10
+    ],
+    "312490": [
+      8,
+      10
+    ],
+    "312491": [
+      8,
+      10
+    ],
+    "312492": [
+      8,
+      10
+    ],
+    "312493": [
+      8,
+      10
+    ],
+    "312494": [
+      8,
+      10
+    ],
+    "312495": [
+      8,
+      10
+    ],
+    "312496": [
+      8,
+      10
+    ],
+    "312497": [
+      8,
+      10
+    ],
+    "312498": [
+      8,
+      10
+    ],
+    "312499": [
+      8,
+      10
+    ],
+    "312500": [
+      8,
+      10
+    ],
+    "312501": [
+      8,
+      10
+    ],
+    "312502": [
+      8,
+      10
+    ],
+    "312503": [
+      8,
+      10
+    ],
+    "312504": [
+      8,
+      10
+    ],
+    "312505": [
+      8,
+      10
+    ],
+    "312506": [
+      8,
+      10
+    ],
+    "312507": [
+      8,
+      10
+    ],
+    "312508": [
+      8,
+      10
+    ],
+    "312509": [
+      8,
+      10
+    ],
+    "312510": [
+      8,
+      10
+    ],
+    "312511": [
+      8,
+      10
+    ],
+    "312512": [
+      8,
+      10
+    ],
+    "312513": [
+      8,
+      10
+    ],
+    "312514": [
+      8,
+      10
+    ],
+    "312515": [
+      8,
+      10
+    ],
+    "312516": [
+      8,
+      10
+    ],
+    "312517": [
+      8,
+      10
+    ],
+    "312518": [
+      8,
+      10
+    ],
+    "312519": [
+      8,
+      10
+    ],
+    "312520": [
+      8,
+      10
+    ],
+    "312521": [
+      8,
+      10
+    ],
+    "312522": [
+      8,
+      10
+    ],
+    "312523": [
+      8,
+      10
+    ],
+    "312524": [
+      8,
+      10
+    ],
+    "312525": [
+      8,
+      10
+    ],
+    "312526": [
+      8,
+      10
+    ],
+    "312527": [
+      8,
+      10
+    ],
+    "312528": [
+      8,
+      10
+    ],
+    "312529": [
+      8,
+      10
+    ],
+    "312530": [
+      8,
+      10
+    ],
+    "312531": [
+      8,
+      10
+    ],
+    "312532": [
+      8,
+      10
+    ],
+    "312533": [
+      8,
+      10
+    ],
+    "312534": [
+      8,
+      10
+    ],
+    "312535": [
+      8,
+      10
+    ],
+    "312536": [
+      8,
+      10
+    ],
+    "312537": [
+      8,
+      10
+    ],
+    "312538": [
+      8,
+      10
+    ],
+    "312539": [
+      8,
+      10
+    ],
+    "312540": [
+      8,
+      10
+    ],
+    "312541": [
+      8,
+      10
+    ],
+    "312542": [
+      8,
+      10
+    ],
+    "312543": [
+      8,
+      10
+    ],
+    "312544": [
+      8,
+      10
+    ],
+    "312545": [
+      8,
+      10
+    ],
+    "312546": [
+      8,
+      10
+    ],
+    "312547": [
+      8,
+      10
+    ],
+    "312548": [
+      8,
+      10
+    ],
+    "312549": [
+      8,
+      10
+    ],
+    "312550": [
+      8,
+      10
+    ],
+    "312551": [
+      8,
+      10
+    ],
+    "312552": [
+      8,
+      10
+    ],
+    "312553": [
+      8,
+      10
+    ],
+    "312554": [
+      8,
+      10
+    ],
+    "312555": [
+      8,
+      10
+    ],
+    "312556": [
+      8,
+      10
+    ],
+    "312557": [
+      8,
+      10
+    ],
+    "312558": [
+      8,
+      10
+    ],
+    "312559": [
+      8,
+      10
+    ],
+    "312560": [
+      8,
+      10
+    ],
+    "312561": [
+      8,
+      10
+    ],
+    "312562": [
+      8,
+      10
+    ],
+    "312563": [
+      8,
+      10
+    ],
+    "312564": [
+      8,
+      10
+    ],
+    "312565": [
+      8,
+      10
+    ],
+    "312566": [
+      8,
+      10
+    ],
+    "312567": [
+      8,
+      10
+    ],
+    "312568": [
+      8,
+      10
+    ],
+    "312569": [
+      8,
+      10
+    ],
+    "312570": [
+      8,
+      10
+    ],
+    "312571": [
+      8,
+      10
+    ],
+    "312572": [
+      8,
+      10
+    ],
+    "312573": [
+      8,
+      10
+    ],
+    "312574": [
+      8,
+      10
+    ],
+    "312575": [
+      8,
+      10
+    ],
+    "312576": [
+      8,
+      10
+    ],
+    "312577": [
+      8,
+      10
+    ],
+    "312578": [
+      8,
+      10
+    ],
+    "312579": [
+      8,
+      10
+    ],
+    "312580": [
+      8,
+      10
+    ],
+    "312581": [
+      8,
+      10
+    ],
+    "312582": [
+      8,
+      10
+    ],
+    "312583": [
+      8,
+      10
+    ],
+    "312584": [
+      8,
+      10
+    ],
+    "312585": [
+      8,
+      10
+    ],
+    "312586": [
+      8,
+      10
+    ],
+    "312587": [
+      8,
+      10
+    ],
+    "312588": [
+      8,
+      10
+    ],
+    "312589": [
+      8,
+      10
+    ],
+    "312590": [
+      8,
+      10
+    ],
+    "312591": [
+      8,
+      10
+    ],
+    "312592": [
+      8,
+      10
+    ],
+    "312593": [
+      8,
+      10
+    ],
+    "312594": [
+      8,
+      10
+    ],
+    "312595": [
+      8,
+      10
+    ],
+    "312596": [
+      8,
+      10
+    ],
+    "312597": [
+      8,
+      10
+    ],
+    "312598": [
+      8,
+      10
+    ],
+    "312599": [
+      8,
+      10
+    ],
+    "312600": [
+      8,
+      10
+    ],
+    "312601": [
+      8,
+      10
+    ],
+    "312602": [
+      8,
+      10
+    ],
+    "312603": [
+      8,
+      10
+    ],
+    "312604": [
+      8,
+      10
+    ],
+    "312605": [
+      8,
+      10
+    ],
+    "312606": [
+      8,
+      10
+    ],
+    "312607": [
+      8,
+      10
+    ],
+    "312608": [
+      8,
+      10
+    ],
+    "312609": [
+      8,
+      10
+    ],
+    "312610": [
+      8,
+      10
+    ],
+    "312611": [
+      8,
+      10
+    ],
+    "312612": [
+      8,
+      10
+    ],
+    "312613": [
+      8,
+      10
+    ],
+    "312614": [
+      8,
+      10
+    ],
+    "312615": [
+      8,
+      10
+    ],
+    "312616": [
+      8,
+      10
+    ],
+    "312617": [
+      8,
+      10
+    ],
+    "312618": [
+      8,
+      10
+    ],
+    "312619": [
+      8,
+      10
+    ],
+    "312620": [
+      8,
+      10
+    ],
+    "312621": [
+      8,
+      10
+    ],
+    "312622": [
+      8,
+      10
+    ],
+    "312623": [
+      8,
+      10
+    ],
+    "312624": [
+      8,
+      10
+    ],
+    "312625": [
+      8,
+      10
+    ],
+    "312626": [
+      8,
+      10
+    ],
+    "312627": [
+      8,
+      10
+    ],
+    "312628": [
+      8,
+      10
+    ],
+    "312629": [
+      8,
+      10
+    ],
+    "312630": [
+      8,
+      10
+    ],
+    "312631": [
+      8,
+      10
+    ],
+    "312632": [
+      8,
+      10
+    ],
+    "312633": [
+      8,
+      10
+    ],
+    "312634": [
+      8,
+      10
+    ],
+    "312635": [
+      8,
+      10
+    ],
+    "312636": [
+      8,
+      10
+    ],
+    "312637": [
+      8,
+      10
+    ],
+    "312638": [
+      8,
+      10
+    ],
+    "312639": [
+      8,
+      10
+    ],
+    "312640": [
+      8,
+      10
+    ],
+    "312641": [
+      8,
+      10
+    ],
+    "312642": [
+      8,
+      10
+    ],
+    "312643": [
+      8,
+      10
+    ],
+    "312644": [
+      8,
+      10
+    ],
+    "312645": [
+      8,
+      10
+    ],
+    "312646": [
+      8,
+      10
+    ],
+    "312647": [
+      8,
+      10
+    ],
+    "312648": [
+      8,
+      10
+    ],
+    "312649": [
+      8,
+      10
+    ],
+    "312650": [
+      8,
+      10
+    ],
+    "312651": [
+      8,
+      10
+    ],
+    "312652": [
+      8,
+      10
+    ],
+    "312653": [
+      8,
+      10
+    ],
+    "312654": [
+      8,
+      10
+    ],
+    "312655": [
+      8,
+      10
+    ],
+    "312656": [
+      8,
+      10
+    ],
+    "312657": [
+      8,
+      10
+    ],
+    "312658": [
+      8,
+      10
+    ],
+    "312659": [
+      8,
+      10
+    ],
+    "312660": [
+      8,
+      10
+    ],
+    "312661": [
+      8,
+      10
+    ],
+    "312662": [
+      8,
+      10
+    ],
+    "312663": [
+      8,
+      10
+    ],
+    "312664": [
+      8,
+      10
+    ],
+    "312665": [
+      8,
+      10
+    ],
+    "312666": [
+      8,
+      10
+    ],
+    "312667": [
+      8,
+      10
+    ],
+    "312668": [
+      8,
+      10
+    ],
+    "312669": [
+      8,
+      10
+    ],
+    "312670": [
+      8,
+      10
+    ],
+    "312671": [
+      8,
+      10
+    ],
+    "312672": [
+      8,
+      10
+    ],
+    "312673": [
+      8,
+      10
+    ],
+    "312674": [
+      8,
+      10
+    ],
+    "312675": [
+      8,
+      10
+    ],
+    "312676": [
+      8,
+      10
+    ],
+    "312677": [
+      8,
+      10
+    ],
+    "312678": [
+      8,
+      10
+    ],
+    "312679": [
+      8,
+      10
+    ],
+    "312680": [
+      8,
+      10
+    ],
+    "312681": [
+      8,
+      10
+    ],
+    "312682": [
+      8,
+      10
+    ],
+    "312683": [
+      8,
+      10
+    ],
+    "312684": [
+      8,
+      10
+    ],
+    "312685": [
+      8,
+      10
+    ],
+    "312686": [
+      8,
+      10
+    ],
+    "312687": [
+      8,
+      10
+    ],
+    "312688": [
+      8,
+      10
+    ],
+    "312689": [
+      8,
+      10
+    ],
+    "312690": [
+      8,
+      10
+    ],
+    "312691": [
+      8,
+      10
+    ],
+    "312692": [
+      8,
+      10
+    ],
+    "312693": [
+      8,
+      10
+    ],
+    "312694": [
+      8,
+      10
+    ],
+    "312695": [
+      8,
+      10
+    ],
+    "312696": [
+      8,
+      10
+    ],
+    "312697": [
+      8,
+      10
+    ],
+    "312698": [
+      8,
+      10
+    ],
+    "312699": [
+      8,
+      10
+    ],
+    "312700": [
+      8,
+      10
+    ],
+    "312701": [
+      8,
+      10
+    ],
+    "312702": [
+      8,
+      10
+    ],
+    "312703": [
+      8,
+      10
+    ],
+    "312704": [
+      8,
+      10
+    ],
+    "312705": [
+      8,
+      10
+    ],
+    "312706": [
+      8,
+      10
+    ],
+    "312707": [
+      8,
+      10
+    ],
+    "312708": [
+      8,
+      10
+    ],
+    "312709": [
+      8,
+      10
+    ],
+    "312710": [
+      8,
+      10
+    ],
+    "312711": [
+      8,
+      10
+    ],
+    "312712": [
+      8,
+      10
+    ],
+    "312713": [
+      8,
+      10
+    ],
+    "312714": [
+      8,
+      10
+    ],
+    "312715": [
+      8,
+      10
+    ],
+    "312716": [
+      8,
+      10
+    ],
+    "312717": [
+      8,
+      10
+    ],
+    "312718": [
+      8,
+      10
+    ],
+    "312719": [
+      8,
+      10
+    ],
+    "312720": [
+      8,
+      10
+    ],
+    "312721": [
+      8,
+      10
+    ],
+    "312722": [
+      8,
+      10
+    ],
+    "312723": [
+      8,
+      10
+    ],
+    "312724": [
+      8,
+      10
+    ],
+    "312725": [
+      8,
+      10
+    ],
+    "312726": [
+      8,
+      10
+    ],
+    "312727": [
+      8,
+      10
+    ],
+    "312728": [
+      8,
+      10
+    ],
+    "312729": [
+      8,
+      10
+    ],
+    "312730": [
+      8,
+      10
+    ]
+  },
+  "passive_kernel_before": {
+    "observed_at_utc": "2026-10-12T06:39:58Z",
+    "scope": "network namespace/global; attribution unproven",
+    "sysctls": {
+      "net/ipv4/tcp_syn_retries": "6",
+      "net/ipv4/tcp_syn_linear_timeouts": "4",
+      "net/ipv4/tcp_tw_reuse": "2",
+      "net/ipv4/ip_local_port_range": "32768\t60999",
+      "net/ipv4/tcp_max_tw_buckets": "65536",
+      "net/ipv4/tcp_max_syn_backlog": "1024",
+      "net/core/somaxconn": "4096",
+      "net/netfilter/nf_conntrack_count": "140114",
+      "net/netfilter/nf_conntrack_max": "262144",
+      "net/ipv4/tcp_mem": "180369\t240493\t360738"
+    },
+    "errors": [],
+    "global_tcp_ext_counters": {
+      "ListenOverflows": 1,
+      "ListenDrops": 1,
+      "TCPSynRetrans": 26202,
+      "TCPTimeouts": 2143669,
+      "TCPMemoryPressures": 1,
+      "TCPTimeWaitOverflow": 5594613,
+      "TCPReqQFullDrop": 0,
+      "TCPReqQFullDoCookies": 0,
+      "TCPBacklogDrop": 0,
+      "TCPRcvQDrop": 3306
+    },
+    "sockstat": "sockets: used 1858\nTCP: inuse 333 orphan 4 tw 62323 alloc 1510 mem 271941\nUDP: inuse 3 mem 492\nUDPLITE: inuse 0\nRAW: inuse 0\nFRAG: inuse 0 memory 0\n",
+    "port": 40863,
+    "port_socket_state_counts": {
+      "0A": 4,
+      "06": 2
+    },
+    "listeners_and_pending": [
+      {
+        "local_address_hex": "00000000:9F9F",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "227573773"
+      },
+      {
+        "local_address_hex": "00000000:9F9F",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "227573772"
+      },
+      {
+        "local_address_hex": "00000000:9F9F",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "227573771"
+      },
+      {
+        "local_address_hex": "00000000:9F9F",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "227573770"
+      }
+    ]
+  },
+  "server_stats_before": {
+    "user_seconds": 0.0,
+    "system_seconds": 0.0,
+    "resident_pages": 512,
+    "threads": 5
+  },
+  "observer_wall_ns": 115181129,
+  "server_stats_after": {
+    "user_seconds": 0.0,
+    "system_seconds": 0.12,
+    "resident_pages": 512,
+    "threads": 5
+  },
+  "server_affinity_after": {
+    "312213": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "312214": [
+      0
+    ],
+    "312215": [
+      2
+    ],
+    "312216": [
+      4
+    ],
+    "312217": [
+      6
+    ]
+  },
+  "passive_kernel_after": {
+    "observed_at_utc": "2026-10-12T06:39:58Z",
+    "scope": "network namespace/global; attribution unproven",
+    "sysctls": {
+      "net/ipv4/tcp_syn_retries": "6",
+      "net/ipv4/tcp_syn_linear_timeouts": "4",
+      "net/ipv4/tcp_tw_reuse": "2",
+      "net/ipv4/ip_local_port_range": "32768\t60999",
+      "net/ipv4/tcp_max_tw_buckets": "65536",
+      "net/ipv4/tcp_max_syn_backlog": "1024",
+      "net/core/somaxconn": "4096",
+      "net/netfilter/nf_conntrack_count": "140973",
+      "net/netfilter/nf_conntrack_max": "262144",
+      "net/ipv4/tcp_mem": "180369\t240493\t360738"
+    },
+    "errors": [],
+    "global_tcp_ext_counters": {
+      "ListenOverflows": 1,
+      "ListenDrops": 1,
+      "TCPSynRetrans": 26202,
+      "TCPTimeouts": 2143670,
+      "TCPMemoryPressures": 1,
+      "TCPTimeWaitOverflow": 5594613,
+      "TCPReqQFullDrop": 0,
+      "TCPReqQFullDoCookies": 0,
+      "TCPBacklogDrop": 0,
+      "TCPRcvQDrop": 3306
+    },
+    "sockstat": "sockets: used 1860\nTCP: inuse 333 orphan 4 tw 63347 alloc 1510 mem 271690\nUDP: inuse 3 mem 492\nUDPLITE: inuse 0\nRAW: inuse 0\nFRAG: inuse 0 memory 0\n",
+    "port": 40863,
+    "port_socket_state_counts": {
+      "0A": 4,
+      "06": 1026
+    },
+    "listeners_and_pending": [
+      {
+        "local_address_hex": "00000000:9F9F",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "227573773"
+      },
+      {
+        "local_address_hex": "00000000:9F9F",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "227573772"
+      },
+      {
+        "local_address_hex": "00000000:9F9F",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "227573771"
+      },
+      {
+        "local_address_hex": "00000000:9F9F",
+        "remote_address_hex": "00000000:0000",
+        "state_hex": "0A",
+        "queue_hex": "00000000:00000000",
+        "timer_hex": "00:00000000",
+        "retransmissions_hex": "00000000",
+        "inode": "227573770"
+      }
+    ]
+  },
+  "client_exit_code": 0,
+  "client_process_usage": {
+    "user_seconds": 0.016179,
+    "system_seconds": 0.23127699999999998,
+    "peak_rss_kib": 57920
+  },
+  "elapsed_ns": 112817952,
+  "attempted_requests": 1024,
+  "completed_requests": 1024,
+  "errors": 0,
+  "all_request_ids_once": true,
+  "every_response_exact": true,
+  "request_samples_sha256": "e8c479e0ddad2e45f16fbfef8b683ee8318f3660cf5d9143707ccef20f03e33d",
+  "requests_per_second": 9076.569657992019,
+  "phase_durations": {
+    "connect_ns": {
+      "median_ns": 56091.0,
+      "p99_ns": 18853302,
+      "max_ns": 26288603
+    },
+    "setup_ns": {
+      "median_ns": 2592.0,
+      "p99_ns": 6510,
+      "max_ns": 18655
+    },
+    "write_ns": {
+      "median_ns": 17943.5,
+      "p99_ns": 56214,
+      "max_ns": 2539684
+    },
+    "read_ns": {
+      "median_ns": 576593.0,
+      "p99_ns": 7918708,
+      "max_ns": 10877948
+    },
+    "eof_ns": {
+      "median_ns": 1142.0,
+      "p99_ns": 167051,
+      "max_ns": 6990453
+    }
+  },
+  "latency_median_ns": 731162.5,
+  "latency_p99_ns": 23070279,
+  "client_cleanup_usage": {
+    "exit_code": 0
+  },
+  "server_process_usage": {
+    "exit_code": -15,
+    "user_seconds": 0.0050089999999999996,
+    "system_seconds": 0.12823299999999999,
+    "peak_rss_kib": 57920
+  },
+  "retained_request_rows": 1024,
+  "retained_failed_rows": []
+}

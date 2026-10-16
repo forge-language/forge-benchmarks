@@ -1,0 +1,190 @@
+{
+  "status": "passed",
+  "workers": 4,
+  "concurrency": 16,
+  "requests": 12000,
+  "seed": 765879582,
+  "body_bytes": 32,
+  "body_sha256": "65ee4a4297c0f377daa05af265a972a7480b6c3974a37348612bab92a4f97523",
+  "expected_response_sha256": "aa3325b600fea69874911712b1d20a11c84c46ad9d426ce6e7ef3b6d55e29608",
+  "expected_response_bytes": 90,
+  "raw_prefix": "/home/helloworld0822/coding/forge-benchmarks/docs/http-prepared-rust-forge-2026-10-12.raw/p009-b32-w4-c16-1-rust-prewarm",
+  "server_cpus": [
+    0,
+    2,
+    4,
+    6
+  ],
+  "client_cpus": [
+    8,
+    10
+  ],
+  "server_command": [
+    "/tmp/forge-http-sdk-validation3-20261012/rust-http",
+    "51229",
+    "4",
+    "KXFDATRTORNLGIMKALAAVJBTJMPOOVWA"
+  ],
+  "server_affinity_before": {
+    "3596413": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "3596414": [
+      0
+    ],
+    "3596415": [
+      2
+    ],
+    "3596416": [
+      4
+    ],
+    "3596417": [
+      6
+    ]
+  },
+  "independent_probe": {
+    "request_sha256": "5b9d0ace5512e8ef10d69a4258e8562443f0e845a21c8cf84667f171fd41ca69",
+    "response_sha256": "aa3325b600fea69874911712b1d20a11c84c46ad9d426ce6e7ef3b6d55e29608",
+    "response_bytes": 90,
+    "fragmented": false
+  },
+  "load_command": [
+    "/tmp/forge-http-sdk-validation3-20261012/http-load",
+    "51229",
+    "16",
+    "12000",
+    "765879582",
+    "/home/helloworld0822/coding/forge-benchmarks/docs/http-prepared-rust-forge-2026-10-12.raw/p009-b32-w4-c16-1-rust-prewarm-expected.bin",
+    "/home/helloworld0822/coding/forge-benchmarks/docs/http-prepared-rust-forge-2026-10-12.raw/p009-b32-w4-c16-1-rust-prewarm-requests.tsv"
+  ],
+  "client_affinity": {
+    "3596418": [
+      8,
+      10
+    ],
+    "3596419": [
+      8,
+      10
+    ],
+    "3596420": [
+      8,
+      10
+    ],
+    "3596421": [
+      8,
+      10
+    ],
+    "3596422": [
+      8,
+      10
+    ],
+    "3596423": [
+      8,
+      10
+    ],
+    "3596424": [
+      8,
+      10
+    ],
+    "3596425": [
+      8,
+      10
+    ],
+    "3596426": [
+      8,
+      10
+    ],
+    "3596427": [
+      8,
+      10
+    ],
+    "3596428": [
+      8,
+      10
+    ],
+    "3596429": [
+      8,
+      10
+    ],
+    "3596430": [
+      8,
+      10
+    ],
+    "3596431": [
+      8,
+      10
+    ],
+    "3596432": [
+      8,
+      10
+    ],
+    "3596433": [
+      8,
+      10
+    ],
+    "3596434": [
+      8,
+      10
+    ]
+  },
+  "server_stats_before": {
+    "user_seconds": 0.0,
+    "system_seconds": 0.0,
+    "resident_pages": 512,
+    "threads": 5
+  },
+  "observer_wall_ns": 789818328,
+  "server_stats_after": {
+    "user_seconds": 0.04,
+    "system_seconds": 1.12,
+    "resident_pages": 512,
+    "threads": 5
+  },
+  "server_affinity_after": {
+    "3596413": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "3596414": [
+      0
+    ],
+    "3596415": [
+      2
+    ],
+    "3596416": [
+      4
+    ],
+    "3596417": [
+      6
+    ]
+  },
+  "client_exit_code": 0,
+  "client_process_usage": {
+    "user_seconds": 0.042502,
+    "system_seconds": 1.171856,
+    "peak_rss_kib": 21564
+  },
+  "elapsed_ns": 779062642,
+  "completed_requests": 12000,
+  "errors": 0,
+  "requests_per_second": 15403.125952996215,
+  "all_request_ids_once": true,
+  "every_response_exact": true,
+  "request_samples_sha256": "e833fca4e78a5091a94bc3ace1f7935fd4a914507870d90c848bba611075ddb2",
+  "latency_median_ns": 608296.0,
+  "latency_p99_ns": 1306257,
+  "client_cleanup_usage": {
+    "exit_code": 0
+  },
+  "server_process_usage": {
+    "exit_code": -15,
+    "user_seconds": 0.046557,
+    "system_seconds": 1.125864,
+    "peak_rss_kib": 21564
+  }
+}
