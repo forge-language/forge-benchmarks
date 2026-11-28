@@ -62,3 +62,7 @@ paired timings for three candidates and the emitted programs for replay.
 The [JavaScript byte-indexing study](../../docs/compiler/js-byte-index-2026-11-28.md)
 covers digest validation, sequential UTF-8 scans and late reads from changing
 strings. It includes paired measurements and commands to replay the emitted code.
+
+The [JavaScript substring study](../../docs/compiler/js-substring-2026-11-28.md)
+times repository URL normalization and UTF-8 byte slices, with the emitted
+programs, independent output checks and alternating before/after timings.
