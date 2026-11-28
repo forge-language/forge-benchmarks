@@ -1,0 +1,51 @@
+import strings;
+
+extern fn measure(digest: int, chars: int, brackets: int, at: int, views: int, stream: int): int;
+extern fn stream_input(i: int): string;
+
+// From forge-platform/vendor/forge-storage/storage.fg.
+fn valid_digest(value: string): int {
+ if (str_len(value) != 64) { return 0; }
+ let i: int=0;
+ while (i<64) { let c: int=str_char_at(value,i); if ((c<48 || c>57) && (c<97 || c>102)) { return 0; } i=i+1; }
+ return 1;
+}
+
+fn scan_chars(value: string): int {
+    let total: int = 0;
+    let length: int = str_len(value);
+    for (let i: int = 0; i < length; i += 1) { total += str_char_at(value, i); }
+    return total;
+}
+
+fn scan_brackets(value: string): int {
+    let total: int = 0;
+    let length: int = str_len(value);
+    for (let i: int = 0; i < length; i += 1) { total += value[i]; }
+    return total;
+}
+
+fn read_at(value: string, offset: int): int { return str_char_at(value, offset); }
+
+fn scan_view(value: string): int {
+    let handle: int = str_view(value);
+    let length: int = str_view_len(handle);
+    let total: int = 0;
+    for (let i: int = 0; i < length; i += 1) { total += str_view_at(handle, i); }
+    str_reset_arena();
+    return total;
+}
+
+fn stream_at(start: int, count: int, offset: int): int {
+    let total: int = 0;
+    for (let i: int = 0; i < count; i += 1) {
+        let value: string = stream_input(start + i);
+        total += str_char_at(value, offset);
+    }
+    return total;
+}
+
+native main {
+    measure(valid_digest, scan_chars, scan_brackets, read_at, scan_view, stream_at);
+    return 0;
+}
