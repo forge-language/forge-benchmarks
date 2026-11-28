@@ -66,3 +66,10 @@ strings. It includes paired measurements and commands to replay the emitted code
 The [JavaScript substring study](../../docs/compiler/js-substring-2026-11-28.md)
 times repository URL normalization and UTF-8 byte slices, with the emitted
 programs, independent output checks and alternating before/after timings.
+
+The [long substring follow-up](../../docs/compiler/js-suffix-recovery-2026-11-28.md)
+compares suffixes on reused and distinct strings, scratch capacity boundaries,
+fallbacks and short-input controls. The [string length follow-up](../../docs/compiler/js-length-recovery-2026-11-28.md)
+measures bounded UTF-8 encoding for length calls.
+The [byte-index cache-miss follow-up](../../docs/compiler/js-index-churn-2026-11-28.md)
+records three rejected workspace trials and the regressions that ruled them out.
