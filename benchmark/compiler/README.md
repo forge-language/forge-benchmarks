@@ -53,3 +53,7 @@ when source modules are present because a local can shadow the module name in
 a field expression. The Forge regression exercises index growth beyond 1,024
 bindings and calls a shadowed module callback after both block and loop scopes
 end.
+
+The [UTF-8 string runtime study](../../docs/compiler/js-string-runtime-2026-11-28.md)
+compares generated JavaScript for byte length and builder append. It includes
+paired timings for three candidates and the emitted programs for replay.

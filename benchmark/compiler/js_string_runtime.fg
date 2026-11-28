@@ -1,0 +1,44 @@
+import strings;
+
+extern fn js_measure(lengths: int, appends: int, reports: int): int;
+
+fn measure_lengths(a: string, b: string, count: int): int {
+    let total: int = 0;
+    for (let i: int = 0; i < count; i += 1) {
+        total += str_len(a) + str_len(b);
+    }
+    return total;
+}
+
+fn measure_appends(a: string, b: string, count: int): string {
+    let output: int = str_builder();
+    for (let i: int = 0; i < count; i += 1) {
+        str_builder_append(output, a);
+        str_builder_append(output, b);
+    }
+    let result: string = str_builder_finish(output);
+    str_reset_arena();
+    return result;
+}
+
+fn build_report(a: string, b: string, count: int): string {
+    let output: int = str_builder();
+    for (let i: int = 0; i < count; i += 1) {
+        let label: string = a;
+        if (i % 4 == 0) { label = b; }
+        str_builder_append(output, str_from_int(i));
+        str_builder_append(output, " ");
+        str_builder_append(output, label);
+        str_builder_append(output, " bytes=");
+        str_builder_append(output, str_from_int(str_len(label)));
+        str_builder_append(output, "\n");
+    }
+    let result: string = str_builder_finish(output);
+    str_reset_arena();
+    return result;
+}
+
+native main {
+    js_measure(measure_lengths, measure_appends, build_report);
+    return 0;
+}
