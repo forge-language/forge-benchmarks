@@ -1,0 +1,24 @@
+import strings;
+
+extern fn lower(url: string): string;
+extern fn measure(repository: int, substring: int): int;
+
+// forge-platform cli/src/manager.fg canonical_repo, with the web helpers bound
+// to the host's lowercase function and the standard string equality function.
+fn canonical_repo(url: string): string {
+    let value: string = lower(url);
+    let n: int = str_len(value);
+    if (n > 4 && str_eq(str_sub(value, n - 4, 4), ".git") != 0) {
+        value = str_sub(value, 0, n - 4);
+    }
+    return value;
+}
+
+fn substring(value: string, start: int, length: int): string {
+    return str_sub(value, start, length);
+}
+
+native main {
+    measure(canonical_repo, substring);
+    return 0;
+}
