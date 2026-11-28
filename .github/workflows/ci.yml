@@ -18,24 +18,14 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: forge-language/forge
-          ref: cf8779d8e9584674c49ca64cb673498990bee4cc
+          ref: 68569977a214578ca2a2c2993880958fe017a39b
           path: toolchain/forge
-      - uses: actions/checkout@v4
-        with:
-          repository: forge-language/forge-runtime
-          ref: 61cd2e54768ec9d1e9a4f727772cf1aae0eef778
-          path: toolchain/forge-runtime
-      - uses: actions/checkout@v4
-        with:
-          repository: forge-language/forge-stdlib
-          ref: f0b92f8846f4797fd057b2c8b415f6bdba87a699
-          path: toolchain/forge-stdlib
       - name: Build SDK and benchmarks
         run: |
           cmake -S toolchain/forge -B toolchain/build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$PWD/sdk" -DBUILD_TESTING=OFF
           cmake --build toolchain/build -j2
           cmake --install toolchain/build
-          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$PWD/sdk" -DFORGE_ROOT="$PWD/sdk" -DFORGE_RUNTIME_SOURCE_DIR="$PWD/toolchain/forge-runtime"
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$PWD/sdk" -DFORGE_ROOT="$PWD/sdk" -DFORGE_RUNTIME_SOURCE_DIR="$PWD/toolchain/build/_deps/forge_runtime-src"
           cmake --build build -j2
           cmake --build build --target benchmarks -j2
           ./build/bin/scheduler_bench throughput 10000 1
