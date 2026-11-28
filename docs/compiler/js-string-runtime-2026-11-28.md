@@ -40,6 +40,8 @@ The archive contains the exact four emitted programs, with SHA-256 identities in
 
 ## Reproduce
 
+The baseline and selected V3 Release binaries were rebuilt from their published revisions and matched the SHA-256 digests in the measurements. [Baseline compiler](https://github.com/forge-language/forge/commit/294b297e7a59db89223714de603c194f5c68475e) · [V3 compiler](https://github.com/forge-language/forge/commit/ee88fa8f262c70e81ede274c096a07ae0097dc3c)
+
 From the benchmark repository, pass two Release compiler binaries, a Forge SDK build directory and an available Linux CPU. The published measurements used Node v24.15.0, GCC via `/usr/bin/cc`, CMake Release flags `-O3 -DNDEBUG`, and the Forge working tree based on `451c281dfb73955803aeb9e75c2c917f242cbbc6`. The JSON records the exact binary hashes. The published working-directory and Node paths use `~` for the home directory.
 
 ```bash

@@ -46,6 +46,7 @@ updates, median emission time fell from 15.46 to 4.57 ms in a top-level
 function and from 15.65 to 4.80 ms in an imported module. Repeated reads
 of the first module binding took 3.17 and 3.20 ms respectively. The small
 `log_alerts` example took 1.62 ms with both builds.
+The measured binaries correspond to the [baseline compiler](https://github.com/forge-language/forge/commit/451c281dfb73955803aeb9e75c2c917f242cbbc6) and the [indexed emitter](https://github.com/forge-language/forge/commit/294b297e7a59db89223714de603c194f5c68475e).
 
 Independent review checked module and local name precedence, scope restoration,
 storage growth and lookup costs. Root functions still need to track bindings
