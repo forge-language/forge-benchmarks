@@ -1,0 +1,1327 @@
+{
+  "utc": "2026-11-28T14:52:44.568Z",
+  "pairs": 10,
+  "affinity": "8",
+  "node": "v24.15.0",
+  "cpu_model": "13th Gen Intel(R) Core(TM) i5-13400F",
+  "platform": "#44-Ubuntu SMP PREEMPT_DYNAMIC Fri Nov  6 02:38:04 UTC 2026",
+  "node_sha256": "d1de76d8edf2fededf6f8b30d244e2c0529ac607923a018283b77e9c74bd932c",
+  "sha256": {
+    "original.cjs": "ce7d682aeabf7a921d8c7682460627a7ac62fdf1baacc2b3734be522d70fd9d4",
+    "selected.cjs": "8d1ffe0d573f3d69639d94cb7bafc3c16ee1613a3a2e806680165810b36d8830",
+    "suffix-baseline.cjs": "6da5fbef1b32156d050758e863002b27a748dd400db04a9922e26318c7765f5e",
+    "bridge.cjs": "b1e25ecaecf04ca915b031d1410e44347e845fb1bc1df4045a43dad58eb596d4",
+    "replay.cjs": "efefc5ad01c59d6a21a960fbce71f92f3c25b2f15ba33d2c91312ef7cdbacd33"
+  },
+  "cases": {
+    "archived_length_long": {
+      "baseline": "original",
+      "inputs_repeats": [
+        [
+          "x",
+          1024
+        ],
+        [
+          "界😀",
+          256
+        ]
+      ],
+      "iterations": 35000,
+      "config_sha256": "94a4c7bfa484d96f369d0fe6b46d2f42dcf90cb6bab00769b7ab19a5cbf8c111",
+      "expected": "98560000",
+      "samples": [
+        {
+          "order": [
+            "original",
+            "selected"
+          ],
+          "values": {
+            "original": {
+              "ns": 134157563,
+              "result": "98560000"
+            },
+            "selected": {
+              "ns": 69259894,
+              "result": "98560000"
+            }
+          }
+        },
+        {
+          "order": [
+            "selected",
+            "original"
+          ],
+          "values": {
+            "selected": {
+              "ns": 69637777,
+              "result": "98560000"
+            },
+            "original": {
+              "ns": 133084365,
+              "result": "98560000"
+            }
+          }
+        },
+        {
+          "order": [
+            "original",
+            "selected"
+          ],
+          "values": {
+            "original": {
+              "ns": 133852347,
+              "result": "98560000"
+            },
+            "selected": {
+              "ns": 69291841,
+              "result": "98560000"
+            }
+          }
+        },
+        {
+          "order": [
+            "selected",
+            "original"
+          ],
+          "values": {
+            "selected": {
+              "ns": 71303759,
+              "result": "98560000"
+            },
+            "original": {
+              "ns": 135802042,
+              "result": "98560000"
+            }
+          }
+        },
+        {
+          "order": [
+            "original",
+            "selected"
+          ],
+          "values": {
+            "original": {
+              "ns": 134336467,
+              "result": "98560000"
+            },
+            "selected": {
+              "ns": 67944166,
+              "result": "98560000"
+            }
+          }
+        },
+        {
+          "order": [
+            "selected",
+            "original"
+          ],
+          "values": {
+            "selected": {
+              "ns": 68256009,
+              "result": "98560000"
+            },
+            "original": {
+              "ns": 134060126,
+              "result": "98560000"
+            }
+          }
+        },
+        {
+          "order": [
+            "original",
+            "selected"
+          ],
+          "values": {
+            "original": {
+              "ns": 139863191,
+              "result": "98560000"
+            },
+            "selected": {
+              "ns": 68346340,
+              "result": "98560000"
+            }
+          }
+        },
+        {
+          "order": [
+            "selected",
+            "original"
+          ],
+          "values": {
+            "selected": {
+              "ns": 75148197,
+              "result": "98560000"
+            },
+            "original": {
+              "ns": 136968083,
+              "result": "98560000"
+            }
+          }
+        },
+        {
+          "order": [
+            "original",
+            "selected"
+          ],
+          "values": {
+            "original": {
+              "ns": 131510363,
+              "result": "98560000"
+            },
+            "selected": {
+              "ns": 68611905,
+              "result": "98560000"
+            }
+          }
+        },
+        {
+          "order": [
+            "selected",
+            "original"
+          ],
+          "values": {
+            "selected": {
+              "ns": 68638601,
+              "result": "98560000"
+            },
+            "original": {
+              "ns": 132359663,
+              "result": "98560000"
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 134.1088445,
+        "selected": 68.9492475
+      },
+      "paired_change_pct": {
+        "median": -48.18749321816696,
+        "q1": -48.90769788165392,
+        "q3": -47.71241006889755
+      }
+    },
+    "ascii_1024": {
+      "baseline": "suffix-baseline",
+      "inputs_repeats": [
+        [
+          "x",
+          1024
+        ],
+        [
+          "y",
+          1024
+        ]
+      ],
+      "iterations": 35000,
+      "config_sha256": "0a82bafcfd2a6a29738ba73c98b408225d6bdb44c722ce96dd0780817f4f8c92",
+      "expected": "71680000",
+      "samples": [
+        {
+          "order": [
+            "selected",
+            "suffix-baseline"
+          ],
+          "values": {
+            "selected": {
+              "ns": 30566122,
+              "result": "71680000"
+            },
+            "suffix-baseline": {
+              "ns": 69798683,
+              "result": "71680000"
+            }
+          }
+        },
+        {
+          "order": [
+            "suffix-baseline",
+            "selected"
+          ],
+          "values": {
+            "suffix-baseline": {
+              "ns": 67807824,
+              "result": "71680000"
+            },
+            "selected": {
+              "ns": 30224956,
+              "result": "71680000"
+            }
+          }
+        },
+        {
+          "order": [
+            "selected",
+            "suffix-baseline"
+          ],
+          "values": {
+            "selected": {
+              "ns": 30652830,
+              "result": "71680000"
+            },
+            "suffix-baseline": {
+              "ns": 68742365,
+              "result": "71680000"
+            }
+          }
+        },
+        {
+          "order": [
+            "suffix-baseline",
+            "selected"
+          ],
+          "values": {
+            "suffix-baseline": {
+              "ns": 68533620,
+              "result": "71680000"
+            },
+            "selected": {
+              "ns": 30426864,
+              "result": "71680000"
+            }
+          }
+        },
+        {
+          "order": [
+            "selected",
+            "suffix-baseline"
+          ],
+          "values": {
+            "selected": {
+              "ns": 30507255,
+              "result": "71680000"
+            },
+            "suffix-baseline": {
+              "ns": 68334777,
+              "result": "71680000"
+            }
+          }
+        },
+        {
+          "order": [
+            "suffix-baseline",
+            "selected"
+          ],
+          "values": {
+            "suffix-baseline": {
+              "ns": 73618540,
+              "result": "71680000"
+            },
+            "selected": {
+              "ns": 30666293,
+              "result": "71680000"
+            }
+          }
+        },
+        {
+          "order": [
+            "selected",
+            "suffix-baseline"
+          ],
+          "values": {
+            "selected": {
+              "ns": 30638637,
+              "result": "71680000"
+            },
+            "suffix-baseline": {
+              "ns": 68999874,
+              "result": "71680000"
+            }
+          }
+        },
+        {
+          "order": [
+            "suffix-baseline",
+            "selected"
+          ],
+          "values": {
+            "suffix-baseline": {
+              "ns": 71757376,
+              "result": "71680000"
+            },
+            "selected": {
+              "ns": 31282641,
+              "result": "71680000"
+            }
+          }
+        },
+        {
+          "order": [
+            "selected",
+            "suffix-baseline"
+          ],
+          "values": {
+            "selected": {
+              "ns": 53341721,
+              "result": "71680000"
+            },
+            "suffix-baseline": {
+              "ns": 70144034,
+              "result": "71680000"
+            }
+          }
+        },
+        {
+          "order": [
+            "suffix-baseline",
+            "selected"
+          ],
+          "values": {
+            "suffix-baseline": {
+              "ns": 71887317,
+              "result": "71680000"
+            },
+            "selected": {
+              "ns": 31356177,
+              "result": "71680000"
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 69.3992785,
+        "selected": 30.6457335
+      },
+      "paired_change_pct": {
+        "median": -55.59955389272844,
+        "q1": -56.338159034212005,
+        "q3": -55.41322574798703
+      }
+    },
+    "mixed_1024": {
+      "baseline": "suffix-baseline",
+      "inputs_repeats": [
+        [
+          "界😀a",
+          256
+        ],
+        [
+          "é😀x",
+          256
+        ]
+      ],
+      "iterations": 35000,
+      "config_sha256": "26d2b526a2aa64304e9272dd24750011484abd22bcaaef6912746375e00c231c",
+      "expected": "134400000",
+      "samples": [
+        {
+          "order": [
+            "suffix-baseline",
+            "selected"
+          ],
+          "values": {
+            "suffix-baseline": {
+              "ns": 235360810,
+              "result": "134400000"
+            },
+            "selected": {
+              "ns": 132448623,
+              "result": "134400000"
+            }
+          }
+        },
+        {
+          "order": [
+            "selected",
+            "suffix-baseline"
+          ],
+          "values": {
+            "selected": {
+              "ns": 133251190,
+              "result": "134400000"
+            },
+            "suffix-baseline": {
+              "ns": 213796482,
+              "result": "134400000"
+            }
+          }
+        },
+        {
+          "order": [
+            "suffix-baseline",
+            "selected"
+          ],
+          "values": {
+            "suffix-baseline": {
+              "ns": 263046009,
+              "result": "134400000"
+            },
+            "selected": {
+              "ns": 134280621,
+              "result": "134400000"
+            }
+          }
+        },
+        {
+          "order": [
+            "selected",
+            "suffix-baseline"
+          ],
+          "values": {
+            "selected": {
+              "ns": 134307896,
+              "result": "134400000"
+            },
+            "suffix-baseline": {
+              "ns": 217878465,
+              "result": "134400000"
+            }
+          }
+        },
+        {
+          "order": [
+            "suffix-baseline",
+            "selected"
+          ],
+          "values": {
+            "suffix-baseline": {
+              "ns": 221193556,
+              "result": "134400000"
+            },
+            "selected": {
+              "ns": 140869081,
+              "result": "134400000"
+            }
+          }
+        },
+        {
+          "order": [
+            "selected",
+            "suffix-baseline"
+          ],
+          "values": {
+            "selected": {
+              "ns": 136020954,
+              "result": "134400000"
+            },
+            "suffix-baseline": {
+              "ns": 214384341,
+              "result": "134400000"
+            }
+          }
+        },
+        {
+          "order": [
+            "suffix-baseline",
+            "selected"
+          ],
+          "values": {
+            "suffix-baseline": {
+              "ns": 214345608,
+              "result": "134400000"
+            },
+            "selected": {
+              "ns": 138668060,
+              "result": "134400000"
+            }
+          }
+        },
+        {
+          "order": [
+            "selected",
+            "suffix-baseline"
+          ],
+          "values": {
+            "selected": {
+              "ns": 139792911,
+              "result": "134400000"
+            },
+            "suffix-baseline": {
+              "ns": 218504216,
+              "result": "134400000"
+            }
+          }
+        },
+        {
+          "order": [
+            "suffix-baseline",
+            "selected"
+          ],
+          "values": {
+            "suffix-baseline": {
+              "ns": 218691166,
+              "result": "134400000"
+            },
+            "selected": {
+              "ns": 144015961,
+              "result": "134400000"
+            }
+          }
+        },
+        {
+          "order": [
+            "selected",
+            "suffix-baseline"
+          ],
+          "values": {
+            "selected": {
+              "ns": 136452869,
+              "result": "134400000"
+            },
+            "suffix-baseline": {
+              "ns": 213304449,
+              "result": "134400000"
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 218.1913405,
+        "selected": 136.2369115
+      },
+      "paired_change_pct": {
+        "median": -36.43343430082362,
+        "q1": -38.185834215056076,
+        "q3": -36.02435318449374
+      }
+    },
+    "dense_2730": {
+      "baseline": "suffix-baseline",
+      "inputs_repeats": [
+        [
+          "界",
+          2730
+        ],
+        [
+          "é",
+          2730
+        ]
+      ],
+      "iterations": 10000,
+      "config_sha256": "3d229dece0afbd47457cd6f6240861da806b4fe6495013ed6aec829099b76473",
+      "expected": "136500000",
+      "samples": [
+        {
+          "order": [
+            "selected",
+            "suffix-baseline"
+          ],
+          "values": {
+            "selected": {
+              "ns": 75444319,
+              "result": "136500000"
+            },
+            "suffix-baseline": {
+              "ns": 103415490,
+              "result": "136500000"
+            }
+          }
+        },
+        {
+          "order": [
+            "suffix-baseline",
+            "selected"
+          ],
+          "values": {
+            "suffix-baseline": {
+              "ns": 104572148,
+              "result": "136500000"
+            },
+            "selected": {
+              "ns": 75420471,
+              "result": "136500000"
+            }
+          }
+        },
+        {
+          "order": [
+            "selected",
+            "suffix-baseline"
+          ],
+          "values": {
+            "selected": {
+              "ns": 76077423,
+              "result": "136500000"
+            },
+            "suffix-baseline": {
+              "ns": 103942827,
+              "result": "136500000"
+            }
+          }
+        },
+        {
+          "order": [
+            "suffix-baseline",
+            "selected"
+          ],
+          "values": {
+            "suffix-baseline": {
+              "ns": 103972085,
+              "result": "136500000"
+            },
+            "selected": {
+              "ns": 76897439,
+              "result": "136500000"
+            }
+          }
+        },
+        {
+          "order": [
+            "selected",
+            "suffix-baseline"
+          ],
+          "values": {
+            "selected": {
+              "ns": 93236776,
+              "result": "136500000"
+            },
+            "suffix-baseline": {
+              "ns": 115428755,
+              "result": "136500000"
+            }
+          }
+        },
+        {
+          "order": [
+            "suffix-baseline",
+            "selected"
+          ],
+          "values": {
+            "suffix-baseline": {
+              "ns": 115960400,
+              "result": "136500000"
+            },
+            "selected": {
+              "ns": 74881192,
+              "result": "136500000"
+            }
+          }
+        },
+        {
+          "order": [
+            "selected",
+            "suffix-baseline"
+          ],
+          "values": {
+            "selected": {
+              "ns": 80402098,
+              "result": "136500000"
+            },
+            "suffix-baseline": {
+              "ns": 106636355,
+              "result": "136500000"
+            }
+          }
+        },
+        {
+          "order": [
+            "suffix-baseline",
+            "selected"
+          ],
+          "values": {
+            "suffix-baseline": {
+              "ns": 106957917,
+              "result": "136500000"
+            },
+            "selected": {
+              "ns": 79896628,
+              "result": "136500000"
+            }
+          }
+        },
+        {
+          "order": [
+            "selected",
+            "suffix-baseline"
+          ],
+          "values": {
+            "selected": {
+              "ns": 77154516,
+              "result": "136500000"
+            },
+            "suffix-baseline": {
+              "ns": 107225357,
+              "result": "136500000"
+            }
+          }
+        },
+        {
+          "order": [
+            "suffix-baseline",
+            "selected"
+          ],
+          "values": {
+            "suffix-baseline": {
+              "ns": 107556113,
+              "result": "136500000"
+            },
+            "selected": {
+              "ns": 80143250,
+              "result": "136500000"
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 106.797136,
+        "selected": 77.0259775
+      },
+      "paired_change_pct": {
+        "median": -26.42434918964618,
+        "q1": -27.669663909372233,
+        "q3": -25.347414811423107
+      }
+    },
+    "dense_2731": {
+      "baseline": "suffix-baseline",
+      "inputs_repeats": [
+        [
+          "界",
+          2731
+        ],
+        [
+          "é",
+          2731
+        ]
+      ],
+      "iterations": 10000,
+      "config_sha256": "ec585937140d4eba59a57474aa171de84a19b7c13d29543ce411525c191120af",
+      "expected": "136550000",
+      "samples": [
+        {
+          "order": [
+            "suffix-baseline",
+            "selected"
+          ],
+          "values": {
+            "suffix-baseline": {
+              "ns": 104835375,
+              "result": "136550000"
+            },
+            "selected": {
+              "ns": 107385097,
+              "result": "136550000"
+            }
+          }
+        },
+        {
+          "order": [
+            "selected",
+            "suffix-baseline"
+          ],
+          "values": {
+            "selected": {
+              "ns": 114245315,
+              "result": "136550000"
+            },
+            "suffix-baseline": {
+              "ns": 108829163,
+              "result": "136550000"
+            }
+          }
+        },
+        {
+          "order": [
+            "suffix-baseline",
+            "selected"
+          ],
+          "values": {
+            "suffix-baseline": {
+              "ns": 104416798,
+              "result": "136550000"
+            },
+            "selected": {
+              "ns": 104496259,
+              "result": "136550000"
+            }
+          }
+        },
+        {
+          "order": [
+            "selected",
+            "suffix-baseline"
+          ],
+          "values": {
+            "selected": {
+              "ns": 103717129,
+              "result": "136550000"
+            },
+            "suffix-baseline": {
+              "ns": 103791419,
+              "result": "136550000"
+            }
+          }
+        },
+        {
+          "order": [
+            "suffix-baseline",
+            "selected"
+          ],
+          "values": {
+            "suffix-baseline": {
+              "ns": 102447461,
+              "result": "136550000"
+            },
+            "selected": {
+              "ns": 103420809,
+              "result": "136550000"
+            }
+          }
+        },
+        {
+          "order": [
+            "selected",
+            "suffix-baseline"
+          ],
+          "values": {
+            "selected": {
+              "ns": 102879549,
+              "result": "136550000"
+            },
+            "suffix-baseline": {
+              "ns": 103090055,
+              "result": "136550000"
+            }
+          }
+        },
+        {
+          "order": [
+            "suffix-baseline",
+            "selected"
+          ],
+          "values": {
+            "suffix-baseline": {
+              "ns": 102637658,
+              "result": "136550000"
+            },
+            "selected": {
+              "ns": 100876878,
+              "result": "136550000"
+            }
+          }
+        },
+        {
+          "order": [
+            "selected",
+            "suffix-baseline"
+          ],
+          "values": {
+            "selected": {
+              "ns": 109980048,
+              "result": "136550000"
+            },
+            "suffix-baseline": {
+              "ns": 103726869,
+              "result": "136550000"
+            }
+          }
+        },
+        {
+          "order": [
+            "suffix-baseline",
+            "selected"
+          ],
+          "values": {
+            "suffix-baseline": {
+              "ns": 103163036,
+              "result": "136550000"
+            },
+            "selected": {
+              "ns": 103652487,
+              "result": "136550000"
+            }
+          }
+        },
+        {
+          "order": [
+            "selected",
+            "suffix-baseline"
+          ],
+          "values": {
+            "selected": {
+              "ns": 103437660,
+              "result": "136550000"
+            },
+            "suffix-baseline": {
+              "ns": 103135545,
+              "result": "136550000"
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 103.4449525,
+        "selected": 103.684808
+      },
+      "paired_change_pct": {
+        "median": 0.38368710348883894,
+        "q1": -0.03465722737668875,
+        "q3": 2.0616136124732787
+      }
+    },
+    "ascii_16384": {
+      "baseline": "suffix-baseline",
+      "inputs_repeats": [
+        [
+          "x",
+          16384
+        ],
+        [
+          "y",
+          16384
+        ]
+      ],
+      "iterations": 4000,
+      "config_sha256": "0040f8db50cfcb4590857eba896aea5155b7f3bec42000942b77ada2474109db",
+      "expected": "131072000",
+      "samples": [
+        {
+          "order": [
+            "selected",
+            "suffix-baseline"
+          ],
+          "values": {
+            "selected": {
+              "ns": 84052888,
+              "result": "131072000"
+            },
+            "suffix-baseline": {
+              "ns": 84469843,
+              "result": "131072000"
+            }
+          }
+        },
+        {
+          "order": [
+            "suffix-baseline",
+            "selected"
+          ],
+          "values": {
+            "suffix-baseline": {
+              "ns": 82214119,
+              "result": "131072000"
+            },
+            "selected": {
+              "ns": 84442248,
+              "result": "131072000"
+            }
+          }
+        },
+        {
+          "order": [
+            "selected",
+            "suffix-baseline"
+          ],
+          "values": {
+            "selected": {
+              "ns": 84353237,
+              "result": "131072000"
+            },
+            "suffix-baseline": {
+              "ns": 84474827,
+              "result": "131072000"
+            }
+          }
+        },
+        {
+          "order": [
+            "suffix-baseline",
+            "selected"
+          ],
+          "values": {
+            "suffix-baseline": {
+              "ns": 81055796,
+              "result": "131072000"
+            },
+            "selected": {
+              "ns": 85843071,
+              "result": "131072000"
+            }
+          }
+        },
+        {
+          "order": [
+            "selected",
+            "suffix-baseline"
+          ],
+          "values": {
+            "selected": {
+              "ns": 83304719,
+              "result": "131072000"
+            },
+            "suffix-baseline": {
+              "ns": 87293242,
+              "result": "131072000"
+            }
+          }
+        },
+        {
+          "order": [
+            "suffix-baseline",
+            "selected"
+          ],
+          "values": {
+            "suffix-baseline": {
+              "ns": 81638174,
+              "result": "131072000"
+            },
+            "selected": {
+              "ns": 85209024,
+              "result": "131072000"
+            }
+          }
+        },
+        {
+          "order": [
+            "selected",
+            "suffix-baseline"
+          ],
+          "values": {
+            "selected": {
+              "ns": 85532842,
+              "result": "131072000"
+            },
+            "suffix-baseline": {
+              "ns": 82682644,
+              "result": "131072000"
+            }
+          }
+        },
+        {
+          "order": [
+            "suffix-baseline",
+            "selected"
+          ],
+          "values": {
+            "suffix-baseline": {
+              "ns": 81781418,
+              "result": "131072000"
+            },
+            "selected": {
+              "ns": 87641034,
+              "result": "131072000"
+            }
+          }
+        },
+        {
+          "order": [
+            "selected",
+            "suffix-baseline"
+          ],
+          "values": {
+            "selected": {
+              "ns": 84136912,
+              "result": "131072000"
+            },
+            "suffix-baseline": {
+              "ns": 82437047,
+              "result": "131072000"
+            }
+          }
+        },
+        {
+          "order": [
+            "suffix-baseline",
+            "selected"
+          ],
+          "values": {
+            "suffix-baseline": {
+              "ns": 82343841,
+              "result": "131072000"
+            },
+            "selected": {
+              "ns": 84282269,
+              "result": "131072000"
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 82.390444,
+        "selected": 84.3977425
+      },
+      "paired_change_pct": {
+        "median": 2.532109636227464,
+        "q1": 0.4075516920549388,
+        "q3": 4.142285051445372
+      }
+    },
+    "mixed_16384": {
+      "baseline": "suffix-baseline",
+      "inputs_repeats": [
+        [
+          "界😀a",
+          4096
+        ],
+        [
+          "é😀x",
+          4096
+        ]
+      ],
+      "iterations": 4000,
+      "config_sha256": "48cba88d2862740e29054befae89bf1548cf576e4fe475b486f80d1f2a983ef8",
+      "expected": "245760000",
+      "samples": [
+        {
+          "order": [
+            "suffix-baseline",
+            "selected"
+          ],
+          "values": {
+            "suffix-baseline": {
+              "ns": 330755274,
+              "result": "245760000"
+            },
+            "selected": {
+              "ns": 359321393,
+              "result": "245760000"
+            }
+          }
+        },
+        {
+          "order": [
+            "selected",
+            "suffix-baseline"
+          ],
+          "values": {
+            "selected": {
+              "ns": 335693792,
+              "result": "245760000"
+            },
+            "suffix-baseline": {
+              "ns": 338326898,
+              "result": "245760000"
+            }
+          }
+        },
+        {
+          "order": [
+            "suffix-baseline",
+            "selected"
+          ],
+          "values": {
+            "suffix-baseline": {
+              "ns": 334059543,
+              "result": "245760000"
+            },
+            "selected": {
+              "ns": 329206445,
+              "result": "245760000"
+            }
+          }
+        },
+        {
+          "order": [
+            "selected",
+            "suffix-baseline"
+          ],
+          "values": {
+            "selected": {
+              "ns": 355322721,
+              "result": "245760000"
+            },
+            "suffix-baseline": {
+              "ns": 353414252,
+              "result": "245760000"
+            }
+          }
+        },
+        {
+          "order": [
+            "suffix-baseline",
+            "selected"
+          ],
+          "values": {
+            "suffix-baseline": {
+              "ns": 334948613,
+              "result": "245760000"
+            },
+            "selected": {
+              "ns": 333008052,
+              "result": "245760000"
+            }
+          }
+        },
+        {
+          "order": [
+            "selected",
+            "suffix-baseline"
+          ],
+          "values": {
+            "selected": {
+              "ns": 333121896,
+              "result": "245760000"
+            },
+            "suffix-baseline": {
+              "ns": 332635644,
+              "result": "245760000"
+            }
+          }
+        },
+        {
+          "order": [
+            "suffix-baseline",
+            "selected"
+          ],
+          "values": {
+            "suffix-baseline": {
+              "ns": 331478613,
+              "result": "245760000"
+            },
+            "selected": {
+              "ns": 331684737,
+              "result": "245760000"
+            }
+          }
+        },
+        {
+          "order": [
+            "selected",
+            "suffix-baseline"
+          ],
+          "values": {
+            "selected": {
+              "ns": 330911908,
+              "result": "245760000"
+            },
+            "suffix-baseline": {
+              "ns": 340245221,
+              "result": "245760000"
+            }
+          }
+        },
+        {
+          "order": [
+            "suffix-baseline",
+            "selected"
+          ],
+          "values": {
+            "suffix-baseline": {
+              "ns": 331829712,
+              "result": "245760000"
+            },
+            "selected": {
+              "ns": 332615999,
+              "result": "245760000"
+            }
+          }
+        },
+        {
+          "order": [
+            "selected",
+            "suffix-baseline"
+          ],
+          "values": {
+            "selected": {
+              "ns": 333085642,
+              "result": "245760000"
+            },
+            "suffix-baseline": {
+              "ns": 335224834,
+              "result": "245760000"
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 334.504078,
+        "selected": 333.046847
+      },
+      "paired_change_pct": {
+        "median": -0.25858880673331197,
+        "q1": -0.7432386740372471,
+        "q3": 0.2142616207289505
+      }
+    }
+  }
+}

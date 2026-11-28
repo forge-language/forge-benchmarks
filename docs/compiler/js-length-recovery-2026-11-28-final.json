@@ -1,0 +1,766 @@
+{
+  "utc": "2026-11-28T14:59:24.750Z",
+  "pairs": 10,
+  "affinity": "8",
+  "node": "v24.15.0",
+  "cpu_model": "13th Gen Intel(R) Core(TM) i5-13400F",
+  "platform": "#44-Ubuntu SMP PREEMPT_DYNAMIC Fri Nov  6 02:38:04 UTC 2026",
+  "node_sha256": "d1de76d8edf2fededf6f8b30d244e2c0529ac607923a018283b77e9c74bd932c",
+  "sha256": {
+    "historical.cjs": "ce7d682aeabf7a921d8c7682460627a7ac62fdf1baacc2b3734be522d70fd9d4",
+    "final.cjs": "f528ddf55564bc7d95e2d6b22ac18c3b3bb32bccfd4697f2848103f5045e3f6d",
+    "previous.cjs": "61bb368aa39f5357dddbc5b414ba4c9429a47a1c46bf9ef39ecd797b194ff504",
+    "bridge.cjs": "b1e25ecaecf04ca915b031d1410e44347e845fb1bc1df4045a43dad58eb596d4",
+    "replay.cjs": "452df54988c5af6f3a6537e5714e1ff64b65200fe0d3758dab904664190eeb17"
+  },
+  "cases": {
+    "historical_long": {
+      "baseline": "historical",
+      "inputs_repeats": [
+        [
+          "x",
+          1024
+        ],
+        [
+          "界😀",
+          256
+        ]
+      ],
+      "iterations": 35000,
+      "config_sha256": "94a4c7bfa484d96f369d0fe6b46d2f42dcf90cb6bab00769b7ab19a5cbf8c111",
+      "expected": "98560000",
+      "samples": [
+        {
+          "order": [
+            "historical",
+            "final"
+          ],
+          "values": {
+            "historical": {
+              "ns": 131628800,
+              "result": "98560000"
+            },
+            "final": {
+              "ns": 69179486,
+              "result": "98560000"
+            }
+          }
+        },
+        {
+          "order": [
+            "final",
+            "historical"
+          ],
+          "values": {
+            "final": {
+              "ns": 69198742,
+              "result": "98560000"
+            },
+            "historical": {
+              "ns": 130303249,
+              "result": "98560000"
+            }
+          }
+        },
+        {
+          "order": [
+            "historical",
+            "final"
+          ],
+          "values": {
+            "historical": {
+              "ns": 132200786,
+              "result": "98560000"
+            },
+            "final": {
+              "ns": 69358092,
+              "result": "98560000"
+            }
+          }
+        },
+        {
+          "order": [
+            "final",
+            "historical"
+          ],
+          "values": {
+            "final": {
+              "ns": 69157318,
+              "result": "98560000"
+            },
+            "historical": {
+              "ns": 130579738,
+              "result": "98560000"
+            }
+          }
+        },
+        {
+          "order": [
+            "historical",
+            "final"
+          ],
+          "values": {
+            "historical": {
+              "ns": 129641686,
+              "result": "98560000"
+            },
+            "final": {
+              "ns": 69288819,
+              "result": "98560000"
+            }
+          }
+        },
+        {
+          "order": [
+            "final",
+            "historical"
+          ],
+          "values": {
+            "final": {
+              "ns": 69342922,
+              "result": "98560000"
+            },
+            "historical": {
+              "ns": 136423050,
+              "result": "98560000"
+            }
+          }
+        },
+        {
+          "order": [
+            "historical",
+            "final"
+          ],
+          "values": {
+            "historical": {
+              "ns": 131290051,
+              "result": "98560000"
+            },
+            "final": {
+              "ns": 71041128,
+              "result": "98560000"
+            }
+          }
+        },
+        {
+          "order": [
+            "final",
+            "historical"
+          ],
+          "values": {
+            "final": {
+              "ns": 71347168,
+              "result": "98560000"
+            },
+            "historical": {
+              "ns": 133985244,
+              "result": "98560000"
+            }
+          }
+        },
+        {
+          "order": [
+            "historical",
+            "final"
+          ],
+          "values": {
+            "historical": {
+              "ns": 130000230,
+              "result": "98560000"
+            },
+            "final": {
+              "ns": 68361925,
+              "result": "98560000"
+            }
+          }
+        },
+        {
+          "order": [
+            "final",
+            "historical"
+          ],
+          "values": {
+            "final": {
+              "ns": 71660991,
+              "result": "98560000"
+            },
+            "historical": {
+              "ns": 141061543,
+              "result": "98560000"
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 131.4594255,
+        "final": 69.3158705
+      },
+      "paired_change_pct": {
+        "median": -47.22612205924946,
+        "q1": -47.51272170886975,
+        "q3": -46.78600514414972
+      }
+    },
+    "previous_long": {
+      "baseline": "previous",
+      "inputs_repeats": [
+        [
+          "x",
+          1024
+        ],
+        [
+          "界😀",
+          256
+        ]
+      ],
+      "iterations": 35000,
+      "config_sha256": "94a4c7bfa484d96f369d0fe6b46d2f42dcf90cb6bab00769b7ab19a5cbf8c111",
+      "expected": "98560000",
+      "samples": [
+        {
+          "order": [
+            "final",
+            "previous"
+          ],
+          "values": {
+            "final": {
+              "ns": 70016841,
+              "result": "98560000"
+            },
+            "previous": {
+              "ns": 135429587,
+              "result": "98560000"
+            }
+          }
+        },
+        {
+          "order": [
+            "previous",
+            "final"
+          ],
+          "values": {
+            "previous": {
+              "ns": 136247136,
+              "result": "98560000"
+            },
+            "final": {
+              "ns": 69233555,
+              "result": "98560000"
+            }
+          }
+        },
+        {
+          "order": [
+            "final",
+            "previous"
+          ],
+          "values": {
+            "final": {
+              "ns": 69131942,
+              "result": "98560000"
+            },
+            "previous": {
+              "ns": 135366158,
+              "result": "98560000"
+            }
+          }
+        },
+        {
+          "order": [
+            "previous",
+            "final"
+          ],
+          "values": {
+            "previous": {
+              "ns": 133007961,
+              "result": "98560000"
+            },
+            "final": {
+              "ns": 69066014,
+              "result": "98560000"
+            }
+          }
+        },
+        {
+          "order": [
+            "final",
+            "previous"
+          ],
+          "values": {
+            "final": {
+              "ns": 72137450,
+              "result": "98560000"
+            },
+            "previous": {
+              "ns": 135369823,
+              "result": "98560000"
+            }
+          }
+        },
+        {
+          "order": [
+            "previous",
+            "final"
+          ],
+          "values": {
+            "previous": {
+              "ns": 143054794,
+              "result": "98560000"
+            },
+            "final": {
+              "ns": 68994910,
+              "result": "98560000"
+            }
+          }
+        },
+        {
+          "order": [
+            "final",
+            "previous"
+          ],
+          "values": {
+            "final": {
+              "ns": 68032179,
+              "result": "98560000"
+            },
+            "previous": {
+              "ns": 135000344,
+              "result": "98560000"
+            }
+          }
+        },
+        {
+          "order": [
+            "previous",
+            "final"
+          ],
+          "values": {
+            "previous": {
+              "ns": 141249512,
+              "result": "98560000"
+            },
+            "final": {
+              "ns": 68198293,
+              "result": "98560000"
+            }
+          }
+        },
+        {
+          "order": [
+            "final",
+            "previous"
+          ],
+          "values": {
+            "final": {
+              "ns": 68385516,
+              "result": "98560000"
+            },
+            "previous": {
+              "ns": 134682258,
+              "result": "98560000"
+            }
+          }
+        },
+        {
+          "order": [
+            "previous",
+            "final"
+          ],
+          "values": {
+            "previous": {
+              "ns": 133256069,
+              "result": "98560000"
+            },
+            "final": {
+              "ns": 68214964,
+              "result": "98560000"
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 135.3679905,
+        "final": 69.030462
+      },
+      "paired_change_pct": {
+        "median": -49.0574923492625,
+        "q1": -49.51058002815699,
+        "q3": -48.4274196767361
+      }
+    },
+    "previous_short_ascii": {
+      "baseline": "previous",
+      "inputs_repeats": [
+        [
+          "INFO",
+          1
+        ],
+        [
+          " status=ok",
+          1
+        ]
+      ],
+      "iterations": 120000,
+      "config_sha256": "07dee1449b77e2e76af790a9822402679d8f54a13a5435181e782f6abe5f10c1",
+      "expected": "1680000",
+      "samples": [
+        {
+          "order": [
+            "previous",
+            "final"
+          ],
+          "values": {
+            "previous": {
+              "ns": 11022256,
+              "result": "1680000"
+            },
+            "final": {
+              "ns": 10844837,
+              "result": "1680000"
+            }
+          }
+        },
+        {
+          "order": [
+            "final",
+            "previous"
+          ],
+          "values": {
+            "final": {
+              "ns": 10949408,
+              "result": "1680000"
+            },
+            "previous": {
+              "ns": 11018010,
+              "result": "1680000"
+            }
+          }
+        },
+        {
+          "order": [
+            "previous",
+            "final"
+          ],
+          "values": {
+            "previous": {
+              "ns": 11040368,
+              "result": "1680000"
+            },
+            "final": {
+              "ns": 11022000,
+              "result": "1680000"
+            }
+          }
+        },
+        {
+          "order": [
+            "final",
+            "previous"
+          ],
+          "values": {
+            "final": {
+              "ns": 10855295,
+              "result": "1680000"
+            },
+            "previous": {
+              "ns": 10942260,
+              "result": "1680000"
+            }
+          }
+        },
+        {
+          "order": [
+            "previous",
+            "final"
+          ],
+          "values": {
+            "previous": {
+              "ns": 11960375,
+              "result": "1680000"
+            },
+            "final": {
+              "ns": 10974740,
+              "result": "1680000"
+            }
+          }
+        },
+        {
+          "order": [
+            "final",
+            "previous"
+          ],
+          "values": {
+            "final": {
+              "ns": 11072692,
+              "result": "1680000"
+            },
+            "previous": {
+              "ns": 10155570,
+              "result": "1680000"
+            }
+          }
+        },
+        {
+          "order": [
+            "previous",
+            "final"
+          ],
+          "values": {
+            "previous": {
+              "ns": 11038396,
+              "result": "1680000"
+            },
+            "final": {
+              "ns": 10860219,
+              "result": "1680000"
+            }
+          }
+        },
+        {
+          "order": [
+            "final",
+            "previous"
+          ],
+          "values": {
+            "final": {
+              "ns": 10900185,
+              "result": "1680000"
+            },
+            "previous": {
+              "ns": 10811373,
+              "result": "1680000"
+            }
+          }
+        },
+        {
+          "order": [
+            "previous",
+            "final"
+          ],
+          "values": {
+            "previous": {
+              "ns": 10949899,
+              "result": "1680000"
+            },
+            "final": {
+              "ns": 10926365,
+              "result": "1680000"
+            }
+          }
+        },
+        {
+          "order": [
+            "final",
+            "previous"
+          ],
+          "values": {
+            "final": {
+              "ns": 14271067,
+              "result": "1680000"
+            },
+            "previous": {
+              "ns": 10972653,
+              "result": "1680000"
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 10.9953315,
+        "final": 10.9378865
+      },
+      "paired_change_pct": {
+        "median": -0.41877973939343227,
+        "q1": -1.4059231122060145,
+        "q3": 0.5745083947254259
+      }
+    },
+    "previous_ascii_16384": {
+      "baseline": "previous",
+      "inputs_repeats": [
+        [
+          "x",
+          16384
+        ],
+        [
+          "y",
+          16384
+        ]
+      ],
+      "iterations": 4000,
+      "config_sha256": "0040f8db50cfcb4590857eba896aea5155b7f3bec42000942b77ada2474109db",
+      "expected": "131072000",
+      "samples": [
+        {
+          "order": [
+            "final",
+            "previous"
+          ],
+          "values": {
+            "final": {
+              "ns": 91034559,
+              "result": "131072000"
+            },
+            "previous": {
+              "ns": 84429965,
+              "result": "131072000"
+            }
+          }
+        },
+        {
+          "order": [
+            "previous",
+            "final"
+          ],
+          "values": {
+            "previous": {
+              "ns": 83990997,
+              "result": "131072000"
+            },
+            "final": {
+              "ns": 89621430,
+              "result": "131072000"
+            }
+          }
+        },
+        {
+          "order": [
+            "final",
+            "previous"
+          ],
+          "values": {
+            "final": {
+              "ns": 84137860,
+              "result": "131072000"
+            },
+            "previous": {
+              "ns": 83226235,
+              "result": "131072000"
+            }
+          }
+        },
+        {
+          "order": [
+            "previous",
+            "final"
+          ],
+          "values": {
+            "previous": {
+              "ns": 84295073,
+              "result": "131072000"
+            },
+            "final": {
+              "ns": 83749566,
+              "result": "131072000"
+            }
+          }
+        },
+        {
+          "order": [
+            "final",
+            "previous"
+          ],
+          "values": {
+            "final": {
+              "ns": 85644942,
+              "result": "131072000"
+            },
+            "previous": {
+              "ns": 84268719,
+              "result": "131072000"
+            }
+          }
+        },
+        {
+          "order": [
+            "previous",
+            "final"
+          ],
+          "values": {
+            "previous": {
+              "ns": 87860425,
+              "result": "131072000"
+            },
+            "final": {
+              "ns": 83687583,
+              "result": "131072000"
+            }
+          }
+        },
+        {
+          "order": [
+            "final",
+            "previous"
+          ],
+          "values": {
+            "final": {
+              "ns": 84471556,
+              "result": "131072000"
+            },
+            "previous": {
+              "ns": 85244081,
+              "result": "131072000"
+            }
+          }
+        },
+        {
+          "order": [
+            "previous",
+            "final"
+          ],
+          "values": {
+            "previous": {
+              "ns": 84156642,
+              "result": "131072000"
+            },
+            "final": {
+              "ns": 84500818,
+              "result": "131072000"
+            }
+          }
+        },
+        {
+          "order": [
+            "final",
+            "previous"
+          ],
+          "values": {
+            "final": {
+              "ns": 83848589,
+              "result": "131072000"
+            },
+            "previous": {
+              "ns": 89569512,
+              "result": "131072000"
+            }
+          }
+        },
+        {
+          "order": [
+            "previous",
+            "final"
+          ],
+          "values": {
+            "previous": {
+              "ns": 83034324,
+              "result": "131072000"
+            },
+            "final": {
+              "ns": 85566301,
+              "result": "131072000"
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 84.281896,
+        "final": 84.486187
+      },
+      "paired_change_pct": {
+        "median": 0.7521642112408466,
+        "q1": -0.8414729137753013,
+        "q3": 2.695269322524002
+      }
+    }
+  }
+}
