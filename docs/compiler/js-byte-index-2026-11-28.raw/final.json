@@ -1,0 +1,3750 @@
+{
+  "started_utc": "2026-11-28T14:18:48.299498+00:00",
+  "method": "Fresh Node per sample, preparse strings, warm twice at 1/4 count, time callback loop with hrtime.bigint, verify checksum in Python. Alternate AB/BA by pair, stagger first order by case.",
+  "platform": "Linux-7.0.0-44-generic-x86_64-with-glibc2.43",
+  "cpu": 14,
+  "cpu_model": "13th Gen Intel(R) Core(TM) i5-13400F",
+  "node": "v24.15.0",
+  "node_sha256": "d1de76d8edf2fededf6f8b30d244e2c0529ac607923a018283b77e9c74bd932c",
+  "build_note": "Release baseline versus selected initialized loop-cache binary. Fresh complete pass after the archive smoke test; CPU 14 reserved for these samples.",
+  "compiler_sha256": {
+    "baseline": "812592f92c49a9c0c1554f570b43c645303546cffb8f5f4f8eef28c544deaa84",
+    "candidate": "c516b6ced8b35e7e979571cc124439bd75af0a0fde2b09111084dd3c08ad703e"
+  },
+  "input_sha256": {
+    "js_byte_index.fg": "cd1e751252372e4f107014ac516ab1af123461133c751aa8f4192ece37ce5f25",
+    "js_byte_index.cjs": "c5225c9385f93a421fdde3afe6a2d45b130c0e9fab8e18c6c3fd11b9e63221c8",
+    "js_byte_index_bench.py": "78955c289eb191ff4f7d102ac2e8c8fc885a9dcafa6d257fcba0950de3ee9fc8"
+  },
+  "cases": {
+    "digest_valid": {
+      "operation": "digest",
+      "count": 4000,
+      "input_count": 1,
+      "offset": 0,
+      "config_sha256": "87e2febdf1f671604904700662e4e3b375743256b5f20c7535ecc03685212087",
+      "expected": "4000",
+      "samples": [
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "4000",
+              "ns": 134188173
+            },
+            "candidate": {
+              "result": "4000",
+              "ns": 33105456
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "4000",
+              "ns": 32586542
+            },
+            "baseline": {
+              "result": "4000",
+              "ns": 133219387
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "4000",
+              "ns": 137141110
+            },
+            "candidate": {
+              "result": "4000",
+              "ns": 32838084
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "4000",
+              "ns": 33272723
+            },
+            "baseline": {
+              "result": "4000",
+              "ns": 145398861
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "4000",
+              "ns": 149479835
+            },
+            "candidate": {
+              "result": "4000",
+              "ns": 33830590
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "4000",
+              "ns": 33839041
+            },
+            "baseline": {
+              "result": "4000",
+              "ns": 137957185
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "4000",
+              "ns": 134211963
+            },
+            "candidate": {
+              "result": "4000",
+              "ns": 34032903
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "4000",
+              "ns": 34953313
+            },
+            "baseline": {
+              "result": "4000",
+              "ns": 158928527
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 137.5491475,
+        "candidate": 33.5516565
+      },
+      "paired_change_pct": {
+        "median": -75.7972240281727,
+        "q1": -77.17912927825904,
+        "q3": -75.43577942088496,
+        "min": -78.00689803159126,
+        "max": -74.64242215129511
+      }
+    },
+    "digest_late_bad": {
+      "operation": "digest",
+      "count": 3000,
+      "input_count": 1,
+      "offset": 0,
+      "config_sha256": "b3628c1800772181897c2a6811fe919e3418f37b27d9e1ed9805966a5d2e7169",
+      "expected": "0",
+      "samples": [
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "0",
+              "ns": 30127044
+            },
+            "baseline": {
+              "result": "0",
+              "ns": 123469588
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "0",
+              "ns": 126355539
+            },
+            "candidate": {
+              "result": "0",
+              "ns": 27221865
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "0",
+              "ns": 29214650
+            },
+            "baseline": {
+              "result": "0",
+              "ns": 124085012
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "0",
+              "ns": 125027928
+            },
+            "candidate": {
+              "result": "0",
+              "ns": 28762120
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "0",
+              "ns": 30429105
+            },
+            "baseline": {
+              "result": "0",
+              "ns": 133047118
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "0",
+              "ns": 119330286
+            },
+            "candidate": {
+              "result": "0",
+              "ns": 26632859
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "0",
+              "ns": 26949765
+            },
+            "baseline": {
+              "result": "0",
+              "ns": 106801623
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "0",
+              "ns": 104683235
+            },
+            "candidate": {
+              "result": "0",
+              "ns": 26917826
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 123.7773,
+        "candidate": 27.9919925
+      },
+      "paired_change_pct": {
+        "median": -76.72569175454564,
+        "q1": -77.26715508562165,
+        "q3": -75.39134810455869,
+        "min": -78.4561363787938,
+        "max": -74.28640221139517
+      }
+    },
+    "digest_early_bad": {
+      "operation": "digest",
+      "count": 60000,
+      "input_count": 1,
+      "offset": 0,
+      "config_sha256": "a56e79d6292a431cbb4653aa3b454bd742441e9183d1b53c394fc43415b12c9c",
+      "expected": "0",
+      "samples": [
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "0",
+              "ns": 37095672
+            },
+            "candidate": {
+              "result": "0",
+              "ns": 13113190
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "0",
+              "ns": 12896231
+            },
+            "baseline": {
+              "result": "0",
+              "ns": 37491639
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "0",
+              "ns": 39138304
+            },
+            "candidate": {
+              "result": "0",
+              "ns": 13294868
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "0",
+              "ns": 12982087
+            },
+            "baseline": {
+              "result": "0",
+              "ns": 38462319
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "0",
+              "ns": 38250464
+            },
+            "candidate": {
+              "result": "0",
+              "ns": 13138246
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "0",
+              "ns": 13024083
+            },
+            "baseline": {
+              "result": "0",
+              "ns": 38529432
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "0",
+              "ns": 39333047
+            },
+            "candidate": {
+              "result": "0",
+              "ns": 12750718
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "0",
+              "ns": 12946248
+            },
+            "baseline": {
+              "result": "0",
+              "ns": 40246720
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 38.4958755,
+        "candidate": 13.003085
+      },
+      "paired_change_pct": {
+        "median": -66.11405584680112,
+        "q1": -66.58111517157629,
+        "q3": -65.63964117563278,
+        "min": -67.83278736751716,
+        "max": -64.65035058537288
+      }
+    },
+    "digest_short": {
+      "operation": "digest",
+      "count": 180000,
+      "input_count": 1,
+      "offset": 0,
+      "config_sha256": "d4c242ad044ba4f418642d86cad5a69fc301afe45f90e1e41b8f60c271a2ad32",
+      "expected": "0",
+      "samples": [
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "0",
+              "ns": 16623211
+            },
+            "baseline": {
+              "result": "0",
+              "ns": 16682506
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "0",
+              "ns": 16747161
+            },
+            "candidate": {
+              "result": "0",
+              "ns": 17037698
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "0",
+              "ns": 16964980
+            },
+            "baseline": {
+              "result": "0",
+              "ns": 16794010
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "0",
+              "ns": 17009059
+            },
+            "candidate": {
+              "result": "0",
+              "ns": 16871061
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "0",
+              "ns": 17565359
+            },
+            "baseline": {
+              "result": "0",
+              "ns": 17159269
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "0",
+              "ns": 16974593
+            },
+            "candidate": {
+              "result": "0",
+              "ns": 16924489
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "0",
+              "ns": 17178176
+            },
+            "baseline": {
+              "result": "0",
+              "ns": 17269608
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "0",
+              "ns": 16726627
+            },
+            "candidate": {
+              "result": "0",
+              "ns": 17234219
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 16.8843015,
+        "candidate": 17.001339
+      },
+      "paired_change_pct": {
+        "median": 0.36143549944126496,
+        "q1": -0.39893385082349075,
+        "q3": 1.8927806365757582,
+        "min": -0.8113206027446918,
+        "max": 3.034634538093073
+      }
+    },
+    "digest_unicode_64_bytes": {
+      "operation": "digest",
+      "count": 3000,
+      "input_count": 1,
+      "offset": 0,
+      "config_sha256": "0047e97e19cade93c0e8047f2fb94512513e663dada5afb0cd2a0eeebf5464a3",
+      "expected": "0",
+      "samples": [
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "0",
+              "ns": 101671517
+            },
+            "candidate": {
+              "result": "0",
+              "ns": 26035867
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "0",
+              "ns": 26216876
+            },
+            "baseline": {
+              "result": "0",
+              "ns": 103805637
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "0",
+              "ns": 117398015
+            },
+            "candidate": {
+              "result": "0",
+              "ns": 27049401
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "0",
+              "ns": 27318550
+            },
+            "baseline": {
+              "result": "0",
+              "ns": 103525605
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "0",
+              "ns": 107374344
+            },
+            "candidate": {
+              "result": "0",
+              "ns": 26784114
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "0",
+              "ns": 26693598
+            },
+            "baseline": {
+              "result": "0",
+              "ns": 110684393
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "0",
+              "ns": 104452828
+            },
+            "candidate": {
+              "result": "0",
+              "ns": 27549780
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "0",
+              "ns": 27197167
+            },
+            "baseline": {
+              "result": "0",
+              "ns": 105887794
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 105.170311,
+        "candidate": 26.9167575
+      },
+      "paired_change_pct": {
+        "median": -74.56821888451483,
+        "q1": -75.26232612429527,
+        "q3": -74.14249699916456,
+        "min": -76.95923478774321,
+        "max": -73.6117939132063
+      }
+    },
+    "digest_unicode_65_bytes": {
+      "operation": "digest",
+      "count": 180000,
+      "input_count": 1,
+      "offset": 0,
+      "config_sha256": "b0f1de88325b509ab9e9bf57797bf3db630f3b20cdc22eb265b11ca0e85ad6cd",
+      "expected": "0",
+      "samples": [
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "0",
+              "ns": 16950981
+            },
+            "baseline": {
+              "result": "0",
+              "ns": 17076563
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "0",
+              "ns": 16940249
+            },
+            "candidate": {
+              "result": "0",
+              "ns": 17111459
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "0",
+              "ns": 17094464
+            },
+            "baseline": {
+              "result": "0",
+              "ns": 17197713
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "0",
+              "ns": 17749845
+            },
+            "candidate": {
+              "result": "0",
+              "ns": 18123453
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "0",
+              "ns": 20468589
+            },
+            "baseline": {
+              "result": "0",
+              "ns": 18829887
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "0",
+              "ns": 20377529
+            },
+            "candidate": {
+              "result": "0",
+              "ns": 20530074
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "0",
+              "ns": 22431772
+            },
+            "baseline": {
+              "result": "0",
+              "ns": 40072837
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "0",
+              "ns": 17559637
+            },
+            "candidate": {
+              "result": "0",
+              "ns": 18269260
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 17.654741,
+        "candidate": 18.1963565
+      },
+      "paired_change_pct": {
+        "median": 0.8796320565167659,
+        "q1": -0.6341249326003634,
+        "q3": 2.588943336752986,
+        "min": -44.02250082768035,
+        "max": 8.702665077066051
+      }
+    },
+    "chars_ascii": {
+      "operation": "chars",
+      "count": 2400,
+      "input_count": 1,
+      "offset": 0,
+      "config_sha256": "f087fd9278fc01f576582fecaa9442c4a5d49ea6bca741f7f0ca4e819eab0ca5",
+      "expected": "10771200",
+      "samples": [
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "10771200",
+              "ns": 106083016
+            },
+            "candidate": {
+              "result": "10771200",
+              "ns": 74406283
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "10771200",
+              "ns": 35220223
+            },
+            "baseline": {
+              "result": "10771200",
+              "ns": 108536760
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "10771200",
+              "ns": 97148844
+            },
+            "candidate": {
+              "result": "10771200",
+              "ns": 25331808
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "10771200",
+              "ns": 24271694
+            },
+            "baseline": {
+              "result": "10771200",
+              "ns": 101127954
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "10771200",
+              "ns": 95392633
+            },
+            "candidate": {
+              "result": "10771200",
+              "ns": 23477627
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "10771200",
+              "ns": 25517963
+            },
+            "baseline": {
+              "result": "10771200",
+              "ns": 108447490
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "10771200",
+              "ns": 88533319
+            },
+            "candidate": {
+              "result": "10771200",
+              "ns": 29480579
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "10771200",
+              "ns": 26564832
+            },
+            "baseline": {
+              "result": "10771200",
+              "ns": 104817203
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 102.9725785,
+        "candidate": 26.0413975
+      },
+      "paired_change_pct": {
+        "median": -74.29039195969736,
+        "q1": -75.54107713566142,
+        "q3": -67.33775629470766,
+        "min": -76.46975231976323,
+        "max": -29.860324672518736
+      }
+    },
+    "chars_unicode": {
+      "operation": "chars",
+      "count": 2400,
+      "input_count": 1,
+      "offset": 0,
+      "config_sha256": "2bcacb3db4b3ba4c65a775f4e24d02f3676456d3e30fe62dc54373b521c6d561",
+      "expected": "17107200",
+      "samples": [
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "17107200",
+              "ns": 29346573
+            },
+            "baseline": {
+              "result": "17107200",
+              "ns": 83570602
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "17107200",
+              "ns": 89121294
+            },
+            "candidate": {
+              "result": "17107200",
+              "ns": 28269656
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "17107200",
+              "ns": 30767755
+            },
+            "baseline": {
+              "result": "17107200",
+              "ns": 81657381
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "17107200",
+              "ns": 78588669
+            },
+            "candidate": {
+              "result": "17107200",
+              "ns": 27173107
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "17107200",
+              "ns": 28966357
+            },
+            "baseline": {
+              "result": "17107200",
+              "ns": 87132498
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "17107200",
+              "ns": 87187446
+            },
+            "candidate": {
+              "result": "17107200",
+              "ns": 27878179
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "17107200",
+              "ns": 28373919
+            },
+            "baseline": {
+              "result": "17107200",
+              "ns": 91758682
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "17107200",
+              "ns": 88089253
+            },
+            "candidate": {
+              "result": "17107200",
+              "ns": 29792813
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 87.159972,
+        "candidate": 28.670138
+      },
+      "paired_change_pct": {
+        "median": -66.46739985714267,
+        "q1": -68.08864887059758,
+        "q3": -65.28874819318689,
+        "min": -69.07767376170465,
+        "max": -62.32091377018325
+      }
+    },
+    "chars_4k": {
+      "operation": "chars",
+      "count": 8,
+      "input_count": 1,
+      "offset": 0,
+      "config_sha256": "bc8ebc16dc29a8d9137d4fbbfd019e6d100226f23e4514e27adf904a5dac512e",
+      "expected": "5308416",
+      "samples": [
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "5308416",
+              "ns": 447585134
+            },
+            "candidate": {
+              "result": "5308416",
+              "ns": 4114576
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "5308416",
+              "ns": 3880726
+            },
+            "baseline": {
+              "result": "5308416",
+              "ns": 454356508
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "5308416",
+              "ns": 472274315
+            },
+            "candidate": {
+              "result": "5308416",
+              "ns": 4411138
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "5308416",
+              "ns": 3276154
+            },
+            "baseline": {
+              "result": "5308416",
+              "ns": 450119950
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "5308416",
+              "ns": 450972515
+            },
+            "candidate": {
+              "result": "5308416",
+              "ns": 11322895
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "5308416",
+              "ns": 3019616
+            },
+            "baseline": {
+              "result": "5308416",
+              "ns": 446038172
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "5308416",
+              "ns": 456561597
+            },
+            "candidate": {
+              "result": "5308416",
+              "ns": 9738447
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "5308416",
+              "ns": 6323534
+            },
+            "baseline": {
+              "result": "5308416",
+              "ns": 476068305
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 452.6645115,
+        "candidate": 4.262857
+      },
+      "paired_change_pct": {
+        "median": -99.07334812909738,
+        "q1": -99.17745387655236,
+        "q3": -98.470538456937,
+        "min": -99.32301399531339,
+        "max": -97.48922725368307
+      }
+    },
+    "brackets_ascii": {
+      "operation": "brackets",
+      "count": 2400,
+      "input_count": 1,
+      "offset": 0,
+      "config_sha256": "9be9797de9502757d1362f5fe37d1f14a3050580b908ffe187b6465aa8195ea3",
+      "expected": "10771200",
+      "samples": [
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "10771200",
+              "ns": 22302483
+            },
+            "baseline": {
+              "result": "10771200",
+              "ns": 88895945
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "10771200",
+              "ns": 88400409
+            },
+            "candidate": {
+              "result": "10771200",
+              "ns": 24454092
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "10771200",
+              "ns": 22694257
+            },
+            "baseline": {
+              "result": "10771200",
+              "ns": 90168541
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "10771200",
+              "ns": 89793738
+            },
+            "candidate": {
+              "result": "10771200",
+              "ns": 22086068
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "10771200",
+              "ns": 23889294
+            },
+            "baseline": {
+              "result": "10771200",
+              "ns": 87517074
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "10771200",
+              "ns": 90349609
+            },
+            "candidate": {
+              "result": "10771200",
+              "ns": 23685649
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "10771200",
+              "ns": 23929179
+            },
+            "baseline": {
+              "result": "10771200",
+              "ns": 101557727
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "10771200",
+              "ns": 96513987
+            },
+            "candidate": {
+              "result": "10771200",
+              "ns": 26679740
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 89.9811395,
+        "candidate": 23.7874715
+      },
+      "paired_change_pct": {
+        "median": -74.30786973487687,
+        "q1": -75.03466220187313,
+        "q3": -72.6166090604063,
+        "min": -76.4378548960632,
+        "max": -72.33712798772231
+      }
+    },
+    "brackets_unicode": {
+      "operation": "brackets",
+      "count": 2400,
+      "input_count": 1,
+      "offset": 0,
+      "config_sha256": "67a456f794a4d595704c03b1be448843ce444b2beeb0eaa4ed4ee6350aa43ba7",
+      "expected": "17107200",
+      "samples": [
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "17107200",
+              "ns": 85585446
+            },
+            "candidate": {
+              "result": "17107200",
+              "ns": 26777880
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "17107200",
+              "ns": 26963209
+            },
+            "baseline": {
+              "result": "17107200",
+              "ns": 84827211
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "17107200",
+              "ns": 82445270
+            },
+            "candidate": {
+              "result": "17107200",
+              "ns": 27995224
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "17107200",
+              "ns": 28455034
+            },
+            "baseline": {
+              "result": "17107200",
+              "ns": 86751034
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "17107200",
+              "ns": 89577417
+            },
+            "candidate": {
+              "result": "17107200",
+              "ns": 26062645
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "17107200",
+              "ns": 26958713
+            },
+            "baseline": {
+              "result": "17107200",
+              "ns": 86193495
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "17107200",
+              "ns": 88638507
+            },
+            "candidate": {
+              "result": "17107200",
+              "ns": 28074759
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "17107200",
+              "ns": 26399702
+            },
+            "baseline": {
+              "result": "17107200",
+              "ns": 87521995
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 86.4722645,
+        "candidate": 26.960961
+      },
+      "paired_change_pct": {
+        "median": -68.51939453348368,
+        "q1": -69.00139655955901,
+        "q3": -67.96027172024026,
+        "min": -70.90489336168288,
+        "max": -66.04386885991156
+      }
+    },
+    "brackets_4k": {
+      "operation": "brackets",
+      "count": 8,
+      "input_count": 1,
+      "offset": 0,
+      "config_sha256": "80a59c3906f72f50ebf764000f70291fc03f1736029880e6d9f62bc6c7f1ed35",
+      "expected": "5308416",
+      "samples": [
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "5308416",
+              "ns": 7226343
+            },
+            "baseline": {
+              "result": "5308416",
+              "ns": 446379271
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "5308416",
+              "ns": 455169998
+            },
+            "candidate": {
+              "result": "5308416",
+              "ns": 6491926
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "5308416",
+              "ns": 14297264
+            },
+            "baseline": {
+              "result": "5308416",
+              "ns": 447655948
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "5308416",
+              "ns": 453208992
+            },
+            "candidate": {
+              "result": "5308416",
+              "ns": 3552844
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "5308416",
+              "ns": 5334787
+            },
+            "baseline": {
+              "result": "5308416",
+              "ns": 460979373
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "5308416",
+              "ns": 458509886
+            },
+            "candidate": {
+              "result": "5308416",
+              "ns": 8869013
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "5308416",
+              "ns": 12953189
+            },
+            "baseline": {
+              "result": "5308416",
+              "ns": 466429960
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "5308416",
+              "ns": 452849401
+            },
+            "candidate": {
+              "result": "5308416",
+              "ns": 11085938
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 454.189495,
+        "candidate": 8.047678
+      },
+      "paired_change_pct": {
+        "median": -98.22340405842829,
+        "q1": -98.64098387328322,
+        "q3": -97.46969642201725,
+        "min": -99.21606939343339,
+        "max": -96.80619367085903
+      }
+    },
+    "views_4k": {
+      "operation": "views",
+      "count": 160,
+      "input_count": 1,
+      "offset": 0,
+      "config_sha256": "ab36343af4ea6f89461ea99700dd558d66e948cb370c91e865ab8317b900cf6e",
+      "expected": "106168320",
+      "samples": [
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "106168320",
+              "ns": 50751207
+            },
+            "candidate": {
+              "result": "106168320",
+              "ns": 42578827
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "106168320",
+              "ns": 35940126
+            },
+            "baseline": {
+              "result": "106168320",
+              "ns": 50649511
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "106168320",
+              "ns": 40748977
+            },
+            "candidate": {
+              "result": "106168320",
+              "ns": 40540726
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "106168320",
+              "ns": 42414640
+            },
+            "baseline": {
+              "result": "106168320",
+              "ns": 44034657
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "106168320",
+              "ns": 52465642
+            },
+            "candidate": {
+              "result": "106168320",
+              "ns": 50190922
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "106168320",
+              "ns": 36720751
+            },
+            "baseline": {
+              "result": "106168320",
+              "ns": 49217740
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "106168320",
+              "ns": 40865253
+            },
+            "candidate": {
+              "result": "106168320",
+              "ns": 37274419
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "106168320",
+              "ns": 40243227
+            },
+            "baseline": {
+              "result": "106168320",
+              "ns": 50883710
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 49.9336255,
+        "candidate": 40.3919765
+      },
+      "paired_change_pct": {
+        "median": -12.444919584470698,
+        "q1": -22.031337856129863,
+        "q3": -4.1714678178740865,
+        "min": -29.041514339595498,
+        "max": -0.5110582285292709
+      }
+    },
+    "at_128k_0": {
+      "operation": "at",
+      "count": 900,
+      "input_count": 1,
+      "offset": 0,
+      "config_sha256": "0b0c955613011897f1af5c9d727080b3a026fa3736320540148d27518d233d4e",
+      "expected": "87300",
+      "samples": [
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "87300",
+              "ns": 823932
+            },
+            "baseline": {
+              "result": "87300",
+              "ns": 124135679
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "87300",
+              "ns": 122776925
+            },
+            "candidate": {
+              "result": "87300",
+              "ns": 1710603
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "87300",
+              "ns": 1109002
+            },
+            "baseline": {
+              "result": "87300",
+              "ns": 123472174
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "87300",
+              "ns": 122561714
+            },
+            "candidate": {
+              "result": "87300",
+              "ns": 1678027
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "87300",
+              "ns": 1828667
+            },
+            "baseline": {
+              "result": "87300",
+              "ns": 122470547
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "87300",
+              "ns": 123769987
+            },
+            "candidate": {
+              "result": "87300",
+              "ns": 650519
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "87300",
+              "ns": 1679002
+            },
+            "baseline": {
+              "result": "87300",
+              "ns": 123925906
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "87300",
+              "ns": 124435595
+            },
+            "candidate": {
+              "result": "87300",
+              "ns": 669782
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 123.6210805,
+        "candidate": 1.3935145
+      },
+      "paired_change_pct": {
+        "median": -98.87348843400466,
+        "q1": -99.36763473048902,
+        "q3": -98.62483859578447,
+        "min": -99.47441296895346,
+        "max": -98.50685161061622
+      }
+    },
+    "at_128k_130": {
+      "operation": "at",
+      "count": 900,
+      "input_count": 1,
+      "offset": 130,
+      "config_sha256": "8c9f8cd8c20309e936c0e5bd1031e4b55ed275fab83782efa2826b82e450baff",
+      "expected": "87300",
+      "samples": [
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "87300",
+              "ns": 122956251
+            },
+            "candidate": {
+              "result": "87300",
+              "ns": 1793985
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "87300",
+              "ns": 1707463
+            },
+            "baseline": {
+              "result": "87300",
+              "ns": 122749099
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "87300",
+              "ns": 123374621
+            },
+            "candidate": {
+              "result": "87300",
+              "ns": 941589
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "87300",
+              "ns": 1959353
+            },
+            "baseline": {
+              "result": "87300",
+              "ns": 123713107
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "87300",
+              "ns": 124591769
+            },
+            "candidate": {
+              "result": "87300",
+              "ns": 2543017
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "87300",
+              "ns": 1606091
+            },
+            "baseline": {
+              "result": "87300",
+              "ns": 130809851
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "87300",
+              "ns": 125371697
+            },
+            "candidate": {
+              "result": "87300",
+              "ns": 1873788
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "87300",
+              "ns": 957045
+            },
+            "baseline": {
+              "result": "87300",
+              "ns": 125311930
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 124.152438,
+        "candidate": 1.750724
+      },
+      "paired_change_pct": {
+        "median": -98.57496894436443,
+        "q1": -98.8882130748897,
+        "q3": -98.48311346842712,
+        "min": -99.23680495034712,
+        "max": -97.95892054474321
+      }
+    },
+    "at_4k_late": {
+      "operation": "at",
+      "count": 12000,
+      "input_count": 1,
+      "offset": 3763,
+      "config_sha256": "810fc2b678bf1ced13bca854f38be17c95becae262043e91b856eb38b0ddaa10",
+      "expected": "1680000",
+      "samples": [
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "1680000",
+              "ns": 167081539
+            },
+            "baseline": {
+              "result": "1680000",
+              "ns": 167674623
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "1680000",
+              "ns": 178703355
+            },
+            "candidate": {
+              "result": "1680000",
+              "ns": 168621185
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "1680000",
+              "ns": 180776098
+            },
+            "baseline": {
+              "result": "1680000",
+              "ns": 185865642
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "1680000",
+              "ns": 188542663
+            },
+            "candidate": {
+              "result": "1680000",
+              "ns": 177610417
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "1680000",
+              "ns": 185508017
+            },
+            "baseline": {
+              "result": "1680000",
+              "ns": 179728553
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "1680000",
+              "ns": 176713026
+            },
+            "candidate": {
+              "result": "1680000",
+              "ns": 176963541
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "1680000",
+              "ns": 177561050
+            },
+            "baseline": {
+              "result": "1680000",
+              "ns": 181634342
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "1680000",
+              "ns": 175643011
+            },
+            "candidate": {
+              "result": "1680000",
+              "ns": 174829653
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 179.215954,
+        "candidate": 177.2622955
+      },
+      "paired_change_pct": {
+        "median": -1.352826308100663,
+        "q1": -3.4641807654978374,
+        "q3": -0.22984249954134395,
+        "min": -5.798287679855251,
+        "max": 3.215662677704856
+      }
+    },
+    "distinct_short": {
+      "operation": "at",
+      "count": 24000,
+      "input_count": 36000,
+      "offset": 12,
+      "config_sha256": "df11b906e2264c96503edf37b3c9d7449b4029de9b3c03694ea258ccd800deca",
+      "expected": "1860004",
+      "samples": [
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "1860004",
+              "ns": 12751157
+            },
+            "candidate": {
+              "result": "1860004",
+              "ns": 3033098
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "1860004",
+              "ns": 10566426
+            },
+            "baseline": {
+              "result": "1860004",
+              "ns": 14052626
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "1860004",
+              "ns": 12769657
+            },
+            "candidate": {
+              "result": "1860004",
+              "ns": 3510971
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "1860004",
+              "ns": 3108625
+            },
+            "baseline": {
+              "result": "1860004",
+              "ns": 13074797
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "1860004",
+              "ns": 13461310
+            },
+            "candidate": {
+              "result": "1860004",
+              "ns": 7826619
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "1860004",
+              "ns": 11860897
+            },
+            "baseline": {
+              "result": "1860004",
+              "ns": 15419600
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "1860004",
+              "ns": 13785734
+            },
+            "candidate": {
+              "result": "1860004",
+              "ns": 7367583
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "1860004",
+              "ns": 14881694
+            },
+            "baseline": {
+              "result": "1860004",
+              "ns": 12737845
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 13.2680535,
+        "candidate": 7.597101
+      },
+      "paired_change_pct": {
+        "median": -44.20744207083024,
+        "q1": -73.43230995477079,
+        "q3": -24.37590289587762,
+        "min": -76.22429625484817,
+        "max": 16.830547082336132
+      }
+    },
+    "distinct_4k_front": {
+      "operation": "at",
+      "count": 4000,
+      "input_count": 6000,
+      "offset": 2,
+      "config_sha256": "28a7df100e092c3e65ded0ca781db35906a5a463984d4f47692bb524bc966837",
+      "expected": "192000",
+      "samples": [
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "192000",
+              "ns": 2322559
+            },
+            "baseline": {
+              "result": "192000",
+              "ns": 27198506
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "192000",
+              "ns": 27470493
+            },
+            "candidate": {
+              "result": "192000",
+              "ns": 2449580
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "192000",
+              "ns": 2195929
+            },
+            "baseline": {
+              "result": "192000",
+              "ns": 26963126
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "192000",
+              "ns": 25974340
+            },
+            "candidate": {
+              "result": "192000",
+              "ns": 2193208
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "192000",
+              "ns": 2058934
+            },
+            "baseline": {
+              "result": "192000",
+              "ns": 26488291
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "192000",
+              "ns": 26380628
+            },
+            "candidate": {
+              "result": "192000",
+              "ns": 2292377
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "192000",
+              "ns": 2216940
+            },
+            "baseline": {
+              "result": "192000",
+              "ns": 26345024
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "192000",
+              "ns": 26534237
+            },
+            "candidate": {
+              "result": "192000",
+              "ns": 2197419
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 26.511264,
+        "candidate": 2.2071795
+      },
+      "paired_change_pct": {
+        "median": -91.5706138178371,
+        "q1": -91.75286588002633,
+        "q3": -91.423127697589,
+        "min": -92.22700324456568,
+        "max": -91.08286844360602
+      }
+    },
+    "distinct_4k_middle": {
+      "operation": "at",
+      "count": 4000,
+      "input_count": 6000,
+      "offset": 130,
+      "config_sha256": "847b9165b1845e9a76d1d65af17c52bcac56c03587ee2e8977f2586143de337a",
+      "expected": "309964",
+      "samples": [
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "309964",
+              "ns": 26337006
+            },
+            "candidate": {
+              "result": "309964",
+              "ns": 2181389
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "309964",
+              "ns": 2138911
+            },
+            "baseline": {
+              "result": "309964",
+              "ns": 26491795
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "309964",
+              "ns": 26820582
+            },
+            "candidate": {
+              "result": "309964",
+              "ns": 2218508
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "309964",
+              "ns": 2170307
+            },
+            "baseline": {
+              "result": "309964",
+              "ns": 27149275
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "309964",
+              "ns": 26792384
+            },
+            "candidate": {
+              "result": "309964",
+              "ns": 3109871
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "309964",
+              "ns": 2087753
+            },
+            "baseline": {
+              "result": "309964",
+              "ns": 26562665
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "309964",
+              "ns": 26368953
+            },
+            "candidate": {
+              "result": "309964",
+              "ns": 2587867
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "309964",
+              "ns": 2124925
+            },
+            "baseline": {
+              "result": "309964",
+              "ns": 25992779
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 26.52723,
+        "candidate": 2.175848
+      },
+      "paired_change_pct": {
+        "median": -91.77663933047948,
+        "q1": -91.9461089790662,
+        "q3": -91.33453257778261,
+        "min": -92.14027282277588,
+        "max": -88.39270518069613
+      }
+    },
+    "distinct_4k_late": {
+      "operation": "at",
+      "count": 4000,
+      "input_count": 6000,
+      "offset": 3763,
+      "config_sha256": "59bd19bbf03787aa426a0e28e0fb66637fa95766da2fef6e9a5a96c1f634bb29",
+      "expected": "309964",
+      "samples": [
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "309964",
+              "ns": 25667213
+            },
+            "baseline": {
+              "result": "309964",
+              "ns": 25491217
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "309964",
+              "ns": 25617824
+            },
+            "candidate": {
+              "result": "309964",
+              "ns": 25311781
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "309964",
+              "ns": 25492282
+            },
+            "baseline": {
+              "result": "309964",
+              "ns": 25947010
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "309964",
+              "ns": 25767989
+            },
+            "candidate": {
+              "result": "309964",
+              "ns": 25832345
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "309964",
+              "ns": 25786920
+            },
+            "baseline": {
+              "result": "309964",
+              "ns": 25970013
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "309964",
+              "ns": 25996502
+            },
+            "candidate": {
+              "result": "309964",
+              "ns": 26310591
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "309964",
+              "ns": 26038720
+            },
+            "baseline": {
+              "result": "309964",
+              "ns": 26059572
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "309964",
+              "ns": 25858045
+            },
+            "candidate": {
+              "result": "309964",
+              "ns": 25160319
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 25.9025275,
+        "candidate": 25.7270665
+      },
+      "paired_change_pct": {
+        "median": -0.39251681906447566,
+        "q1": -1.3341179279957345,
+        "q3": 0.3599183508688486,
+        "min": -2.698293703178256,
+        "max": 1.2081971643723488
+      }
+    },
+    "distinct_4k_common_prefix_late": {
+      "operation": "at",
+      "count": 4000,
+      "input_count": 6000,
+      "offset": 3763,
+      "config_sha256": "a7b147aeffed8aa872a7fdab61e3f96097ed6f2c0b384a355bf35c4d6c0981ef",
+      "expected": "280500",
+      "samples": [
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "280500",
+              "ns": 27414512
+            },
+            "candidate": {
+              "result": "280500",
+              "ns": 26265565
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "280500",
+              "ns": 26293556
+            },
+            "baseline": {
+              "result": "280500",
+              "ns": 26247492
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "280500",
+              "ns": 26448393
+            },
+            "candidate": {
+              "result": "280500",
+              "ns": 26872019
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "280500",
+              "ns": 26258691
+            },
+            "baseline": {
+              "result": "280500",
+              "ns": 26419415
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "280500",
+              "ns": 26136724
+            },
+            "candidate": {
+              "result": "280500",
+              "ns": 25745709
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "280500",
+              "ns": 25863298
+            },
+            "baseline": {
+              "result": "280500",
+              "ns": 26096785
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "280500",
+              "ns": 26703006
+            },
+            "candidate": {
+              "result": "280500",
+              "ns": 25976741
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "280500",
+              "ns": 26034706
+            },
+            "baseline": {
+              "result": "280500",
+              "ns": 26206311
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 26.3334535,
+        "candidate": 26.1466985
+      },
+      "paired_change_pct": {
+        "median": -0.7747597996456412,
+        "q1": -1.8019744300766194,
+        "q3": -0.4123920584704788,
+        "min": -4.1910175165620345,
+        "max": 1.601707899606608
+      }
+    },
+    "loop_distinct_4k_common_prefix_late": {
+      "operation": "stream",
+      "count": 4000,
+      "input_count": 6000,
+      "offset": 3763,
+      "config_sha256": "87821352aa8b6d8fe8887de1f8eb565b69ad92cd0b9ca10b8caa272b1f47621f",
+      "expected": "280500",
+      "samples": [
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "280500",
+              "ns": 26642823
+            },
+            "baseline": {
+              "result": "280500",
+              "ns": 25138771
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "280500",
+              "ns": 34505242
+            },
+            "candidate": {
+              "result": "280500",
+              "ns": 36585766
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "280500",
+              "ns": 27004389
+            },
+            "baseline": {
+              "result": "280500",
+              "ns": 25516945
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "280500",
+              "ns": 25937960
+            },
+            "candidate": {
+              "result": "280500",
+              "ns": 26671634
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "280500",
+              "ns": 27503109
+            },
+            "baseline": {
+              "result": "280500",
+              "ns": 25386796
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "280500",
+              "ns": 25665082
+            },
+            "candidate": {
+              "result": "280500",
+              "ns": 26278166
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "280500",
+              "ns": 26136413
+            },
+            "baseline": {
+              "result": "280500",
+              "ns": 25372059
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "280500",
+              "ns": 25957388
+            },
+            "candidate": {
+              "result": "280500",
+              "ns": 27193302
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 25.5910135,
+        "candidate": 26.8380115
+      },
+      "paired_change_pct": {
+        "median": 5.295279479087411,
+        "q1": 2.9665793777475526,
+        "q3": 5.994645054278136,
+        "min": 2.3887864453345564,
+        "max": 8.336274494820062
+      }
+    },
+    "loop_alternating_4k_common_prefix_late": {
+      "operation": "stream",
+      "count": 12000,
+      "input_count": 2,
+      "offset": 3763,
+      "config_sha256": "30043dd35277afcca331180a01d80db96f0c503658fd8e2861aec8cd13246d8e",
+      "expected": "582000",
+      "samples": [
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "582000",
+              "ns": 56604721
+            },
+            "candidate": {
+              "result": "582000",
+              "ns": 58602114
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "582000",
+              "ns": 57661539
+            },
+            "baseline": {
+              "result": "582000",
+              "ns": 57378336
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "582000",
+              "ns": 56396077
+            },
+            "candidate": {
+              "result": "582000",
+              "ns": 57309844
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "582000",
+              "ns": 59382535
+            },
+            "baseline": {
+              "result": "582000",
+              "ns": 55063561
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "582000",
+              "ns": 55913880
+            },
+            "candidate": {
+              "result": "582000",
+              "ns": 57550688
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "582000",
+              "ns": 57836794
+            },
+            "baseline": {
+              "result": "582000",
+              "ns": 56341784
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "582000",
+              "ns": 55658953
+            },
+            "candidate": {
+              "result": "582000",
+              "ns": 57292504
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "582000",
+              "ns": 57853615
+            },
+            "baseline": {
+              "result": "582000",
+              "ns": 54608117
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 56.127832,
+        "candidate": 57.7491665
+      },
+      "paired_change_pct": {
+        "median": 2.9311513774259113,
+        "q1": 2.3951661294846884,
+        "q3": 4.132314426102074,
+        "min": 0.49357130189344733,
+        "max": 7.8436154901060595
+      }
+    },
+    "loop_repeated_4k_late": {
+      "operation": "stream",
+      "count": 12000,
+      "input_count": 1,
+      "offset": 3763,
+      "config_sha256": "11788c107987658d5426b5235754ea5d7ab9d0415df60966b9c968264e7863bf",
+      "expected": "1680000",
+      "samples": [
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "1680000",
+              "ns": 2102496
+            },
+            "baseline": {
+              "result": "1680000",
+              "ns": 172446050
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "1680000",
+              "ns": 168965776
+            },
+            "candidate": {
+              "result": "1680000",
+              "ns": 3910558
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "1680000",
+              "ns": 9223057
+            },
+            "baseline": {
+              "result": "1680000",
+              "ns": 169160356
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "1680000",
+              "ns": 169559461
+            },
+            "candidate": {
+              "result": "1680000",
+              "ns": 5027113
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "1680000",
+              "ns": 5702184
+            },
+            "baseline": {
+              "result": "1680000",
+              "ns": 170566507
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "1680000",
+              "ns": 167919828
+            },
+            "candidate": {
+              "result": "1680000",
+              "ns": 7062182
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "1680000",
+              "ns": 11013112
+            },
+            "baseline": {
+              "result": "1680000",
+              "ns": 172885362
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "1680000",
+              "ns": 166822489
+            },
+            "candidate": {
+              "result": "1680000",
+              "ns": 5541750
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 169.3599085,
+        "candidate": 5.621967
+      },
+      "paired_change_pct": {
+        "median": -96.66748519718143,
+        "q1": -97.19779167982952,
+        "q3": -95.48267072012204,
+        "min": -98.78078042379052,
+        "max": -93.62981812190671
+      }
+    },
+    "loop_over_limit_late": {
+      "operation": "stream",
+      "count": 1200,
+      "input_count": 1,
+      "offset": 65000,
+      "config_sha256": "d2b36de05cbcb5402f84dbdc53988c7c16ecd960dc33812cb8c654023f7def85",
+      "expected": "116400",
+      "samples": [
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "116400",
+              "ns": 89335811
+            },
+            "candidate": {
+              "result": "116400",
+              "ns": 88688785
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "116400",
+              "ns": 90510666
+            },
+            "baseline": {
+              "result": "116400",
+              "ns": 88863173
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "116400",
+              "ns": 88133570
+            },
+            "candidate": {
+              "result": "116400",
+              "ns": 88685996
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "116400",
+              "ns": 89053213
+            },
+            "baseline": {
+              "result": "116400",
+              "ns": 88755355
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "116400",
+              "ns": 88426287
+            },
+            "candidate": {
+              "result": "116400",
+              "ns": 88968046
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "116400",
+              "ns": 89120687
+            },
+            "baseline": {
+              "result": "116400",
+              "ns": 89550362
+            }
+          }
+        },
+        {
+          "order": [
+            "baseline",
+            "candidate"
+          ],
+          "values": {
+            "baseline": {
+              "result": "116400",
+              "ns": 90568916
+            },
+            "candidate": {
+              "result": "116400",
+              "ns": 89833663
+            }
+          }
+        },
+        {
+          "order": [
+            "candidate",
+            "baseline"
+          ],
+          "values": {
+            "candidate": {
+              "result": "116400",
+              "ns": 91378432
+            },
+            "baseline": {
+              "result": "116400",
+              "ns": 90208469
+            }
+          }
+        }
+      ],
+      "median_ms": {
+        "baseline": 89.099492,
+        "candidate": 89.08695
+      },
+      "paired_change_pct": {
+        "median": 0.4741308804608102,
+        "q1": -0.5409260414182354,
+        "q3": 0.7943427514069179,
+        "min": -0.8118160539759556,
+        "max": 1.853965984311623
+      }
+    }
+  },
+  "emitted_js_sha256": {
+    "baseline": "16afc766be111b0e426ccc6265fc82d6984ce166ff0312e50596544d3733be79",
+    "candidate": "917ef128abd4a87add15fb353807aeb8c7d014d5e018373905e5c01778217e34"
+  }
+}
